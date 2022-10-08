@@ -81,17 +81,7 @@
 }
 
 .floating-text-format-popup .popup-item .text {
-  display: flex;
-  line-height: 20px;
-  width: 200px;
-  vertical-align: middle;
-  font-size: 14px;
-  color: #777;
-  text-overflow: ellipsis;
-  width: 70px;
-  overflow: hidden;
-  height: 20px;
-  text-align: left;
+  display: none;
 }
 
 .floating-text-format-popup .popup-item .icon {

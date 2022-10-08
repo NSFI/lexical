@@ -23,6 +23,7 @@
     "build": "node scripts/build.js",
     "build-prod": "npm run clean && npm run build -- --prod",
     "build-playground-prod": "npm run build-prod && npm run build-prod --prefix packages/lexical-playground",
+    "build-ys-prod": "npm run build-prod && npm run build-prod --prefix packages/lexical-ys",
     "build-release": "npm run build-prod -- --release",
     "build-www": "npm run clean && npm run build -- --www && npm run build -- --www --prod && npm run prepare-www",
     "clean": "node scripts/clean.js",

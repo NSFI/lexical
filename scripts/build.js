@@ -144,6 +144,7 @@ Object.keys(wwwMappings).forEach((mapping) => {
 });
 
 async function build(name, inputFile, outputPath, outputFile, isProd) {
+  console.log('building package:', name);
   const inputOptions = {
     external(modulePath, src) {
       return externals.includes(modulePath);

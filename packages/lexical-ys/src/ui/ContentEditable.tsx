@@ -16,5 +16,11 @@ export default function LexicalContentEditable({
 }: {
   className?: string;
 }): JSX.Element {
-  return <ContentEditable className={className || 'ContentEditable__root'} />;
+  // 中文语境下不支持 spellcheck，默认关闭
+  return (
+    <ContentEditable
+      className={className || 'ContentEditable__root'}
+      spellCheck={false}
+    />
+  );
 }

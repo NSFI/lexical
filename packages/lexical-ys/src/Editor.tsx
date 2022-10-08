@@ -10,7 +10,7 @@ import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import {AutoScrollPlugin} from '@lexical/react/LexicalAutoScrollPlugin';
 import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
 import {CheckListPlugin} from '@lexical/react/LexicalCheckListPlugin';
-import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
+// import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
 import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
 import {HashtagPlugin} from '@lexical/react/LexicalHashtagPlugin';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
@@ -24,25 +24,24 @@ import {useRef, useState} from 'react';
 
 import {isDev} from './appSettings';
 import {createWebsocketProvider} from './collaboration';
-import {useLocale} from './context/LocaleContext';
 import {useSettings} from './context/SettingsContext';
 import {useSharedHistoryContext} from './context/SharedHistoryContext';
 import TableCellNodes from './nodes/TableCellNodes';
 import ActionsPlugin from './plugins/ActionsPlugin';
 import AutocompletePlugin from './plugins/AutocompletePlugin';
-import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
+// import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
 import AutoLinkPlugin from './plugins/AutoLinkPlugin';
 import ClickableLinkPlugin from './plugins/ClickableLinkPlugin';
 import CodeActionMenuPlugin from './plugins/CodeActionMenuPlugin';
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
-import CommentPlugin from './plugins/CommentPlugin';
+// import CommentPlugin from './plugins/CommentPlugin';
 import ComponentPickerPlugin from './plugins/ComponentPickerPlugin';
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin';
 import EmojisPlugin from './plugins/EmojisPlugin';
-import EquationsPlugin from './plugins/EquationsPlugin';
+// import EquationsPlugin from './plugins/EquationsPlugin';
 import ExamplePlugin from './plugins/ExamplePlugin';
-import ExcalidrawPlugin from './plugins/ExcalidrawPlugin';
-import FigmaPlugin from './plugins/FigmaPlugin';
+// import ExcalidrawPlugin from './plugins/ExcalidrawPlugin';
+// import FigmaPlugin from './plugins/FigmaPlugin';
 import FloatingLinkEditorPlugin from './plugins/FloatingLinkEditorPlugin';
 import FloatingTextFormatToolbarPlugin from './plugins/FloatingTextFormatToolbarPlugin';
 import HorizontalRulePlugin from './plugins/HorizontalRulePlugin';
@@ -52,16 +51,16 @@ import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin';
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import {MaxLengthPlugin} from './plugins/MaxLengthPlugin';
 import MentionsPlugin from './plugins/MentionsPlugin';
-import PollPlugin from './plugins/PollPlugin';
-import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
+// import PollPlugin from './plugins/PollPlugin';
+// import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import TabFocusPlugin from './plugins/TabFocusPlugin';
 import TableCellActionMenuPlugin from './plugins/TableActionMenuPlugin';
 import TableOfContentsPlugin from './plugins/TableOfContentsPlugin';
 import {TablePlugin as NewTablePlugin} from './plugins/TablePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import TreeViewPlugin from './plugins/TreeViewPlugin';
-import TwitterPlugin from './plugins/TwitterPlugin';
-import YouTubePlugin from './plugins/YouTubePlugin';
+// import TwitterPlugin from './plugins/TwitterPlugin';
+// import YouTubePlugin from './plugins/YouTubePlugin';
 import YsEditorTheme from './themes/YsEditorTheme';
 import ContentEditable from './ui/ContentEditable';
 import Placeholder from './ui/Placeholder';
@@ -119,19 +118,19 @@ export default function Editor(): JSX.Element {
         ref={scrollRef}>
         {isMaxLength && <MaxLengthPlugin maxLength={3000} />}
         <AutoFocusPlugin />
-        <ClearEditorPlugin />
+        {/* <ClearEditorPlugin /> */}
         <ComponentPickerPlugin />
-        <AutoEmbedPlugin />
+        {/* <AutoEmbedPlugin /> */}
         <MentionsPlugin />
         <EmojisPlugin />
         <HashtagPlugin />
         <KeywordsPlugin />
-        <SpeechToTextPlugin />
+        {/* <SpeechToTextPlugin /> */}
         <AutoLinkPlugin />
         <AutoScrollPlugin scrollRef={scrollRef} />
-        <CommentPlugin
+        {/* <CommentPlugin
           providerFactory={isCollab ? createWebsocketProvider : undefined}
-        />
+        /> */}
         {isRichText ? (
           <>
             {isCollab ? (
@@ -176,14 +175,14 @@ export default function Editor(): JSX.Element {
             </NewTablePlugin>
             <ImagesPlugin />
             <LinkPlugin />
-            <PollPlugin />
-            <TwitterPlugin />
-            <YouTubePlugin />
-            <FigmaPlugin />
+            {/* <PollPlugin /> */}
+            {/* <TwitterPlugin /> */}
+            {/* <YouTubePlugin /> */}
+            {/* <FigmaPlugin /> */}
             <ClickableLinkPlugin />
             <HorizontalRulePlugin />
-            <EquationsPlugin />
-            <ExcalidrawPlugin />
+            {/* <EquationsPlugin /> */}
+            {/* <ExcalidrawPlugin /> */}
             <TabFocusPlugin />
             {floatingAnchorElem && (
               <>
@@ -216,7 +215,7 @@ export default function Editor(): JSX.Element {
         </div>
         {isDev && <ActionsPlugin isRichText={isRichText} />}
       </div>
-      {(isDev && showTreeView) && <TreeViewPlugin />}
+      {isDev && showTreeView && <TreeViewPlugin />}
       {isDev && <ExamplePlugin />}
     </>
   );

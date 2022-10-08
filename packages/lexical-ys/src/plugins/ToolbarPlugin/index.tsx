@@ -7,7 +7,7 @@
  */
 
 import type {InsertImagePayload} from '../ImagesPlugin';
-import type {LexicalEditor, NodeKey} from 'lexical';
+import type {ElementFormatType, LexicalEditor, NodeKey} from 'lexical';
 
 import './index.css';
 
@@ -18,30 +18,21 @@ import {
   CODE_LANGUAGE_MAP,
   getLanguageFriendlyName,
 } from '@lexical/code';
-import {$isLinkNode, TOGGLE_LINK_COMMAND} from '@lexical/link';
 import {
-  $isListNode,
-  INSERT_CHECK_LIST_COMMAND,
-  INSERT_ORDERED_LIST_COMMAND,
-  INSERT_UNORDERED_LIST_COMMAND,
-  ListNode,
-  REMOVE_LIST_COMMAND,
-} from '@lexical/list';
-import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin';
+  $isLinkNode,
+  // TOGGLE_LINK_COMMAND
+} from '@lexical/link';
+import {$isListNode, ListNode} from '@lexical/list';
+// import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {$isDecoratorBlockNode} from '@lexical/react/LexicalDecoratorBlockNode';
 import {INSERT_HORIZONTAL_RULE_COMMAND} from '@lexical/react/LexicalHorizontalRuleNode';
-import {
-  $createHeadingNode,
-  $createQuoteNode,
-  $isHeadingNode,
-  HeadingTagType,
-} from '@lexical/rich-text';
+import {$createQuoteNode, $isHeadingNode} from '@lexical/rich-text';
 import {
   $getSelectionStyleValueForProperty,
   $isParentElementRTL,
   $patchStyleText,
-  $selectAll,
+  // $selectAll,
   $wrapNodes,
 } from '@lexical/selection';
 import {INSERT_TABLE_COMMAND} from '@lexical/table';
@@ -52,9 +43,8 @@ import {
   mergeRegister,
 } from '@lexical/utils';
 import {
-  $createParagraphNode,
   $getNodeByKey,
-  $getRoot,
+  // $getRoot,
   $getSelection,
   $isRangeSelection,
   $isRootOrShadowRoot,
@@ -70,16 +60,16 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical';
-import * as React from 'react';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import * as React from 'react';
 import {IS_APPLE} from 'shared/environment';
 
 import {useLocale} from '../../context/LocaleContext';
 import useModal from '../../hooks/useModal';
-import catTypingGif from '../../images/cat-typing.gif';
+// import catTypingGif from '../../images/cat-typing.gif';
 import landscapeImage from '../../images/landscape.jpg';
 import yellowFlowerImage from '../../images/yellow-flower.jpg';
-import {$createStickyNode} from '../../nodes/StickyNode';
+// import {$createStickyNode} from '../../nodes/StickyNode';
 import Button from '../../ui/Button';
 import ColorPicker from '../../ui/ColorPicker';
 import DropDown, {DropDownItem} from '../../ui/DropDown';
@@ -87,10 +77,18 @@ import FileInput from '../../ui/FileInput';
 import KatexEquationAlterer from '../../ui/KatexEquationAlterer';
 import TextInput from '../../ui/TextInput';
 import {getSelectedNode} from '../../utils/getSelectedNode';
-import {sanitizeUrl} from '../../utils/sanitizeUrl';
-import {EmbedConfigs} from '../AutoEmbedPlugin';
+import {
+  BlockFormatDropDown,
+  BlockType,
+  Divider,
+  toggleBulletList,
+  toggleCheckList,
+  toggleNumberedList,
+} from '../CommonToolbar';
+// import {sanitizeUrl} from '../../utils/sanitizeUrl';
+// import {EmbedConfigs} from '../AutoEmbedPlugin';
 import {INSERT_EQUATION_COMMAND} from '../EquationsPlugin';
-import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
+// import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
 import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 import {INSERT_POLL_COMMAND} from '../PollPlugin';
 import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
@@ -108,8 +106,6 @@ function getCodeLanguageOptions(): [string, string][] {
 }
 
 const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions();
-
-type BlockType = 'number' | 'bullet' | 'check' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'code' | 'paragraph' | 'quote'
 
 const FONT_FAMILY_OPTIONS: [string, string][] = [
   ['', '默认字体'],
@@ -397,73 +393,6 @@ function dropDownActiveClass(active: boolean) {
   else return '';
 }
 
-function BlockFormatDropDown({
-  editor,
-  blockType,
-}: {
-  blockType: BlockType;
-  editor: LexicalEditor;
-}): JSX.Element {
-  const { blockTypeToBlockName } = useLocale();
-  const formatParagraph = () => {
-    if (blockType !== 'paragraph') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createParagraphNode());
-        }
-      });
-    }
-  };
-
-  const formatHeading = (headingSize: HeadingTagType) => {
-    if (blockType !== headingSize) {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode(headingSize));
-        }
-      });
-    }
-  };
-  const formatBlockByName = (blockName: 'paragraph' | HeadingTagType) => {
-    if (blockName === 'paragraph') {
-      formatParagraph();
-    } else {
-      formatHeading(blockName);
-    }
-  }
-
-  const blockNameList = ['paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-  const showType = blockNameList.includes(blockType) ? blockType : 'paragraph';
-
-  return (
-    <DropDown
-      buttonClassName="toolbar-item block-controls"
-      buttonIconClassName={'icon block-type ' + showType}
-      buttonLabel={blockTypeToBlockName[showType]}
-      buttonAriaLabel="Formatting options for text style">
-      {blockNameList.map(
-        (blockName: any) => (
-          <DropDownItem
-            key={blockName}
-            className={'item ' + dropDownActiveClass(blockType === blockName)}
-            onClick={() => formatBlockByName(blockName)}>
-            <i className={`icon ${blockName}`} />
-            <span className="text">{blockTypeToBlockName[blockName]}</span>
-          </DropDownItem>
-        )
-      )}
-    </DropDown>
-  );
-}
-
-function Divider(): JSX.Element {
-  return <div className="divider" />;
-}
-
 function FontDropDown({
   editor,
   value,
@@ -524,15 +453,18 @@ function InsertDropDown({
   editor,
   showModal,
 }: {
-  locale: any,
-  blockType: BlockType,
+  locale: any;
+  blockType: BlockType;
   editor: LexicalEditor;
-  showModal: (title: string, setModalContent: (onClose: () => void) => JSX.Element) => void;
+  showModal: (
+    title: string,
+    setModalContent: (onClose: () => void) => JSX.Element,
+  ) => void;
 }): JSX.Element {
   const [activeEditor] = useState(editor);
-  const insertGifOnClick = (payload: InsertImagePayload) => {
-    activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
-  };
+  // const insertGifOnClick = (payload: InsertImagePayload) => {
+  //   activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
+  // };
 
   const formatQuote = () => {
     if (blockType !== 'quote') {
@@ -574,10 +506,7 @@ function InsertDropDown({
       <DropDownItem
         onClick={() => {
           showModal('Insert Image', (onClose) => (
-            <InsertImageDialog
-              activeEditor={activeEditor}
-              onClose={onClose}
-            />
+            <InsertImageDialog activeEditor={activeEditor} onClose={onClose} />
           ));
         }}
         className="item">
@@ -609,10 +538,7 @@ function InsertDropDown({
       <DropDownItem
         onClick={() => {
           showModal('Insert Table', (onClose) => (
-            <InsertTableDialog
-              activeEditor={activeEditor}
-              onClose={onClose}
-            />
+            <InsertTableDialog activeEditor={activeEditor} onClose={onClose} />
           ));
         }}
         className="item">
@@ -713,11 +639,10 @@ function InsertDropDown({
 
 export default function ToolbarPlugin(): JSX.Element {
   const locale = useLocale();
-  const { blockTypeToBlockName } = locale;
+  const {blockTypeToBlockName} = locale;
   const [editor] = useLexicalComposerContext();
   const [activeEditor, setActiveEditor] = useState(editor);
-  const [blockType, setBlockType] =
-    useState<BlockType>('paragraph');
+  const [blockType, setBlockType] = useState<BlockType>('paragraph');
   const blockTypeRef = useRef(blockType);
   blockTypeRef.current = blockType;
   const [selectedElementKey, setSelectedElementKey] = useState<NodeKey | null>(
@@ -727,19 +652,22 @@ export default function ToolbarPlugin(): JSX.Element {
   const [fontColor, setFontColor] = useState<string>('#000');
   const [bgColor, setBgColor] = useState<string>('#fff');
   const [fontFamily, setFontFamily] = useState<string>('默认字体');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLink, setIsLink] = useState(false);
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
-  const [isSubscript, setIsSubscript] = useState(false);
-  const [isSuperscript, setIsSuperscript] = useState(false);
+  // const [isSubscript, setIsSubscript] = useState(false);
+  // const [isSuperscript, setIsSuperscript] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isCode, setIsCode] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [modal, showModal] = useModal();
   const [isRTL, setIsRTL] = useState(false);
   const [codeLanguage, setCodeLanguage] = useState<string>('');
+  const [formatType, setFormatType] = useState<ElementFormatType>('');
 
   const fontFamilyObject = useMemo(() => {
     const returned: Record<string, string> = {};
@@ -750,7 +678,7 @@ export default function ToolbarPlugin(): JSX.Element {
   }, []);
   const setFontFamilyByText = (text: string) => {
     const fontFamilyByText = fontFamilyObject[text];
-    setFontFamily(fontFamilyByText)
+    setFontFamily(fontFamilyByText);
   };
 
   const fontSizeObject = useMemo(() => {
@@ -762,7 +690,7 @@ export default function ToolbarPlugin(): JSX.Element {
   }, []);
   const setFontSizeByText = (text: string) => {
     const fontSizeByText = fontSizeObject[text] || DEFAULT_FONT_SIZE;
-    setFontSize(fontSizeByText)
+    setFontSize(fontSizeByText);
   };
 
   const updateToolbar = useCallback(() => {
@@ -789,10 +717,11 @@ export default function ToolbarPlugin(): JSX.Element {
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
       setIsStrikethrough(selection.hasFormat('strikethrough'));
-      setIsSubscript(selection.hasFormat('subscript'));
-      setIsSuperscript(selection.hasFormat('superscript'));
+      // setIsSubscript(selection.hasFormat('subscript'));
+      // setIsSuperscript(selection.hasFormat('superscript'));
       setIsCode(selection.hasFormat('code'));
       setIsRTL($isParentElementRTL(selection));
+      setFormatType(element.getFormatType());
 
       // Update links
       const node = getSelectedNode(selection);
@@ -833,7 +762,11 @@ export default function ToolbarPlugin(): JSX.Element {
       }
       // Handle buttons
       setFontSizeByText(
-        $getSelectionStyleValueForProperty(selection, 'font-size', DEFAULT_FONT_SIZE),
+        $getSelectionStyleValueForProperty(
+          selection,
+          'font-size',
+          DEFAULT_FONT_SIZE,
+        ),
       );
       setFontColor(
         $getSelectionStyleValueForProperty(selection, 'color', '#000'),
@@ -849,6 +782,44 @@ export default function ToolbarPlugin(): JSX.Element {
         $getSelectionStyleValueForProperty(selection, 'font-family', ''),
       );
     }
+  }, [activeEditor]);
+
+  const controlOrMeta = (metaKey: boolean, ctrlKey: boolean): boolean => {
+    if (IS_APPLE) {
+      return metaKey;
+    }
+    return ctrlKey;
+  };
+
+  const formatBulletList = () => {
+    toggleBulletList(blockTypeRef.current, editor);
+  };
+
+  const formatNumberedList = () => {
+    toggleNumberedList(blockTypeRef.current, editor);
+  };
+
+  const formatCheckList = () => {
+    toggleCheckList(blockTypeRef.current, editor);
+  };
+
+  const clearFormatting = useCallback(() => {
+    activeEditor.update(() => {
+      const selection = $getSelection();
+      if ($isRangeSelection(selection)) {
+        // $selectAll(selection);
+        selection.getNodes().forEach((node) => {
+          if ($isTextNode(node)) {
+            node.setFormat(0);
+            node.setStyle('');
+            $getNearestBlockElementAncestorOrThrow(node).setFormat('');
+          }
+          if ($isDecoratorBlockNode(node)) {
+            node.setFormat('');
+          }
+        });
+      }
+    });
   }, [activeEditor]);
 
   useEffect(() => {
@@ -890,17 +861,25 @@ export default function ToolbarPlugin(): JSX.Element {
   }, [activeEditor, updateToolbar]);
 
   useEffect(() => {
+    // 注册自定义插件快捷键
     const handler = (e: KeyboardEvent) => {
-      const { keyCode, metaKey, altKey } = e;
-      if (keyCode === 85 && altKey && metaKey) {
+      const {keyCode, metaKey, ctrlKey, altKey, shiftKey} = e;
+      const ctrlOrMeta = controlOrMeta(metaKey, ctrlKey);
+      if (keyCode === 85 && altKey && ctrlOrMeta) {
         e.preventDefault();
         formatBulletList();
-      } else if (keyCode === 79 && altKey && metaKey) {
+      } else if (keyCode === 79 && altKey && ctrlOrMeta) {
         e.preventDefault();
         formatNumberedList();
       } else if (keyCode === 88 && altKey) {
         e.preventDefault();
         formatCheckList();
+      } else if (keyCode === 83 && shiftKey && ctrlOrMeta) {
+        e.preventDefault();
+        activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
+      } else if (keyCode === 220 && ctrlOrMeta) {
+        e.preventDefault();
+        clearFormatting();
       }
     };
     document.addEventListener('keydown', handler);
@@ -921,25 +900,6 @@ export default function ToolbarPlugin(): JSX.Element {
     [activeEditor],
   );
 
-  const clearFormatting = useCallback(() => {
-    activeEditor.update(() => {
-      const selection = $getSelection();
-      if ($isRangeSelection(selection)) {
-        $selectAll(selection);
-        selection.getNodes().forEach((node) => {
-          if ($isTextNode(node)) {
-            node.setFormat(0);
-            node.setStyle('');
-            $getNearestBlockElementAncestorOrThrow(node).setFormat('');
-          }
-          if ($isDecoratorBlockNode(node)) {
-            node.setFormat('');
-          }
-        });
-      }
-    });
-  }, [activeEditor]);
-
   const onFontColorSelect = useCallback(
     (value: string) => {
       applyStyleText({color: value});
@@ -954,13 +914,13 @@ export default function ToolbarPlugin(): JSX.Element {
     [applyStyleText],
   );
 
-  const insertLink = useCallback(() => {
-    if (!isLink) {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, sanitizeUrl('https://'));
-    } else {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
-    }
-  }, [editor, isLink]);
+  // const insertLink = useCallback(() => {
+  //   if (!isLink) {
+  //     editor.dispatchCommand(TOGGLE_LINK_COMMAND, sanitizeUrl('https://'));
+  //   } else {
+  //     editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
+  //   }
+  // }, [editor, isLink]);
 
   const onCodeLanguageSelect = useCallback(
     (value: string) => {
@@ -975,30 +935,6 @@ export default function ToolbarPlugin(): JSX.Element {
     },
     [activeEditor, selectedElementKey],
   );
-
-  const formatBulletList = () => {
-    if (blockTypeRef.current !== 'bullet') {
-      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-    }
-  };
-
-  const formatNumberedList = () => {
-    if (blockTypeRef.current !== 'number') {
-      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-    }
-  };
-
-  const formatCheckList = () => {
-    if (blockTypeRef.current !== 'check') {
-      editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-    }
-  };
 
   return (
     <div className="toolbar">
@@ -1021,6 +957,17 @@ export default function ToolbarPlugin(): JSX.Element {
         className="toolbar-item"
         aria-label="Redo">
         <i className="format redo" />
+      </button>
+      <button
+        onClick={clearFormatting}
+        title={
+          IS_APPLE
+            ? `${locale.clearFormatting} (⌘\\)`
+            : `${locale.clearFormatting} (Ctrl+\\)`
+        }
+        className="toolbar-item"
+        aria-label="Clear all text formatting">
+        <i className="icon clear" />
       </button>
       <Divider />
       {blockType === 'code' ? (
@@ -1081,7 +1028,9 @@ export default function ToolbarPlugin(): JSX.Element {
               activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
             }}
             className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
-            title={IS_APPLE ? `${locale.italic} (⌘I)` : `${locale.italic} (Ctrl+I)`}
+            title={
+              IS_APPLE ? `${locale.italic} (⌘I)` : `${locale.italic} (Ctrl+I)`
+            }
             aria-label={`Format text as italics. Shortcut: ${
               IS_APPLE ? '⌘I' : 'Ctrl+I'
             }`}>
@@ -1092,11 +1041,35 @@ export default function ToolbarPlugin(): JSX.Element {
               activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
             }}
             className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
-            title={IS_APPLE ? `${locale.underline} (⌘U)` : `${locale.underline} (Ctrl+U)`}
+            title={
+              IS_APPLE
+                ? `${locale.underline} (⌘U)`
+                : `${locale.underline} (Ctrl+U)`
+            }
             aria-label={`Format text to underlined. Shortcut: ${
               IS_APPLE ? '⌘U' : 'Ctrl+U'
             }`}>
             <i className="format underline" />
+          </button>
+          <button
+            onClick={() => {
+              activeEditor.dispatchCommand(
+                FORMAT_TEXT_COMMAND,
+                'strikethrough',
+              );
+            }}
+            className={
+              'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${locale.strikethrough} (⌘⇧S)`
+                : `${locale.strikethrough} (Ctrl+Shift+S)`
+            }
+            aria-label={`Format text to strikethrough. Shortcut: ${
+              IS_APPLE ? '⌘+⇧+S' : 'Ctrl+Shift+S'
+            }`}>
+            <i className="format strikethrough" />
           </button>
           {/* <button
             onClick={() => {
@@ -1130,7 +1103,7 @@ export default function ToolbarPlugin(): JSX.Element {
             onChange={onBgColorSelect}
             title={locale.bgColor}
           />
-          <DropDown
+          {/* <DropDown
             buttonClassName="toolbar-item spaced"
             buttonLabel=""
             buttonAriaLabel="Formatting options for additional text styles"
@@ -1179,12 +1152,18 @@ export default function ToolbarPlugin(): JSX.Element {
               <i className="icon clear" />
               <span className="text">{locale.clearFormatting}</span>
             </DropDownItem>
-          </DropDown>
+          </DropDown> */}
           <Divider />
           <button
             onClick={formatBulletList}
-            className={'toolbar-item spaced ' + (blockType === 'bullet' ? 'active' : '')}
-            title={IS_APPLE ? `${blockTypeToBlockName.bullet} (⌘+⌥+U)` : `${blockTypeToBlockName.bullet} (Ctrl+Alt+U)`}
+            className={
+              'toolbar-item spaced ' + (blockType === 'bullet' ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${blockTypeToBlockName.bullet} (⌘+⌥+U)`
+                : `${blockTypeToBlockName.bullet} (Ctrl+Alt+U)`
+            }
             aria-label={`Format text to bullet. Shortcut: ${
               IS_APPLE ? '⌘U' : 'Ctrl+U'
             }`}>
@@ -1192,8 +1171,14 @@ export default function ToolbarPlugin(): JSX.Element {
           </button>
           <button
             onClick={formatNumberedList}
-            className={'toolbar-item spaced ' + (blockType === 'number' ? 'active' : '')}
-            title={IS_APPLE ? `${blockTypeToBlockName.number} (⌘+⌥+O)` : `${blockTypeToBlockName.number} (Ctrl+Alt+O)`}
+            className={
+              'toolbar-item spaced ' + (blockType === 'number' ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${blockTypeToBlockName.number} (⌘+⌥+O)`
+                : `${blockTypeToBlockName.number} (Ctrl+Alt+O)`
+            }
             aria-label={`Format text to bullet. Shortcut: ${
               IS_APPLE ? '⌘+⌥+O' : 'Ctrl+Alt+O'
             }`}>
@@ -1201,8 +1186,14 @@ export default function ToolbarPlugin(): JSX.Element {
           </button>
           <button
             onClick={formatCheckList}
-            className={'toolbar-item spaced ' + (blockType === 'check' ? 'active' : '')}
-            title={IS_APPLE ? `${blockTypeToBlockName.check} (⌘+⌥+X)` : `${blockTypeToBlockName.check} (Ctrl+Alt+X)`}
+            className={
+              'toolbar-item spaced ' + (blockType === 'check' ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${blockTypeToBlockName.check} (⌘+⌥+X)`
+                : `${blockTypeToBlockName.check} (Ctrl+Alt+X)`
+            }
             aria-label={`Format text to bullet. Shortcut: ${
               IS_APPLE ? '⌘+⌥+X' : 'Ctrl+Alt+X'
             }`}>
@@ -1220,7 +1211,9 @@ export default function ToolbarPlugin(): JSX.Element {
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
           }}
-          className="item">
+          className={`item ${dropDownActiveClass(
+            formatType === 'left' || formatType === '',
+          )}`}>
           <i className="icon left-align" />
           <span className="text">{locale.leftAlign}</span>
         </DropDownItem>
@@ -1228,7 +1221,7 @@ export default function ToolbarPlugin(): JSX.Element {
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
           }}
-          className="item">
+          className={`item ${dropDownActiveClass(formatType === 'center')}`}>
           <i className="icon center-align" />
           <span className="text">{locale.centerAlign}</span>
         </DropDownItem>
@@ -1236,7 +1229,7 @@ export default function ToolbarPlugin(): JSX.Element {
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
           }}
-          className="item">
+          className={`item ${dropDownActiveClass(formatType === 'right')}`}>
           <i className="icon right-align" />
           <span className="text">{locale.rightAlign}</span>
         </DropDownItem>
@@ -1244,7 +1237,7 @@ export default function ToolbarPlugin(): JSX.Element {
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
           }}
-          className="item">
+          className={`item ${dropDownActiveClass(formatType === 'justify')}`}>
           <i className="icon justify-align" />
           <span className="text">{locale.justifyAlign}</span>
         </DropDownItem>

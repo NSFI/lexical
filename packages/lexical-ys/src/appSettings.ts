@@ -22,10 +22,7 @@ export type SettingName =
 
 export type Settings = Record<SettingName, boolean>;
 
-const hostName = window.location.hostname;
-export const isDev: boolean =
-  hostName !== 'playground.lexical.dev' &&
-  hostName !== 'lexical-ys.vercel.app';
+export const isDev: boolean = __DEV__;
 
 export const DEFAULT_SETTINGS: Settings = {
   disableBeforeInput: false,
@@ -38,6 +35,6 @@ export const DEFAULT_SETTINGS: Settings = {
   isRichText: true,
   measureTypingPerf: false,
   showNestedEditorTreeView: false,
-  showTableOfContents: false,
+  showTableOfContents: true,
   showTreeView: true,
 };

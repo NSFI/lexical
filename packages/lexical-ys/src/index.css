@@ -816,11 +816,13 @@ i.number {
   background-image: url(images/icons/list-ol.svg);
 }
 
-.icon.quote {
+.icon.quote,
+i.quote {
   background-image: url(images/icons/chat-square-quote.svg);
 }
 
-.icon.code {
+.icon.code,
+i.code {
   background-image: url(images/icons/code.svg);
 }
 
@@ -1331,9 +1333,25 @@ button.action-button:disabled {
   background-color: #eee;
 }
 
+.toolbar .toolbar-item.font-family {
+  max-width: 80px;
+  white-space: nowrap;
+  font-size: 12px;
+  padding: 0 8px;
+}
+
+.toolbar .toolbar-item.font-family .icon {
+  display: none;
+}
+
 .toolbar .toolbar-item.font-family .text {
   display: block;
-  max-width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toolbar .toolbar-item.font-size .text {
+  display: block;
 }
 
 .toolbar .code-language {
@@ -1341,16 +1359,7 @@ button.action-button:disabled {
 }
 
 .toolbar .toolbar-item .text {
-  display: flex;
-  line-height: 20px;
-  vertical-align: middle;
-  font-size: 14px;
-  color: #777;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  height: 20px;
-  text-align: left;
-  padding-right: 10px;
+  display: none;
 }
 
 .toolbar .toolbar-item .icon {
@@ -1369,6 +1378,7 @@ button.action-button:disabled {
   height: 16px;
   display: flex;
   user-select: none;
+  background-repeat: no-repeat;
 }
 
 .toolbar i.chevron-down.inside {

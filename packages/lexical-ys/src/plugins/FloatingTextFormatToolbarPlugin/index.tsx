@@ -10,13 +10,27 @@ import './index.css';
 
 import {$isCodeHighlightNode} from '@lexical/code';
 import {$isLinkNode, TOGGLE_LINK_COMMAND} from '@lexical/link';
+import {$isListNode, ListNode} from '@lexical/list';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {mergeRegister} from '@lexical/utils';
+import {$createQuoteNode, $isHeadingNode} from '@lexical/rich-text';
+import {
+  $getSelectionStyleValueForProperty,
+  $patchStyleText,
+  $wrapNodes,
+} from '@lexical/selection';
+import {
+  $findMatchingParent,
+  $getNearestNodeOfType,
+  mergeRegister,
+} from '@lexical/utils';
 import {
   $getSelection,
   $isRangeSelection,
+  $isRootOrShadowRoot,
   $isTextNode,
   COMMAND_PRIORITY_LOW,
+  ElementFormatType,
+  FORMAT_ELEMENT_COMMAND,
   FORMAT_TEXT_COMMAND,
   LexicalEditor,
   SELECTION_CHANGE_COMMAND,
@@ -24,23 +38,39 @@ import {
 import {useCallback, useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 import {createPortal} from 'react-dom';
+import {IS_APPLE} from 'shared/environment';
 
+// import {INSERT_INLINE_COMMAND} from '../CommentPlugin';
+import {useLocale} from '../../context/LocaleContext';
+import ColorPicker from '../../ui/ColorPicker';
 import {getDOMRangeRect} from '../../utils/getDOMRangeRect';
 import {getSelectedNode} from '../../utils/getSelectedNode';
 import {setFloatingElemPosition} from '../../utils/setFloatingElemPosition';
-import {INSERT_INLINE_COMMAND} from '../CommentPlugin';
+import {
+  BlockFormatDropDown,
+  BlockType,
+  Divider,
+  toggleBulletList,
+  toggleCheckList,
+  toggleNumberedList,
+} from '../CommonToolbar';
 
 function TextFormatFloatingToolbar({
   editor,
   anchorElem,
-  isLink,
   isBold,
-  isItalic,
-  isUnderline,
   isCode,
+  isItalic,
+  isLink,
   isStrikethrough,
-  isSubscript,
-  isSuperscript,
+  isUnderline,
+  // isSubscript,
+  // isSuperscript,
+  fontColor,
+  bgColor,
+  blockType,
+  formatType,
+  locale,
 }: {
   editor: LexicalEditor;
   anchorElem: HTMLElement;
@@ -49,10 +79,18 @@ function TextFormatFloatingToolbar({
   isItalic: boolean;
   isLink: boolean;
   isStrikethrough: boolean;
-  isSubscript: boolean;
-  isSuperscript: boolean;
   isUnderline: boolean;
+  // isSubscript: boolean;
+  // isSuperscript: boolean;
+  fontColor: string;
+  bgColor: string;
+  blockType: BlockType;
+  formatType: ElementFormatType;
+  locale: any;
 }): JSX.Element {
+  const {blockTypeToBlockName} = locale;
+  const blockTypeRef = useRef(blockType);
+  blockTypeRef.current = blockType;
   const popupCharStylesEditorRef = useRef<HTMLDivElement | null>(null);
 
   const insertLink = useCallback(() => {
@@ -63,9 +101,9 @@ function TextFormatFloatingToolbar({
     }
   }, [editor, isLink]);
 
-  const insertComment = () => {
-    editor.dispatchCommand(INSERT_INLINE_COMMAND, undefined);
-  };
+  // const insertComment = () => {
+  //   editor.dispatchCommand(INSERT_INLINE_COMMAND, undefined);
+  // };
 
   const updateTextFormatFloatingToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -90,6 +128,56 @@ function TextFormatFloatingToolbar({
       setFloatingElemPosition(rangeRect, popupCharStylesEditorElem, anchorElem);
     }
   }, [editor, anchorElem]);
+
+  const applyStyleText = useCallback(
+    (styles: Record<string, string>) => {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $patchStyleText(selection, styles);
+        }
+      });
+    },
+    [editor],
+  );
+
+  const onFontColorSelect = useCallback(
+    (value: string) => {
+      applyStyleText({color: value});
+    },
+    [applyStyleText],
+  );
+
+  const onBgColorSelect = useCallback(
+    (value: string) => {
+      applyStyleText({'background-color': value});
+    },
+    [applyStyleText],
+  );
+
+  const formatBulletList = () => {
+    toggleBulletList(blockTypeRef.current, editor);
+  };
+
+  const formatNumberedList = () => {
+    toggleNumberedList(blockTypeRef.current, editor);
+  };
+
+  const formatCheckList = () => {
+    toggleCheckList(blockTypeRef.current, editor);
+  };
+
+  const formatQuote = () => {
+    if (blockType !== 'quote') {
+      editor.update(() => {
+        const selection = $getSelection();
+
+        if ($isRangeSelection(selection)) {
+          $wrapNodes(selection, () => $createQuoteNode());
+        }
+      });
+    }
+  };
 
   useEffect(() => {
     const scrollerElem = anchorElem.parentElement;
@@ -139,6 +227,16 @@ function TextFormatFloatingToolbar({
     <div ref={popupCharStylesEditorRef} className="floating-text-format-popup">
       {editor.isEditable() && (
         <>
+          {blockType in blockTypeToBlockName && (
+            <>
+              <BlockFormatDropDown
+                blockType={blockType}
+                editor={editor}
+                toolbarItemCls="popup-item"
+              />
+              <Divider />
+            </>
+          )}
           <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
@@ -146,6 +244,80 @@ function TextFormatFloatingToolbar({
             className={'popup-item spaced ' + (isBold ? 'active' : '')}
             aria-label="Format text as bold">
             <i className="format bold" />
+          </button>
+          <ColorPicker
+            buttonClassName="popup-item color-picker"
+            buttonAriaLabel="Formatting text color"
+            buttonIconClassName="icon font-color"
+            color={fontColor}
+            onChange={onFontColorSelect}
+            title={locale.textColor}
+          />
+          <ColorPicker
+            buttonClassName="popup-item color-picker"
+            buttonAriaLabel="Formatting background color"
+            buttonIconClassName="icon bg-color"
+            color={bgColor}
+            onChange={onBgColorSelect}
+            title={locale.bgColor}
+          />
+          <button
+            onClick={formatBulletList}
+            className={
+              'popup-item spaced ' + (blockType === 'bullet' ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${blockTypeToBlockName.bullet} (⌘+⌥+U)`
+                : `${blockTypeToBlockName.bullet} (Ctrl+Alt+U)`
+            }
+            aria-label={`Format text to bullet. Shortcut: ${
+              IS_APPLE ? '⌘U' : 'Ctrl+U'
+            }`}>
+            <i className="format bullet" />
+          </button>
+          <button
+            onClick={formatNumberedList}
+            className={
+              'popup-item spaced ' + (blockType === 'number' ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${blockTypeToBlockName.number} (⌘+⌥+O)`
+                : `${blockTypeToBlockName.number} (Ctrl+Alt+O)`
+            }
+            aria-label={`Format text to bullet. Shortcut: ${
+              IS_APPLE ? '⌘+⌥+O' : 'Ctrl+Alt+O'
+            }`}>
+            <i className="format number" />
+          </button>
+          <button
+            onClick={formatCheckList}
+            className={
+              'popup-item spaced ' + (blockType === 'check' ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${blockTypeToBlockName.check} (⌘+⌥+X)`
+                : `${blockTypeToBlockName.check} (Ctrl+Alt+X)`
+            }
+            aria-label={`Format text to bullet. Shortcut: ${
+              IS_APPLE ? '⌘+⌥+X' : 'Ctrl+Alt+X'
+            }`}>
+            <i className="format check" />
+          </button>
+          <button
+            onClick={formatQuote}
+            className={
+              'popup-item spaced ' + (blockType === 'quote' ? 'active' : '')
+            }
+            title={
+              IS_APPLE
+                ? `${blockTypeToBlockName.quote}`
+                : `${blockTypeToBlockName.quote}`
+            }
+            aria-label={`Format text to quote.`}>
+            <i className="format quote" />
           </button>
           <button
             onClick={() => {
@@ -171,7 +343,7 @@ function TextFormatFloatingToolbar({
             aria-label="Format text with a strikethrough">
             <i className="format strikethrough" />
           </button>
-          <button
+          {/* <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
             }}
@@ -188,7 +360,7 @@ function TextFormatFloatingToolbar({
             title="Superscript"
             aria-label="Format Superscript">
             <i className="format superscript" />
-          </button>
+          </button> */}
           <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
@@ -203,14 +375,45 @@ function TextFormatFloatingToolbar({
             aria-label="Insert link">
             <i className="format link" />
           </button>
+          <button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
+            }}
+            className={
+              'popup-item spaced ' +
+              (formatType === 'left' || formatType === '' ? 'active' : '')
+            }
+            aria-label="Format text with left align">
+            <i className="format left-align" />
+          </button>
+          <button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
+            }}
+            className={
+              'popup-item spaced ' + (formatType === 'center' ? 'active' : '')
+            }
+            aria-label="Format text with center align">
+            <i className="format center-align" />
+          </button>
+          <button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+            }}
+            className={
+              'popup-item spaced ' + (formatType === 'right' ? 'active' : '')
+            }
+            aria-label="Format text with right align">
+            <i className="format right-align" />
+          </button>
         </>
       )}
-      <button
+      {/* <button
         onClick={insertComment}
         className={'popup-item spaced'}
         aria-label="Insert comment">
         <i className="format add-comment" />
-      </button>
+      </button> */}
     </div>
   );
 }
@@ -219,15 +422,20 @@ function useFloatingTextFormatToolbar(
   editor: LexicalEditor,
   anchorElem: HTMLElement,
 ): JSX.Element | null {
+  const locale = useLocale();
   const [isText, setIsText] = useState(false);
   const [isLink, setIsLink] = useState(false);
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
-  const [isSubscript, setIsSubscript] = useState(false);
-  const [isSuperscript, setIsSuperscript] = useState(false);
+  // const [isSubscript, setIsSubscript] = useState(false);
+  // const [isSuperscript, setIsSuperscript] = useState(false);
   const [isCode, setIsCode] = useState(false);
+  const [fontColor, setFontColor] = useState<string>('#000');
+  const [bgColor, setBgColor] = useState<string>('#fff');
+  const [formatType, setFormatType] = useState<ElementFormatType>('');
+  const [blockType, setBlockType] = useState<BlockType>('paragraph');
 
   const updatePopup = useCallback(() => {
     editor.getEditorState().read(() => {
@@ -252,17 +460,62 @@ function useFloatingTextFormatToolbar(
       if (!$isRangeSelection(selection)) {
         return;
       }
+      const anchorNode = selection.anchor.getNode();
+      let element =
+        anchorNode.getKey() === 'root'
+          ? anchorNode
+          : $findMatchingParent(anchorNode, (e) => {
+              const parent = e.getParent();
+              return parent !== null && $isRootOrShadowRoot(parent);
+            });
+      if (element === null) {
+        element = anchorNode.getTopLevelElementOrThrow();
+      }
 
       const node = getSelectedNode(selection);
+
+      const elementKey = element.getKey();
+      const elementDOM = editor.getElementByKey(elementKey);
 
       // Update text format
       setIsBold(selection.hasFormat('bold'));
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
       setIsStrikethrough(selection.hasFormat('strikethrough'));
-      setIsSubscript(selection.hasFormat('subscript'));
-      setIsSuperscript(selection.hasFormat('superscript'));
+      setFormatType(element.getFormatType());
+      // setIsSubscript(selection.hasFormat('subscript'));
+      // setIsSuperscript(selection.hasFormat('superscript'));
       setIsCode(selection.hasFormat('code'));
+
+      if (elementDOM !== null) {
+        if ($isListNode(element)) {
+          const parentList = $getNearestNodeOfType<ListNode>(
+            anchorNode,
+            ListNode,
+          );
+          const type = parentList
+            ? parentList.getListType()
+            : element.getListType();
+          setBlockType(type);
+        } else {
+          const type = $isHeadingNode(element)
+            ? element.getTag()
+            : element.getType();
+          if (type in locale.blockTypeToBlockName) {
+            setBlockType(type as BlockType);
+          }
+        }
+      }
+      setFontColor(
+        $getSelectionStyleValueForProperty(selection, 'color', '#000'),
+      );
+      setBgColor(
+        $getSelectionStyleValueForProperty(
+          selection,
+          'background-color',
+          '#fff',
+        ),
+      );
 
       // Update links
       const parent = node.getParent();
@@ -315,10 +568,15 @@ function useFloatingTextFormatToolbar(
       isBold={isBold}
       isItalic={isItalic}
       isStrikethrough={isStrikethrough}
-      isSubscript={isSubscript}
-      isSuperscript={isSuperscript}
+      // isSubscript={isSubscript}
+      // isSuperscript={isSuperscript}
       isUnderline={isUnderline}
       isCode={isCode}
+      fontColor={fontColor}
+      bgColor={bgColor}
+      blockType={blockType}
+      formatType={formatType}
+      locale={locale}
     />,
     anchorElem,
   );

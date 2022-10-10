@@ -395,7 +395,11 @@ export class GridSelection implements BaseSelection {
     if (!DEPRECATED_$isGridSelection(selection)) {
       return false;
     }
-    return this.gridKey === selection.gridKey && this.anchor.is(this.focus);
+    return (
+      this.gridKey === selection.gridKey &&
+      this.anchor.is(selection.anchor) &&
+      this.focus.is(selection.focus)
+    );
   }
 
   set(gridKey: NodeKey, anchorCellKey: NodeKey, focusCellKey: NodeKey): void {
@@ -1366,7 +1370,7 @@ export class RangeSelection implements BaseSelection {
           if (!node.canBeEmpty() && node.isEmpty()) {
             continue;
           }
-          if ($isRootOrShadowRoot(target)) {
+          if ($isRootNode(target)) {
             const placementNode = target.getChildAtIndex(anchorOffset);
             if (placementNode !== null) {
               placementNode.insertBefore(node);
@@ -2732,4 +2736,12 @@ export function $insertNodes(
     selection = $getRoot().selectEnd();
   }
   return selection.insertNodes(nodes, selectStart);
+}
+
+export function $getTextContent(): string {
+  const selection = $getSelection();
+  if (selection === null) {
+    return '';
+  }
+  return selection.getTextContent();
 }

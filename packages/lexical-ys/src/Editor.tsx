@@ -28,7 +28,7 @@ import {useSettings} from './context/SettingsContext';
 import {useSharedHistoryContext} from './context/SharedHistoryContext';
 import TableCellNodes from './nodes/TableCellNodes';
 import ActionsPlugin from './plugins/ActionsPlugin';
-import AutocompletePlugin from './plugins/AutocompletePlugin';
+// import AutocompletePlugin from './plugins/AutocompletePlugin';
 // import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
 import AutoLinkPlugin from './plugins/AutoLinkPlugin';
 import ClickableLinkPlugin from './plugins/ClickableLinkPlugin';
@@ -50,7 +50,7 @@ import KeywordsPlugin from './plugins/KeywordsPlugin';
 import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin';
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import {MaxLengthPlugin} from './plugins/MaxLengthPlugin';
-import MentionsPlugin from './plugins/MentionsPlugin';
+// import MentionsPlugin from './plugins/MentionsPlugin';
 // import PollPlugin from './plugins/PollPlugin';
 // import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import TabFocusPlugin from './plugins/TabFocusPlugin';
@@ -74,7 +74,7 @@ export default function Editor(): JSX.Element {
   const {
     settings: {
       isCollab,
-      isAutocomplete,
+      // isAutocomplete,
       isMaxLength,
       isCharLimit,
       isCharLimitUtf8,
@@ -121,7 +121,7 @@ export default function Editor(): JSX.Element {
         {/* <ClearEditorPlugin /> */}
         <ComponentPickerPlugin />
         {/* <AutoEmbedPlugin /> */}
-        <MentionsPlugin />
+        {/* <MentionsPlugin /> */}
         <EmojisPlugin />
         <HashtagPlugin />
         <KeywordsPlugin />
@@ -166,7 +166,7 @@ export default function Editor(): JSX.Element {
                 }
                 placeholder={''}
               />
-              <MentionsPlugin />
+              {/* <MentionsPlugin /> */}
               <HistoryPlugin />
               <ImagesPlugin captionsEnabled={false} />
               <LinkPlugin />
@@ -208,7 +208,7 @@ export default function Editor(): JSX.Element {
         {(isCharLimit || isCharLimitUtf8) && (
           <CharacterLimitPlugin charset={isCharLimit ? 'UTF-16' : 'UTF-8'} />
         )}
-        {isAutocomplete && <AutocompletePlugin />}
+        {/* {isAutocomplete && <AutocompletePlugin />} */}
         <div>{showTableOfContents && <TableOfContentsPlugin />}</div>
         <div className="toc">
           {showTableOfContents && <TableOfContentsPlugin />}

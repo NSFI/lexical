@@ -198,6 +198,15 @@ function FloatingLinkEditor({
                 setEditMode(true);
               }}
             />
+            <div
+              className="link-clear"
+              role="button"
+              tabIndex={0}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => {
+                setEditMode(true);
+              }}
+            />
           </div>
           <LinkPreview url={linkUrl} />
         </>

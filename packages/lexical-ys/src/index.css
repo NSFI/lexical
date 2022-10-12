@@ -548,18 +548,27 @@ i.prettier-error {
   font-family: inherit;
 }
 
-.link-editor div.link-edit {
-  background-image: url(images/icons/pencil-fill.svg);
+.link-editor div.link-edit,
+.link-editor div.link-clear {
   background-size: 16px;
   background-position: center;
   background-repeat: no-repeat;
   width: 35px;
   vertical-align: -0.25em;
   position: absolute;
-  right: 0;
   top: 0;
   bottom: 0;
   cursor: pointer;
+}
+
+.link-editor div.link-edit {
+  background-image: url(images/icons/pencil-fill.svg);
+  right: 30px;
+}
+
+.link-editor div.link-clear {
+  background-image: url(images/icons/trash.svg);
+  right: 0;
 }
 
 .link-editor .link-input a {
@@ -568,7 +577,7 @@ i.prettier-error {
   display: block;
   white-space: nowrap;
   overflow: hidden;
-  margin-right: 30px;
+  margin-right: 60px;
   text-overflow: ellipsis;
 }
 

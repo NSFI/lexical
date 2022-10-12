@@ -12,11 +12,14 @@ import {$isCodeHighlightNode} from '@lexical/code';
 import {$isLinkNode, TOGGLE_LINK_COMMAND} from '@lexical/link';
 import {$isListNode, ListNode} from '@lexical/list';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {$createQuoteNode, $isHeadingNode} from '@lexical/rich-text';
+import {
+  // $createQuoteNode,
+  $isHeadingNode,
+} from '@lexical/rich-text';
 import {
   $getSelectionStyleValueForProperty,
   $patchStyleText,
-  $wrapNodes,
+  // $wrapNodes,
 } from '@lexical/selection';
 import {
   $findMatchingParent,
@@ -30,7 +33,7 @@ import {
   $isTextNode,
   COMMAND_PRIORITY_LOW,
   ElementFormatType,
-  FORMAT_ELEMENT_COMMAND,
+  // FORMAT_ELEMENT_COMMAND,
   FORMAT_TEXT_COMMAND,
   LexicalEditor,
   SELECTION_CHANGE_COMMAND,
@@ -51,7 +54,7 @@ import {
   BlockType,
   Divider,
   toggleBulletList,
-  toggleCheckList,
+  // toggleCheckList,
   toggleNumberedList,
 } from '../CommonToolbar';
 
@@ -163,21 +166,21 @@ function TextFormatFloatingToolbar({
     toggleNumberedList(blockTypeRef.current, editor);
   };
 
-  const formatCheckList = () => {
-    toggleCheckList(blockTypeRef.current, editor);
-  };
+  // const formatCheckList = () => {
+  //   toggleCheckList(blockTypeRef.current, editor);
+  // };
 
-  const formatQuote = () => {
-    if (blockType !== 'quote') {
-      editor.update(() => {
-        const selection = $getSelection();
+  // const formatQuote = () => {
+  //   if (blockType !== 'quote') {
+  //     editor.update(() => {
+  //       const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createQuoteNode());
-        }
-      });
-    }
-  };
+  //       if ($isRangeSelection(selection)) {
+  //         $wrapNodes(selection, () => $createQuoteNode());
+  //       }
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     const scrollerElem = anchorElem.parentElement;
@@ -291,7 +294,7 @@ function TextFormatFloatingToolbar({
             }`}>
             <i className="format number" />
           </button>
-          <button
+          {/* <button
             onClick={formatCheckList}
             className={
               'popup-item spaced ' + (blockType === 'check' ? 'active' : '')
@@ -305,8 +308,8 @@ function TextFormatFloatingToolbar({
               IS_APPLE ? '⌘+⌥+X' : 'Ctrl+Alt+X'
             }`}>
             <i className="format check" />
-          </button>
-          <button
+          </button> */}
+          {/* <button
             onClick={formatQuote}
             className={
               'popup-item spaced ' + (blockType === 'quote' ? 'active' : '')
@@ -342,7 +345,7 @@ function TextFormatFloatingToolbar({
             className={'popup-item spaced ' + (isStrikethrough ? 'active' : '')}
             aria-label="Format text with a strikethrough">
             <i className="format strikethrough" />
-          </button>
+          </button> */}
           {/* <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
@@ -361,21 +364,21 @@ function TextFormatFloatingToolbar({
             aria-label="Format Superscript">
             <i className="format superscript" />
           </button> */}
-          <button
+          {/* <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
             }}
             className={'popup-item spaced ' + (isCode ? 'active' : '')}
             aria-label="Insert code block">
             <i className="format code" />
-          </button>
+          </button> */}
           <button
             onClick={insertLink}
             className={'popup-item spaced ' + (isLink ? 'active' : '')}
             aria-label="Insert link">
             <i className="format link" />
           </button>
-          <button
+          {/* <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
             }}
@@ -405,7 +408,7 @@ function TextFormatFloatingToolbar({
             }
             aria-label="Format text with right align">
             <i className="format right-align" />
-          </button>
+          </button> */}
         </>
       )}
       {/* <button

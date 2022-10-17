@@ -250,15 +250,14 @@ pre::-webkit-scrollbar-thumb {
   background-image: url(images/icons/download.svg);
 }
 
-#typeahead-menu {
-  position: fixed;
+.typeahead-popover {
   background: #fff;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
-  z-index: 3;
+  margin-top: 25px;
 }
 
-#typeahead-menu ul {
+.typeahead-popover ul {
   padding: 0;
   list-style: none;
   margin: 0;
@@ -267,16 +266,16 @@ pre::-webkit-scrollbar-thumb {
   overflow-y: scroll;
 }
 
-#typeahead-menu ul::-webkit-scrollbar {
+.typeahead-popover ul::-webkit-scrollbar {
   display: none;
 }
 
-#typeahead-menu ul {
+.typeahead-popover ul {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-#typeahead-menu ul li {
+.typeahead-popover ul li {
   margin: 0;
   min-width: 180px;
   font-size: 14px;
@@ -285,11 +284,11 @@ pre::-webkit-scrollbar-thumb {
   border-radius: 8px;
 }
 
-#typeahead-menu ul li.selected {
+.typeahead-popover ul li.selected {
   background: #eee;
 }
 
-#typeahead-menu li {
+.typeahead-popover li {
   margin: 0 8px 0 8px;
   padding: 8px;
   color: #050505;
@@ -303,36 +302,35 @@ pre::-webkit-scrollbar-thumb {
   background-color: #fff;
   border-radius: 8px;
   border: 0;
-  max-width: 250px;
 }
 
-#typeahead-menu li.active {
+.typeahead-popover li.active {
   display: flex;
   width: 20px;
   height: 20px;
   background-size: contain;
 }
 
-#typeahead-menu li:first-child {
+.typeahead-popover li:first-child {
   border-radius: 8px 8px 0px 0px;
 }
 
-#typeahead-menu li:last-child {
+.typeahead-popover li:last-child {
   border-radius: 0px 0px 8px 8px;
 }
 
-#typeahead-menu li:hover {
+.typeahead-popover li:hover {
   background-color: #eee;
 }
 
-#typeahead-menu li .text {
+.typeahead-popover li .text {
   display: flex;
   line-height: 20px;
   flex-grow: 1;
   min-width: 150px;
 }
 
-#typeahead-menu li .icon {
+.typeahead-popover li .icon {
   display: flex;
   width: 20px;
   height: 20px;
@@ -340,6 +338,22 @@ pre::-webkit-scrollbar-thumb {
   margin-right: 8px;
   line-height: 16px;
   background-size: contain;
+}
+
+.component-picker-menu {
+  width: 200px;
+}
+
+.mentions-menu {
+  width: 250px;
+}
+
+.auto-embed-menu {
+  width: 150px;
+}
+
+.emoji-menu {
+  width: 200px;
 }
 
 i.palette {
@@ -394,6 +408,10 @@ i.horizontal-rule {
   background-image: url(images/icons/plus.svg);
 }
 
+.icon.caret-right {
+  background-image: url(images/icons/caret-right-fill.svg);
+}
+
 .icon.dropdown-more {
   background-image: url(images/icons/dropdown-more.svg);
 }
@@ -408,10 +426,6 @@ i.horizontal-rule {
 
 .icon.bg-color {
   background-image: url(images/icons/bg-color.svg);
-}
-
-.icon.indent {
-  background-image: url(/src/images/icons/indent.svg);
 }
 
 i.image {
@@ -548,27 +562,18 @@ i.prettier-error {
   font-family: inherit;
 }
 
-.link-editor div.link-edit,
-.link-editor div.link-clear {
+.link-editor div.link-edit {
+  background-image: url(images/icons/pencil-fill.svg);
   background-size: 16px;
   background-position: center;
   background-repeat: no-repeat;
   width: 35px;
   vertical-align: -0.25em;
   position: absolute;
+  right: 0;
   top: 0;
   bottom: 0;
   cursor: pointer;
-}
-
-.link-editor div.link-edit {
-  background-image: url(images/icons/pencil-fill.svg);
-  right: 30px;
-}
-
-.link-editor div.link-clear {
-  background-image: url(images/icons/trash.svg);
-  right: 0;
 }
 
 .link-editor .link-input a {
@@ -577,7 +582,7 @@ i.prettier-error {
   display: block;
   white-space: nowrap;
   overflow: hidden;
-  margin-right: 60px;
+  margin-right: 30px;
   text-overflow: ellipsis;
 }
 
@@ -808,30 +813,25 @@ i.prettier-error {
 }
 
 .icon.bullet-list,
-.icon.bullet,
-i.bullet {
+.icon.bullet {
   background-image: url(images/icons/list-ul.svg);
 }
 
 .icon.check-list,
-.icon.check,
-i.check {
+.icon.check {
   background-image: url(images/icons/square-check.svg);
 }
 
 .icon.numbered-list,
-.icon.number,
-i.number {
+.icon.number {
   background-image: url(images/icons/list-ol.svg);
 }
 
-.icon.quote,
-i.quote {
+.icon.quote {
   background-image: url(images/icons/chat-square-quote.svg);
 }
 
-.icon.code,
-i.code {
+.icon.code {
   background-image: url(images/icons/code.svg);
 }
 
@@ -1326,7 +1326,10 @@ button.action-button:disabled {
   opacity: 0.6;
 }
 
-.toolbar button.toolbar-item:disabled i.format {
+.toolbar button.toolbar-item:disabled .icon,
+.toolbar button.toolbar-item:disabled .text,
+.toolbar button.toolbar-item:disabled i.format,
+.toolbar button.toolbar-item:disabled .chevron-down {
   opacity: 0.2;
 }
 
@@ -1342,25 +1345,9 @@ button.action-button:disabled {
   background-color: #eee;
 }
 
-.toolbar .toolbar-item.font-family {
-  max-width: 80px;
-  white-space: nowrap;
-  font-size: 12px;
-  padding: 0 8px;
-}
-
-.toolbar .toolbar-item.font-family .icon {
-  display: none;
-}
-
 .toolbar .toolbar-item.font-family .text {
   display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.toolbar .toolbar-item.font-size .text {
-  display: block;
+  max-width: 40px;
 }
 
 .toolbar .code-language {
@@ -1368,7 +1355,16 @@ button.action-button:disabled {
 }
 
 .toolbar .toolbar-item .text {
-  display: none;
+  display: flex;
+  line-height: 20px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #777;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 20px;
+  text-align: left;
+  padding-right: 10px;
 }
 
 .toolbar .toolbar-item .icon {
@@ -1387,7 +1383,6 @@ button.action-button:disabled {
   height: 16px;
   display: flex;
   user-select: none;
-  background-repeat: no-repeat;
 }
 
 .toolbar i.chevron-down.inside {

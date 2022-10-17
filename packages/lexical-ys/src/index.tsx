@@ -8,6 +8,7 @@
 
 import './setupEnv';
 import './index.css';
+import './main.css';
 
 import * as React from 'react';
 import {createRoot} from 'react-dom/client';

@@ -5,6 +5,15 @@
 .table-of-contents .heading3 {
   margin-left: 20px;
 }
+.table-of-contents .heading4 {
+  margin-left: 30px;
+}
+.table-of-contents .heading5 {
+  margin-left: 40px;
+}
+.table-of-contents .heading6 {
+  margin-left: 50px;
+}
 
 .selected-heading {
   color: #3578e5;
@@ -35,7 +44,7 @@
   color: #65676b;
   position: fixed;
   top: 200px;
-  right: 100px;
+  left: 100px;
   padding: 10px;
   width: 250px;
   display: flex;

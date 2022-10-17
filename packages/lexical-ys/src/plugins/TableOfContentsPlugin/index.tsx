@@ -9,6 +9,7 @@ import type {HeadingTagType} from '@lexical/rich-text';
 import type {NodeKey} from 'lexical';
 
 import './index.css';
+import './main.css';
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import LexicalTableOfContents__EXPERIMENTAL from '@lexical/react/LexicalTableOfContents__EXPERIMENTAL';
@@ -20,6 +21,12 @@ function indent(tagName: HeadingTagType) {
     return 'heading2';
   } else if (tagName === 'h3') {
     return 'heading3';
+  } else if (tagName === 'h4') {
+    return 'heading4';
+  } else if (tagName === 'h5') {
+    return 'heading5';
+  } else if (tagName === 'h6') {
+    return 'heading6';
   }
 }
 

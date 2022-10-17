@@ -37,6 +37,7 @@ import * as ReactDOM from 'react-dom';
 import useModal from '../../hooks/useModal';
 import catTypingGif from '../../images/cat-typing.gif';
 import {EmbedConfigs} from '../AutoEmbedPlugin';
+import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
 import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
 import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 import {
@@ -126,8 +127,8 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       return options;
     }
 
-    const fullTableRegex = new RegExp(/([1-9]|10)x([1-9]|10)$/);
-    const partialTableRegex = new RegExp(/([1-9]|10)x?$/);
+    const fullTableRegex = new RegExp(/^([1-9]|10)x([1-9]|10)$/);
+    const partialTableRegex = new RegExp(/^([1-9]|10)x?$/);
 
     const fullTableMatch = fullTableRegex.exec(queryString);
     const partialTableMatch = partialTableRegex.exec(queryString);
@@ -307,6 +308,12 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             <InsertImageDialog activeEditor={editor} onClose={onClose} />
           )),
       }),
+      new ComponentPickerOption('Collapsible', {
+        icon: <i className="icon caret-right" />,
+        keywords: ['collapse', 'collapsible', 'toggle'],
+        onSelect: () =>
+          editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
+      }),
       ...['left', 'center', 'right', 'justify'].map(
         (alignment) =>
           new ComponentPickerOption(`Align ${alignment}`, {
@@ -363,29 +370,31 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         triggerFn={checkForTriggerMatch}
         options={options}
         menuRenderFn={(
-          anchorElement,
+          anchorElementRef,
           {selectedIndex, selectOptionAndCleanUp, setHighlightedIndex},
         ) =>
-          anchorElement && options.length
+          anchorElementRef.current && options.length
             ? ReactDOM.createPortal(
-                <ul>
-                  {options.map((option, i: number) => (
-                    <ComponentPickerMenuItem
-                      index={i}
-                      isSelected={selectedIndex === i}
-                      onClick={() => {
-                        setHighlightedIndex(i);
-                        selectOptionAndCleanUp(option);
-                      }}
-                      onMouseEnter={() => {
-                        setHighlightedIndex(i);
-                      }}
-                      key={option.key}
-                      option={option}
-                    />
-                  ))}
-                </ul>,
-                anchorElement,
+                <div className="typeahead-popover component-picker-menu">
+                  <ul>
+                    {options.map((option, i: number) => (
+                      <ComponentPickerMenuItem
+                        index={i}
+                        isSelected={selectedIndex === i}
+                        onClick={() => {
+                          setHighlightedIndex(i);
+                          selectOptionAndCleanUp(option);
+                        }}
+                        onMouseEnter={() => {
+                          setHighlightedIndex(i);
+                        }}
+                        key={option.key}
+                        option={option}
+                      />
+                    ))}
+                  </ul>
+                </div>,
+                anchorElementRef.current,
               )
             : null
         }

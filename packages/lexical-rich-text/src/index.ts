@@ -215,6 +215,15 @@ export class HeadingNode extends ElementNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
+      div: (node: Node) => {
+        if (isPopoDocsHeading(node)) {
+          return {
+            conversion: convertPopoDocsHeadingElement,
+            priority: 3,
+          };
+        }
+        return null;
+      },
       h1: (node: Node) => ({
         conversion: convertHeadingElement,
         priority: 0,
@@ -312,6 +321,35 @@ function isGoogleDocsTitle(domNode: Node): boolean {
     return (domNode as HTMLSpanElement).style.fontSize === '26pt';
   }
   return false;
+}
+
+function isPopoDocsHeading(domNode: Node): boolean {
+  if (domNode.nodeName.toLowerCase() === 'div') {
+    return (
+      (domNode as HTMLDivElement).getAttribute('yne-bulb-block') ===
+        'heading' &&
+      ['1', '2', '3', '4', '5', '6'].includes(
+        (domNode as HTMLDivElement).getAttribute('yne-bulb-level') || '',
+      )
+    );
+  }
+  return false;
+}
+function convertPopoDocsHeadingElement(domNode: Node): DOMConversionOutput {
+  const nodeName =
+    'h' + (domNode as HTMLDivElement).getAttribute('yne-bulb-level');
+  let node = null;
+  if (
+    nodeName === 'h1' ||
+    nodeName === 'h2' ||
+    nodeName === 'h3' ||
+    nodeName === 'h4' ||
+    nodeName === 'h5' ||
+    nodeName === 'h6'
+  ) {
+    node = $createHeadingNode(nodeName);
+  }
+  return {node};
 }
 
 function convertHeadingElement(domNode: Node): DOMConversionOutput {

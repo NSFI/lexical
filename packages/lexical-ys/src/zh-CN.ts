@@ -7,6 +7,7 @@
  */
 const localeValues = {
   align: '对齐',
+  attachment: '附件',
   bgColor: '文本高亮',
   blockTypeToBlockName: {
     bullet: '无序列表',
@@ -39,6 +40,7 @@ const localeValues = {
   italic: '斜体',
   justifyAlign: '两端对齐',
   leftAlign: '左对齐',
+  link: '链接',
   outdent: '减少缩进',
   poll: '调查',
   redo: '重做',
@@ -53,6 +55,7 @@ const localeValues = {
   twitter: '推特',
   underline: '下划线',
   undo: '撤销',
-  youtubeVideo: 'YouTube 视频'
+  video: '视频',
+  youtubeVideo: 'YouTube 视频',
 };
 export default localeValues;

@@ -40,6 +40,7 @@ import {EmbedConfigs} from '../AutoEmbedPlugin';
 import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
 import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
 import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
+// import {INSERT_VIDEO_COMMAND} from '../VIDEOPlugin';
 import {
   InsertEquationDialog,
   InsertImageDialog,
@@ -308,6 +309,15 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             <InsertImageDialog activeEditor={editor} onClose={onClose} />
           )),
       }),
+      // new ComponentPickerOption('Video', {
+      //   icon: <i className="icon video" />, //TODO:
+      //   keywords: ['video', 'mp4', 'file'],
+      //   onSelect: () =>
+      //     showModal('Insert Image', (onClose) => (
+      //       <InsertImageDialog activeEditor={editor} onClose={onClose} />
+      //     )),
+      // }),
+      //TODO:
       new ComponentPickerOption('Collapsible', {
         icon: <i className="icon caret-right" />,
         keywords: ['collapse', 'collapsible', 'toggle'],

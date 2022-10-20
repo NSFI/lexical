@@ -18,10 +18,7 @@ import {
   CODE_LANGUAGE_MAP,
   getLanguageFriendlyName,
 } from '@lexical/code';
-import {
-  $isLinkNode,
-  // TOGGLE_LINK_COMMAND
-} from '@lexical/link';
+import {$isLinkNode, TOGGLE_LINK_COMMAND} from '@lexical/link';
 import {$isListNode, ListNode} from '@lexical/list';
 // import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
@@ -92,6 +89,8 @@ import {INSERT_EQUATION_COMMAND} from '../EquationsPlugin';
 import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 import {INSERT_POLL_COMMAND} from '../PollPlugin';
 import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
+import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
+import {post, postFile} from './../../utils/request';
 
 function getCodeLanguageOptions(): [string, string][] {
   const options: [string, string][] = [];
@@ -182,7 +181,7 @@ export function InsertImageUploadedDialogBody({
 
   const isDisabled = src === '';
 
-  const loadImage = (files: FileList | null) => {
+  const loadImage = async (files: FileList | null) => {
     const reader = new FileReader();
     reader.onload = function () {
       if (typeof reader.result === 'string') {
@@ -194,7 +193,6 @@ export function InsertImageUploadedDialogBody({
       reader.readAsDataURL(files[0]);
     }
   };
-
   return (
     <>
       <FileInput
@@ -452,6 +450,7 @@ function InsertDropDown({
   blockType,
   editor,
   showModal,
+  isLink,
 }: {
   locale: any;
   blockType: BlockType;
@@ -460,6 +459,7 @@ function InsertDropDown({
     title: string,
     setModalContent: (onClose: () => void) => JSX.Element,
   ) => void;
+  isLink: boolean;
 }): JSX.Element {
   const [activeEditor] = useState(editor);
   // const insertGifOnClick = (payload: InsertImagePayload) => {
@@ -496,6 +496,18 @@ function InsertDropDown({
       });
     }
   };
+  const onUploadImageClick = () => {
+    const uploadInput = document.getElementById('yseditor-imageInput');
+    if (uploadInput) {
+      uploadInput.click();
+    }
+  };
+  const onUploadVideoClick = () => {
+    const uploadInput = document.getElementById('yseditor-videoInput');
+    if (uploadInput) {
+      uploadInput.click();
+    }
+  };
 
   return (
     <DropDown
@@ -504,14 +516,20 @@ function InsertDropDown({
       buttonAriaLabel="Insert specialized editor node"
       buttonIconClassName="icon plus">
       <DropDownItem
-        onClick={() => {
-          showModal('Insert Image', (onClose) => (
-            <InsertImageDialog activeEditor={activeEditor} onClose={onClose} />
-          ));
-        }}
+        // onClick={() => {
+        //   showModal('Insert Image', (onClose) => (
+        //     <InsertImageDialog activeEditor={activeEditor} onClose={onClose} />
+        //   ));
+        // }}
+        onClick={onUploadImageClick}
         className="item">
         <i className="icon image" />
         <span className="text">{locale.image}</span>
+      </DropDownItem>
+
+      <DropDownItem onClick={onUploadVideoClick} className="item">
+        <i className="icon horizontal-rule" />
+        <span className="text">{locale.video}</span>
       </DropDownItem>
       {/* <DropDownItem
         onClick={() =>
@@ -633,6 +651,19 @@ function InsertDropDown({
           <span className="text">{embedConfig.contentName}</span>
         </DropDownItem>
       ))} */}
+      {/* <FileInput
+        label="Image Upload"
+        onChange={aaa}
+        accept="image/*"
+        data-test-id="image-modal-file-upload"
+      />
+       */}
+      {/* <input
+        type="file"
+        accept="video/*"
+        onChange={(e) => onChange(e.target.files)}
+        hidden={true}
+      /> */}
     </DropDown>
   );
 }
@@ -914,14 +945,6 @@ export default function ToolbarPlugin(): JSX.Element {
     [applyStyleText],
   );
 
-  // const insertLink = useCallback(() => {
-  //   if (!isLink) {
-  //     editor.dispatchCommand(TOGGLE_LINK_COMMAND, sanitizeUrl('https://'));
-  //   } else {
-  //     editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
-  //   }
-  // }, [editor, isLink]);
-
   const onCodeLanguageSelect = useCallback(
     (value: string) => {
       activeEditor.update(() => {
@@ -935,6 +958,51 @@ export default function ToolbarPlugin(): JSX.Element {
     },
     [activeEditor, selectedElementKey],
   );
+  const insertLink = useCallback(() => {
+    if (!isLink) {
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
+    } else {
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
+    }
+  }, [editor, isLink]);
+  const onLoadImage = async (e: any) => {
+    const files: FileList | null = e.target.files;
+    const response = await post('', {
+      bucket: 2,
+      count: 1, //（默认）1-七鱼；2-互客
+    });
+    const {objectName, token} = response.data[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('Object', decodeURIComponent(objectName));
+    bodyFormData.append('x-nos-token', token);
+    bodyFormData.append('file', files[0]);
+    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+    const nosDLL = 'https://urchin.nosdn.127.net/';
+    await postFile(nosLocation, bodyFormData);
+    const nosSrc = `${nosDLL}${objectName}`;
+    activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+      altText: '',
+      src: nosSrc,
+    });
+  };
+
+  const onLoadVideo = async (e: any) => {
+    const files: FileList | null = e.target.files;
+    const response = await post('', {
+      bucket: 2,
+      count: 1, //（默认）1-七鱼；2-互客
+    });
+    const {objectName, token} = response.data[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('Object', decodeURIComponent(objectName));
+    bodyFormData.append('x-nos-token', token);
+    bodyFormData.append('file', files[0]);
+    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+    const nosDLL = 'https://urchin.nosdn.127.net/';
+    await postFile(nosLocation, bodyFormData);
+    const nosSrc = `${nosDLL}${objectName}`;
+    activeEditor.dispatchCommand(INSERT_VIDEO_COMMAND, {src: nosSrc});
+  };
 
   return (
     <div className="toolbar">
@@ -997,6 +1065,7 @@ export default function ToolbarPlugin(): JSX.Element {
             blockType={blockType}
             editor={editor}
             showModal={showModal}
+            isLink={isLink}
           />
           <Divider />
           {blockType in blockTypeToBlockName && activeEditor === editor && (
@@ -1079,14 +1148,14 @@ export default function ToolbarPlugin(): JSX.Element {
             title={locale.insertCodeBlock}
             aria-label="Insert code block">
             <i className="format code" />
-          </button>
+          </button> */}
           <button
             onClick={insertLink}
             className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
             aria-label="Insert link"
             title={locale.insertLink}>
             <i className="format link" />
-          </button> */}
+          </button>
           <ColorPicker
             buttonClassName="toolbar-item color-picker"
             buttonAriaLabel="Formatting text color"
@@ -1264,7 +1333,20 @@ export default function ToolbarPlugin(): JSX.Element {
           <span className="text">{locale.outdent}</span>
         </DropDownItem>
       </DropDown>
-
+      <input
+        id="yseditor-imageInput"
+        type="file"
+        accept="image/*"
+        onChange={onLoadImage}
+        hidden={true}
+      />
+      <input
+        id="yseditor-videoInput"
+        type="file"
+        accept="video/*"
+        onChange={onLoadVideo}
+        hidden={true}
+      />
       {modal}
     </div>
   );

@@ -59,6 +59,7 @@ import TableOfContentsPlugin from './plugins/TableOfContentsPlugin';
 import {TablePlugin as NewTablePlugin} from './plugins/TablePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import TreeViewPlugin from './plugins/TreeViewPlugin';
+import VideoPlugin from './plugins/VideoPlugin';
 // import TwitterPlugin from './plugins/TwitterPlugin';
 // import YouTubePlugin from './plugins/YouTubePlugin';
 import YsEditorTheme from './themes/YsEditorTheme';
@@ -169,11 +170,13 @@ export default function Editor(): JSX.Element {
               {/* <MentionsPlugin /> */}
               <HistoryPlugin />
               <ImagesPlugin captionsEnabled={false} />
+              <VideoPlugin captionsEnabled={false} />
               <LinkPlugin />
               <ClickableLinkPlugin />
               <FloatingTextFormatToolbarPlugin />
             </NewTablePlugin>
             <ImagesPlugin />
+            <VideoPlugin />
             <LinkPlugin />
             {/* <PollPlugin /> */}
             {/* <TwitterPlugin /> */}

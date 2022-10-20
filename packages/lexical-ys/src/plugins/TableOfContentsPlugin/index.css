@@ -44,7 +44,7 @@
   color: #65676b;
   position: fixed;
   top: 200px;
-  left: 100px;
+  right: 100px;
   padding: 10px;
   width: 250px;
   display: flex;

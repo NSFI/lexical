@@ -18,6 +18,7 @@ import {HorizontalRuleNode} from '@lexical/react/LexicalHorizontalRuleNode';
 import {HeadingNode, QuoteNode} from '@lexical/rich-text';
 import {TableCellNode, TableNode, TableRowNode} from '@lexical/table';
 
+import {AttachmentNode} from './AttachmentNode';
 import {AutocompleteNode} from './AutocompleteNode';
 import {EmojiNode} from './EmojiNode';
 import {EquationNode} from './EquationNode';
@@ -27,6 +28,7 @@ import {ImageNode} from './ImageNode';
 import {KeywordNode} from './KeywordNode';
 import {MentionNode} from './MentionNode';
 import {PollNode} from './PollNode';
+import {PopoHeadingNode} from './PopoHeadingNode';
 import {StickyNode} from './StickyNode';
 import {TableNode as NewTableNode} from './TableNode';
 import {TweetNode} from './TweetNode';
@@ -49,6 +51,7 @@ const YsNodes: Array<Klass<LexicalNode>> = [
   LinkNode,
   OverflowNode,
   PollNode,
+  PopoHeadingNode,
   StickyNode,
   ImageNode,
   MentionNode,
@@ -56,6 +59,7 @@ const YsNodes: Array<Klass<LexicalNode>> = [
   ExcalidrawNode,
   EquationNode,
   AutocompleteNode,
+  AttachmentNode,
   KeywordNode,
   HorizontalRuleNode,
   TweetNode,

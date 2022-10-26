@@ -1,4 +1,3 @@
-/** @module @lexical/rich-text */
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -26,6 +25,7 @@ import {
   $insertDataTransferForRichText,
   copyToClipboard__EXPERIMENTAL,
 } from '@lexical/clipboard';
+import {HeadingNode} from '@lexical/rich-text';
 import {
   $moveCharacter,
   $shouldOverrideDefaultCharacterSelection,
@@ -93,97 +93,19 @@ export type SerializedQuoteNode = Spread<
   SerializedElementNode
 >;
 
-/** @noInheritDoc */
-export class QuoteNode extends ElementNode {
-  static getType(): string {
-    return 'quote';
-  }
-
-  static clone(node: QuoteNode): QuoteNode {
-    return new QuoteNode(node.__key);
-  }
-
-  constructor(key?: NodeKey) {
-    super(key);
-  }
-
-  // View
-
-  createDOM(config: EditorConfig): HTMLElement {
-    const element = document.createElement('blockquote');
-    addClassNamesToElement(element, config.theme.quote);
-    return element;
-  }
-  updateDOM(prevNode: QuoteNode, dom: HTMLElement): boolean {
-    return false;
-  }
-
-  static importDOM(): DOMConversionMap | null {
-    return {
-      blockquote: (node: Node) => ({
-        conversion: convertBlockquoteElement,
-        priority: 0,
-      }),
-    };
-  }
-
-  static importJSON(serializedNode: SerializedQuoteNode): QuoteNode {
-    const node = $createQuoteNode();
-    node.setFormat(serializedNode.format);
-    node.setIndent(serializedNode.indent);
-    node.setDirection(serializedNode.direction);
-    return node;
-  }
-
-  exportJSON(): SerializedElementNode {
-    return {
-      ...super.exportJSON(),
-      type: 'quote',
-    };
-  }
-
-  // Mutation
-
-  insertNewAfter(): ParagraphNode {
-    const newBlock = $createParagraphNode();
-    const direction = this.getDirection();
-    newBlock.setDirection(direction);
-    this.insertAfter(newBlock);
-    return newBlock;
-  }
-
-  collapseAtStart(): true {
-    const paragraph = $createParagraphNode();
-    const children = this.getChildren();
-    children.forEach((child) => paragraph.append(child));
-    this.replace(paragraph);
-    return true;
-  }
-}
-
-export function $createQuoteNode(): QuoteNode {
-  return new QuoteNode();
-}
-
-export function $isQuoteNode(
-  node: LexicalNode | null | undefined,
-): node is QuoteNode {
-  return node instanceof QuoteNode;
-}
-
 export type HeadingTagType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 /** @noInheritDoc */
-export class HeadingNode extends ElementNode {
+export class PopoHeadingNode extends HeadingNode {
   /** @internal */
   __tag: HeadingTagType;
 
   static getType(): string {
-    return 'heading';
+    return 'popoHeading';
   }
 
-  static clone(node: HeadingNode): HeadingNode {
-    return new HeadingNode(node.__tag, node.__key);
+  static clone(node: PopoHeadingNode): PopoHeadingNode {
+    return new PopoHeadingNode(node.__tag, node.__key);
   }
 
   constructor(tag: HeadingTagType, key?: NodeKey) {
@@ -209,56 +131,16 @@ export class HeadingNode extends ElementNode {
     return element;
   }
 
-  updateDOM(prevNode: HeadingNode, dom: HTMLElement): boolean {
+  updateDOM(prevNode: PopoHeadingNode, dom: HTMLElement): boolean {
     return false;
   }
 
   static importDOM(): DOMConversionMap | null {
     return {
-      h1: (node: Node) => ({
-        conversion: convertHeadingElement,
-        priority: 0,
-      }),
-      h2: (node: Node) => ({
-        conversion: convertHeadingElement,
-        priority: 0,
-      }),
-      h3: (node: Node) => ({
-        conversion: convertHeadingElement,
-        priority: 0,
-      }),
-      h4: (node: Node) => ({
-        conversion: convertHeadingElement,
-        priority: 0,
-      }),
-      h5: (node: Node) => ({
-        conversion: convertHeadingElement,
-        priority: 0,
-      }),
-      h6: (node: Node) => ({
-        conversion: convertHeadingElement,
-        priority: 0,
-      }),
-      p: (node: Node) => {
-        // domNode is a <p> since we matched it by nodeName
-        const paragraph = node as HTMLParagraphElement;
-        const firstChild = paragraph.firstChild;
-        if (firstChild !== null && isGoogleDocsTitle(firstChild)) {
+      div: (node: Node) => {
+        if (isPopoDocsHeading(node)) {
           return {
-            conversion: () => ({node: null}),
-            priority: 3,
-          };
-        }
-        return null;
-      },
-      span: (node: Node) => {
-        if (isGoogleDocsTitle(node)) {
-          return {
-            conversion: (domNode: Node) => {
-              return {
-                node: $createHeadingNode('h1'),
-              };
-            },
+            conversion: convertPopoDocsHeadingElement,
             priority: 3,
           };
         }
@@ -267,8 +149,8 @@ export class HeadingNode extends ElementNode {
     };
   }
 
-  static importJSON(serializedNode: SerializedHeadingNode): HeadingNode {
-    const node = $createHeadingNode(serializedNode.tag);
+  static importJSON(serializedNode: SerializedHeadingNode): PopoHeadingNode {
+    const node = $createPopoHeadingNode(serializedNode.tag);
     node.setFormat(serializedNode.format);
     node.setIndent(serializedNode.indent);
     node.setDirection(serializedNode.direction);
@@ -307,15 +189,21 @@ export class HeadingNode extends ElementNode {
   }
 }
 
-function isGoogleDocsTitle(domNode: Node): boolean {
-  if (domNode.nodeName.toLowerCase() === 'span') {
-    return (domNode as HTMLSpanElement).style.fontSize === '26pt';
+function isPopoDocsHeading(domNode: HTMLDivElement): boolean {
+  if (domNode.nodeName.toLowerCase() === 'div') {
+    return (
+      domNode.getAttribute('yne-bulb-block') === 'heading' &&
+      ['1', '2', '3', '4', '5', '6'].includes(
+        domNode.getAttribute('yne-bulb-level') || '',
+      )
+    );
   }
   return false;
 }
-
-function convertHeadingElement(domNode: Node): DOMConversionOutput {
-  const nodeName = domNode.nodeName.toLowerCase();
+function convertPopoDocsHeadingElement(
+  domNode: HTMLDivElement,
+): DOMConversionOutput {
+  const nodeName = 'h' + domNode.getAttribute('yne-bulb-level');
   let node = null;
   if (
     nodeName === 'h1' ||
@@ -325,21 +213,18 @@ function convertHeadingElement(domNode: Node): DOMConversionOutput {
     nodeName === 'h5' ||
     nodeName === 'h6'
   ) {
-    node = $createHeadingNode(nodeName);
+    node = $createPopoHeadingNode(nodeName);
   }
   return {node};
 }
 
-function convertBlockquoteElement(): DOMConversionOutput {
-  const node = $createQuoteNode();
-  return {node};
-}
-
-export function $createHeadingNode(headingTag: HeadingTagType): HeadingNode {
+export function $createPopoHeadingNode(
+  headingTag: HeadingTagType,
+): HeadingNode {
   return new HeadingNode(headingTag);
 }
 
-export function $isHeadingNode(
+export function $isPopoHeadingNode(
   node: LexicalNode | null | undefined,
 ): node is HeadingNode {
   return node instanceof HeadingNode;

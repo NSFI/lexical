@@ -5,16 +5,23 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+// import 'vite/modulepreload-polyfill';
+// import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+// import {exportFile, importFile} from '@lexical/file';
+
+import './index.css';
+import './main.css';
 
 import {$createLinkNode} from '@lexical/link';
 import {$createListItemNode, $createListNode} from '@lexical/list';
 import {LexicalComposer} from '@lexical/react/LexicalComposer';
+import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 import {$createHeadingNode, $createQuoteNode} from '@lexical/rich-text';
 import {$createParagraphNode, $createTextNode, $getRoot} from 'lexical';
 import * as React from 'react';
 
 import {isDev} from './appSettings';
-import { LocaleContext } from './context/LocaleContext';
+import {LocaleContext} from './context/LocaleContext';
 import {SettingsContext, useSettings} from './context/SettingsContext';
 import {SharedAutocompleteContext} from './context/SharedAutocompleteContext';
 import {SharedHistoryContext} from './context/SharedHistoryContext';
@@ -26,15 +33,31 @@ import TestRecorderPlugin from './plugins/TestRecorderPlugin';
 import TypingPerfPlugin from './plugins/TypingPerfPlugin';
 import Settings from './Settings';
 import YsEditorTheme from './themes/YsEditorTheme';
+// import {
+//   getActiveEditor
+// } from 'lexical';
 
 if (isDev) {
   console.warn(
     'If you are profiling the YsEditor app, please ensure you turn off the debug view. You can disable it by pressing on the settings control in the bottom-left of your screen and toggling the debug view setting.',
   );
 }
-
+function onChange(editorState) {
+  // console.log('21323232,editorState', 21323232, editorState);
+  // exportFile(editorState, {
+  //           fileName: `Playground ${new Date().toISOString()}`,
+  //           source: 'Playground',
+  //         })
+  editorState.read(() => {
+    // Read the contents of the EditorState here.
+    // const root = $getRoot();
+    // const selection = $getSelection();
+    // console.log(root);
+  });
+}
 function prepopulatedRichText() {
   const root = $getRoot();
+  // console.log('root', root);
   if (root.getFirstChild() === null) {
     const heading = $createHeadingNode('h1');
     heading.append($createTextNode('网易云商富文本编辑器——YsEditor'));
@@ -51,7 +74,9 @@ function prepopulatedRichText() {
     paragraph.append(
       $createTextNode('YsEditor 是一个使用'),
       $createTextNode('@lexical/react').toggleFormat('code'),
-      $createTextNode('构建的编辑器。由于 @lexical/react 功能特性更新较快，因此 YsEditor 采用 fork 方式维护，在 fork 的基础上添加了 packages/lexical-ys 作为上层编辑器，便于快速合入新功能特性。'),
+      $createTextNode(
+        '构建的编辑器。由于 @lexical/react 功能特性更新较快，因此 YsEditor 采用 fork 方式维护，在 fork 的基础上添加了 packages/lexical-ys 作为上层编辑器，便于快速合入新功能特性。',
+      ),
     );
     root.append(paragraph);
     const paragraph2 = $createParagraphNode();
@@ -68,7 +93,9 @@ function prepopulatedRichText() {
     root.append(paragraph2);
     const paragraph3 = $createParagraphNode();
     paragraph3.append(
-      $createTextNode(`如果您想了解更多有关 Lexical 和 YsEditor 的信息，您可以：`),
+      $createTextNode(
+        `如果您想了解更多有关 Lexical 和 YsEditor 的信息，您可以：`,
+      ),
     );
     root.append(paragraph3);
     const list = $createListNode('bullet');
@@ -106,11 +133,12 @@ function prepopulatedRichText() {
   }
 }
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const {
     settings: {isCollab, emptyEditor, measureTypingPerf},
   } = useSettings();
-
+  // const [editor] = useLexicalComposerContext();
+  // console.log('editor1111', editor);
   const initialConfig = {
     editorState: isCollab
       ? null
@@ -124,32 +152,38 @@ function App(): JSX.Element {
     },
     theme: YsEditorTheme,
   };
+  // console.log('getActiveEditor()', getActiveEditor())
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <SharedHistoryContext>
-        <TableContext>
-          <SharedAutocompleteContext>
-            <div className="editor-shell">
-              <LocaleContext>
-                <Editor />
-              </LocaleContext>
-            </div>
-            {isDev ? <Settings /> : null}
-            {isDev ? <PasteLogPlugin /> : null}
-            {isDev ? <TestRecorderPlugin /> : null}
-            {(isDev && measureTypingPerf) ? <TypingPerfPlugin /> : null}
-          </SharedAutocompleteContext>
-        </TableContext>
-      </SharedHistoryContext>
-    </LexicalComposer>
+    <div>
+      <button>dddddf3fdfd</button>
+      <LexicalComposer initialConfig={initialConfig}>
+        <SharedHistoryContext>
+          <TableContext>
+            <SharedAutocompleteContext>
+              <div className="editor-shell">
+                <LocaleContext>
+                  <Editor />
+                </LocaleContext>
+              </div>
+              <OnChangePlugin onChange={onChange} />
+              {isDev ? <Settings /> : null}
+              {isDev ? <PasteLogPlugin /> : null}
+              {isDev ? <TestRecorderPlugin /> : null}
+              {isDev && measureTypingPerf ? <TypingPerfPlugin /> : null}
+            </SharedAutocompleteContext>
+          </TableContext>
+        </SharedHistoryContext>
+      </LexicalComposer>
+    </div>
   );
-}
+};
 
-export default function YsApp(): JSX.Element {
+const YsApp = (): JSX.Element => {
   return (
     <SettingsContext>
       <App />
     </SettingsContext>
   );
-}
+};
+export default YsApp;

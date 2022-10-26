@@ -6,7 +6,7 @@
  *
  */
 
-'use strict';
+
 
 const restrictedGlobals = require('confusing-browser-globals');
 
@@ -26,11 +26,7 @@ module.exports = {
     {
       // We apply these settings to the source files that get compiled.
       // They can use all features including JSX (but shouldn't use `var`).
-      files: [
-        'packages/*/src/**/*.js',
-        'packages/*/__tests__/**/*.?(m)js',
-        'packages/*/src/**/*.jsx',
-      ],
+      files: ['*/src/**/*.js', '*/__tests__/**/*.?(m)js', '*/src/**/*.jsx'],
       parser: 'babel-eslint',
       parserOptions: {
         allowImportExportEverywhere: true,
@@ -73,7 +69,7 @@ module.exports = {
     },
     {
       // don't lint headers in entrypoint files so we can add TypeDoc module comments
-      files: ['packages/**/src/index.ts'],
+      files: ['**/src/index.ts'],
       rules: {
         'header/header': OFF,
       },
@@ -83,11 +79,12 @@ module.exports = {
   parser: 'babel-eslint',
 
   parserOptions: {
+    allowImportExportEverywhere: true,
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
     },
     ecmaVersion: 8,
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   plugins: [

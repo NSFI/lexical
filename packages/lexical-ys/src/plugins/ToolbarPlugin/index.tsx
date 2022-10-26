@@ -74,6 +74,7 @@ import FileInput from '../../ui/FileInput';
 import KatexEquationAlterer from '../../ui/KatexEquationAlterer';
 import TextInput from '../../ui/TextInput';
 import {getSelectedNode} from '../../utils/getSelectedNode';
+import {INSERT_ATTACHMENT_COMMAND} from '../AttachmentPlugin';
 import {
   BlockFormatDropDown,
   BlockType,
@@ -90,6 +91,7 @@ import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 import {INSERT_POLL_COMMAND} from '../PollPlugin';
 import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
 import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
+import {getFileSize,getFileSuffix} from './../../utils/file';
 import {post, postFile} from './../../utils/request';
 
 function getCodeLanguageOptions(): [string, string][] {
@@ -508,6 +510,12 @@ function InsertDropDown({
       uploadInput.click();
     }
   };
+  const onUploadAttachmentClick = () => {
+    const uploadInput = document.getElementById('yseditor-attachmentInput');
+    if (uploadInput) {
+      uploadInput.click();
+    }
+  };
 
   return (
     <DropDown
@@ -530,6 +538,10 @@ function InsertDropDown({
       <DropDownItem onClick={onUploadVideoClick} className="item">
         <i className="icon horizontal-rule" />
         <span className="text">{locale.video}</span>
+      </DropDownItem>
+      <DropDownItem onClick={onUploadAttachmentClick} className="item">
+        <i className="icon horizontal-rule" />
+        <span className="text">{locale.attachment}</span>
       </DropDownItem>
       {/* <DropDownItem
         onClick={() =>
@@ -779,7 +791,8 @@ export default function ToolbarPlugin(): JSX.Element {
             ? element.getTag()
             : element.getType();
           if (type in blockTypeToBlockName) {
-            setBlockType(type as BlockType);
+            setBlockType(type);
+            // setBlockType(type as BlockType);
           }
           if ($isCodeNode(element)) {
             const language =
@@ -967,10 +980,13 @@ export default function ToolbarPlugin(): JSX.Element {
   }, [editor, isLink]);
   const onLoadImage = async (e: any) => {
     const files: FileList | null = e.target.files;
-    const response = await post('', {
-      bucket: 2,
-      count: 1, //（默认）1-七鱼；2-互客
-    });
+    const response = await post(
+      'https://ys-test.netease.com/api/athena/user/nosToken',
+      {
+        bucket: 2,
+        count: 1, //（默认）1-七鱼；2-互客
+      },
+    );
     const {objectName, token} = response.data[0];
     const bodyFormData = new FormData();
     bodyFormData.append('Object', decodeURIComponent(objectName));
@@ -988,10 +1004,13 @@ export default function ToolbarPlugin(): JSX.Element {
 
   const onLoadVideo = async (e: any) => {
     const files: FileList | null = e.target.files;
-    const response = await post('', {
-      bucket: 2,
-      count: 1, //（默认）1-七鱼；2-互客
-    });
+    const response = await post(
+      'https://ys-test.netease.com/api/athena/user/nosToken',
+      {
+        bucket: 2,
+        count: 1, //（默认）1-七鱼；2-互客
+      },
+    );
     const {objectName, token} = response.data[0];
     const bodyFormData = new FormData();
     bodyFormData.append('Object', decodeURIComponent(objectName));
@@ -1002,6 +1021,39 @@ export default function ToolbarPlugin(): JSX.Element {
     await postFile(nosLocation, bodyFormData);
     const nosSrc = `${nosDLL}${objectName}`;
     activeEditor.dispatchCommand(INSERT_VIDEO_COMMAND, {src: nosSrc});
+  };
+
+  const onLoadAttachment = async (e: any) => {
+    const files: FileList | null = e.target.files;
+    const fileName = files[0]?.name || '';
+    const fileSize = getFileSize(files[0]?.size);
+    console.log('filesdfdfd', files);
+    const {suffix, fileType} = getFileSuffix(fileName);
+    console.log('suffix,fileType', suffix, fileType);
+    const response = await post(
+      'https://ys-test.netease.com/api/athena/user/nosToken',
+      {
+        bucket: 2,
+        count: 1, //（默认）1-七鱼；2-互客
+        ...(suffix ? {suffix} : null),
+      },
+    );
+    const {objectName, token} = response.data[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('Object', decodeURIComponent(objectName));
+    bodyFormData.append('x-nos-token', token);
+    bodyFormData.append('file', files[0]);
+
+    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+    const nosDLL = 'https://urchin.nosdn.127.net/';
+    await postFile(nosLocation, bodyFormData);
+    const nosSrc = `${nosDLL}${objectName}`;
+    activeEditor.dispatchCommand(INSERT_ATTACHMENT_COMMAND, {
+      fileName: fileName,
+      fileSize: fileSize,
+      fileType: fileType,
+      src: nosSrc,
+    });
   };
 
   return (
@@ -1345,6 +1397,13 @@ export default function ToolbarPlugin(): JSX.Element {
         type="file"
         accept="video/*"
         onChange={onLoadVideo}
+        hidden={true}
+      />
+      <input
+        id="yseditor-attachmentInput"
+        type="file"
+        accept="*"
+        onChange={onLoadAttachment}
         hidden={true}
       />
       {modal}

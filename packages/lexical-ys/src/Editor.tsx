@@ -28,6 +28,7 @@ import {useSettings} from './context/SettingsContext';
 import {useSharedHistoryContext} from './context/SharedHistoryContext';
 import TableCellNodes from './nodes/TableCellNodes';
 import ActionsPlugin from './plugins/ActionsPlugin';
+import AttachmentPlugin from './plugins/AttachmentPlugin';
 // import AutocompletePlugin from './plugins/AutocompletePlugin';
 // import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
 import AutoLinkPlugin from './plugins/AutoLinkPlugin';
@@ -170,12 +171,14 @@ export default function Editor(): JSX.Element {
               {/* <MentionsPlugin /> */}
               <HistoryPlugin />
               <ImagesPlugin captionsEnabled={false} />
-              <VideoPlugin captionsEnabled={false} />
+              <VideoPlugin />
+              <AttachmentPlugin />
               <LinkPlugin />
               <ClickableLinkPlugin />
               <FloatingTextFormatToolbarPlugin />
             </NewTablePlugin>
             <ImagesPlugin />
+            <AttachmentPlugin />
             <VideoPlugin />
             <LinkPlugin />
             {/* <PollPlugin /> */}

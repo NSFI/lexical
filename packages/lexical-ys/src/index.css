@@ -6,16 +6,14 @@
  *
  */
 
-@import 'https://fonts.googleapis.com/css?family=Reenie+Beanie';
-
+/* @import 'https://fonts.googleapis.com/css?family=Reenie+Beanie'; */
+/* @import 'iconfont.css'; */
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',
+  /* font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #eee;
-  padding: 0 20px;
+  -moz-osx-font-smoothing: grayscale; */
 }
 
 header {
@@ -46,10 +44,10 @@ header h1 {
 }
 
 .editor-shell {
-  margin: 20px auto;
-  border-radius: 2px;
-  max-width: 1100px;
-  color: #000;
+  /* margin: 20px auto; */
+  /* border-radius: 2px; */
+  /* max-width: 1100px; */
+  color: #222;
   position: relative;
   line-height: 1.7;
   font-weight: 400;
@@ -59,9 +57,11 @@ header h1 {
   background: #fff;
   position: relative;
   cursor: text;
-  display: block;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  display: flex;
+  min-width: 500px;
+  /* display: block; */
+  /* border-bottom-left-radius: 10px; */
+  /* border-bottom-right-radius: 10px; */
 }
 
 .editor-shell .editor-container.tree-view {
@@ -72,10 +72,16 @@ header h1 {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+.editor-content {
+  position: relative;
+  flex-grow: 1;
+}
 
 .editor-scroller {
   min-height: 150px;
-  height: 360px;
+  max-width: 950px;
+  margin: 0 auto;
+  /* height: 360px; */
   border: 0;
   resize: none;
   cursor: text;
@@ -543,7 +549,8 @@ i.prettier-error {
 
 .link-editor .button.active,
 .toolbar .button.active {
-  background-color: rgb(223, 232, 250);
+  background-color: rgba(0, 127, 255, 0.15);
+  /* background-color: rgb(223, 232, 250); */
 }
 
 .link-editor .link-input {
@@ -552,8 +559,8 @@ i.prettier-error {
   box-sizing: border-box;
   margin: 8px 12px;
   padding: 8px 12px;
-  border-radius: 15px;
-  background-color: #eee;
+  border-radius: 4px;
+  background-color: #f0f0f2;
   font-size: 15px;
   color: rgb(5, 5, 5);
   border: 0;
@@ -570,7 +577,7 @@ i.prettier-error {
   width: 35px;
   vertical-align: -0.25em;
   position: absolute;
-  right: 0;
+  right: 8px;
   top: 0;
   bottom: 0;
   cursor: pointer;
@@ -696,8 +703,7 @@ i.prettier-error {
   z-index: 10;
   display: block;
   position: fixed;
-  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 0px 1px rgb(0 0 0 / 20%), 0px 8px 32px -8px rgb(0 0 0 / 30%);
   border-radius: 8px;
   min-height: 40px;
   background-color: #fff;
@@ -716,7 +722,7 @@ i.prettier-error {
   flex-shrink: 0;
   justify-content: space-between;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 0;
   max-width: 250px;
   min-width: 100px;
@@ -743,7 +749,7 @@ i.prettier-error {
 }
 
 .dropdown .item:hover {
-  background-color: #eee;
+  background-color: #f0f0f2;
 }
 
 .dropdown .item .text {
@@ -1282,7 +1288,11 @@ button.action-button:disabled {
 .rtl {
   text-align: right;
 }
-
+.toolbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .toolbar {
   display: flex;
   margin-bottom: 1px;
@@ -1293,6 +1303,8 @@ button.action-button:disabled {
   vertical-align: middle;
   overflow: auto;
   height: 36px;
+  /* width:100%; */
+  /* place-content: center; */
 }
 
 .toolbar button.toolbar-item {
@@ -1334,7 +1346,7 @@ button.action-button:disabled {
 }
 
 .toolbar button.toolbar-item.active {
-  background-color: rgba(223, 232, 250, 0.3);
+  background-color: rgba(0, 127, 255, 0.15);
 }
 
 .toolbar button.toolbar-item.active i {
@@ -1372,7 +1384,7 @@ button.action-button:disabled {
   width: 20px;
   height: 20px;
   user-select: none;
-  margin-right: 8px;
+  margin-right: 4px;
   line-height: 16px;
   background-size: contain;
 }
@@ -1550,7 +1562,7 @@ button.item i {
 }
 
 button.item.dropdown-item-active {
-  background-color: rgba(223, 232, 250, 0.3);
+  background-color: rgba(0, 127, 255, 0.15);
 }
 
 button.item.dropdown-item-active i {

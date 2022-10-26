@@ -156,7 +156,6 @@ const App = (): JSX.Element => {
 
   return (
     <div>
-      <button>dddddf3fdfd</button>
       <LexicalComposer initialConfig={initialConfig}>
         <SharedHistoryContext>
           <TableContext>

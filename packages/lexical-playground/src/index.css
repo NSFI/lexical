@@ -1567,8 +1567,8 @@ hr {
 hr:after {
   content: '';
   display: block;
-  height: 2px;
-  background-color: #ccc;
+  height: 1px;
+  background-color: #d9d9db;
   line-height: 2px;
 }
 

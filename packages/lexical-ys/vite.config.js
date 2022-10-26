@@ -165,7 +165,7 @@ export default defineConfig({
       replacements: [
         {
           from: /__DEV__/g,
-          to: 'true',
+          to: 'false',
         },
       ],
     }),

@@ -71,7 +71,12 @@ const skipCollaborationInit =
   // @ts-ignore
   window.parent != null && window.parent.frames.right === window;
 
-export default function Editor(): JSX.Element {
+interface EditorProps {
+  tocHeight?: string;
+}
+
+export default function Editor(props: EditorProps): JSX.Element {
+  const {tocHeight = 'calc(100vh - 200px)'} = props;
   const {historyState} = useSharedHistoryContext();
   const {
     settings: {
@@ -82,7 +87,6 @@ export default function Editor(): JSX.Element {
       isCharLimitUtf8,
       isRichText,
       showTreeView,
-      showTableOfContents,
     },
   } = useSettings();
   const text = isCollab
@@ -144,16 +148,21 @@ export default function Editor(): JSX.Element {
             ) : (
               <HistoryPlugin externalHistoryState={historyState} />
             )}
-            <RichTextPlugin
-              contentEditable={
-                <div className="editor-scroller">
-                  <div className="editor" ref={onRef}>
-                    <ContentEditable />
+            <div className="toc" style={{height: tocHeight}}>
+              <TableOfContentsPlugin />
+            </div>
+            <div className="editor-content">
+              <RichTextPlugin
+                contentEditable={
+                  <div className="editor-scroller">
+                    <div className="editor" ref={onRef}>
+                      <ContentEditable />
+                    </div>
                   </div>
-                </div>
-              }
-              placeholder={placeholder}
-            />
+                }
+                placeholder={placeholder}
+              />
+            </div>
             <MarkdownShortcutPlugin />
             <CodeHighlightPlugin />
             <ListPlugin />
@@ -204,6 +213,9 @@ export default function Editor(): JSX.Element {
           </>
         ) : (
           <>
+            <div className="toc">
+              <TableOfContentsPlugin />
+            </div>
             <PlainTextPlugin
               contentEditable={<ContentEditable />}
               placeholder={placeholder}
@@ -215,10 +227,8 @@ export default function Editor(): JSX.Element {
           <CharacterLimitPlugin charset={isCharLimit ? 'UTF-16' : 'UTF-8'} />
         )}
         {/* {isAutocomplete && <AutocompletePlugin />} */}
-        <div>{showTableOfContents && <TableOfContentsPlugin />}</div>
-        <div className="toc">
-          {showTableOfContents && <TableOfContentsPlugin />}
-        </div>
+        {/* <div>{showTableOfContents && <TableOfContentsPlugin />}</div> */}
+
         {isDev && <ActionsPlugin isRichText={isRichText} />}
       </div>
       {isDev && showTreeView && <TreeViewPlugin />}

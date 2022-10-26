@@ -171,8 +171,8 @@ function TableOfContentsList({
                       selectedKey === key ? 'selected-heading' : ''
                     }
                     `}>
-                    {('' + text).length > 27
-                      ? text.substring(0, 27) + '...'
+                    {('' + text).length > 15
+                      ? text.substring(0, 15) + '...'
                       : text}
                   </li>
                 </div>

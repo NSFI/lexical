@@ -91,7 +91,7 @@ import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 import {INSERT_POLL_COMMAND} from '../PollPlugin';
 import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
 import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
-import {getFileSize,getFileSuffix} from './../../utils/file';
+import {getFileSize, getFileSuffix} from './../../utils/file';
 import {post, postFile} from './../../utils/request';
 
 function getCodeLanguageOptions(): [string, string][] {
@@ -1057,142 +1057,149 @@ export default function ToolbarPlugin(): JSX.Element {
   };
 
   return (
-    <div className="toolbar">
-      <button
-        disabled={!canUndo}
-        onClick={() => {
-          activeEditor.dispatchCommand(UNDO_COMMAND, undefined);
-        }}
-        title={IS_APPLE ? `${locale.undo} (⌘Z)` : `${locale.undo} (Ctrl+Z)`}
-        className="toolbar-item spaced"
-        aria-label="Undo">
-        <i className="format undo" />
-      </button>
-      <button
-        disabled={!canRedo}
-        onClick={() => {
-          activeEditor.dispatchCommand(REDO_COMMAND, undefined);
-        }}
-        title={IS_APPLE ? `${locale.redo} (⌘Y)` : `${locale.redo} (Ctrl+Y)`}
-        className="toolbar-item"
-        aria-label="Redo">
-        <i className="format redo" />
-      </button>
-      <button
-        onClick={clearFormatting}
-        title={
-          IS_APPLE
-            ? `${locale.clearFormatting} (⌘\\)`
-            : `${locale.clearFormatting} (Ctrl+\\)`
-        }
-        className="toolbar-item"
-        aria-label="Clear all text formatting">
-        <i className="icon clear" />
-      </button>
-      <Divider />
-      {blockType === 'code' ? (
-        <>
-          <DropDown
-            buttonClassName="toolbar-item code-language"
-            buttonLabel={getLanguageFriendlyName(codeLanguage)}
-            buttonAriaLabel="Select language">
-            {CODE_LANGUAGE_OPTIONS.map(([value, name]) => {
-              return (
-                <DropDownItem
-                  className={`item ${dropDownActiveClass(
-                    value === codeLanguage,
-                  )}`}
-                  onClick={() => onCodeLanguageSelect(value)}
-                  key={value}>
-                  <span className="text">{name}</span>
-                </DropDownItem>
-              );
-            })}
-          </DropDown>
-        </>
-      ) : (
-        <>
-          <InsertDropDown
-            locale={locale}
-            blockType={blockType}
-            editor={editor}
-            showModal={showModal}
-            isLink={isLink}
-          />
-          <Divider />
-          {blockType in blockTypeToBlockName && activeEditor === editor && (
-            <>
-              <BlockFormatDropDown blockType={blockType} editor={editor} />
-              <Divider />
-            </>
-          )}
-          <FontDropDown
-            style={'font-family'}
-            value={fontFamily}
-            editor={editor}
-          />
-          <FontDropDown style={'font-size'} value={fontSize} editor={editor} />
-          <Divider />
-          <button
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
-            }}
-            className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
-            title={IS_APPLE ? `${locale.bold} (⌘B)` : `${locale.bold} (Ctrl+B)`}
-            aria-label={`Format text as bold. Shortcut: ${
-              IS_APPLE ? '⌘B' : 'Ctrl+B'
-            }`}>
-            <i className="format bold" />
-          </button>
-          <button
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
-            }}
-            className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
-            title={
-              IS_APPLE ? `${locale.italic} (⌘I)` : `${locale.italic} (Ctrl+I)`
-            }
-            aria-label={`Format text as italics. Shortcut: ${
-              IS_APPLE ? '⌘I' : 'Ctrl+I'
-            }`}>
-            <i className="format italic" />
-          </button>
-          <button
-            onClick={() => {
-              activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
-            }}
-            className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
-            title={
-              IS_APPLE
-                ? `${locale.underline} (⌘U)`
-                : `${locale.underline} (Ctrl+U)`
-            }
-            aria-label={`Format text to underlined. Shortcut: ${
-              IS_APPLE ? '⌘U' : 'Ctrl+U'
-            }`}>
-            <i className="format underline" />
-          </button>
-          <button
-            onClick={() => {
-              activeEditor.dispatchCommand(
-                FORMAT_TEXT_COMMAND,
-                'strikethrough',
-              );
-            }}
-            className={
-              'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')
-            }
-            title={
-              IS_APPLE
-                ? `${locale.strikethrough} (⌘⇧S)`
-                : `${locale.strikethrough} (Ctrl+Shift+S)`
-            }
-            aria-label={`Format text to strikethrough. Shortcut: ${
-              IS_APPLE ? '⌘+⇧+S' : 'Ctrl+Shift+S'
-            }`}>
-            <i className="format strikethrough" />
-          </button>
-          {/* <button
+    <div className="toolbar-container">
+      <div className="toolbar">
+        <button
+          disabled={!canUndo}
+          onClick={() => {
+            activeEditor.dispatchCommand(UNDO_COMMAND, undefined);
+          }}
+          title={IS_APPLE ? `${locale.undo} (⌘Z)` : `${locale.undo} (Ctrl+Z)`}
+          className="toolbar-item spaced"
+          aria-label="Undo">
+          <i className="format undo" />
+        </button>
+        <button
+          disabled={!canRedo}
+          onClick={() => {
+            activeEditor.dispatchCommand(REDO_COMMAND, undefined);
+          }}
+          title={IS_APPLE ? `${locale.redo} (⌘Y)` : `${locale.redo} (Ctrl+Y)`}
+          className="toolbar-item"
+          aria-label="Redo">
+          <i className="format redo" />
+        </button>
+        <button
+          onClick={clearFormatting}
+          title={
+            IS_APPLE
+              ? `${locale.clearFormatting} (⌘\\)`
+              : `${locale.clearFormatting} (Ctrl+\\)`
+          }
+          className="toolbar-item"
+          aria-label="Clear all text formatting">
+          <i className="icon clear" />
+        </button>
+        <Divider />
+        {blockType === 'code' ? (
+          <>
+            <DropDown
+              buttonClassName="toolbar-item code-language"
+              buttonLabel={getLanguageFriendlyName(codeLanguage)}
+              buttonAriaLabel="Select language">
+              {CODE_LANGUAGE_OPTIONS.map(([value, name]) => {
+                return (
+                  <DropDownItem
+                    className={`item ${dropDownActiveClass(
+                      value === codeLanguage,
+                    )}`}
+                    onClick={() => onCodeLanguageSelect(value)}
+                    key={value}>
+                    <span className="text">{name}</span>
+                  </DropDownItem>
+                );
+              })}
+            </DropDown>
+          </>
+        ) : (
+          <>
+            <InsertDropDown
+              locale={locale}
+              blockType={blockType}
+              editor={editor}
+              showModal={showModal}
+              isLink={isLink}
+            />
+            <Divider />
+            {blockType in blockTypeToBlockName && activeEditor === editor && (
+              <>
+                <BlockFormatDropDown blockType={blockType} editor={editor} />
+                <Divider />
+              </>
+            )}
+            <FontDropDown
+              style={'font-family'}
+              value={fontFamily}
+              editor={editor}
+            />
+            <FontDropDown
+              style={'font-size'}
+              value={fontSize}
+              editor={editor}
+            />
+            <Divider />
+            <button
+              onClick={() => {
+                activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
+              }}
+              className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
+              title={
+                IS_APPLE ? `${locale.bold} (⌘B)` : `${locale.bold} (Ctrl+B)`
+              }
+              aria-label={`Format text as bold. Shortcut: ${
+                IS_APPLE ? '⌘B' : 'Ctrl+B'
+              }`}>
+              <i className="format bold" />
+            </button>
+            <button
+              onClick={() => {
+                activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
+              }}
+              className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
+              title={
+                IS_APPLE ? `${locale.italic} (⌘I)` : `${locale.italic} (Ctrl+I)`
+              }
+              aria-label={`Format text as italics. Shortcut: ${
+                IS_APPLE ? '⌘I' : 'Ctrl+I'
+              }`}>
+              <i className="format italic" />
+            </button>
+            <button
+              onClick={() => {
+                activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
+              }}
+              className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
+              title={
+                IS_APPLE
+                  ? `${locale.underline} (⌘U)`
+                  : `${locale.underline} (Ctrl+U)`
+              }
+              aria-label={`Format text to underlined. Shortcut: ${
+                IS_APPLE ? '⌘U' : 'Ctrl+U'
+              }`}>
+              <i className="format underline" />
+            </button>
+            <button
+              onClick={() => {
+                activeEditor.dispatchCommand(
+                  FORMAT_TEXT_COMMAND,
+                  'strikethrough',
+                );
+              }}
+              className={
+                'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')
+              }
+              title={
+                IS_APPLE
+                  ? `${locale.strikethrough} (⌘⇧S)`
+                  : `${locale.strikethrough} (Ctrl+Shift+S)`
+              }
+              aria-label={`Format text to strikethrough. Shortcut: ${
+                IS_APPLE ? '⌘+⇧+S' : 'Ctrl+Shift+S'
+              }`}>
+              <i className="format strikethrough" />
+            </button>
+            {/* <button
             onClick={() => {
               activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
             }}
@@ -1201,30 +1208,30 @@ export default function ToolbarPlugin(): JSX.Element {
             aria-label="Insert code block">
             <i className="format code" />
           </button> */}
-          <button
-            onClick={insertLink}
-            className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
-            aria-label="Insert link"
-            title={locale.insertLink}>
-            <i className="format link" />
-          </button>
-          <ColorPicker
-            buttonClassName="toolbar-item color-picker"
-            buttonAriaLabel="Formatting text color"
-            buttonIconClassName="icon font-color"
-            color={fontColor}
-            onChange={onFontColorSelect}
-            title={locale.textColor}
-          />
-          <ColorPicker
-            buttonClassName="toolbar-item color-picker"
-            buttonAriaLabel="Formatting background color"
-            buttonIconClassName="icon bg-color"
-            color={bgColor}
-            onChange={onBgColorSelect}
-            title={locale.bgColor}
-          />
-          {/* <DropDown
+            <button
+              onClick={insertLink}
+              className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
+              aria-label="Insert link"
+              title={locale.insertLink}>
+              <i className="format link" />
+            </button>
+            <ColorPicker
+              buttonClassName="toolbar-item color-picker"
+              buttonAriaLabel="Formatting text color"
+              buttonIconClassName="icon font-color"
+              color={fontColor}
+              onChange={onFontColorSelect}
+              title={locale.textColor}
+            />
+            <ColorPicker
+              buttonClassName="toolbar-item color-picker"
+              buttonAriaLabel="Formatting background color"
+              buttonIconClassName="icon bg-color"
+              color={bgColor}
+              onChange={onBgColorSelect}
+              title={locale.bgColor}
+            />
+            {/* <DropDown
             buttonClassName="toolbar-item spaced"
             buttonLabel=""
             buttonAriaLabel="Formatting options for additional text styles"
@@ -1274,139 +1281,142 @@ export default function ToolbarPlugin(): JSX.Element {
               <span className="text">{locale.clearFormatting}</span>
             </DropDownItem>
           </DropDown> */}
-          <Divider />
-          <button
-            onClick={formatBulletList}
-            className={
-              'toolbar-item spaced ' + (blockType === 'bullet' ? 'active' : '')
-            }
-            title={
-              IS_APPLE
-                ? `${blockTypeToBlockName.bullet} (⌘+⌥+U)`
-                : `${blockTypeToBlockName.bullet} (Ctrl+Alt+U)`
-            }
-            aria-label={`Format text to bullet. Shortcut: ${
-              IS_APPLE ? '⌘U' : 'Ctrl+U'
-            }`}>
-            <i className="format bullet" />
-          </button>
-          <button
-            onClick={formatNumberedList}
-            className={
-              'toolbar-item spaced ' + (blockType === 'number' ? 'active' : '')
-            }
-            title={
-              IS_APPLE
-                ? `${blockTypeToBlockName.number} (⌘+⌥+O)`
-                : `${blockTypeToBlockName.number} (Ctrl+Alt+O)`
-            }
-            aria-label={`Format text to bullet. Shortcut: ${
-              IS_APPLE ? '⌘+⌥+O' : 'Ctrl+Alt+O'
-            }`}>
-            <i className="format number" />
-          </button>
-          <button
-            onClick={formatCheckList}
-            className={
-              'toolbar-item spaced ' + (blockType === 'check' ? 'active' : '')
-            }
-            title={
-              IS_APPLE
-                ? `${blockTypeToBlockName.check} (⌘+⌥+X)`
-                : `${blockTypeToBlockName.check} (Ctrl+Alt+X)`
-            }
-            aria-label={`Format text to bullet. Shortcut: ${
-              IS_APPLE ? '⌘+⌥+X' : 'Ctrl+Alt+X'
-            }`}>
-            <i className="format check" />
-          </button>
-        </>
-      )}
-      <Divider />
-      <DropDown
-        // buttonLabel={locale.align}
-        buttonIconClassName="icon left-align"
-        buttonClassName="toolbar-item spaced alignment"
-        buttonAriaLabel="Formatting options for text alignment">
-        <DropDownItem
-          onClick={() => {
-            activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
-          }}
-          className={`item ${dropDownActiveClass(
-            formatType === 'left' || formatType === '',
-          )}`}>
-          <i className="icon left-align" />
-          <span className="text">{locale.leftAlign}</span>
-        </DropDownItem>
-        <DropDownItem
-          onClick={() => {
-            activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
-          }}
-          className={`item ${dropDownActiveClass(formatType === 'center')}`}>
-          <i className="icon center-align" />
-          <span className="text">{locale.centerAlign}</span>
-        </DropDownItem>
-        <DropDownItem
-          onClick={() => {
-            activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
-          }}
-          className={`item ${dropDownActiveClass(formatType === 'right')}`}>
-          <i className="icon right-align" />
-          <span className="text">{locale.rightAlign}</span>
-        </DropDownItem>
-        <DropDownItem
-          onClick={() => {
-            activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
-          }}
-          className={`item ${dropDownActiveClass(formatType === 'justify')}`}>
-          <i className="icon justify-align" />
-          <span className="text">{locale.justifyAlign}</span>
-        </DropDownItem>
-      </DropDown>
-      <DropDown
-        // buttonLabel={locale.indentation}
-        buttonIconClassName="icon indent"
-        buttonClassName="toolbar-item spaced indentation"
-        buttonAriaLabel="Formatting options for text indentation">
-        <DropDownItem
-          onClick={() => {
-            activeEditor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined);
-          }}
-          className="item">
-          <i className={'icon ' + (isRTL ? 'outdent' : 'indent')} />
-          <span className="text">{locale.indent}</span>
-        </DropDownItem>
-        <DropDownItem
-          onClick={() => {
-            activeEditor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined);
-          }}
-          className="item">
-          <i className={'icon ' + (isRTL ? 'indent' : 'outdent')} />
-          <span className="text">{locale.outdent}</span>
-        </DropDownItem>
-      </DropDown>
-      <input
-        id="yseditor-imageInput"
-        type="file"
-        accept="image/*"
-        onChange={onLoadImage}
-        hidden={true}
-      />
-      <input
-        id="yseditor-videoInput"
-        type="file"
-        accept="video/*"
-        onChange={onLoadVideo}
-        hidden={true}
-      />
-      <input
-        id="yseditor-attachmentInput"
-        type="file"
-        accept="*"
-        onChange={onLoadAttachment}
-        hidden={true}
-      />
-      {modal}
+            <Divider />
+            <button
+              onClick={formatBulletList}
+              className={
+                'toolbar-item spaced ' +
+                (blockType === 'bullet' ? 'active' : '')
+              }
+              title={
+                IS_APPLE
+                  ? `${blockTypeToBlockName.bullet} (⌘+⌥+U)`
+                  : `${blockTypeToBlockName.bullet} (Ctrl+Alt+U)`
+              }
+              aria-label={`Format text to bullet. Shortcut: ${
+                IS_APPLE ? '⌘U' : 'Ctrl+U'
+              }`}>
+              <i className="format bullet" />
+            </button>
+            <button
+              onClick={formatNumberedList}
+              className={
+                'toolbar-item spaced ' +
+                (blockType === 'number' ? 'active' : '')
+              }
+              title={
+                IS_APPLE
+                  ? `${blockTypeToBlockName.number} (⌘+⌥+O)`
+                  : `${blockTypeToBlockName.number} (Ctrl+Alt+O)`
+              }
+              aria-label={`Format text to bullet. Shortcut: ${
+                IS_APPLE ? '⌘+⌥+O' : 'Ctrl+Alt+O'
+              }`}>
+              <i className="format number" />
+            </button>
+            <button
+              onClick={formatCheckList}
+              className={
+                'toolbar-item spaced ' + (blockType === 'check' ? 'active' : '')
+              }
+              title={
+                IS_APPLE
+                  ? `${blockTypeToBlockName.check} (⌘+⌥+X)`
+                  : `${blockTypeToBlockName.check} (Ctrl+Alt+X)`
+              }
+              aria-label={`Format text to bullet. Shortcut: ${
+                IS_APPLE ? '⌘+⌥+X' : 'Ctrl+Alt+X'
+              }`}>
+              <i className="format check" />
+            </button>
+          </>
+        )}
+        <Divider />
+        <DropDown
+          // buttonLabel={locale.align}
+          buttonIconClassName="icon left-align"
+          buttonClassName="toolbar-item spaced alignment"
+          buttonAriaLabel="Formatting options for text alignment">
+          <DropDownItem
+            onClick={() => {
+              activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
+            }}
+            className={`item ${dropDownActiveClass(
+              formatType === 'left' || formatType === '',
+            )}`}>
+            <i className="icon left-align" />
+            <span className="text">{locale.leftAlign}</span>
+          </DropDownItem>
+          <DropDownItem
+            onClick={() => {
+              activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
+            }}
+            className={`item ${dropDownActiveClass(formatType === 'center')}`}>
+            <i className="icon center-align" />
+            <span className="text">{locale.centerAlign}</span>
+          </DropDownItem>
+          <DropDownItem
+            onClick={() => {
+              activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+            }}
+            className={`item ${dropDownActiveClass(formatType === 'right')}`}>
+            <i className="icon right-align" />
+            <span className="text">{locale.rightAlign}</span>
+          </DropDownItem>
+          <DropDownItem
+            onClick={() => {
+              activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
+            }}
+            className={`item ${dropDownActiveClass(formatType === 'justify')}`}>
+            <i className="icon justify-align" />
+            <span className="text">{locale.justifyAlign}</span>
+          </DropDownItem>
+        </DropDown>
+        <DropDown
+          // buttonLabel={locale.indentation}
+          buttonIconClassName="icon indent"
+          buttonClassName="toolbar-item spaced indentation"
+          buttonAriaLabel="Formatting options for text indentation">
+          <DropDownItem
+            onClick={() => {
+              activeEditor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined);
+            }}
+            className="item">
+            <i className={'icon ' + (isRTL ? 'outdent' : 'indent')} />
+            <span className="text">{locale.indent}</span>
+          </DropDownItem>
+          <DropDownItem
+            onClick={() => {
+              activeEditor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined);
+            }}
+            className="item">
+            <i className={'icon ' + (isRTL ? 'indent' : 'outdent')} />
+            <span className="text">{locale.outdent}</span>
+          </DropDownItem>
+        </DropDown>
+        <input
+          id="yseditor-imageInput"
+          type="file"
+          accept="image/*"
+          onChange={onLoadImage}
+          hidden={true}
+        />
+        <input
+          id="yseditor-videoInput"
+          type="file"
+          accept="video/*"
+          onChange={onLoadVideo}
+          hidden={true}
+        />
+        <input
+          id="yseditor-attachmentInput"
+          type="file"
+          accept="*"
+          onChange={onLoadAttachment}
+          hidden={true}
+        />
+        {modal}
+      </div>
     </div>
   );
 }

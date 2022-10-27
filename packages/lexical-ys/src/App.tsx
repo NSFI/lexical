@@ -33,7 +33,7 @@ import Settings from './Settings';
 import YsEditorTheme from './themes/YsEditorTheme';
 
 interface YsEditorProps {
-  onChange: (jsonValue: any, htmlValue: string) => void;
+  onChange?: (jsonValue: any, htmlValue: string) => void;
   tocHeight?: string;
   initValue?: any;
 }
@@ -57,9 +57,9 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
     (editorState, editor) => {
       editorState.read(() => {
         const jsonValue = editorState.toJSON();
-        console.log('jsonValue', jsonValue);
         const htmlString = $generateHtmlFromNodes(editor, null);
-        onChange(jsonValue, htmlString);
+        // eslint-disable-next-line no-unused-expressions
+        onChange && onChange(jsonValue, htmlString);
       });
     },
     [onChange],

@@ -112,7 +112,7 @@ export function BlockFormatDropDown({
 
   const blockNameList = ['paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
   const showType = blockNameList.includes(blockType) ? blockType : 'paragraph';
-
+  //TODO:
   return (
     <DropDown
       buttonClassName={`${toolbarItemCls} block-controls`}
@@ -124,7 +124,7 @@ export function BlockFormatDropDown({
           key={blockName}
           className={'item ' + dropDownActiveClass(blockType === blockName)}
           onClick={() => formatBlockByName(blockName)}>
-          <i className={`icon ${blockName}`} />
+          <i className={`iconfont icon-type-${blockName}`} />
           <span className="text">{blockTypeToBlockName[blockName]}</span>
         </DropDownItem>
       ))}

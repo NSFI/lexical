@@ -406,6 +406,7 @@ function FontDropDown({
     (option: string) => {
       editor.update(() => {
         const selection = $getSelection();
+        console.log('option', option);
         if ($isRangeSelection(selection)) {
           if (option !== '') {
             $patchStyleText(selection, {
@@ -428,7 +429,7 @@ function FontDropDown({
       buttonClassName={'toolbar-item ' + style}
       buttonLabel={value}
       buttonIconClassName={
-        style === 'font-family' ? 'icon block-type font-family' : ''
+        style === 'font-family' ? 'iconfont icon-font-family' : ''
       }
       buttonAriaLabel={buttonAriaLabel}>
       {(style === 'font-family' ? FONT_FAMILY_OPTIONS : FONT_SIZE_OPTIONS).map(
@@ -522,7 +523,7 @@ function InsertDropDown({
       buttonClassName="toolbar-item spaced"
       buttonLabel={locale.insert}
       buttonAriaLabel="Insert specialized editor node"
-      buttonIconClassName="icon plus">
+      buttonIconClassName="iconfont icon-plus">
       <DropDownItem
         // onClick={() => {
         //   showModal('Insert Image', (onClose) => (
@@ -531,16 +532,16 @@ function InsertDropDown({
         // }}
         onClick={onUploadImageClick}
         className="item">
-        <i className="icon image" />
+        <i className="iconfont icon-file-image1" />
         <span className="text">{locale.image}</span>
       </DropDownItem>
 
       <DropDownItem onClick={onUploadVideoClick} className="item">
-        <i className="icon horizontal-rule" />
+        <i className="iconfont icon-file-video1" />
         <span className="text">{locale.video}</span>
       </DropDownItem>
       <DropDownItem onClick={onUploadAttachmentClick} className="item">
-        <i className="icon horizontal-rule" />
+        <i className="iconfont icon-fujian" />
         <span className="text">{locale.attachment}</span>
       </DropDownItem>
       {/* <DropDownItem
@@ -572,7 +573,7 @@ function InsertDropDown({
           ));
         }}
         className="item">
-        <i className="icon table" />
+        <i className="iconfont icon-table" />
         <span className="text">{locale.table}</span>
       </DropDownItem>
       <DropDownItem
@@ -585,13 +586,13 @@ function InsertDropDown({
           ));
         }}
         className="item">
-        <i className="icon table" />
+        <i className="iconfont icon-table" />
         <span className="text">{locale.tableExperimental}</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'code')}
         onClick={formatCode}>
-        <i className="icon code" />
+        <i className="iconfont icon-code" />
         <span className="text">{locale.blockTypeToBlockName.code}</span>
       </DropDownItem>
       <DropDownItem
@@ -602,13 +603,13 @@ function InsertDropDown({
           );
         }}
         className="item">
-        <i className="icon horizontal-rule" />
+        <i className="iconfont icon-horizontal-rule" />
         <span className="text">{locale.horizontalRule}</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'quote')}
         onClick={formatQuote}>
-        <i className="icon quote" />
+        <i className="iconfont icon-chat-square-quote" />
         <span className="text">{locale.blockTypeToBlockName.quote}</span>
       </DropDownItem>
       {/* <DropDownItem
@@ -732,6 +733,7 @@ export default function ToolbarPlugin(): JSX.Element {
     return returned;
   }, []);
   const setFontSizeByText = (text: string) => {
+    console.log('text', text);
     const fontSizeByText = fontSizeObject[text] || DEFAULT_FONT_SIZE;
     setFontSize(fontSizeByText);
   };
@@ -1067,7 +1069,7 @@ export default function ToolbarPlugin(): JSX.Element {
           title={IS_APPLE ? `${locale.undo} (⌘Z)` : `${locale.undo} (Ctrl+Z)`}
           className="toolbar-item spaced"
           aria-label="Undo">
-          <i className="format undo" />
+          <i className="iconfont icon-arrow-counterclockwise" />
         </button>
         <button
           disabled={!canRedo}
@@ -1077,7 +1079,7 @@ export default function ToolbarPlugin(): JSX.Element {
           title={IS_APPLE ? `${locale.redo} (⌘Y)` : `${locale.redo} (Ctrl+Y)`}
           className="toolbar-item"
           aria-label="Redo">
-          <i className="format redo" />
+          <i className="iconfont icon-arrow-clockwise" />
         </button>
         <button
           onClick={clearFormatting}
@@ -1088,7 +1090,7 @@ export default function ToolbarPlugin(): JSX.Element {
           }
           className="toolbar-item"
           aria-label="Clear all text formatting">
-          <i className="icon clear" />
+          <i className="iconfont icon-trash" />
         </button>
         <Divider />
         {blockType === 'code' ? (
@@ -1149,7 +1151,7 @@ export default function ToolbarPlugin(): JSX.Element {
               aria-label={`Format text as bold. Shortcut: ${
                 IS_APPLE ? '⌘B' : 'Ctrl+B'
               }`}>
-              <i className="format bold" />
+              <i className="iconfont icon-type-bold" />
             </button>
             <button
               onClick={() => {
@@ -1162,7 +1164,7 @@ export default function ToolbarPlugin(): JSX.Element {
               aria-label={`Format text as italics. Shortcut: ${
                 IS_APPLE ? '⌘I' : 'Ctrl+I'
               }`}>
-              <i className="format italic" />
+              <i className="iconfont icon-type-italic" />
             </button>
             <button
               onClick={() => {
@@ -1177,7 +1179,7 @@ export default function ToolbarPlugin(): JSX.Element {
               aria-label={`Format text to underlined. Shortcut: ${
                 IS_APPLE ? '⌘U' : 'Ctrl+U'
               }`}>
-              <i className="format underline" />
+              <i className="iconfont icon-type-underline" />
             </button>
             <button
               onClick={() => {
@@ -1197,7 +1199,7 @@ export default function ToolbarPlugin(): JSX.Element {
               aria-label={`Format text to strikethrough. Shortcut: ${
                 IS_APPLE ? '⌘+⇧+S' : 'Ctrl+Shift+S'
               }`}>
-              <i className="format strikethrough" />
+              <i className="iconfont icon-type-strikethrough" />
             </button>
             {/* <button
             onClick={() => {
@@ -1213,12 +1215,12 @@ export default function ToolbarPlugin(): JSX.Element {
               className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
               aria-label="Insert link"
               title={locale.insertLink}>
-              <i className="format link" />
+              <i className="iconfont icon-link" />
             </button>
             <ColorPicker
               buttonClassName="toolbar-item color-picker"
               buttonAriaLabel="Formatting text color"
-              buttonIconClassName="icon font-color"
+              buttonIconClassName="iconfont icon-font-color"
               color={fontColor}
               onChange={onFontColorSelect}
               title={locale.textColor}
@@ -1226,7 +1228,7 @@ export default function ToolbarPlugin(): JSX.Element {
             <ColorPicker
               buttonClassName="toolbar-item color-picker"
               buttonAriaLabel="Formatting background color"
-              buttonIconClassName="icon bg-color"
+              buttonIconClassName="iconfont icon-bg-color"
               color={bgColor}
               onChange={onBgColorSelect}
               title={locale.bgColor}
@@ -1277,7 +1279,7 @@ export default function ToolbarPlugin(): JSX.Element {
               className="item"
               title={locale.clearFormatting}
               aria-label="Clear all text formatting">
-              <i className="icon clear" />
+              <i className="iconfont icon-trash" />
               <span className="text">{locale.clearFormatting}</span>
             </DropDownItem>
           </DropDown> */}
@@ -1296,7 +1298,7 @@ export default function ToolbarPlugin(): JSX.Element {
               aria-label={`Format text to bullet. Shortcut: ${
                 IS_APPLE ? '⌘U' : 'Ctrl+U'
               }`}>
-              <i className="format bullet" />
+              <i className="iconfont icon-list-ul" />
             </button>
             <button
               onClick={formatNumberedList}
@@ -1312,7 +1314,7 @@ export default function ToolbarPlugin(): JSX.Element {
               aria-label={`Format text to bullet. Shortcut: ${
                 IS_APPLE ? '⌘+⌥+O' : 'Ctrl+Alt+O'
               }`}>
-              <i className="format number" />
+              <i className="iconfont icon-list-ol" />
             </button>
             <button
               onClick={formatCheckList}
@@ -1327,14 +1329,14 @@ export default function ToolbarPlugin(): JSX.Element {
               aria-label={`Format text to bullet. Shortcut: ${
                 IS_APPLE ? '⌘+⌥+X' : 'Ctrl+Alt+X'
               }`}>
-              <i className="format check" />
+              <i className="iconfont icon-square-check" />
             </button>
           </>
         )}
         <Divider />
         <DropDown
           // buttonLabel={locale.align}
-          buttonIconClassName="icon left-align"
+          buttonIconClassName="iconfont icon-text-left"
           buttonClassName="toolbar-item spaced alignment"
           buttonAriaLabel="Formatting options for text alignment">
           <DropDownItem
@@ -1344,7 +1346,7 @@ export default function ToolbarPlugin(): JSX.Element {
             className={`item ${dropDownActiveClass(
               formatType === 'left' || formatType === '',
             )}`}>
-            <i className="icon left-align" />
+            <i className="iconfont icon-text-left" />
             <span className="text">{locale.leftAlign}</span>
           </DropDownItem>
           <DropDownItem
@@ -1352,7 +1354,7 @@ export default function ToolbarPlugin(): JSX.Element {
               activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
             }}
             className={`item ${dropDownActiveClass(formatType === 'center')}`}>
-            <i className="icon center-align" />
+            <i className="iconfont icon-text-center" />
             <span className="text">{locale.centerAlign}</span>
           </DropDownItem>
           <DropDownItem
@@ -1360,7 +1362,7 @@ export default function ToolbarPlugin(): JSX.Element {
               activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
             }}
             className={`item ${dropDownActiveClass(formatType === 'right')}`}>
-            <i className="icon right-align" />
+            <i className="iconfont icon-text-right" />
             <span className="text">{locale.rightAlign}</span>
           </DropDownItem>
           <DropDownItem
@@ -1368,13 +1370,13 @@ export default function ToolbarPlugin(): JSX.Element {
               activeEditor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
             }}
             className={`item ${dropDownActiveClass(formatType === 'justify')}`}>
-            <i className="icon justify-align" />
+            <i className="iconfont icon-justify" />
             <span className="text">{locale.justifyAlign}</span>
           </DropDownItem>
         </DropDown>
         <DropDown
           // buttonLabel={locale.indentation}
-          buttonIconClassName="icon indent"
+          buttonIconClassName="iconfont icon-indent"
           buttonClassName="toolbar-item spaced indentation"
           buttonAriaLabel="Formatting options for text indentation">
           <DropDownItem
@@ -1382,7 +1384,9 @@ export default function ToolbarPlugin(): JSX.Element {
               activeEditor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined);
             }}
             className="item">
-            <i className={'icon ' + (isRTL ? 'outdent' : 'indent')} />
+            <i
+              className={'iconfont ' + (isRTL ? 'icon-outdent' : 'icon-indent')}
+            />
             <span className="text">{locale.indent}</span>
           </DropDownItem>
           <DropDownItem
@@ -1390,7 +1394,9 @@ export default function ToolbarPlugin(): JSX.Element {
               activeEditor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined);
             }}
             className="item">
-            <i className={'icon ' + (isRTL ? 'indent' : 'outdent')} />
+            <i
+              className={'iconfont ' + (isRTL ? 'icon-indent' : 'icon-outdent')}
+            />
             <span className="text">{locale.outdent}</span>
           </DropDownItem>
         </DropDown>

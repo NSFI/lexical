@@ -12,7 +12,7 @@ import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
 } from '@lexical/list';
-import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin';
+// import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {INSERT_HORIZONTAL_RULE_COMMAND} from '@lexical/react/LexicalHorizontalRuleNode';
 import {
@@ -35,16 +35,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import useModal from '../../hooks/useModal';
-import catTypingGif from '../../images/cat-typing.gif';
-import {EmbedConfigs} from '../AutoEmbedPlugin';
-import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
-import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
-import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
+// import catTypingGif from '../../images/cat-typing.gif';
+// import {EmbedConfigs} from '../AutoEmbedPlugin';
+// import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
+// import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
+// import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 // import {INSERT_VIDEO_COMMAND} from '../VIDEOPlugin';
 import {
-  InsertEquationDialog,
+  // InsertEquationDialog,
   InsertImageDialog,
-  InsertPollDialog,
+  // InsertPollDialog,
   InsertTableDialog,
 } from '../ToolbarPlugin';
 
@@ -141,7 +141,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
       options.push(
         new ComponentPickerOption(`${rows}x${columns} Table`, {
-          icon: <i className="icon table" />,
+          icon: <i className="iconfont icon-table" />,
           keywords: ['table'],
           onSelect: () =>
             // @ts-ignore Correct types, but since they're dynamic TS doesn't like it.
@@ -155,7 +155,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         ...Array.from({length: 5}, (_, i) => i + 1).map(
           (columns) =>
             new ComponentPickerOption(`${rows}x${columns} Table`, {
-              icon: <i className="icon table" />,
+              icon: <i className="iconfont icon-table" />,
               keywords: ['table'],
               onSelect: () =>
                 // @ts-ignore Correct types, but since they're dynamic TS doesn't like it.
@@ -171,7 +171,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
   const options = useMemo(() => {
     const baseOptions = [
       new ComponentPickerOption('Paragraph', {
-        icon: <i className="icon paragraph" />,
+        icon: <i className="iconfont icon-type-paragraph" />,
         keywords: ['normal', 'paragraph', 'p', 'text'],
         onSelect: () =>
           editor.update(() => {
@@ -181,10 +181,10 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             }
           }),
       }),
-      ...Array.from({length: 3}, (_, i) => i + 1).map(
+      ...Array.from({length: 6}, (_, i) => i + 1).map(
         (n) =>
           new ComponentPickerOption(`Heading ${n}`, {
-            icon: <i className={`icon h${n}`} />,
+            icon: <i className={`iconfont icon-type-h${n}`} />,
             keywords: ['heading', 'header', `h${n}`],
             onSelect: () =>
               editor.update(() => {
@@ -199,7 +199,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           }),
       ),
       new ComponentPickerOption('Table', {
-        icon: <i className="icon table" />,
+        icon: <i className="iconfont icon-table" />,
         keywords: ['table', 'grid', 'spreadsheet', 'rows', 'columns'],
         onSelect: () =>
           showModal('Insert Table', (onClose) => (
@@ -207,25 +207,25 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           )),
       }),
       new ComponentPickerOption('Numbered List', {
-        icon: <i className="icon number" />,
+        icon: <i className="iconfont icon-list-ol" />,
         keywords: ['numbered list', 'ordered list', 'ol'],
         onSelect: () =>
           editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined),
       }),
       new ComponentPickerOption('Bulleted List', {
-        icon: <i className="icon bullet" />,
+        icon: <i className="iconfont icon-list-ul" />,
         keywords: ['bulleted list', 'unordered list', 'ul'],
         onSelect: () =>
           editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined),
       }),
       new ComponentPickerOption('Check List', {
-        icon: <i className="icon check" />,
+        icon: <i className="iconfont icon-square-check" />,
         keywords: ['check list', 'todo list'],
         onSelect: () =>
           editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined),
       }),
       new ComponentPickerOption('Quote', {
-        icon: <i className="icon quote" />,
+        icon: <i className="iconfont icon-chat-square-quote" />,
         keywords: ['block quote'],
         onSelect: () =>
           editor.update(() => {
@@ -236,7 +236,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           }),
       }),
       new ComponentPickerOption('Code', {
-        icon: <i className="icon code" />,
+        icon: <i className="iconfont icon-code" />,
         keywords: ['javascript', 'python', 'js', 'codeblock'],
         onSelect: () =>
           editor.update(() => {
@@ -256,53 +256,54 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           }),
       }),
       new ComponentPickerOption('Divider', {
-        icon: <i className="icon horizontal-rule" />,
+        icon: <i className="iconfont icon-horizontal-rule" />,
         keywords: ['horizontal rule', 'divider', 'hr'],
         onSelect: () =>
           editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Excalidraw', {
-        icon: <i className="icon diagram-2" />,
-        keywords: ['excalidraw', 'diagram', 'drawing'],
-        onSelect: () =>
-          editor.dispatchCommand(INSERT_EXCALIDRAW_COMMAND, undefined),
-      }),
-      new ComponentPickerOption('Poll', {
-        icon: <i className="icon poll" />,
-        keywords: ['poll', 'vote'],
-        onSelect: () =>
-          showModal('Insert Poll', (onClose) => (
-            <InsertPollDialog activeEditor={editor} onClose={onClose} />
-          )),
-      }),
-      ...EmbedConfigs.map(
-        (embedConfig) =>
-          new ComponentPickerOption(`Embed ${embedConfig.contentName}`, {
-            icon: embedConfig.icon,
-            keywords: [...embedConfig.keywords, 'embed'],
-            onSelect: () =>
-              editor.dispatchCommand(INSERT_EMBED_COMMAND, embedConfig.type),
-          }),
-      ),
-      new ComponentPickerOption('Equation', {
-        icon: <i className="icon equation" />,
-        keywords: ['equation', 'latex', 'math'],
-        onSelect: () =>
-          showModal('Insert Equation', (onClose) => (
-            <InsertEquationDialog activeEditor={editor} onClose={onClose} />
-          )),
-      }),
-      new ComponentPickerOption('GIF', {
-        icon: <i className="icon gif" />,
-        keywords: ['gif', 'animate', 'image', 'file'],
-        onSelect: () =>
-          editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-            altText: 'Cat typing on a laptop',
-            src: catTypingGif,
-          }),
-      }),
+      // new ComponentPickerOption('Excalidraw', {
+      //   icon: <i className="icon diagram-2" />,
+      //   keywords: ['excalidraw', 'diagram', 'drawing'],
+      //   onSelect: () =>
+      //     editor.dispatchCommand(INSERT_EXCALIDRAW_COMMAND, undefined),
+      // }),
+      // new ComponentPickerOption('Poll', {
+      //   icon: <i className="icon poll" />,
+      //   keywords: ['poll', 'vote'],
+      //   onSelect: () =>
+      //     showModal('Insert Poll', (onClose) => (
+      //       <InsertPollDialog activeEditor={editor} onClose={onClose} />
+      //     )),
+      // }),
+      // ...EmbedConfigs.map(
+      //   (embedConfig) =>
+      //     new ComponentPickerOption(`Embed ${embedConfig.contentName}`, {
+      //       icon: embedConfig.icon,
+      //       keywords: [...embedConfig.keywords, 'embed'],
+      //       onSelect: () =>
+      //         editor.dispatchCommand(INSERT_EMBED_COMMAND, embedConfig.type),
+      //     }),
+      // ),
+      // new ComponentPickerOption('Equation', {
+      //   icon: <i className="icon equation" />,
+      //   keywords: ['equation', 'latex', 'math'],
+      //   onSelect: () =>
+      //     showModal('Insert Equation', (onClose) => (
+      //       <InsertEquationDialog activeEditor={editor} onClose={onClose} />
+      //     )),
+      // }),
+      // new ComponentPickerOption('GIF', {
+      //   icon: <i className="icon gif" />,
+      //   keywords: ['gif', 'animate', 'image', 'file'],
+      //   onSelect: () =>
+      //     editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+      //       altText: 'Cat typing on a laptop',
+      //       src: catTypingGif,
+      //     }),
+      // }),
+      //TODO:
       new ComponentPickerOption('Image', {
-        icon: <i className="icon image" />,
+        icon: <i className="iconfont icon-file-image1" />,
         keywords: ['image', 'photo', 'picture', 'file'],
         onSelect: () =>
           showModal('Insert Image', (onClose) => (
@@ -318,16 +319,24 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       //     )),
       // }),
       //TODO:
-      new ComponentPickerOption('Collapsible', {
-        icon: <i className="icon caret-right" />,
-        keywords: ['collapse', 'collapsible', 'toggle'],
-        onSelect: () =>
-          editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
-      }),
+      // new ComponentPickerOption('Collapsible', {
+      //   icon: <i className="icon caret-right" />,
+      //   keywords: ['collapse', 'collapsible', 'toggle'],
+      //   onSelect: () =>
+      //     editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
+      // }),
       ...['left', 'center', 'right', 'justify'].map(
         (alignment) =>
           new ComponentPickerOption(`Align ${alignment}`, {
-            icon: <i className={`icon ${alignment}-align`} />,
+            icon: (
+              <i
+                className={`iconfont icon${
+                  ['left', 'right', 'center'].includes(alignment)
+                    ? '-text-'
+                    : '-'
+                }${alignment}`}
+              />
+            ),
             keywords: ['align', 'justify', alignment],
             onSelect: () =>
               // @ts-ignore Correct types, but since they're dynamic TS doesn't like it.

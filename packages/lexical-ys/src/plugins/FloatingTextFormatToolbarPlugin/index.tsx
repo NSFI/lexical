@@ -246,12 +246,12 @@ function TextFormatFloatingToolbar({
             }}
             className={'popup-item spaced ' + (isBold ? 'active' : '')}
             aria-label="Format text as bold">
-            <i className="format bold" />
+            <i className="iconfont icon-type-bold" />
           </button>
           <ColorPicker
             buttonClassName="popup-item color-picker"
             buttonAriaLabel="Formatting text color"
-            buttonIconClassName="icon font-color"
+            buttonIconClassName="iconfont icon-font-color"
             color={fontColor}
             onChange={onFontColorSelect}
             title={locale.textColor}
@@ -259,7 +259,7 @@ function TextFormatFloatingToolbar({
           <ColorPicker
             buttonClassName="popup-item color-picker"
             buttonAriaLabel="Formatting background color"
-            buttonIconClassName="icon bg-color"
+            buttonIconClassName="iconfont icon-bg-color"
             color={bgColor}
             onChange={onBgColorSelect}
             title={locale.bgColor}
@@ -277,7 +277,7 @@ function TextFormatFloatingToolbar({
             aria-label={`Format text to bullet. Shortcut: ${
               IS_APPLE ? '⌘U' : 'Ctrl+U'
             }`}>
-            <i className="format bullet" />
+            <i className="iconfont icon-list-ul" />
           </button>
           <button
             onClick={formatNumberedList}
@@ -292,7 +292,7 @@ function TextFormatFloatingToolbar({
             aria-label={`Format text to bullet. Shortcut: ${
               IS_APPLE ? '⌘+⌥+O' : 'Ctrl+Alt+O'
             }`}>
-            <i className="format number" />
+            <i className="iconfont icon-list-ol" />
           </button>
           {/* <button
             onClick={formatCheckList}
@@ -376,7 +376,7 @@ function TextFormatFloatingToolbar({
             onClick={insertLink}
             className={'popup-item spaced ' + (isLink ? 'active' : '')}
             aria-label="Insert link">
-            <i className="format link" />
+            <i className="iconfont icon-link" />
           </button>
           {/* <button
             onClick={() => {

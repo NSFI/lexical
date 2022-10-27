@@ -51,9 +51,12 @@
 .floating-text-format-popup button.popup-item.active {
   background-color: rgba(0, 127, 255, 0.15);
 }
+.floating-text-format-popup button.popup-item .iconfont {
+  color: #666;
+}
 
-.floating-text-format-popup button.popup-item.active i {
-  opacity: 1;
+.floating-text-format-popup button.popup-item.active .iconfont {
+  color: #000;
 }
 
 .floating-text-format-popup .popup-item:hover:not([disabled]) {

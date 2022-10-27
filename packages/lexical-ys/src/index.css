@@ -7,7 +7,7 @@
  */
 
 /* @import 'https://fonts.googleapis.com/css?family=Reenie+Beanie'; */
-/* @import 'iconfont.css'; */
+@import 'iconfont.css';
 body {
   margin: 0;
   /* font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',
@@ -366,34 +366,6 @@ i.palette {
   background-image: url(images/icons/palette.svg);
 }
 
-i.bucket {
-  background-image: url(images/icons/paint-bucket.svg);
-}
-
-i.bold {
-  background-image: url(images/icons/type-bold.svg);
-}
-
-i.italic {
-  background-image: url(images/icons/type-italic.svg);
-}
-
-i.clear {
-  background-image: url(images/icons/trash.svg);
-}
-
-i.code {
-  background-image: url(images/icons/code.svg);
-}
-
-i.underline {
-  background-image: url(images/icons/type-underline.svg);
-}
-
-i.strikethrough {
-  background-image: url(images/icons/type-strikethrough.svg);
-}
-
 i.subscript {
   background-image: url(images/icons/type-subscript.svg);
 }
@@ -402,44 +374,12 @@ i.superscript {
   background-image: url(images/icons/type-superscript.svg);
 }
 
-i.link {
-  background-image: url(images/icons/link.svg);
-}
-
-i.horizontal-rule {
-  background-image: url(images/icons/horizontal-rule.svg);
-}
-
-.icon.plus {
-  background-image: url(images/icons/plus.svg);
-}
-
 .icon.caret-right {
   background-image: url(images/icons/caret-right-fill.svg);
 }
 
 .icon.dropdown-more {
   background-image: url(images/icons/dropdown-more.svg);
-}
-
-.icon.font-color {
-  background-image: url(images/icons/font-color.svg);
-}
-
-.icon.font-family {
-  background-image: url(images/icons/font-family.svg);
-}
-
-.icon.bg-color {
-  background-image: url(images/icons/bg-color.svg);
-}
-
-i.image {
-  background-image: url(images/icons/file-image.svg);
-}
-
-i.table {
-  background-image: url(images/icons/table.svg);
 }
 
 i.close {
@@ -462,41 +402,8 @@ i.youtube {
   background-image: url(images/icons/youtube.svg);
 }
 
-.icon.left-align,
-i.left-align {
-  background-image: url(images/icons/text-left.svg);
-}
-
-i.center-align {
-  background-image: url(images/icons/text-center.svg);
-}
-
-i.right-align {
-  background-image: url(images/icons/text-right.svg);
-}
-
-i.justify-align {
-  background-image: url(images/icons/justify.svg);
-}
-
-i.indent {
-  background-image: url(images/icons/indent.svg);
-}
-
 i.markdown {
   background-image: url(images/icons/markdown.svg);
-}
-
-i.outdent {
-  background-image: url(images/icons/outdent.svg);
-}
-
-i.undo {
-  background-image: url(images/icons/arrow-counterclockwise.svg);
-}
-
-i.redo {
-  background-image: url(images/icons/arrow-clockwise.svg);
 }
 
 i.sticky {
@@ -569,16 +476,11 @@ i.prettier-error {
   font-family: inherit;
 }
 
-.link-editor div.link-edit {
-  background-image: url(images/icons/pencil-fill.svg);
-  background-size: 16px;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 35px;
-  vertical-align: -0.25em;
+.link-editor .icon-pencil-fill {
+  font-size: 20px;
   position: absolute;
-  right: 8px;
-  top: 0;
+  right: 12px;
+  top: 5px;
   bottom: 0;
   cursor: pointer;
 }
@@ -770,6 +672,12 @@ i.prettier-error {
   background-position: center;
   background-repeat: no-repeat;
 }
+.dropdown .item .iconfont {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 20px;
+  line-height: 20px;
+}
 
 .dropdown .divider {
   width: auto;
@@ -790,11 +698,11 @@ i.prettier-error {
   }
 }
 
-.icon.paragraph {
+/* .icon.paragraph {
   background-image: url(images/icons/text-paragraph.svg);
-}
+} */
 
-.icon.h1 {
+/* .icon.h1 {
   background-image: url(images/icons/type-h1.svg);
 }
 
@@ -812,16 +720,16 @@ i.prettier-error {
 
 .icon.h5 {
   background-image: url(images/icons/type-h5.svg);
-}
+} */
 
-.icon.h6 {
+/* .icon.h6 {
   background-image: url(images/icons/type-h6.svg);
-}
+} */
 
-.icon.bullet-list,
+/* .icon.bullet-list,
 .icon.bullet {
   background-image: url(images/icons/list-ul.svg);
-}
+} */
 
 .icon.check-list,
 .icon.check {
@@ -1127,9 +1035,9 @@ i.prettier-error {
   background-image: url(images/icons/lock-fill.svg);
 }
 
-.actions i.image {
+/* .actions i.image {
   background-image: url(images/icons/file-image.svg);
-}
+} */
 
 .actions i.table {
   background-image: url(images/icons/table.svg);
@@ -1178,15 +1086,6 @@ i.prettier-error {
   color: #222;
   display: inline-block;
   cursor: pointer;
-}
-
-i.chevron-down {
-  background-color: transparent;
-  background-size: contain;
-  display: inline-block;
-  height: 8px;
-  width: 8px;
-  background-image: url(images/icons/chevron-down.svg);
 }
 
 .action-button {
@@ -1293,6 +1192,22 @@ button.action-button:disabled {
   display: flex;
   justify-content: center;
 }
+.toolbar-container .iconfont {
+  font-size: 18px;
+  display: inline-block;
+  line-height: 18px;
+  color: #666;
+}
+.toolbar button.toolbar-item.active i.iconfont {
+  color: #000;
+}
+.toolbar-container .iconfont.icon-plus {
+  margin-right: 4px;
+}
+.toolbar-container .icon-chevron-down {
+  color: #999;
+}
+
 .toolbar {
   display: flex;
   margin-bottom: 1px;

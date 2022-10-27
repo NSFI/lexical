@@ -190,7 +190,7 @@ function FloatingLinkEditor({
               {linkUrl}
             </a>
             <div
-              className="link-edit"
+              className="iconfont icon-pencil-fill"
               role="button"
               tabIndex={0}
               onMouseDown={(event) => event.preventDefault()}

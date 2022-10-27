@@ -12,6 +12,7 @@ import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
 import {CheckListPlugin} from '@lexical/react/LexicalCheckListPlugin';
 // import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
 import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
+import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {HashtagPlugin} from '@lexical/react/LexicalHashtagPlugin';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {LinkPlugin} from '@lexical/react/LexicalLinkPlugin';
@@ -20,7 +21,7 @@ import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
 import * as React from 'react';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import {isDev} from './appSettings';
 import {createWebsocketProvider} from './collaboration';
@@ -72,12 +73,14 @@ const skipCollaborationInit =
   window.parent != null && window.parent.frames.right === window;
 
 interface EditorProps {
+  initValue?: any;
   tocHeight?: string;
 }
 
 export default function Editor(props: EditorProps): JSX.Element {
-  const {tocHeight = 'calc(100vh - 200px)'} = props;
+  const {initValue, tocHeight = 'calc(100vh - 200px)'} = props;
   const {historyState} = useSharedHistoryContext();
+  const [editor] = useLexicalComposerContext();
   const {
     settings: {
       isCollab,
@@ -92,8 +95,8 @@ export default function Editor(props: EditorProps): JSX.Element {
   const text = isCollab
     ? 'Enter some collaborative rich text...'
     : isRichText
-    ? 'Enter some rich text...'
-    : 'Enter some plain text...';
+    ? '请输入...'
+    : '请输入...';
   const placeholder = <Placeholder>{text}</Placeholder>;
   const scrollRef = useRef(null);
   const [floatingAnchorElem, setFloatingAnchorElem] =
@@ -114,6 +117,17 @@ export default function Editor(props: EditorProps): JSX.Element {
     theme: YsEditorTheme,
   };
 
+  useEffect(() => {
+    try {
+      if (initValue) {
+        editor.setEditorState(
+          editor.parseEditorState(JSON.stringify(initValue)),
+        );
+      }
+    } catch (e) {
+      console.error('初始化值报错', e);
+    }
+  }, [initValue]);
   return (
     <>
       {isRichText && <ToolbarPlugin />}

@@ -16,13 +16,13 @@ body {
   -moz-osx-font-smoothing: grayscale; */
 }
 
-header {
+/* header {
   max-width: 580px;
   margin: auto;
   position: relative;
   display: flex;
   justify-content: center;
-}
+} */
 
 /* header a {
   max-width: 220px;

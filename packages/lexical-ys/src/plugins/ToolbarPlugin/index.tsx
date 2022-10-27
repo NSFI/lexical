@@ -423,7 +423,6 @@ function FontDropDown({
     style === 'font-family'
       ? 'Formatting options for font family'
       : 'Formatting options for font size';
-
   return (
     <DropDown
       buttonClassName={'toolbar-item ' + style}
@@ -733,7 +732,6 @@ export default function ToolbarPlugin(): JSX.Element {
     return returned;
   }, []);
   const setFontSizeByText = (text: string) => {
-    console.log('text', text);
     const fontSizeByText = fontSizeObject[text] || DEFAULT_FONT_SIZE;
     setFontSize(fontSizeByText);
   };

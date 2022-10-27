@@ -34,6 +34,8 @@ import * as React from 'react';
 import {ReactPortal, useCallback, useEffect, useRef, useState} from 'react';
 import {createPortal} from 'react-dom';
 
+import {useLocale} from '../../context/LocaleContext';
+
 type TableCellActionMenuProps = Readonly<{
   contextRef: {current: null | HTMLElement};
   onClose: () => void;
@@ -48,6 +50,7 @@ function TableActionMenu({
   contextRef,
 }: TableCellActionMenuProps) {
   const [editor] = useLexicalComposerContext();
+  const locale = useLocale();
   const dropDownRef = useRef<HTMLDivElement | null>(null);
   const [tableCellNode, updateTableCellNode] = useState(_tableCellNode);
   const [selectionCounts, updateSelectionCounts] = useState({
@@ -337,16 +340,20 @@ function TableActionMenu({
       }}>
       <button className="item" onClick={() => insertTableRowAtSelection(false)}>
         <span className="text">
-          Insert{' '}
-          {selectionCounts.rows === 1 ? 'row' : `${selectionCounts.rows} rows`}{' '}
-          above
+          {locale.insert}
+          {selectionCounts.rows === 1
+            ? locale.row
+            : `${selectionCounts.rows} ${locale.row}`}
+          {locale.above}
         </span>
       </button>
       <button className="item" onClick={() => insertTableRowAtSelection(true)}>
         <span className="text">
-          Insert{' '}
-          {selectionCounts.rows === 1 ? 'row' : `${selectionCounts.rows} rows`}{' '}
-          below
+          {locale.insert}
+          {selectionCounts.rows === 1
+            ? locale.row
+            : `${selectionCounts.rows} rows`}
+          {locale.below}
         </span>
       </button>
       <hr />
@@ -354,51 +361,51 @@ function TableActionMenu({
         className="item"
         onClick={() => insertTableColumnAtSelection(false)}>
         <span className="text">
-          Insert{' '}
+          {locale.insert}
           {selectionCounts.columns === 1
-            ? 'column'
-            : `${selectionCounts.columns} columns`}{' '}
-          left
+            ? locale.column
+            : `${selectionCounts.columns} ${locale.column}`}
+          {locale.left}
         </span>
       </button>
       <button
         className="item"
         onClick={() => insertTableColumnAtSelection(true)}>
         <span className="text">
-          Insert{' '}
+          {locale.insert}
           {selectionCounts.columns === 1
-            ? 'column'
-            : `${selectionCounts.columns} columns`}{' '}
-          right
+            ? locale.column
+            : `${selectionCounts.columns} ${locale.column}`}
+          {locale.right}
         </span>
       </button>
       <hr />
       <button className="item" onClick={() => deleteTableColumnAtSelection()}>
-        <span className="text">Delete column</span>
+        <span className="text">{locale.deleteColumn}</span>
       </button>
       <button className="item" onClick={() => deleteTableRowAtSelection()}>
-        <span className="text">Delete row</span>
+        <span className="text">{locale.deleteRow}</span>
       </button>
       <button className="item" onClick={() => deleteTableAtSelection()}>
-        <span className="text">Delete table</span>
+        <span className="text">{locale.deleteTable}</span>
       </button>
       <hr />
       <button className="item" onClick={() => toggleTableRowIsHeader()}>
         <span className="text">
           {(tableCellNode.__headerState & TableCellHeaderStates.ROW) ===
           TableCellHeaderStates.ROW
-            ? 'Remove'
-            : 'Add'}{' '}
-          row header
+            ? locale.remove
+            : locale.add}
+          {locale.rowHeader}
         </span>
       </button>
       <button className="item" onClick={() => toggleTableColumnIsHeader()}>
         <span className="text">
           {(tableCellNode.__headerState & TableCellHeaderStates.COLUMN) ===
           TableCellHeaderStates.COLUMN
-            ? 'Remove'
-            : 'Add'}{' '}
-          column header
+            ? locale.remove
+            : locale.add}
+          {locale.columnHeader}
         </span>
       </button>
     </div>,
@@ -517,7 +524,7 @@ function TableCellActionMenuContainer({
               setIsMenuOpen(!isMenuOpen);
             }}
             ref={menuRootRef}>
-            <i className="chevron-down" />
+            <i className="iconfont icon-chevron-down" />
           </button>
           {isMenuOpen && (
             <TableActionMenu

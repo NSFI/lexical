@@ -24,7 +24,7 @@ header {
   justify-content: center;
 }
 
-header a {
+/* header a {
   max-width: 220px;
   margin: 20px 0 0 0;
   display: block;
@@ -41,7 +41,7 @@ header h1 {
   color: #333;
   display: inline-block;
   margin: 20px 0 0 0;
-}
+} */
 
 .editor-shell {
   /* margin: 20px auto; */

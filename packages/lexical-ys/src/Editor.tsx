@@ -75,10 +75,15 @@ const skipCollaborationInit =
 interface EditorProps {
   initValue?: any;
   tocHeight?: string;
+  isEditable?: boolean;
 }
 
 export default function Editor(props: EditorProps): JSX.Element {
-  const {initValue, tocHeight = 'calc(100vh - 200px)'} = props;
+  const {
+    initValue,
+    tocHeight = 'calc(100vh - 200px)',
+    isEditable = false,
+  } = props;
   const {historyState} = useSharedHistoryContext();
   const [editor] = useLexicalComposerContext();
   const {
@@ -88,13 +93,12 @@ export default function Editor(props: EditorProps): JSX.Element {
       isMaxLength,
       isCharLimit,
       isCharLimitUtf8,
-      isRichText,
       showTreeView,
     },
   } = useSettings();
   const text = isCollab
     ? 'Enter some collaborative rich text...'
-    : isRichText
+    : isEditable
     ? '请输入...'
     : '请输入...';
   const placeholder = <Placeholder>{text}</Placeholder>;
@@ -128,12 +132,15 @@ export default function Editor(props: EditorProps): JSX.Element {
       console.error('初始化值报错', e);
     }
   }, [initValue]);
+  useEffect(() => {
+    editor.setEditable(isEditable);
+  }, [isEditable]);
   return (
     <>
-      {isRichText && <ToolbarPlugin />}
+      {isEditable && <ToolbarPlugin />}
       <div
         className={`editor-container ${showTreeView ? 'tree-view' : ''} ${
-          !isRichText ? 'plain-text' : ''
+          !isEditable ? 'plain-text' : ''
         }`}
         ref={scrollRef}>
         {isMaxLength && <MaxLengthPlugin maxLength={3000} />}
@@ -151,7 +158,7 @@ export default function Editor(props: EditorProps): JSX.Element {
         {/* <CommentPlugin
           providerFactory={isCollab ? createWebsocketProvider : undefined}
         /> */}
-        {isRichText ? (
+        {isEditable ? (
           <>
             {isCollab ? (
               <CollaborationPlugin
@@ -243,7 +250,7 @@ export default function Editor(props: EditorProps): JSX.Element {
         {/* {isAutocomplete && <AutocompletePlugin />} */}
         {/* <div>{showTableOfContents && <TableOfContentsPlugin />}</div> */}
 
-        {isDev && <ActionsPlugin isRichText={isRichText} />}
+        {isDev && <ActionsPlugin isRichText={isEditable} />}
       </div>
       {isDev && showTreeView && <TreeViewPlugin />}
       {isDev && <ExamplePlugin />}

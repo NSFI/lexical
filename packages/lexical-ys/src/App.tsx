@@ -36,6 +36,7 @@ interface YsEditorProps {
   onChange?: (jsonValue: any, htmlValue: string) => void;
   tocHeight?: string;
   initValue?: any;
+  isEditable?: boolean;
 }
 
 const YsEditor = (props: YsEditorProps): JSX.Element => {
@@ -57,6 +58,7 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
     (editorState, editor) => {
       editorState.read(() => {
         const jsonValue = editorState.toJSON();
+        console.log('jsonValue', jsonValue);
         const htmlString = $generateHtmlFromNodes(editor, null);
         // eslint-disable-next-line no-unused-expressions
         onChange && onChange(jsonValue, htmlString);

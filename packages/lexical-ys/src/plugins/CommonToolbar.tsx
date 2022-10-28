@@ -116,7 +116,7 @@ export function BlockFormatDropDown({
   return (
     <DropDown
       buttonClassName={`${toolbarItemCls} block-controls`}
-      buttonIconClassName={'icon block-type ' + showType}
+      buttonIconClassName={'iconfont icon-type-' + showType}
       buttonLabel={blockTypeToBlockName[showType]}
       buttonAriaLabel="Formatting options for text style">
       {blockNameList.map((blockName: any) => (

@@ -192,7 +192,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
           version: 1,
         },
       }}
-      isEditable={false}
+      isEditable={true}
     />
   </React.StrictMode>,
 );

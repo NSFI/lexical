@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont'; /* Project id 3726489 */
-  src: url('//res.qiyukf.net/autoiconfont/t/c/font_3726489_ayi2w0skrz6.woff2')
+  src: url('//res.qiyukf.net/autoiconfont/t/c/font_3726489_qi2llqkq4vk.woff2')
       format('woff2'),
-    url('//res.qiyukf.net/autoiconfont/t/c/font_3726489_ayi2w0skrz6.woff')
+    url('//res.qiyukf.net/autoiconfont/t/c/font_3726489_qi2llqkq4vk.woff')
       format('woff'),
-    url('//res.qiyukf.net/autoiconfont/t/c/font_3726489_ayi2w0skrz6.ttf')
+    url('//res.qiyukf.net/autoiconfont/t/c/font_3726489_qi2llqkq4vk.ttf')
       format('truetype');
 }
 
@@ -104,7 +104,7 @@
   content: '\e94b';
 }
 
-.icon-text-paragraph:before {
+.icon-type-paragraph:before {
   content: '\e94c';
 }
 

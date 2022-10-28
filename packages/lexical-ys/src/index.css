@@ -1191,6 +1191,7 @@ button.action-button:disabled {
   width: 100%;
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 .toolbar-container .iconfont {
   font-size: 18px;

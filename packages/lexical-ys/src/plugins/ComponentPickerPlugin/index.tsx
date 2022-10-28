@@ -34,6 +34,7 @@ import {useCallback, useMemo, useState} from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import {useLocale} from '../../context/LocaleContext';
 import useModal from '../../hooks/useModal';
 // import catTypingGif from '../../images/cat-typing.gif';
 // import {EmbedConfigs} from '../AutoEmbedPlugin';
@@ -114,6 +115,7 @@ function ComponentPickerMenuItem({
 
 export default function ComponentPickerMenuPlugin(): JSX.Element {
   const [editor] = useLexicalComposerContext();
+  const locale = useLocale();
   const [modal, showModal] = useModal();
   const [queryString, setQueryString] = useState<string | null>(null);
 
@@ -170,7 +172,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
   const options = useMemo(() => {
     const baseOptions = [
-      new ComponentPickerOption('Paragraph', {
+      new ComponentPickerOption(locale.blockTypeToBlockName.paragraph, {
         icon: <i className="iconfont icon-type-paragraph" />,
         keywords: ['normal', 'paragraph', 'p', 'text'],
         onSelect: () =>
@@ -183,7 +185,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       }),
       ...Array.from({length: 6}, (_, i) => i + 1).map(
         (n) =>
-          new ComponentPickerOption(`Heading ${n}`, {
+          new ComponentPickerOption(locale.blockTypeToBlockName[`h${n}`], {
             icon: <i className={`iconfont icon-type-h${n}`} />,
             keywords: ['heading', 'header', `h${n}`],
             onSelect: () =>
@@ -198,7 +200,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
               }),
           }),
       ),
-      new ComponentPickerOption('Table', {
+      new ComponentPickerOption(locale.table, {
         icon: <i className="iconfont icon-table" />,
         keywords: ['table', 'grid', 'spreadsheet', 'rows', 'columns'],
         onSelect: () =>
@@ -206,25 +208,25 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             <InsertTableDialog activeEditor={editor} onClose={onClose} />
           )),
       }),
-      new ComponentPickerOption('Numbered List', {
+      new ComponentPickerOption(locale.blockTypeToBlockName.number, {
         icon: <i className="iconfont icon-list-ol" />,
         keywords: ['numbered list', 'ordered list', 'ol'],
         onSelect: () =>
           editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Bulleted List', {
+      new ComponentPickerOption(locale.blockTypeToBlockName.bullet, {
         icon: <i className="iconfont icon-list-ul" />,
         keywords: ['bulleted list', 'unordered list', 'ul'],
         onSelect: () =>
           editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Check List', {
+      new ComponentPickerOption(locale.blockTypeToBlockName.check, {
         icon: <i className="iconfont icon-square-check" />,
         keywords: ['check list', 'todo list'],
         onSelect: () =>
           editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Quote', {
+      new ComponentPickerOption(locale.blockTypeToBlockName.quote, {
         icon: <i className="iconfont icon-chat-square-quote" />,
         keywords: ['block quote'],
         onSelect: () =>
@@ -235,7 +237,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             }
           }),
       }),
-      new ComponentPickerOption('Code', {
+      new ComponentPickerOption(locale.blockTypeToBlockName.code, {
         icon: <i className="iconfont icon-code" />,
         keywords: ['javascript', 'python', 'js', 'codeblock'],
         onSelect: () =>
@@ -255,7 +257,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             }
           }),
       }),
-      new ComponentPickerOption('Divider', {
+      new ComponentPickerOption(locale.divider, {
         icon: <i className="iconfont icon-horizontal-rule" />,
         keywords: ['horizontal rule', 'divider', 'hr'],
         onSelect: () =>
@@ -302,7 +304,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       //     }),
       // }),
       //TODO:
-      new ComponentPickerOption('Image', {
+      new ComponentPickerOption(locale.image, {
         icon: <i className="iconfont icon-file-image1" />,
         keywords: ['image', 'photo', 'picture', 'file'],
         onSelect: () => {
@@ -312,7 +314,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           }
         },
       }),
-      new ComponentPickerOption('Video', {
+      new ComponentPickerOption(locale.video, {
         icon: <i className="iconfont icon-file-video1" />,
         keywords: ['video', 'mp4', 'file'],
         onSelect: () => {
@@ -322,7 +324,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           }
         },
       }),
-      new ComponentPickerOption('Attachment', {
+      new ComponentPickerOption(locale.attachment, {
         icon: <i className="iconfont icon-fujian" />,
         keywords: ['attachment', 'words', 'file', 'excel', 'video'],
         onSelect: () => {
@@ -343,7 +345,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       // }),
       ...['left', 'center', 'right', 'justify'].map(
         (alignment) =>
-          new ComponentPickerOption(`Align ${alignment}`, {
+          new ComponentPickerOption(locale[`${alignment}Align`], {
             icon: (
               <i
                 className={`iconfont icon${

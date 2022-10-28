@@ -34,6 +34,7 @@ const localeValues = {
   deleteColumn: '删除列',
   deleteRow: '删除行',
   deleteTable: '删除表格',
+  divider: '分割线',
   equation: '方程',
   excalidraw: '手绘示意图',
   figmaDocument: 'Figma 文档',

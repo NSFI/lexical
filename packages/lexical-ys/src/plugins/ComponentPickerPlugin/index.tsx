@@ -43,7 +43,7 @@ import useModal from '../../hooks/useModal';
 // import {INSERT_VIDEO_COMMAND} from '../VIDEOPlugin';
 import {
   // InsertEquationDialog,
-  InsertImageDialog,
+  // InsertImageDialog,
   // InsertPollDialog,
   InsertTableDialog,
 } from '../ToolbarPlugin';
@@ -305,19 +305,35 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       new ComponentPickerOption('Image', {
         icon: <i className="iconfont icon-file-image1" />,
         keywords: ['image', 'photo', 'picture', 'file'],
-        onSelect: () =>
-          showModal('Insert Image', (onClose) => (
-            <InsertImageDialog activeEditor={editor} onClose={onClose} />
-          )),
+        onSelect: () => {
+          const uploadInput = document.getElementById('yseditor-imageInput');
+          if (uploadInput) {
+            uploadInput.click();
+          }
+        },
       }),
-      // new ComponentPickerOption('Video', {
-      //   icon: <i className="icon video" />, //TODO:
-      //   keywords: ['video', 'mp4', 'file'],
-      //   onSelect: () =>
-      //     showModal('Insert Image', (onClose) => (
-      //       <InsertImageDialog activeEditor={editor} onClose={onClose} />
-      //     )),
-      // }),
+      new ComponentPickerOption('Video', {
+        icon: <i className="iconfont icon-file-video1" />,
+        keywords: ['video', 'mp4', 'file'],
+        onSelect: () => {
+          const uploadInput = document.getElementById('yseditor-videoInput');
+          if (uploadInput) {
+            uploadInput.click();
+          }
+        },
+      }),
+      new ComponentPickerOption('Attachment', {
+        icon: <i className="iconfont icon-fujian" />,
+        keywords: ['attachment', 'words', 'file', 'excel', 'video'],
+        onSelect: () => {
+          const uploadInput = document.getElementById(
+            'yseditor-attachmentInput',
+          );
+          if (uploadInput) {
+            uploadInput.click();
+          }
+        },
+      }),
       //TODO:
       // new ComponentPickerOption('Collapsible', {
       //   icon: <i className="icon caret-right" />,

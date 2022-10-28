@@ -388,6 +388,78 @@ export function InsertEquationDialog({
   return <KatexEquationAlterer onConfirm={onEquationConfirm} />;
 }
 
+export function CommonFileUpload({
+  activeEditor,
+  id,
+  type,
+  maxSize,
+}: {
+  activeEditor: LexicalEditor;
+  id: string;
+  maxSize: number;
+  type: 'image' | 'video' | 'attachment';
+}): JSX.Element {
+  const accept = {
+    attachment:
+      '.xls,.xlsx,.csv,.ppt,.pptx,.doc,.docx,.pdf,.key,.txt,.htm,.html,.zip,.rar,.7z,.mp3,.wma,.ape,.flac',
+    image: 'image/*',
+    video: 'video/*',
+  }[type];
+  const onLoadFile = useCallback(
+    async (e) => {
+      const files: FileList | null = e.target.files;
+      const fileName = files[0]?.name || '';
+      const fileSize = getFileSize(files[0]?.size);
+      if (files[0]?.size > maxSize * 1024 * 1024) {
+        throw new Error(`不可超过${maxSize}m`);
+      }
+      console.log('filesdfdfd', files);
+      const {suffix, fileType} = getFileSuffix(fileName);
+      console.log('suffix,fileType', suffix, fileType);
+      const response = await post('/api/athena/user/nosToken', {
+        bucket: 2,
+        count: 1, //（默认）1-七鱼；2-互客
+        ...(suffix ? {suffix} : null),
+      });
+      const {objectName, token} = response.data[0];
+      const bodyFormData = new FormData();
+      bodyFormData.append('Object', decodeURIComponent(objectName));
+      bodyFormData.append('x-nos-token', token);
+      bodyFormData.append('file', files[0]);
+
+      const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+      const nosDLL = 'https://urchin.nosdn.127.net/';
+      const nosSrc = `${nosDLL}${objectName}`;
+      if (type === 'image') {
+        activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+          altText: '',
+          src: nosSrc,
+        });
+      } else if (type === 'video') {
+        activeEditor.dispatchCommand(INSERT_VIDEO_COMMAND, {src: nosSrc});
+      } else if (type === 'attachment') {
+        activeEditor.dispatchCommand(INSERT_ATTACHMENT_COMMAND, {
+          fileName: fileName,
+          fileSize: fileSize,
+          fileType: fileType,
+          src: nosSrc,
+        });
+      }
+      await postFile(nosLocation, bodyFormData);
+    },
+    [activeEditor],
+  );
+  return (
+    <input
+      id={id}
+      type="file"
+      accept={accept}
+      onChange={onLoadFile}
+      hidden={true}
+    />
+  );
+}
+
 function dropDownActiveClass(active: boolean) {
   if (active) return 'active dropdown-item-active';
   else return '';
@@ -978,83 +1050,6 @@ export default function ToolbarPlugin(): JSX.Element {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
     }
   }, [editor, isLink]);
-  const onLoadImage = async (e: any) => {
-    const files: FileList | null = e.target.files;
-    const response = await post(
-      'https://ys-test.netease.com/api/athena/user/nosToken',
-      {
-        bucket: 2,
-        count: 1, //（默认）1-七鱼；2-互客
-      },
-    );
-    const {objectName, token} = response.data[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append('Object', decodeURIComponent(objectName));
-    bodyFormData.append('x-nos-token', token);
-    bodyFormData.append('file', files[0]);
-    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
-    const nosDLL = 'https://urchin.nosdn.127.net/';
-    await postFile(nosLocation, bodyFormData);
-    const nosSrc = `${nosDLL}${objectName}`;
-    activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-      altText: '',
-      src: nosSrc,
-    });
-  };
-
-  const onLoadVideo = async (e: any) => {
-    const files: FileList | null = e.target.files;
-    const response = await post(
-      'https://ys-test.netease.com/api/athena/user/nosToken',
-      {
-        bucket: 2,
-        count: 1, //（默认）1-七鱼；2-互客
-      },
-    );
-    const {objectName, token} = response.data[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append('Object', decodeURIComponent(objectName));
-    bodyFormData.append('x-nos-token', token);
-    bodyFormData.append('file', files[0]);
-    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
-    const nosDLL = 'https://urchin.nosdn.127.net/';
-    await postFile(nosLocation, bodyFormData);
-    const nosSrc = `${nosDLL}${objectName}`;
-    activeEditor.dispatchCommand(INSERT_VIDEO_COMMAND, {src: nosSrc});
-  };
-
-  const onLoadAttachment = async (e: any) => {
-    const files: FileList | null = e.target.files;
-    const fileName = files[0]?.name || '';
-    const fileSize = getFileSize(files[0]?.size);
-    console.log('filesdfdfd', files);
-    const {suffix, fileType} = getFileSuffix(fileName);
-    console.log('suffix,fileType', suffix, fileType);
-    const response = await post(
-      'https://ys-test.netease.com/api/athena/user/nosToken',
-      {
-        bucket: 2,
-        count: 1, //（默认）1-七鱼；2-互客
-        ...(suffix ? {suffix} : null),
-      },
-    );
-    const {objectName, token} = response.data[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append('Object', decodeURIComponent(objectName));
-    bodyFormData.append('x-nos-token', token);
-    bodyFormData.append('file', files[0]);
-
-    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
-    const nosDLL = 'https://urchin.nosdn.127.net/';
-    await postFile(nosLocation, bodyFormData);
-    const nosSrc = `${nosDLL}${objectName}`;
-    activeEditor.dispatchCommand(INSERT_ATTACHMENT_COMMAND, {
-      fileName: fileName,
-      fileSize: fileSize,
-      fileType: fileType,
-      src: nosSrc,
-    });
-  };
 
   return (
     <div className="toolbar-container">
@@ -1398,26 +1393,23 @@ export default function ToolbarPlugin(): JSX.Element {
             <span className="text">{locale.outdent}</span>
           </DropDownItem>
         </DropDown>
-        <input
+        <CommonFileUpload
           id="yseditor-imageInput"
-          type="file"
-          accept="image/*"
-          onChange={onLoadImage}
-          hidden={true}
+          type={'image'}
+          maxSize={2}
+          activeEditor={activeEditor}
         />
-        <input
+        <CommonFileUpload
           id="yseditor-videoInput"
-          type="file"
-          accept="video/*"
-          onChange={onLoadVideo}
-          hidden={true}
+          type={'video'}
+          maxSize={50}
+          activeEditor={activeEditor}
         />
-        <input
+        <CommonFileUpload
           id="yseditor-attachmentInput"
-          type="file"
-          accept="*"
-          onChange={onLoadAttachment}
-          hidden={true}
+          type={'attachment'}
+          maxSize={50}
+          activeEditor={activeEditor}
         />
         {modal}
       </div>

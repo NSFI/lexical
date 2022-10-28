@@ -39,11 +39,7 @@ export type InsertVideoPayload = Readonly<VideoPayload>;
 
 export const INSERT_VIDEO_COMMAND: LexicalCommand<InsertVideoPayload> =
   createCommand();
-export default function VideoPlugin({
-  captionsEnabled,
-}: {
-  captionsEnabled?: boolean;
-}): JSX.Element | null {
+export default function VideoPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -87,7 +83,7 @@ export default function VideoPlugin({
         COMMAND_PRIORITY_HIGH,
       ),
     );
-  }, [captionsEnabled, editor]);
+  }, [editor]);
 
   return null;
 }

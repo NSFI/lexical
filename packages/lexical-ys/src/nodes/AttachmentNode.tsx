@@ -36,6 +36,8 @@ export interface AttachmentPayload {
   fileName: string;
   fileType: string;
   fileSize: number | string;
+  bodyFormData?: any;
+  uploading?: boolean;
 }
 
 // function convertAttachmentElement(domNode: Node): null | DOMConversionOutput {
@@ -75,6 +77,8 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
   __fileName: string;
   __fileType: string;
   __fileSize: number | string;
+  __bodyFormData?: any;
+  __uploading?: boolean;
 
   static getType(): string {
     return 'attachment';
@@ -86,6 +90,8 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
       node.__fileName,
       node.__fileType,
       node.__fileSize,
+      node.__key,
+      node.__uploading,
     );
   }
 
@@ -101,12 +107,17 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement('a');
-    element.setAttribute('href', this.__src + `?download=${this.__fileName}`);
-    //TODO:
-    // element.innerText = this.__fileName || locale.attachment;
-    element.innerText = this.__fileName || 'attachment';
-    return {element};
+    if (this.__uploading) {
+      const element = document.createElement('div');
+      return {element};
+    } else {
+      const element = document.createElement('a');
+      element.setAttribute('href', this.__src + `?download=${this.__fileName}`);
+      //TODO:
+      // element.innerText = this.__fileName || locale.attachment;
+      element.innerText = this.__fileName || 'attachment';
+      return {element};
+    }
   }
 
   static importDOM(): DOMConversionMap | null {
@@ -126,26 +137,22 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
     fileType: string,
     fileSize: number | string,
     key?: NodeKey,
+    uploading?: boolean,
   ) {
     super(key);
     this.__src = src;
     this.__fileName = fileName;
     this.__fileType = fileType;
     this.__fileSize = fileSize;
-    // this.__maxWidth = maxWidth;
-    // this.__width = width || 'inherit';
-    // this.__height = height || 'inherit';
+    this.__uploading = uploading;
   }
 
   exportJSON(): SerializedAttachmentNode {
     return {
-      // height: this.__height === 'inherit' ? 0 : this.__height,
-      // maxWidth: this.__maxWidth,
-      // showCaption: this.__showCaption,
       src: this.getSrc(),
       type: 'attachment',
       version: 1,
-      // width: this.__width === 'inherit' ? 0 : this.__width,
+      ...this.getFileInfo(),
     };
   }
 
@@ -178,6 +185,13 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
   getSrc(): string {
     return this.__src;
   }
+  getFileInfo() {
+    return {
+      fileName: this.__fileName,
+      fileSize: this.__fileSize,
+      fileType: this.__fileType,
+    };
+  }
 
   decorate(): JSX.Element {
     return (
@@ -187,6 +201,7 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
           fileType={this.__fileType}
           fileName={this.__fileName}
           fileSize={this.__fileSize}
+          uploading={this.__uploading}
         />
       </Suspense>
     );
@@ -198,8 +213,10 @@ export function $createAttachmentNode({
   fileType,
   fileName,
   fileSize,
+  key,
+  uploading,
 }: AttachmentPayload): AttachmentNode {
-  return new AttachmentNode(src, fileName, fileType, fileSize);
+  return new AttachmentNode(src, fileName, fileType, fileSize, key, uploading);
 }
 
 export function $isAttachmentNode(

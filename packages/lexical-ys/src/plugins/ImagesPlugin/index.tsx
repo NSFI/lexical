@@ -25,15 +25,17 @@ import {
   LexicalCommand,
   LexicalEditor,
 } from 'lexical';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import getSelection from 'shared/getDOMSelection';
 
+import {useUploadStatus} from '../../context/UploadContext';
 import {
   $createImageNode,
   $isImageNode,
   ImageNode,
   ImagePayload,
 } from '../../nodes/ImageNode';
+import {postFile} from './../../utils/request';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 
@@ -45,7 +47,29 @@ export default function ImagesPlugin({
   captionsEnabled?: boolean;
 }): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
+  const {setUploadStatus} = useUploadStatus();
 
+  const uploadFile = useCallback(async (payload) => {
+    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+    setUploadStatus(payload.src, 0);
+    await postFile(nosLocation, payload.bodyFormData, {
+      onUploadProgress: (progressEvent: ProgressEvent) => {
+        if (progressEvent.lengthComputable) {
+          const complete =
+            ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+          setUploadStatus(payload.src, complete);
+        }
+      },
+    });
+  }, []);
+  function insertNode(payload: InsertImagePayload) {
+    const imageNode = $createImageNode(payload);
+    $insertNodes([imageNode]);
+    if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
+      $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
+    }
+    return imageNode;
+  }
   useEffect(() => {
     if (!editor.hasNodes([ImageNode])) {
       throw new Error('ImagesPlugin: ImageNode not registered on editor');
@@ -54,11 +78,17 @@ export default function ImagesPlugin({
     return mergeRegister(
       editor.registerCommand<InsertImagePayload>(
         INSERT_IMAGE_COMMAND,
-        (payload) => {
-          const imageNode = $createImageNode(payload);
-          $insertNodes([imageNode]);
-          if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
-            $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd();
+        async (payload, newEditor) => {
+          const imageLoadingNode = insertNode(payload);
+          try {
+            await uploadFile(payload);
+            newEditor.update(() => {
+              insertNode({altText: payload.altText, src: payload.src});
+              imageLoadingNode.remove();
+            });
+          } catch (e) {
+            imageLoadingNode.remove();
+            return true;
           }
 
           return true;

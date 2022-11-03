@@ -92,7 +92,7 @@ import {INSERT_POLL_COMMAND} from '../PollPlugin';
 import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
 import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
 import {getFileSize, getFileSuffix} from './../../utils/file';
-import {post, postFile} from './../../utils/request';
+import {post} from './../../utils/request';
 
 function getCodeLanguageOptions(): [string, string][] {
   const options: [string, string][] = [];
@@ -291,9 +291,11 @@ export function InsertImageDialog({
 export function InsertTableDialog({
   activeEditor,
   onClose,
+  locale,
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
+  locale: any;
 }): JSX.Element {
   const [rows, setRows] = useState('5');
   const [columns, setColumns] = useState('5');
@@ -305,12 +307,16 @@ export function InsertTableDialog({
 
   return (
     <>
-      <TextInput label="No of rows" onChange={setRows} value={rows} />
-      <TextInput label="No of columns" onChange={setColumns} value={columns} />
+      <TextInput label={locale.noofrows} onChange={setRows} value={rows} />
+      <TextInput
+        label={locale.noofcolumns}
+        onChange={setColumns}
+        value={columns}
+      />
       <div
         className="ToolbarPlugin__dialogActions"
         data-test-id="table-model-confirm-insert">
-        <Button onClick={onClick}>Confirm</Button>
+        <Button onClick={onClick}>{locale.confirm}</Button>
       </div>
     </>
   );
@@ -413,39 +419,47 @@ export function CommonFileUpload({
       if (files[0]?.size > maxSize * 1024 * 1024) {
         throw new Error(`不可超过${maxSize}m`);
       }
-      console.log('filesdfdfd', files);
       const {suffix, fileType} = getFileSuffix(fileName);
-      console.log('suffix,fileType', suffix, fileType);
       const response = await post('/api/athena/user/nosToken', {
         bucket: 2,
         count: 1, //（默认）1-七鱼；2-互客
         ...(suffix ? {suffix} : null),
       });
       const {objectName, token} = response.data[0];
-      const bodyFormData = new FormData();
-      bodyFormData.append('Object', decodeURIComponent(objectName));
-      bodyFormData.append('x-nos-token', token);
-      bodyFormData.append('file', files[0]);
 
-      const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+      const bodyFormData = {
+        Object: decodeURIComponent(objectName),
+        file: files[0],
+        'x-nos-token': token,
+      };
+      // const nosLocation = 'https://urchin.nos-jd.163yun.com/';
       const nosDLL = 'https://urchin.nosdn.127.net/';
       const nosSrc = `${nosDLL}${objectName}`;
+      const bodyForm = new FormData();
+      bodyForm.append('Object', bodyFormData.Object);
+      bodyForm.append('x-nos-token', bodyFormData['x-nos-token']);
+      bodyForm.append('file', bodyFormData.file);
+
       if (type === 'image') {
         activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {
           altText: '',
+          bodyFormData: bodyForm,
           src: nosSrc,
         });
       } else if (type === 'video') {
-        activeEditor.dispatchCommand(INSERT_VIDEO_COMMAND, {src: nosSrc});
+        activeEditor.dispatchCommand(INSERT_VIDEO_COMMAND, {
+          bodyFormData: bodyForm,
+          src: nosSrc,
+        });
       } else if (type === 'attachment') {
         activeEditor.dispatchCommand(INSERT_ATTACHMENT_COMMAND, {
+          bodyFormData: bodyForm,
           fileName: fileName,
           fileSize: fileSize,
           fileType: fileType,
           src: nosSrc,
         });
       }
-      await postFile(nosLocation, bodyFormData);
     },
     [activeEditor],
   );
@@ -478,7 +492,6 @@ function FontDropDown({
     (option: string) => {
       editor.update(() => {
         const selection = $getSelection();
-        console.log('option', option);
         if ($isRangeSelection(selection)) {
           if (option !== '') {
             $patchStyleText(selection, {
@@ -639,15 +652,19 @@ function InsertDropDown({
       </DropDownItem> */}
       <DropDownItem
         onClick={() => {
-          showModal('Insert Table', (onClose) => (
-            <InsertTableDialog activeEditor={activeEditor} onClose={onClose} />
+          showModal(locale.insertTable, (onClose) => (
+            <InsertTableDialog
+              activeEditor={activeEditor}
+              onClose={onClose}
+              locale={locale}
+            />
           ));
         }}
         className="item">
         <i className="iconfont icon-table" />
         <span className="text">{locale.table}</span>
       </DropDownItem>
-      <DropDownItem
+      {/* <DropDownItem
         onClick={() => {
           showModal('Insert Table', (onClose) => (
             <InsertNewTableDialog
@@ -659,7 +676,7 @@ function InsertDropDown({
         className="item">
         <i className="iconfont icon-table" />
         <span className="text">{locale.tableExperimental}</span>
-      </DropDownItem>
+      </DropDownItem> */}
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'code')}
         onClick={formatCode}>
@@ -1396,7 +1413,7 @@ export default function ToolbarPlugin(): JSX.Element {
         <CommonFileUpload
           id="yseditor-imageInput"
           type={'image'}
-          maxSize={2}
+          maxSize={5}
           activeEditor={activeEditor}
         />
         <CommonFileUpload

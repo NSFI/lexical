@@ -25,15 +25,17 @@ import {
   LexicalCommand,
   LexicalEditor,
 } from 'lexical';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import getSelection from 'shared/getDOMSelection';
 
+import {useUploadStatus} from '../../context/UploadContext';
 import {
   $createVideoNode,
   $isVideoNode,
   VideoNode,
   VideoPayload,
 } from '../../nodes/VideoNode';
+import {postFile} from './../../utils/request';
 
 export type InsertVideoPayload = Readonly<VideoPayload>;
 
@@ -42,6 +44,29 @@ export const INSERT_VIDEO_COMMAND: LexicalCommand<InsertVideoPayload> =
 export default function VideoPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
 
+  const {setUploadStatus} = useUploadStatus();
+
+  const uploadFile = useCallback(async (payload) => {
+    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+    setUploadStatus(payload.src, 0);
+    await postFile(nosLocation, payload.bodyFormData, {
+      onUploadProgress: (progressEvent: ProgressEvent) => {
+        if (progressEvent.lengthComputable) {
+          const complete =
+            ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+          setUploadStatus(payload.src, complete);
+        }
+      },
+    });
+  }, []);
+  function insertNode(payload: InsertVideoPayload) {
+    const videoNode = $createVideoNode(payload);
+    $insertNodes([videoNode]);
+    if ($isRootOrShadowRoot(videoNode.getParentOrThrow())) {
+      $wrapNodeInElement(videoNode, $createParagraphNode).selectEnd();
+    }
+    return videoNode;
+  }
   useEffect(() => {
     if (!editor.hasNodes([VideoNode])) {
       throw new Error('VideoPlugin: VideoNode not registered on editor');
@@ -50,13 +75,17 @@ export default function VideoPlugin(): JSX.Element | null {
     return mergeRegister(
       editor.registerCommand<InsertVideoPayload>(
         INSERT_VIDEO_COMMAND,
-        (payload) => {
-          const videoNode = $createVideoNode(payload);
-          $insertNodes([videoNode]);
-          if ($isRootOrShadowRoot(videoNode.getParentOrThrow())) {
-            $wrapNodeInElement(videoNode, $createParagraphNode).selectEnd();
+        async (payload, newEditor) => {
+          const videoNode = insertNode({src: payload.src, uploading: true});
+          try {
+            await uploadFile(payload);
+            newEditor.update(() => {
+              insertNode({src: payload.src});
+              videoNode.remove();
+            });
+          } catch (e) {
+            return true;
           }
-
           return true;
         },
         COMMAND_PRIORITY_EDITOR,

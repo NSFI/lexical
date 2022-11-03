@@ -25,15 +25,17 @@ import {
   LexicalCommand,
   LexicalEditor,
 } from 'lexical';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import getSelection from 'shared/getDOMSelection';
 
+import {useUploadStatus} from '../../context/UploadContext';
 import {
   $createAttachmentNode,
   $isAttachmentNode,
   AttachmentNode,
   AttachmentPayload,
 } from '../../nodes/AttachmentNode';
+import {postFile} from './../../utils/request';
 
 export type InsertAttachmentPayload = Readonly<AttachmentPayload>;
 
@@ -41,7 +43,29 @@ export const INSERT_ATTACHMENT_COMMAND: LexicalCommand<InsertAttachmentPayload> 
   createCommand();
 export default function AttachmentPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
+  const {setUploadStatus} = useUploadStatus();
 
+  const uploadFile = useCallback(async (payload) => {
+    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+    setUploadStatus(payload.src, 0);
+    await postFile(nosLocation, payload.bodyFormData, {
+      onUploadProgress: (progressEvent: ProgressEvent) => {
+        if (progressEvent.lengthComputable) {
+          const complete =
+            ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+          setUploadStatus(payload.src, complete);
+        }
+      },
+    });
+  }, []);
+  function insertNode(payload: InsertAttachmentPayload) {
+    const attachmentNode = $createAttachmentNode(payload);
+    $insertNodes([attachmentNode]);
+    if ($isRootOrShadowRoot(attachmentNode.getParentOrThrow())) {
+      $wrapNodeInElement(attachmentNode, $createParagraphNode).selectEnd();
+    }
+    return attachmentNode;
+  }
   useEffect(() => {
     if (!editor.hasNodes([AttachmentNode])) {
       throw new Error(
@@ -52,16 +76,22 @@ export default function AttachmentPlugin(): JSX.Element | null {
     return mergeRegister(
       editor.registerCommand<InsertAttachmentPayload>(
         INSERT_ATTACHMENT_COMMAND,
-        (payload) => {
-          const attachmentNode = $createAttachmentNode(payload);
-          $insertNodes([attachmentNode]);
-          if ($isRootOrShadowRoot(attachmentNode.getParentOrThrow())) {
-            $wrapNodeInElement(
-              attachmentNode,
-              $createParagraphNode,
-            ).selectEnd();
+        async (payload, newEditor) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const {bodyFormData, ...others} = payload;
+          const attachmentNode = insertNode({
+            ...others,
+            uploading: true,
+          });
+          try {
+            await uploadFile(payload);
+            newEditor.update(() => {
+              insertNode({...others});
+              attachmentNode.remove();
+            });
+          } catch (e) {
+            return true;
           }
-
           return true;
         },
         COMMAND_PRIORITY_EDITOR,

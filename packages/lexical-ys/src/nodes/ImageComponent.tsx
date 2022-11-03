@@ -15,6 +15,7 @@ import type {
 } from 'lexical';
 
 import './ImageNode.css';
+import 'antd/lib/Image/style/index.css';
 
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
@@ -27,6 +28,7 @@ import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
 import {mergeRegister} from '@lexical/utils';
+// import Image from 'antd/lib/Image';
 import {
   $getNodeByKey,
   $getSelection,
@@ -46,29 +48,17 @@ import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
 import {createWebsocketProvider} from '../collaboration';
 import {useSettings} from '../context/SettingsContext';
 import {useSharedHistoryContext} from '../context/SharedHistoryContext';
+import {useUploadStatus} from '../context/UploadContext';
 import EmojisPlugin from '../plugins/EmojisPlugin';
 import KeywordsPlugin from '../plugins/KeywordsPlugin';
 import MentionsPlugin from '../plugins/MentionsPlugin';
 import TreeViewPlugin from '../plugins/TreeViewPlugin';
 import ContentEditable from '../ui/ContentEditable';
 import ImageResizer from '../ui/ImageResizer';
+import LoadingBox from '../ui/LoadingBox';
 import Placeholder from '../ui/Placeholder';
+import ProgressBox from '../ui/ProgressBox';
 import {$isImageNode} from './ImageNode';
-
-const imageCache = new Set();
-
-function useSuspenseImage(src: string) {
-  if (!imageCache.has(src)) {
-    throw new Promise((resolve) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        imageCache.add(src);
-        resolve(null);
-      };
-    });
-  }
-}
 
 function LazyImage({
   altText,
@@ -87,24 +77,40 @@ function LazyImage({
   src: string;
   width: 'inherit' | number;
 }): JSX.Element {
-  useSuspenseImage(src);
+  console.log(1111111, src);
+  const [loading, setLoading] = useState(false);
+  // useSuspenseImage(src);
+  useEffect(() => {
+    setLoading(true);
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      setLoading(false);
+    };
+  }, []);
   return (
-    <img
-      className={className || undefined}
-      src={src}
-      alt={altText}
-      ref={imageRef}
-      style={{
-        height,
-        maxWidth,
-        width,
-      }}
-      draggable="false"
-    />
+    <>
+      {loading ? (
+        <LoadingBox />
+      ) : (
+        <img
+          className={className || undefined}
+          src={src}
+          alt={altText}
+          ref={imageRef}
+          style={{
+            height,
+            maxWidth,
+            width,
+          }}
+          draggable="false"
+        />
+      )}
+    </>
   );
 }
 
-export default function ImageComponent({
+function ImageComponent({
   src,
   altText,
   nodeKey,
@@ -115,6 +121,8 @@ export default function ImageComponent({
   showCaption,
   caption,
   captionsEnabled,
+  bodyFormData,
+  percent,
 }: {
   altText: string;
   caption: LexicalEditor;
@@ -126,6 +134,7 @@ export default function ImageComponent({
   src: string;
   width: 'inherit' | number;
   captionsEnabled: boolean;
+  bodyFormData: any;
 }): JSX.Element {
   const imageRef = useRef<null | HTMLImageElement>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -133,12 +142,14 @@ export default function ImageComponent({
     useLexicalNodeSelection(nodeKey);
   const [isResizing, setIsResizing] = useState<boolean>(false);
   const {isCollabActive} = useCollaborationContext();
+  const {uploadStatus} = useUploadStatus();
+
   const [editor] = useLexicalComposerContext();
+  // const [percent, setPercent] = useState(0);
   const [selection, setSelection] = useState<
     RangeSelection | NodeSelection | GridSelection | null
   >(null);
   const activeEditorRef = useRef<LexicalEditor | null>(null);
-
   const onDelete = useCallback(
     (payload: KeyboardEvent) => {
       if (isSelected && $isNodeSelection($getSelection())) {
@@ -306,24 +317,29 @@ export default function ImageComponent({
 
   const draggable = isSelected && $isNodeSelection(selection);
   const isFocused = isSelected || isResizing;
-
+  const showProgress = !!bodyFormData;
+  console.log('first', showProgress, uploadStatus[src]);
   return (
     <Suspense fallback={null}>
       <>
         <div draggable={draggable}>
-          <LazyImage
-            className={
-              isFocused
-                ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
-                : null
-            }
-            src={src}
-            altText={altText}
-            imageRef={imageRef}
-            width={width}
-            height={height}
-            maxWidth={maxWidth}
-          />
+          {showProgress ? (
+            <ProgressBox percent={uploadStatus[src] || 0} />
+          ) : (
+            <LazyImage
+              className={
+                isFocused
+                  ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
+                  : null
+              }
+              src={src}
+              altText={altText}
+              imageRef={imageRef}
+              width={width}
+              height={height}
+              maxWidth={maxWidth}
+            />
+          )}
         </div>
         {showCaption && (
           <div className="image-caption-container">
@@ -374,3 +390,5 @@ export default function ImageComponent({
     </Suspense>
   );
 }
+
+export default ImageComponent;

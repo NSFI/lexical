@@ -11,6 +11,7 @@
 
 import './index.css';
 import './main.css';
+import 'antd/lib/message/style/index.css';
 
 import {$generateHtmlFromNodes} from '@lexical/html';
 import {LexicalComposer} from '@lexical/react/LexicalComposer';
@@ -23,6 +24,7 @@ import {LocaleContext} from './context/LocaleContext';
 import {SettingsContext, useSettings} from './context/SettingsContext';
 import {SharedAutocompleteContext} from './context/SharedAutocompleteContext';
 import {SharedHistoryContext} from './context/SharedHistoryContext';
+import {UploadContext} from './context/UploadContext';
 import Editor from './Editor';
 import YsNodes from './nodes/YsNodes';
 import PasteLogPlugin from './plugins/PasteLogPlugin';
@@ -75,7 +77,9 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
               <SharedAutocompleteContext>
                 <div className="editor-shell">
                   <LocaleContext>
-                    <Editor {...otherProps} />
+                    <UploadContext>
+                      <Editor {...otherProps} />
+                    </UploadContext>
                   </LocaleContext>
                 </div>
                 <OnChangePlugin onChange={handleEditorChange} />

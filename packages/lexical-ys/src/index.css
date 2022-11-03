@@ -316,7 +316,9 @@ pre::-webkit-scrollbar-thumb {
   height: 20px;
   background-size: contain;
 }
-
+.typeahead-popover li.active .iconfont {
+  opacity: 1;
+}
 .typeahead-popover li:first-child {
   border-radius: 8px 8px 0px 0px;
 }
@@ -342,6 +344,7 @@ pre::-webkit-scrollbar-thumb {
   margin-right: 8px;
   line-height: 20px;
   display: inline-block;
+  opacity: 0.6;
 }
 
 .component-picker-menu {

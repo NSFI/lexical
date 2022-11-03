@@ -200,7 +200,7 @@ export default function Editor(props: EditorProps): JSX.Element {
               />
               {/* <MentionsPlugin /> */}
               <HistoryPlugin />
-              <ImagesPlugin captionsEnabled={false} />
+              <ImagesPlugin />
               <VideoPlugin />
               <AttachmentPlugin />
               <LinkPlugin />

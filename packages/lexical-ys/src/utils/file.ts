@@ -57,6 +57,11 @@ export function getFileSuffix(fileName: string): {
   if (result) {
     return {fileType: 'ppt', suffix: result};
   }
+  const keynote = ['key'];
+  result = keynote.find((item) => item === suffix);
+  if (result) {
+    return {fileType: 'keynote', suffix: result};
+  }
   // 匹配zip
   const zipList = ['rar', 'zip', '7z'];
   result = zipList.find((item) => item === suffix);

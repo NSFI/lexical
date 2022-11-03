@@ -17,6 +17,7 @@ import type {
 import './ImageNode.css';
 import './AttachmentNode.css';
 
+import {createFromIconfontCN} from '@ant-design/icons';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 // import {LinkPlugin} from '@lexical/react/LexicalLinkPlugin';
 // import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
@@ -39,31 +40,42 @@ import {
 import * as React from 'react';
 import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
 
+import {useUploadStatus} from '../context/UploadContext';
+import ProgressBox from '../ui/ProgressBox';
 import {$isAttachmentNode} from './AttachmentNode';
 
+const fileIconMap = {
+  excel: 'icon-file-excel',
+  image: 'icon-file-image',
+  key: 'icon-file-key',
+  others: 'icon-file-unknown',
+  pdf: 'icon-file-pdf',
+  ppt: 'icon-file-ppt',
+  radio: 'icon-file-mp3',
+  txt: 'icon-file-txt',
+  video: 'icon-file-video',
+  word: 'icon-file-word',
+  zip: 'icon-file-zip',
+};
+const IconFont = createFromIconfontCN({
+  scriptUrl: [
+    '//qiyukf.nosdn.127.net/huke/font_3726489_mdqowaa8u0s.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
+  ],
+});
 export default function AttachmentComponent({
   src,
   fileName,
   fileType,
   fileSize,
-  // altText,
   nodeKey,
-  width,
-  height,
-  maxWidth,
-}: // resizable,
-// showCaption,
-// caption,
-// captionsEnabled,
-{
+  uploading,
+}: {
   fileName: string;
   fileType: string;
-  height: 'inherit' | number;
   fileSize: number | string;
-  maxWidth: number;
   nodeKey: NodeKey;
   src: string;
-  width: 'inherit' | number;
+  uploading?: boolean;
 }): JSX.Element {
   const attachmentRef = useRef<null | HTMLImageElement>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -74,7 +86,7 @@ export default function AttachmentComponent({
     RangeSelection | NodeSelection | GridSelection | null
   >(null);
   const activeEditorRef = useRef<LexicalEditor | null>(null);
-
+  const {uploadStatus} = useUploadStatus();
   const onDelete = useCallback(
     (payload: KeyboardEvent) => {
       if (isSelected && $isNodeSelection($getSelection())) {
@@ -195,34 +207,29 @@ export default function AttachmentComponent({
     <Suspense fallback={null}>
       <>
         <div draggable={draggable}>
-          <div className="AttachmentNode__container">
-            <div className="AttachmentNode__type" />
-            <div className="AttachmentNode__info">
-              <div className="AttachmentNode__title">{fileName}</div>
-              <div className="AttachmentNode__size">{fileSize}</div>
+          {uploading ? (
+            <ProgressBox percent={uploadStatus[src] || 0} />
+          ) : (
+            <div className="AttachmentNode__container">
+              <div className="AttachmentNode__type">
+                {/* <i className={`iconfont ${fileIconMap[fileType]}`} /> */}
+                <IconFont
+                  type={fileIconMap[fileType]}
+                  style={{fontSize: '40px'}}
+                />
+              </div>
+              <div className="AttachmentNode__info">
+                <div className="AttachmentNode__title">{fileName}</div>
+                <div className="AttachmentNode__size">{fileSize}</div>
+              </div>
+              <a href={`${src}`} ref={attachmentRef} target="_blank">
+                <i
+                  className="iconfont icon-download"
+                  style={{color: '#37393D'}}
+                />
+              </a>
             </div>
-            <a
-              href={`${src}`}
-              ref={attachmentRef}
-              width={width}
-              height={height}
-              maxWidth={maxWidth}>
-              下载
-            </a>
-          </div>
-          {/* <LazyImage
-            className={
-              isFocused
-                ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
-                : null
-            }
-            src={src}
-            altText={altText}
-            attachmentRef={attachmentRef}
-            width={width}
-            height={height}
-            maxWidth={maxWidth}
-          /> */}
+          )}
         </div>
       </>
     </Suspense>

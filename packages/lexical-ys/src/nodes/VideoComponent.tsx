@@ -15,6 +15,7 @@ import type {
 } from 'lexical';
 
 import './ImageNode.css';
+import 'video.js/dist/video-js.css';
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
@@ -29,48 +30,52 @@ import {
   KEY_BACKSPACE_COMMAND,
   KEY_DELETE_COMMAND,
   KEY_ENTER_COMMAND,
+  KEY_ESCAPE_COMMAND,
   SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 import * as React from 'react';
-import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import videojs from 'video.js';
 
-import ImageResizer from '../ui/ImageResizer';
+// import 'video.js/dist/lang/zh-CN.js';
+import {useUploadStatus} from '../context/UploadContext';
+import ProgressBox from '../ui/ProgressBox';
+import {zhCN} from './VideoLanguage';
 import {$isVideoNode} from './VideoNode';
 
+videojs.addLanguage('zh-CN', zhCN);
 export default function VideoComponent({
   src,
-  // altText,
   nodeKey,
-  width,
-  height,
-  maxWidth,
-  resizable,
-}: // showCaption,
-// caption,
-// captionsEnabled,
-{
-  // altText: string;
-  // caption: LexicalEditor;
+  uploading,
+}: {
   height: 'inherit' | number;
-  maxWidth: number;
   nodeKey: NodeKey;
-  resizable: boolean;
-  // showCaption: boolean;
   src: string;
-  width: 'inherit' | number;
-  // captionsEnabled: boolean;
+  uploading?: boolean;
 }): JSX.Element {
   const videoRef = useRef<null | HTMLVideoElement>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isResizing, setIsResizing] = useState<boolean>(false);
   const [editor] = useLexicalComposerContext();
   const [selection, setSelection] = useState<
     RangeSelection | NodeSelection | GridSelection | null
   >(null);
+  const {uploadStatus} = useUploadStatus();
   const activeEditorRef = useRef<LexicalEditor | null>(null);
-
+  const [videoNode, setVideoNode] = useState<any>();
+  const [player, setPlayer] = useState<any>();
   const onDelete = useCallback(
     (payload: KeyboardEvent) => {
       if (isSelected && $isNodeSelection($getSelection())) {
@@ -174,11 +179,11 @@ export default function VideoComponent({
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(KEY_ENTER_COMMAND, onEnter, COMMAND_PRIORITY_LOW),
-      // editor.registerCommand(
-      //   KEY_ESCAPE_COMMAND,
-      //   onEscape,
-      //   COMMAND_PRIORITY_LOW,
-      // ),
+      editor.registerCommand(
+        KEY_ESCAPE_COMMAND,
+        onEscape,
+        COMMAND_PRIORITY_LOW,
+      ),
     );
   }, [
     clearSelection,
@@ -192,67 +197,59 @@ export default function VideoComponent({
     setSelected,
   ]);
 
-  const setShowCaption = () => {
-    // editor.update(() => {
-    //   const node = $getNodeByKey(nodeKey);
-    //   if ($isVideoNode(node)) {
-    //     node.setShowCaption(true);
-    //   }
-    // });
-  };
-
-  const onResizeEnd = (
-    nextWidth: 'inherit' | number,
-    nextHeight: 'inherit' | number,
-  ) => {
-    // Delay hiding the resize bars for click case
-    setTimeout(() => {
-      setIsResizing(false);
-    }, 200);
-
-    editor.update(() => {
-      const node = $getNodeByKey(nodeKey);
-      if ($isVideoNode(node)) {
-        node.setWidthAndHeight(nextWidth, nextHeight);
-      }
-    });
-  };
-
-  const onResizeStart = () => {
-    setIsResizing(true);
-  };
-
+  // rtmp播放
+  useMemo(() => {
+    if (videoNode) {
+      const videoJsOptions = {
+        autoplay: false,
+        controls: true,
+        // 自动加载
+        errorDisplay: true,
+        // 宽
+        height: 400,
+        // 自动播放
+        language: 'zh-CN',
+        preload: 'auto',
+        sources: [
+          {
+            src: src,
+          },
+        ],
+        textTrackSettings: false,
+        // 错误展示
+        width: 600,
+      };
+      const videoPlayer = videojs(videoNode, videoJsOptions);
+      setPlayer(videoPlayer);
+    }
+  }, [videoNode]);
+  useEffect(() => {
+    return () => {
+      if (player) player.dispose();
+    };
+  }, []);
   const draggable = isSelected && $isNodeSelection(selection);
-  const isFocused = isSelected || isResizing;
-
   return (
     <Suspense fallback={null}>
       <>
         <div draggable={draggable}>
-          <video
-            src={src}
-            ref={videoRef}
-            controls="controls"
-            className={
-              isFocused
-                ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
-                : null
-            }
-          />
+          {uploading ? (
+            <ProgressBox percent={uploadStatus[src] || 0} />
+          ) : (
+            <video
+              ref={(node) => {
+                setVideoNode(node);
+                videoRef.current = node;
+              }}
+              id="videoPlay"
+              className="video-js vjs-default-skin vjs-big-play-centered"
+              width="100%"
+              height="100%">
+              <track kind="captions" />
+              <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
+            </video>
+          )}
         </div>
-        {resizable && $isNodeSelection(selection) && isFocused && (
-          <ImageResizer
-            showCaption={false}
-            setShowCaption={setShowCaption}
-            editor={editor}
-            buttonRef={buttonRef}
-            imageRef={videoRef}
-            maxWidth={maxWidth}
-            onResizeStart={onResizeStart}
-            onResizeEnd={onResizeEnd}
-            captionsEnabled={false}
-          />
-        )}
       </>
     </Suspense>
   );

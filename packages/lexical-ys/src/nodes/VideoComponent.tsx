@@ -14,8 +14,9 @@ import type {
   RangeSelection,
 } from 'lexical';
 
-import './ImageNode.css';
+import './VideoComponent.css';
 import 'video.js/dist/video-js.css';
+import 'video.js/dist/lang/zh-CN.js';
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
@@ -44,13 +45,10 @@ import {
 } from 'react';
 import videojs from 'video.js';
 
-// import 'video.js/dist/lang/zh-CN.js';
 import {useUploadStatus} from '../context/UploadContext';
 import ProgressBox from '../ui/ProgressBox';
-import {zhCN} from './VideoLanguage';
 import {$isVideoNode} from './VideoNode';
 
-videojs.addLanguage('zh-CN', zhCN);
 export default function VideoComponent({
   src,
   nodeKey,

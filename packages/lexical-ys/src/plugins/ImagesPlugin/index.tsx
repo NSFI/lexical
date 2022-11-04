@@ -54,10 +54,17 @@ export default function ImagesPlugin({
     setUploadStatus(payload.src, 0);
     await postFile(nosLocation, payload.bodyFormData, {
       onUploadProgress: (progressEvent: ProgressEvent) => {
-        if (progressEvent.lengthComputable) {
-          const complete =
-            ((progressEvent.loaded / progressEvent.total) * 100) | 0;
-          setUploadStatus(payload.src, complete);
+        if (progressEvent.lengthComputable || progressEvent.progress) {
+          if (progressEvent.progress) {
+            setUploadStatus(
+              payload.src,
+              parseInt(progressEvent.progress * 100),
+            );
+          } else {
+            const complete =
+              ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+            setUploadStatus(payload.src, complete);
+          }
         }
       },
     });
@@ -80,6 +87,7 @@ export default function ImagesPlugin({
         INSERT_IMAGE_COMMAND,
         async (payload, newEditor) => {
           const imageLoadingNode = insertNode(payload);
+          if (!payload.bodyFormData) return;
           try {
             await uploadFile(payload);
             newEditor.update(() => {

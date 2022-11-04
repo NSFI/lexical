@@ -13,6 +13,7 @@ import path from 'path';
 import fs from 'fs';
 import {replaceCodePlugin} from 'vite-plugin-replace';
 import babel from '@rollup/plugin-babel';
+import inject  from '@rollup/plugin-inject'
 
 const moduleResolution = [
   {
@@ -177,7 +178,7 @@ export default defineConfig({
       replacements: [
         {
           from: /__DEV__/g,
-          to: 'false',
+          to: 'true',
         },
       ],
     }),
@@ -197,6 +198,9 @@ export default defineConfig({
         ],
       ],
       presets: ['@babel/preset-react'],
+    }),
+    inject({ 
+        videojs: 'video.js',
     }),
     react(),
   ],

@@ -120,9 +120,7 @@ function ImageComponent({
   resizable,
   showCaption,
   caption,
-  captionsEnabled,
   bodyFormData,
-  percent,
 }: {
   altText: string;
   caption: LexicalEditor;

@@ -7,11 +7,13 @@
  */
 
 import babel from '@rollup/plugin-babel';
+import inject from '@rollup/plugin-inject';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
 import {defineConfig} from 'vite';
 import {replaceCodePlugin} from 'vite-plugin-replace';
+
 // import libCss from 'vite-plugin-libcss';
 // function resolve(str) {
 //   return path.resolve(__dirname, str);
@@ -199,6 +201,9 @@ export default defineConfig({
         ],
       ],
       presets: ['@babel/preset-react'],
+    }),
+    inject({
+      videojs: 'video.js',
     }),
     react(),
     // libCss(),

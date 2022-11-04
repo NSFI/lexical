@@ -13,6 +13,7 @@ import {
   $getSelection,
   $insertNodes,
   $isNodeSelection,
+  $isRangeSelection,
   $isRootOrShadowRoot,
   $setSelection,
   COMMAND_PRIORITY_EDITOR,
@@ -50,15 +51,42 @@ export default function AttachmentPlugin(): JSX.Element | null {
     setUploadStatus(payload.src, 0);
     await postFile(nosLocation, payload.bodyFormData, {
       onUploadProgress: (progressEvent: ProgressEvent) => {
-        if (progressEvent.lengthComputable) {
-          const complete =
-            ((progressEvent.loaded / progressEvent.total) * 100) | 0;
-          setUploadStatus(payload.src, complete);
+        if (progressEvent.lengthComputable || progressEvent.progress) {
+          if (progressEvent.progress) {
+            setUploadStatus(
+              payload.src,
+              parseInt(progressEvent.progress * 100),
+            );
+          } else {
+            const complete =
+              ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+            setUploadStatus(payload.src, complete);
+          }
         }
       },
     });
   }, []);
   function insertNode(payload: InsertAttachmentPayload) {
+    if (payload.uploading) {
+      return insertNodeInline(payload);
+    }
+    const selection = $getSelection();
+    if (!$isRangeSelection(selection)) {
+      return false;
+    }
+    const focusNode = selection.focus.getNode();
+    if (focusNode !== null) {
+      const attachmentNode = $createAttachmentNode(payload);
+      selection.insertParagraph();
+      selection.focus
+        .getNode()
+        .getTopLevelElementOrThrow()
+        .insertBefore(attachmentNode);
+      return attachmentNode;
+    }
+    return false;
+  }
+  function insertNodeInline(payload: InsertAttachmentPayload) {
     const attachmentNode = $createAttachmentNode(payload);
     $insertNodes([attachmentNode]);
     if ($isRootOrShadowRoot(attachmentNode.getParentOrThrow())) {
@@ -81,8 +109,14 @@ export default function AttachmentPlugin(): JSX.Element | null {
           const {bodyFormData, ...others} = payload;
           const attachmentNode = insertNode({
             ...others,
-            uploading: true,
+            ...(bodyFormData ? {uploading: true} : null),
           });
+          if (!attachmentNode) {
+            return true;
+          }
+          if (!bodyFormData) {
+            return true;
+          }
           try {
             await uploadFile(payload);
             newEditor.update(() => {

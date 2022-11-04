@@ -20,4 +20,7 @@
   white-space: nowrap;
   display: inline-block;
   pointer-events: none;
+  max-width: 950px;
+  margin: 0 auto;
+  padding-left: 28px;
 }

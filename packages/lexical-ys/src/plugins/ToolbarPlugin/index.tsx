@@ -590,16 +590,28 @@ function InsertDropDown({
     }
   };
   const onUploadVideoClick = () => {
-    const uploadInput = document.getElementById('yseditor-videoInput');
-    if (uploadInput) {
-      uploadInput.click();
-    }
+    editor.update(() => {
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection)) {
+        return false;
+      }
+      const uploadInput = document.getElementById('yseditor-videoInput');
+      if (uploadInput) {
+        uploadInput.click();
+      }
+    });
   };
   const onUploadAttachmentClick = () => {
-    const uploadInput = document.getElementById('yseditor-attachmentInput');
-    if (uploadInput) {
-      uploadInput.click();
-    }
+    editor.update(() => {
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection)) {
+        return false;
+      }
+      const uploadInput = document.getElementById('yseditor-attachmentInput');
+      if (uploadInput) {
+        uploadInput.click();
+      }
+    });
   };
 
   return (

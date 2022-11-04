@@ -13,6 +13,7 @@ import path from 'path';
 import fs from 'fs';
 import {replaceCodePlugin} from 'vite-plugin-replace';
 import babel from '@rollup/plugin-babel';
+import inject  from '@rollup/plugin-inject'
 
 const moduleResolution = [
   {
@@ -168,6 +169,9 @@ export default defineConfig({
       extensions: ['jsx', 'js', 'ts', 'tsx', 'mjs'],
       plugins: ['@babel/plugin-transform-flow-strip-types'],
       presets: ['@babel/preset-react'],
+    }),
+     inject({ 
+        videojs: 'video.js',
     }),
     react(),
   ],

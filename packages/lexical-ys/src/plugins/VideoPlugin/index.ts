@@ -13,6 +13,7 @@ import {
   $getSelection,
   $insertNodes,
   $isNodeSelection,
+  $isRangeSelection,
   $isRootOrShadowRoot,
   $setSelection,
   COMMAND_PRIORITY_EDITOR,
@@ -51,15 +52,43 @@ export default function VideoPlugin(): JSX.Element | null {
     setUploadStatus(payload.src, 0);
     await postFile(nosLocation, payload.bodyFormData, {
       onUploadProgress: (progressEvent: ProgressEvent) => {
-        if (progressEvent.lengthComputable) {
-          const complete =
-            ((progressEvent.loaded / progressEvent.total) * 100) | 0;
-          setUploadStatus(payload.src, complete);
+        if (progressEvent.lengthComputable || progressEvent.progress) {
+          if (progressEvent.progress) {
+            setUploadStatus(
+              payload.src,
+              parseInt(progressEvent.progress * 100),
+            );
+          } else {
+            const complete =
+              ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+            setUploadStatus(payload.src, complete);
+          }
         }
       },
     });
   }, []);
-  function insertNode(payload: InsertVideoPayload) {
+  function insertNode(payload: InsertAttachmentPayload) {
+    if (payload.uploading) {
+      return insertNodeInline(payload);
+    }
+    const selection = $getSelection();
+    if (!$isRangeSelection(selection)) {
+      return false;
+    }
+    const focusNode = selection.focus.getNode();
+    console.log('focusNode', focusNode);
+    if (focusNode !== null) {
+      const videoNode = $createVideoNode(payload);
+      selection.insertParagraph();
+      selection.focus
+        .getNode()
+        .getTopLevelElementOrThrow()
+        .insertBefore(videoNode);
+      return videoNode;
+    }
+    return false;
+  }
+  function insertNodeInline(payload: InsertVideoPayload) {
     const videoNode = $createVideoNode(payload);
     $insertNodes([videoNode]);
     if ($isRootOrShadowRoot(videoNode.getParentOrThrow())) {
@@ -76,7 +105,16 @@ export default function VideoPlugin(): JSX.Element | null {
       editor.registerCommand<InsertVideoPayload>(
         INSERT_VIDEO_COMMAND,
         async (payload, newEditor) => {
-          const videoNode = insertNode({src: payload.src, uploading: true});
+          const videoNode = insertNode({
+            src: payload.src,
+            ...(payload.bodyFormData ? {uploading: true} : null),
+          });
+          if (!videoNode) {
+            return true;
+          }
+          if (!payload.bodyFormData) {
+            return true;
+          }
           try {
             await uploadFile(payload);
             newEditor.update(() => {

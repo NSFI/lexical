@@ -57,9 +57,9 @@ const fileIconMap = {
   word: 'icon-file-word',
   zip: 'icon-file-zip',
 };
-const IconFont = createFromIconfontCN({
+export const IconFont = createFromIconfontCN({
   scriptUrl: [
-    '//qiyukf.nosdn.127.net/huke/font_3726489_mdqowaa8u0s.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
+    'https://qiyukf.nosdn.127.net/huke/font_3726489_mdqowaa8u0s.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
   ],
 });
 export default function AttachmentComponent({

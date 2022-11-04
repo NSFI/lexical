@@ -32,6 +32,7 @@ function indent(tagName: HeadingTagType) {
 
 function TableOfContentsList({
   tableOfContents,
+  title,
 }: {
   tableOfContents: Array<[key: NodeKey, text: string, tag: HeadingTagType]>;
 }): JSX.Element {
@@ -138,58 +139,51 @@ function TableOfContentsList({
   return (
     <div className="table-of-contents">
       <ul className="headings">
+        <div className="normal-heading-wrapper">
+          <div className="first-heading" style={{marginTop: '24px'}}>
+            {title}
+          </div>
+        </div>
         {tableOfContents.map(([key, text, tag], index) => {
-          if (index === 0) {
-            return (
-              <div className="normal-heading-wrapper" key={key}>
-                <div
-                  className="first-heading"
-                  onClick={() => scrollToNode(key, index)}
-                  role="button"
-                  tabIndex={0}>
-                  {('' + text).length > 20
-                    ? text.substring(0, 20) + '...'
-                    : text}
-                </div>
-                <br />
-              </div>
-            );
-          } else {
-            return (
+          return (
+            <div
+              key={key}
+              className={`normal-heading-wrapper ${
+                selectedKey === key ? 'selected-heading-wrapper' : ''
+              }`}>
               <div
-                key={key}
-                className={`normal-heading-wrapper ${
-                  selectedKey === key ? 'selected-heading-wrapper' : ''
-                }`}>
-                <div
-                  onClick={() => scrollToNode(key, index)}
-                  role="button"
-                  className={indent(tag)}
-                  tabIndex={0}>
-                  <li
-                    className={`normal-heading ${
-                      selectedKey === key ? 'selected-heading' : ''
-                    }
+                onClick={() => scrollToNode(key, index)}
+                role="button"
+                className={indent(tag)}
+                tabIndex={0}>
+                <li
+                  className={`normal-heading ${
+                    selectedKey === key ? 'selected-heading' : ''
+                  }
                     `}>
-                    {('' + text).length > 15
-                      ? text.substring(0, 15) + '...'
-                      : text}
-                  </li>
-                </div>
+                  {('' + text).length > 15
+                    ? text.substring(0, 15) + '...'
+                    : text}
+                </li>
               </div>
-            );
-          }
+            </div>
+          );
         })}
       </ul>
     </div>
   );
 }
 
-export default function TableOfContentsPlugin() {
+export default function TableOfContentsPlugin({title}) {
   return (
     <LexicalTableOfContents__EXPERIMENTAL>
       {(tableOfContents) => {
-        return <TableOfContentsList tableOfContents={tableOfContents} />;
+        return (
+          <TableOfContentsList
+            tableOfContents={tableOfContents}
+            title={title}
+          />
+        );
       }}
     </LexicalTableOfContents__EXPERIMENTAL>
   );

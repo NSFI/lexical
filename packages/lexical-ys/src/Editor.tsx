@@ -76,11 +76,13 @@ interface EditorProps {
   initValue?: any;
   tocHeight?: string;
   isEditable?: boolean;
+  title?: string;
 }
 
 export default function Editor(props: EditorProps): JSX.Element {
   const {
     initValue,
+    title = '',
     tocHeight = 'calc(100vh - 200px)',
     isEditable = false,
   } = props;
@@ -96,11 +98,13 @@ export default function Editor(props: EditorProps): JSX.Element {
       showTreeView,
     },
   } = useSettings();
-  const text = isCollab
-    ? 'Enter some collaborative rich text...'
-    : isEditable
-    ? '请输入...'
-    : '请输入...';
+  const text = isCollab ? (
+    'Enter some collaborative rich text...'
+  ) : isEditable ? (
+    <div style={{left: '30px', position: 'relative'}}>输入“/”快速插入</div>
+  ) : (
+    <div style={{left: '30px', position: 'relative'}}>输入“/”快速插入</div>
+  );
   const placeholder = <Placeholder>{text}</Placeholder>;
   const scrollRef = useRef(null);
   const [floatingAnchorElem, setFloatingAnchorElem] =
@@ -170,7 +174,7 @@ export default function Editor(props: EditorProps): JSX.Element {
               <HistoryPlugin externalHistoryState={historyState} />
             )}
             <div className="toc" style={{height: tocHeight}}>
-              <TableOfContentsPlugin />
+              <TableOfContentsPlugin title={title} />
             </div>
             <div className="editor-content">
               <RichTextPlugin
@@ -184,6 +188,8 @@ export default function Editor(props: EditorProps): JSX.Element {
                 placeholder={placeholder}
               />
             </div>
+            <div style={{flex: 1, maxWidth: '180px'}} />
+
             <MarkdownShortcutPlugin />
             <CodeHighlightPlugin />
             <ListPlugin />

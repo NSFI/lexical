@@ -11,6 +11,7 @@ import './index.css';
 import './main.css';
 
 import * as React from 'react';
+import {useState} from 'react';
 import {createRoot} from 'react-dom/client';
 
 import App from './App';
@@ -33,16 +34,77 @@ window.addEventListener('unhandledrejection', ({reason}) =>
   showErrorOverlay(reason),
 );
 
+const App1 = () => {
+  const [value, setValue] = useState({
+    root: {
+      children: [
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'fdfdfdfdfd',
+              type: 'text',
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'fdfdfdfd',
+              type: 'text',
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+      ],
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      type: 'root',
+      version: 1,
+    },
+  });
+  return (
+    <>
+      <button
+        onClick={() => {
+          setValue(null);
+        }}>
+        a
+      </button>
+      <App
+        onChange={(jsonValue, htmlValue) => {
+          // console.log('jsonValue', jsonValue,htmlValue);
+        }}
+        initValue={value}
+        isEditable={true}
+        title={'ddffd'}
+        // tocHeight={'1000px'}
+      />
+    </>
+  );
+};
+
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App
-      onChange={(jsonValue, htmlValue) => {
-        // console.log('jsonValue', jsonValue,htmlValue);
-      }}
-      initValue={''}
-      isEditable={true}
-      title={'ddffd'}
-      // tocHeight={'1000px'}
-    />
+    <App1 />
   </React.StrictMode>,
 );

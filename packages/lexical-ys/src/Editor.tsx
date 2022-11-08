@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import {AutoScrollPlugin} from '@lexical/react/LexicalAutoScrollPlugin';
 import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
@@ -20,6 +19,7 @@ import {ListPlugin} from '@lexical/react/LexicalListPlugin';
 import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
+import {$createParagraphNode, $getRoot, $getSelection} from 'lexical';
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
 
@@ -127,18 +127,29 @@ export default function Editor(props: EditorProps): JSX.Element {
 
   useEffect(() => {
     try {
-      if (initValue) {
+      if (initValue && JSON.stringify(initValue) !== '{}') {
         editor.setEditorState(
           editor.parseEditorState(JSON.stringify(initValue)),
         );
+      } else {
+        editor.update(() => {
+          const root = $getRoot();
+          const selection = $getSelection();
+          const paragraph = $createParagraphNode();
+          root.clear();
+          root.append(paragraph);
+          if (selection !== null) {
+            paragraph.select();
+          }
+        });
       }
     } catch (e) {
       console.error('初始化值报错', e);
     }
-  }, [initValue]);
+  }, [editor, initValue]);
   useEffect(() => {
     editor.setEditable(isEditable);
-  }, [isEditable]);
+  }, [editor, isEditable]);
   return (
     <>
       {isEditable && <ToolbarPlugin />}

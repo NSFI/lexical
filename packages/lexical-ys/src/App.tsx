@@ -36,7 +36,8 @@ import YsEditorTheme from './themes/YsEditorTheme';
 
 interface YsEditorProps {
   onChange?: (jsonValue: any, htmlValue: string) => void;
-  tocHeight?: string;
+  tocHeight?: React.CSSProperties;
+  editorHeight: React.CSSProperties;
   initValue?: any;
   isEditable?: boolean;
 }

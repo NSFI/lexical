@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+import {post} from './request';
+
 export function getFileSuffix(fileName: string): {
   suffix: string;
   fileType: string;
@@ -95,14 +97,38 @@ export function getFileSuffix(fileName: string): {
 }
 
 export function getFileSize(size: number): string {
+  let rst = '';
   if (size >= 1024 * 1024 * 1024) {
-    size = (size / 1024 / 1024 / 1024).toFixed(2) + 'GB';
+    rst = (size / 1024 / 1024 / 1024).toFixed(2) + 'GB';
   } else if (size >= 1024 * 1024) {
-    size = (size / 1024 / 1024).toFixed(2) + 'MB';
+    rst = (size / 1024 / 1024).toFixed(2) + 'MB';
   } else if (size >= 1024) {
-    size = (size / 1024).toFixed(2) + 'KB';
+    rst = (size / 1024).toFixed(2) + 'KB';
   } else if (size < 1024) {
-    size += 'bit';
+    rst += 'bit';
   }
-  return size;
+  return rst;
+}
+
+export async function beforeUploadFile(file: File): any {
+  const fileName = file?.name || '';
+  const {suffix} = getFileSuffix(fileName);
+  let response;
+  try {
+    response = await post('/api/athena/user/nosToken', {
+      bucket: 2,
+      count: 1, //（默认）1-七鱼；2-互客
+      ...(suffix ? {suffix} : null),
+    });
+    const {objectName, token} = response?.data[0];
+    const nosDLL = 'https://urchin.nosdn.127.net/';
+    const nosSrc = `${nosDLL}${objectName}`;
+    const bodyForm = new FormData();
+    bodyForm.append('Object', decodeURIComponent(objectName));
+    bodyForm.append('x-nos-token', token);
+    bodyForm.append('file', file);
+    return {bodyForm, nosSrc};
+  } catch (e) {
+    return false;
+  }
 }

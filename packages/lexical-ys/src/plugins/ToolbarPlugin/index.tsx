@@ -39,6 +39,7 @@ import {
   $getNearestNodeOfType,
   mergeRegister,
 } from '@lexical/utils';
+import message from 'antd/lib/message';
 import {
   $getNodeByKey,
   // $getRoot,
@@ -91,8 +92,7 @@ import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 import {INSERT_POLL_COMMAND} from '../PollPlugin';
 import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
 import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
-import {getFileSize, getFileSuffix} from './../../utils/file';
-import {post} from './../../utils/request';
+import {beforeUploadFile, getFileSize} from './../../utils/file';
 
 function getCodeLanguageOptions(): [string, string][] {
   const options: [string, string][] = [];
@@ -417,29 +417,13 @@ export function CommonFileUpload({
       const fileName = files[0]?.name || '';
       const fileSize = getFileSize(files[0]?.size);
       if (files[0]?.size > maxSize * 1024 * 1024) {
-        throw new Error(`不可超过${maxSize}m`);
+        message.error(`不可超过${maxSize}m`);
+        // throw new Error(`不可超过${maxSize}m`);
+        return;
       }
-      const {suffix, fileType} = getFileSuffix(fileName);
-      const response = await post('/api/athena/user/nosToken', {
-        bucket: 2,
-        count: 1, //（默认）1-七鱼；2-互客
-        ...(suffix ? {suffix} : null),
-      });
-      const {objectName, token} = response.data[0];
-
-      const bodyFormData = {
-        Object: decodeURIComponent(objectName),
-        file: files[0],
-        'x-nos-token': token,
-      };
-      // const nosLocation = 'https://urchin.nos-jd.163yun.com/';
-      const nosDLL = 'https://urchin.nosdn.127.net/';
-      const nosSrc = `${nosDLL}${objectName}`;
-      const bodyForm = new FormData();
-      bodyForm.append('Object', bodyFormData.Object);
-      bodyForm.append('x-nos-token', bodyFormData['x-nos-token']);
-      bodyForm.append('file', bodyFormData.file);
-
+      const beforeData = await beforeUploadFile(files[0]);
+      if (!beforeData) return;
+      const {nosSrc, bodyForm} = beforeData;
       if (type === 'image') {
         activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, {
           altText: '',
@@ -1425,7 +1409,7 @@ export default function ToolbarPlugin(): JSX.Element {
         <CommonFileUpload
           id="yseditor-imageInput"
           type={'image'}
-          maxSize={5}
+          maxSize={10}
           activeEditor={activeEditor}
         />
         <CommonFileUpload

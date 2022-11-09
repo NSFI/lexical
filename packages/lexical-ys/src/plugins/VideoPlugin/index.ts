@@ -53,19 +53,19 @@ export default function VideoPlugin(): JSX.Element | null {
     await postFile(nosLocation, payload.bodyFormData, {
       onUploadProgress: (progressEvent: ProgressEvent) => {
         if (progressEvent.lengthComputable || progressEvent.progress) {
+          let complete;
           if (progressEvent.progress) {
-            setUploadStatus(
-              payload.src,
-              parseInt(progressEvent.progress * 100),
-            );
+            complete = progressEvent.progress * 100;
           } else {
-            const complete =
-              ((progressEvent.loaded / progressEvent.total) * 100) | 0;
-            setUploadStatus(payload.src, complete);
+            complete = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+          }
+          if (complete !== 100) {
+            setUploadStatus(payload.src, parseInt(complete));
           }
         }
       },
     });
+    setUploadStatus(payload.src, 100);
   }, []);
   function insertNode(payload: InsertAttachmentPayload) {
     if (payload.uploading) {
@@ -118,10 +118,13 @@ export default function VideoPlugin(): JSX.Element | null {
           try {
             await uploadFile(payload);
             newEditor.update(() => {
-              insertNode({src: payload.src});
               videoNode.remove();
+              insertNode({src: payload.src});
             });
           } catch (e) {
+            newEditor.update(() => {
+              videoNode.remove();
+            });
             return true;
           }
           return true;

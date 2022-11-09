@@ -75,6 +75,9 @@ header h1 {
 .editor-content {
   position: relative;
   flex-grow: 1;
+  display: flex;
+  overflow: auto;
+  height: 400px;
 }
 
 .editor-scroller {
@@ -88,8 +91,10 @@ header h1 {
   display: block;
   position: relative;
   outline: 0;
-  overflow: auto;
-  resize: vertical;
+  /* overflow: auto; */
+  resize: none;
+  flex: 1;
+  flex-shrink: 0;
 }
 
 .editor {
@@ -1197,6 +1202,7 @@ button.action-button:disabled {
   top: 0;
   z-index: 1;
   background: white;
+  min-width: 500px;
 }
 .toolbar-container .iconfont {
   font-size: 18px;

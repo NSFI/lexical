@@ -12,6 +12,9 @@ import {CheckListPlugin} from '@lexical/react/LexicalCheckListPlugin';
 // import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
 import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+// import AutocompletePlugin from './plugins/AutocompletePlugin';
+// import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import {HashtagPlugin} from '@lexical/react/LexicalHashtagPlugin';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {LinkPlugin} from '@lexical/react/LexicalLinkPlugin';
@@ -30,14 +33,13 @@ import {useSharedHistoryContext} from './context/SharedHistoryContext';
 import TableCellNodes from './nodes/TableCellNodes';
 import ActionsPlugin from './plugins/ActionsPlugin';
 import AttachmentPlugin from './plugins/AttachmentPlugin';
-// import AutocompletePlugin from './plugins/AutocompletePlugin';
-// import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
 import AutoLinkPlugin from './plugins/AutoLinkPlugin';
 import ClickableLinkPlugin from './plugins/ClickableLinkPlugin';
 import CodeActionMenuPlugin from './plugins/CodeActionMenuPlugin';
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
 // import CommentPlugin from './plugins/CommentPlugin';
 import ComponentPickerPlugin from './plugins/ComponentPickerPlugin';
+import DragDropPaste from './plugins/DragDropPastePlugin';
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin';
 import EmojisPlugin from './plugins/EmojisPlugin';
 // import EquationsPlugin from './plugins/EquationsPlugin';
@@ -74,7 +76,8 @@ const skipCollaborationInit =
 
 interface EditorProps {
   initValue?: any;
-  tocHeight?: string;
+  tocHeight?: React.CSSProperties;
+  editorHeight?: React.CSSProperties;
   isEditable?: boolean;
   title?: string;
 }
@@ -83,7 +86,8 @@ export default function Editor(props: EditorProps): JSX.Element {
   const {
     initValue,
     title = '',
-    tocHeight = 'calc(100vh - 200px)',
+    tocHeight = 'calc(100vh - 210px)',
+    editorHeight = 'calc(100vh - 210px)',
     isEditable = false,
   } = props;
   const {historyState} = useSharedHistoryContext();
@@ -160,6 +164,7 @@ export default function Editor(props: EditorProps): JSX.Element {
         ref={scrollRef}>
         {isMaxLength && <MaxLengthPlugin maxLength={3000} />}
         <AutoFocusPlugin />
+        <DragDropPaste />
         {/* <ClearEditorPlugin /> */}
         <ComponentPickerPlugin />
         {/* <AutoEmbedPlugin /> */}
@@ -187,7 +192,8 @@ export default function Editor(props: EditorProps): JSX.Element {
             <div className="toc" style={{height: tocHeight}}>
               <TableOfContentsPlugin title={title} />
             </div>
-            <div className="editor-content">
+            {/* <div style={{flex: 1,flexShrink:0,width: '180px'}} /> */}
+            <div className="editor-content" style={{height: editorHeight}}>
               <RichTextPlugin
                 contentEditable={
                   <div className="editor-scroller">
@@ -197,9 +203,10 @@ export default function Editor(props: EditorProps): JSX.Element {
                   </div>
                 }
                 placeholder={placeholder}
+                ErrorBoundary={LexicalErrorBoundary}
               />
+              <div style={{flex: 1, maxWidth: '180px'}} />
             </div>
-            <div style={{flex: 1, maxWidth: '180px'}} />
 
             <MarkdownShortcutPlugin />
             <CodeHighlightPlugin />

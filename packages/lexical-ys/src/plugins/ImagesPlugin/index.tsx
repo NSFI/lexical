@@ -91,11 +91,13 @@ export default function ImagesPlugin({
           try {
             await uploadFile(payload);
             newEditor.update(() => {
-              insertNode({altText: payload.altText, src: payload.src});
               imageLoadingNode.remove();
+              insertNode({altText: payload.altText, src: payload.src});
             });
           } catch (e) {
-            imageLoadingNode.remove();
+            newEditor.update(() => {
+              imageLoadingNode.remove();
+            });
             return true;
           }
 

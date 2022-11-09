@@ -23,6 +23,7 @@
   padding: 8px;
   cursor: pointer;
   vertical-align: middle;
+  align-items: center;
 }
 
 .floating-text-format-popup button.popup-item:disabled {

@@ -8,10 +8,11 @@
 
 import type {LexicalEditor} from 'lexical';
 
-import {useDecorators} from './shared/useDecorators';
+import {ErrorBoundaryType, useDecorators} from './shared/useDecorators';
 
 export function useLexicalDecorators(
   editor: LexicalEditor,
+  ErrorBoundary: ErrorBoundaryType,
 ): Array<JSX.Element> {
-  return useDecorators(editor);
+  return useDecorators(editor, ErrorBoundary);
 }

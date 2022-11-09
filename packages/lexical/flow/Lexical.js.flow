@@ -11,7 +11,7 @@
  * LexicalCommands
  */
 
-export type LexicalCommand<P> = $ReadOnly<{}>;
+export type LexicalCommand<P> = $ReadOnly<{type?: string}>;
 
 declare export var SELECTION_CHANGE_COMMAND: LexicalCommand<void>;
 declare export var CLICK_COMMAND: LexicalCommand<MouseEvent>;
@@ -53,7 +53,7 @@ declare export var CAN_UNDO_COMMAND: LexicalCommand<boolean>;
 declare export var FOCUS_COMMAND: LexicalCommand<FocusEvent>;
 declare export var BLUR_COMMAND: LexicalCommand<FocusEvent>;
 
-declare export function createCommand<T>(): LexicalCommand<T>;
+declare export function createCommand<T>(type?: string): LexicalCommand<T>;
 
 /**
  * LexicalEditor
@@ -182,6 +182,7 @@ type EditorUpdateOptions = {
   onUpdate?: () => void,
   tag?: string,
   skipTransforms?: true,
+  discrete?: true,
 };
 type EditorFocusOptions = {
   defaultSelection?: 'rootStart' | 'rootEnd',
@@ -353,9 +354,9 @@ declare export class LexicalNode {
   isParentOf(targetNode: LexicalNode): boolean;
   getNodesBetween(targetNode: LexicalNode): Array<LexicalNode>;
   isDirty(): boolean;
-  // $FlowFixMe
+  // $FlowFixMe[incompatible-type]
   getLatest<T: LexicalNode>(this: T): T;
-  // $FlowFixMe
+  // $FlowFixMe[incompatible-type]
   getWritable<T: LexicalNode>(this: T): T;
   getTextContent(includeDirectionless?: boolean): string;
   getTextContentSize(includeDirectionless?: boolean): number;
@@ -457,7 +458,7 @@ declare export class RangeSelection implements BaseSelection {
     focusOffset: number,
   ): void;
   getTextContent(): string;
-  // $FlowFixMe DOM API
+  // $FlowFixMe[cannot-resolve-name] DOM API
   applyDOMRange(range: StaticRange): void;
   clone(): RangeSelection;
   toggleFormat(format: TextFormatType): void;
@@ -733,6 +734,7 @@ declare export class DecoratorNode<X> extends LexicalNode {
   decorate(editor: LexicalEditor, config: EditorConfig): X;
   isIsolated(): boolean;
   isInline(): boolean;
+  isKeyboardSelectable(): boolean;
 }
 declare export function $isDecoratorNode(
   node: ?LexicalNode,
@@ -813,6 +815,9 @@ declare export function $isInlineElementOrDecoratorNode(
   node: LexicalNode,
 ): boolean %checks(node instanceof ElementNode ||
   node instanceof DecoratorNode);
+declare export function $getNearestRootOrShadowRoot(
+  node: LexicalNode,
+): RootNode | ElementNode;
 declare export function $isRootOrShadowRoot(
   node: LexicalNode,
 ): boolean %checks(node instanceof RootNode || node instanceof ElementNode);

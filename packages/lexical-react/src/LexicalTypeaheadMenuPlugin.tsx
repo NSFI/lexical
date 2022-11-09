@@ -325,7 +325,7 @@ export function useDynamicPositioning(
 export const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
   index: number;
   option: TypeaheadOption;
-}> = createCommand();
+}> = createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND');
 
 function LexicalPopoverMenu<TOption extends TypeaheadOption>({
   close,
@@ -709,11 +709,9 @@ export function LexicalTypeaheadMenuPlugin<TOption extends TypeaheadOption>({
   );
 
   useEffect(() => {
-    let activeRange: Range | null = document.createRange();
-
     const updateListener = () => {
       editor.getEditorState().read(() => {
-        const range = activeRange;
+        const range = document.createRange();
         const selection = $getSelection();
         const text = getQueryTextForSearch(editor);
 
@@ -752,7 +750,6 @@ export function LexicalTypeaheadMenuPlugin<TOption extends TypeaheadOption>({
     const removeUpdateListener = editor.registerUpdateListener(updateListener);
 
     return () => {
-      activeRange = null;
       removeUpdateListener();
     };
   }, [

@@ -12,6 +12,7 @@ import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
 import {CheckListPlugin} from '@lexical/react/LexicalCheckListPlugin';
 import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
 import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import {HashtagPlugin} from '@lexical/react/LexicalHashtagPlugin';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {LinkPlugin} from '@lexical/react/LexicalLinkPlugin';
@@ -36,6 +37,7 @@ import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
 import CollapsiblePlugin from './plugins/CollapsiblePlugin';
 import CommentPlugin from './plugins/CommentPlugin';
 import ComponentPickerPlugin from './plugins/ComponentPickerPlugin';
+import DragDropPaste from './plugins/DragDropPastePlugin';
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin';
 import EmojiPickerPlugin from './plugins/EmojiPickerPlugin';
 import EmojisPlugin from './plugins/EmojisPlugin';
@@ -118,6 +120,7 @@ export default function Editor(): JSX.Element {
         }`}
         ref={scrollRef}>
         {isMaxLength && <MaxLengthPlugin maxLength={30} />}
+        <DragDropPaste />
         <AutoFocusPlugin />
         <ClearEditorPlugin />
         <ComponentPickerPlugin />
@@ -153,6 +156,7 @@ export default function Editor(): JSX.Element {
                 </div>
               }
               placeholder={placeholder}
+              ErrorBoundary={LexicalErrorBoundary}
             />
             <MarkdownShortcutPlugin />
             <CodeHighlightPlugin />
@@ -168,6 +172,7 @@ export default function Editor(): JSX.Element {
                   <ContentEditable className="TableNode__contentEditable" />
                 }
                 placeholder={''}
+                ErrorBoundary={LexicalErrorBoundary}
               />
               <MentionsPlugin />
               <HistoryPlugin />
@@ -205,6 +210,7 @@ export default function Editor(): JSX.Element {
             <PlainTextPlugin
               contentEditable={<ContentEditable />}
               placeholder={placeholder}
+              ErrorBoundary={LexicalErrorBoundary}
             />
             <HistoryPlugin externalHistoryState={historyState} />
           </>
@@ -214,9 +220,6 @@ export default function Editor(): JSX.Element {
         )}
         {isAutocomplete && <AutocompletePlugin />}
         <div>{showTableOfContents && <TableOfContentsPlugin />}</div>
-        <div className="toc">
-          {showTableOfContents && <TableOfContentsPlugin />}
-        </div>
         <ActionsPlugin isRichText={isRichText} />
       </div>
       {showTreeView && <TreeViewPlugin />}

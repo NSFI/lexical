@@ -88,6 +88,8 @@ export default function Editor(props: EditorProps): JSX.Element {
     title = '',
     tocHeight = 'calc(100vh - 210px)',
     editorHeight = 'calc(100vh - 210px)',
+    plainTocHeight = 'calc(100vh - 130px)',
+    plainEditorHeight = 'calc(100vh - 130px)',
     isEditable = false,
   } = props;
   const {historyState} = useSharedHistoryContext();
@@ -258,13 +260,18 @@ export default function Editor(props: EditorProps): JSX.Element {
           </>
         ) : (
           <>
-            <div className="toc">
+            <div className="toc" style={{height: plainTocHeight}}>
               <TableOfContentsPlugin />
             </div>
-            <PlainTextPlugin
-              contentEditable={<ContentEditable />}
-              placeholder={placeholder}
-            />
+            <div
+              className="plain-text-content"
+              style={{height: plainEditorHeight}}>
+              <PlainTextPlugin
+                contentEditable={<ContentEditable />}
+                placeholder={placeholder}
+                ErrorBoundary={LexicalErrorBoundary}
+              />
+            </div>
             <HistoryPlugin externalHistoryState={historyState} />
           </>
         )}

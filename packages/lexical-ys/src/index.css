@@ -102,6 +102,13 @@ header h1 {
   position: relative;
 }
 
+.editor-container.plain-text .toc {
+  overflow: auto;
+}
+.editor-container.plain-text .plain-text-content {
+  overflow: auto;
+}
+
 .test-recorder-output {
   margin: 20px auto 20px auto;
   width: 100%;

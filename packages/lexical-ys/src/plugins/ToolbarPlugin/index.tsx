@@ -299,9 +299,23 @@ export function InsertTableDialog({
 }): JSX.Element {
   const [rows, setRows] = useState('5');
   const [columns, setColumns] = useState('5');
-
   const onClick = () => {
-    activeEditor.dispatchCommand(INSERT_TABLE_COMMAND, {columns, rows});
+    if (Number.isNaN(parseInt(columns)) || Number.isNaN(parseInt(rows))) {
+      return;
+    }
+
+    if (parseInt(rows) > 50 || parseInt(rows) < 1) {
+      message.info('行数应为1-50之间的整数');
+      return;
+    }
+    if (parseInt(columns) > 10 || parseInt(columns) < 1) {
+      message.info('列数应为1-10之间的整数');
+      return;
+    }
+    activeEditor.dispatchCommand(INSERT_TABLE_COMMAND, {
+      columns: parseInt(columns).toString(),
+      rows: parseInt(rows).toString(),
+    });
     onClose();
   };
 

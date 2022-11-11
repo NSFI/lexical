@@ -92,7 +92,7 @@ import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 import {INSERT_POLL_COMMAND} from '../PollPlugin';
 import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
 import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
-import {beforeUploadFile, getFileSize} from './../../utils/file';
+import {beforeUploadFile, getFileSize, getFileSuffix} from './../../utils/file';
 
 function getCodeLanguageOptions(): [string, string][] {
   const options: [string, string][] = [];
@@ -450,6 +450,7 @@ export function CommonFileUpload({
           src: nosSrc,
         });
       } else if (type === 'attachment') {
+        const {fileType} = getFileSuffix(fileName);
         activeEditor.dispatchCommand(INSERT_ATTACHMENT_COMMAND, {
           bodyFormData: bodyForm,
           fileName: fileName,

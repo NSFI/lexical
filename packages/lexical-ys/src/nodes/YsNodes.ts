@@ -22,7 +22,7 @@ import {AttachmentNode} from './AttachmentNode';
 import {AutocompleteNode} from './AutocompleteNode';
 import {EmojiNode} from './EmojiNode';
 import {EquationNode} from './EquationNode';
-import {ExcalidrawNode} from './ExcalidrawNode';
+// import {ExcalidrawNode} from './ExcalidrawNode';
 import {FigmaNode} from './FigmaNode';
 import {ImageNode} from './ImageNode';
 import {KeywordNode} from './KeywordNode';
@@ -56,7 +56,7 @@ const YsNodes: Array<Klass<LexicalNode>> = [
   ImageNode,
   MentionNode,
   EmojiNode,
-  ExcalidrawNode,
+  // ExcalidrawNode,
   EquationNode,
   AutocompleteNode,
   AttachmentNode,

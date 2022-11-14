@@ -167,13 +167,13 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
   // View
 
   createDOM(config: EditorConfig): HTMLElement {
-    const span = document.createElement('span');
-    const theme = config.theme;
+    const span = document.createElement('div');
+    // const theme = config.theme;
     //TODO:
-    const className = theme.image;
-    if (className !== undefined) {
-      span.className = className;
-    }
+    // const className = theme.image;
+    // if (className !== undefined) {
+    //   span.className = className;
+    // }
     return span;
   }
 

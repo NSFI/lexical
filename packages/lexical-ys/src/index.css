@@ -107,6 +107,7 @@ header h1 {
 }
 .editor-container.plain-text .plain-text-content {
   overflow: auto;
+  flex: 1;
 }
 
 .test-recorder-output {

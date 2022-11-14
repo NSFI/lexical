@@ -205,7 +205,11 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         keywords: ['table', 'grid', 'spreadsheet', 'rows', 'columns'],
         onSelect: () =>
           showModal('Insert Table', (onClose) => (
-            <InsertTableDialog activeEditor={editor} onClose={onClose} />
+            <InsertTableDialog
+              activeEditor={editor}
+              onClose={onClose}
+              locale={locale}
+            />
           )),
       }),
       new ComponentPickerOption(locale.blockTypeToBlockName.number, {

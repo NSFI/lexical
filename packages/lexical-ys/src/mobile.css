@@ -1,0 +1,30 @@
+.editor-shell.h5 {
+  max-width: 100vw;
+}
+
+.editor-shell.h5 img {
+  width: 100% !important;
+}
+/* .editor-shell.h5 video{
+  width:100% !important;
+} */
+/* .editor-shell.h5 .video-js{
+  width: 100%;
+  height: 75vw;
+} */
+
+.editor-shell.h5 .AttachmentNode__container a {
+  opacity: 1;
+}
+
+.editor-shell.h5 .plain-text-content {
+  height: auto;
+}
+
+.editor-shell.h5 .ContentEditable__root {
+  padding: 16px;
+}
+
+.editor-shell.h5 .editor-container {
+  min-width: 0;
+}

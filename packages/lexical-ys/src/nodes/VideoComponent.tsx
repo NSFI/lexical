@@ -204,7 +204,7 @@ export default function VideoComponent({
         // 自动加载
         errorDisplay: true,
         // 宽
-        height: 400,
+        // height: 400,
         // 自动播放
         language: 'zh-CN',
         preload: 'auto',
@@ -214,8 +214,6 @@ export default function VideoComponent({
           },
         ],
         textTrackSettings: false,
-        // 错误展示
-        width: 600,
       };
       const videoPlayer = videojs(videoNode, videoJsOptions);
       setPlayer(videoPlayer);
@@ -240,7 +238,7 @@ export default function VideoComponent({
                 videoRef.current = node;
               }}
               id="videoPlay"
-              className="video-js vjs-default-skin vjs-big-play-centered"
+              className="video-js vjs-default-skin vjs-big-play-centered vjs-fluid"
               width="100%"
               height="100%">
               <track kind="captions" />

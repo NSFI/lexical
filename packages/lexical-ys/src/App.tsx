@@ -11,6 +11,7 @@
 
 import './index.css';
 import './main.css';
+import './mobile.css';
 import 'antd/lib/message/style/index.css';
 
 import {$generateHtmlFromNodes} from '@lexical/html';
@@ -40,13 +41,16 @@ interface YsEditorProps {
   editorHeight: React.CSSProperties;
   initValue?: any;
   isEditable?: boolean;
+  plainTocHeight?: React.CSSProperties;
+  plainEditorHeight: React.CSSProperties;
+  isMobile?: boolean;
 }
 
 const YsEditor = (props: YsEditorProps): JSX.Element => {
   const {
     settings: {measureTypingPerf},
   } = useSettings();
-  const {onChange, ...otherProps} = props;
+  const {onChange, isMobile, ...otherProps} = props;
 
   const initialConfig = {
     editorState: undefined,
@@ -76,10 +80,10 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
           <SharedHistoryContext>
             <TableContext>
               <SharedAutocompleteContext>
-                <div className="editor-shell">
+                <div className={`editor-shell ${isMobile ? 'h5' : ''}`}>
                   <LocaleContext>
                     <UploadContext>
-                      <Editor {...otherProps} />
+                      <Editor isMobile={isMobile} {...otherProps} />
                     </UploadContext>
                   </LocaleContext>
                 </div>

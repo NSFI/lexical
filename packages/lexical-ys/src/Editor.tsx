@@ -80,6 +80,7 @@ interface EditorProps {
   editorHeight?: React.CSSProperties;
   isEditable?: boolean;
   title?: string;
+  isMobile?: boolean;
 }
 
 export default function Editor(props: EditorProps): JSX.Element {
@@ -91,6 +92,7 @@ export default function Editor(props: EditorProps): JSX.Element {
     plainTocHeight = 'calc(100vh - 130px)',
     plainEditorHeight = 'calc(100vh - 130px)',
     isEditable = false,
+    isMobile = false,
   } = props;
   const {historyState} = useSharedHistoryContext();
   const [editor] = useLexicalComposerContext();
@@ -260,12 +262,14 @@ export default function Editor(props: EditorProps): JSX.Element {
           </>
         ) : (
           <>
-            <div className="toc" style={{height: plainTocHeight}}>
-              <TableOfContentsPlugin />
-            </div>
+            {isMobile ? null : (
+              <div className="toc" style={{height: plainTocHeight}}>
+                <TableOfContentsPlugin title={title} />
+              </div>
+            )}
             <div
               className="plain-text-content"
-              style={{height: plainEditorHeight}}>
+              style={{height: isMobile ? 'auto' : plainEditorHeight}}>
               <PlainTextPlugin
                 contentEditable={<ContentEditable />}
                 placeholder={placeholder}

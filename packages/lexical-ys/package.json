@@ -11,10 +11,11 @@
     "dev": "vite --host",
     "build-dev": "vite build",
     "build-prod": "vite build --config vite.prod.config.js",
+    "build": "vite build --config vite.prod.config.js",
     "build-test": "vite build --config vite.test.config.js",
     "build-vercel": "(cd ../../ && node ./scripts/build.js --prod) && npm run build-prod",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build-test"
+    "prepublishOnly": "npm run build"
   },
   "module": "./dist/YsEditor.es.js",
   "exports": {

@@ -215,6 +215,12 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   }
 
   decorate(): JSX.Element {
+    console.log(
+      'this.__width,this.__height,this.__maxWidth',
+      this.__width,
+      this.__height,
+      this.__maxWidth,
+    );
     return (
       <Suspense fallback={null}>
         <ImageComponent
@@ -238,7 +244,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
 export function $createImageNode({
   altText,
   height,
-  maxWidth = 500,
+  maxWidth,
   captionsEnabled,
   src,
   width,

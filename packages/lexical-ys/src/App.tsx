@@ -74,30 +74,28 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
     [onChange],
   );
   return (
-    <div>
-      <SettingsContext>
-        <LexicalComposer initialConfig={initialConfig}>
-          <SharedHistoryContext>
-            <TableContext>
-              <SharedAutocompleteContext>
-                <div className={`editor-shell ${isMobile ? 'h5' : ''}`}>
-                  <LocaleContext>
-                    <UploadContext>
-                      <Editor isMobile={isMobile} {...otherProps} />
-                    </UploadContext>
-                  </LocaleContext>
-                </div>
-                <OnChangePlugin onChange={handleEditorChange} />
-                {isDev ? <Settings /> : null}
-                {isDev ? <PasteLogPlugin /> : null}
-                {isDev ? <TestRecorderPlugin /> : null}
-                {isDev && measureTypingPerf ? <TypingPerfPlugin /> : null}
-              </SharedAutocompleteContext>
-            </TableContext>
-          </SharedHistoryContext>
-        </LexicalComposer>
-      </SettingsContext>
-    </div>
+    <SettingsContext>
+      <LexicalComposer initialConfig={initialConfig}>
+        <SharedHistoryContext>
+          <TableContext>
+            <SharedAutocompleteContext>
+              <div className={`editor-shell ${isMobile ? 'h5' : ''}`}>
+                <LocaleContext>
+                  <UploadContext>
+                    <Editor isMobile={isMobile} {...otherProps} />
+                  </UploadContext>
+                </LocaleContext>
+              </div>
+              <OnChangePlugin onChange={handleEditorChange} />
+              {isDev ? <Settings /> : null}
+              {isDev ? <PasteLogPlugin /> : null}
+              {isDev ? <TestRecorderPlugin /> : null}
+              {isDev && measureTypingPerf ? <TypingPerfPlugin /> : null}
+            </SharedAutocompleteContext>
+          </TableContext>
+        </SharedHistoryContext>
+      </LexicalComposer>
+    </SettingsContext>
   );
 };
 

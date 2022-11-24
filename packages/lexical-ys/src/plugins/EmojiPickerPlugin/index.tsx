@@ -86,7 +86,7 @@ type Emoji = {
   skin_tones?: boolean;
 };
 
-const MAX_EMOJI_SUGGESTION_COUNT = 10;
+// const MAX_EMOJI_SUGGESTION_COUNT = 10;
 
 export default function EmojiPickerPlugin() {
   const [editor] = useLexicalComposerContext();
@@ -116,18 +116,16 @@ export default function EmojiPickerPlugin() {
   });
 
   const options: Array<EmojiOption> = useMemo(() => {
-    return emojiOptions
-      .filter((option: EmojiOption) => {
-        return queryString != null
-          ? new RegExp(queryString, 'gi').exec(option.title) ||
-            option.keywords != null
-            ? option.keywords.some((keyword: string) =>
-                new RegExp(queryString, 'gi').exec(keyword),
-              )
-            : false
-          : emojiOptions;
-      })
-      .slice(0, MAX_EMOJI_SUGGESTION_COUNT);
+    return emojiOptions.filter((option: EmojiOption) => {
+      return queryString != null
+        ? new RegExp(queryString, 'gi').exec(option.title) ||
+          option.keywords != null
+          ? option.keywords.some((keyword: string) =>
+              new RegExp(queryString, 'gi').exec(keyword),
+            )
+          : false
+        : emojiOptions;
+    });
   }, [emojiOptions, queryString]);
 
   const onSelectOption = useCallback(
@@ -154,7 +152,6 @@ export default function EmojiPickerPlugin() {
     },
     [editor],
   );
-
   return (
     <LexicalTypeaheadMenuPlugin
       onQueryChange={setQueryString}

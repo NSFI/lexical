@@ -32,7 +32,7 @@ test.describe('BlockWithAlignableContents', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world</span>
         </p>
@@ -43,12 +43,12 @@ test.describe('BlockWithAlignableContents', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world</span>
         </p>
         <div contenteditable="false" data-lexical-decorator="true">
-          <div class="YsEditorTheme__embedBlock">
+          <div class="PlaygroundEditorTheme__embedBlock">
             <iframe
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen=""
@@ -59,7 +59,7 @@ test.describe('BlockWithAlignableContents', () => {
               width="560"></iframe>
           </div>
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
   });
@@ -76,12 +76,12 @@ test.describe('BlockWithAlignableContents', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world</span>
         </p>
         <div contenteditable="false" data-lexical-decorator="true">
-          <div class="YsEditorTheme__embedBlock">
+          <div class="PlaygroundEditorTheme__embedBlock">
             <iframe
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen=""
@@ -92,7 +92,7 @@ test.describe('BlockWithAlignableContents', () => {
               width="560"></iframe>
           </div>
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await selectAll(page);
@@ -101,14 +101,14 @@ test.describe('BlockWithAlignableContents', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
           style="text-align: center">
           <span data-lexical-text="true">Hello world</span>
         </p>
         <div contenteditable="false" data-lexical-decorator="true">
           <div
-            class="YsEditorTheme__embedBlock YsEditorTheme__embedBlockFocus"
+            class="PlaygroundEditorTheme__embedBlock PlaygroundEditorTheme__embedBlockFocus"
             style="text-align: center">
             <iframe
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -120,7 +120,7 @@ test.describe('BlockWithAlignableContents', () => {
               width="560"></iframe>
           </div>
         </div>
-        <p class="YsEditorTheme__paragraph" style="text-align: center">
+        <p class="PlaygroundEditorTheme__paragraph" style="text-align: center">
           <br />
         </p>
       `,

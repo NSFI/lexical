@@ -37,36 +37,36 @@ test.describe('File', () => {
     await page.keyboard.press('Enter');
 
     await insertUploadImage(page, [
-      'packages/lexical-ys/src/images/yellow-flower-small.jpg',
+      'packages/lexical-playground/src/images/yellow-flower-small.jpg',
     ]);
 
     await waitForSelector(page, '.editor-image img');
 
     const expectedHtml = html`
       <p
-        class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+        class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
         dir="ltr">
         <strong
-          class="YsEditorTheme__textBold"
+          class="PlaygroundEditorTheme__textBold"
           data-lexical-text="true">
           Hello
         </strong>
         <span data-lexical-text="true">World</span>
       </p>
-      <ol class="YsEditorTheme__ol1">
+      <ol class="PlaygroundEditorTheme__ol1">
         <li
           value="1"
-          class="YsEditorTheme__listItem YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">one</span>
         </li>
         <li
           value="2"
-          class="YsEditorTheme__listItem YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">two</span>
         </li>
-        <li value="3" class="YsEditorTheme__listItem">
+        <li value="3" class="PlaygroundEditorTheme__listItem">
           <span
             class="editor-image"
             contenteditable="false"
@@ -98,7 +98,7 @@ test.describe('File', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 

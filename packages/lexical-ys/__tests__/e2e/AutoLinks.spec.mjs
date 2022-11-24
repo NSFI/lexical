@@ -168,7 +168,7 @@ test.describe('Auto Links', () => {
       page,
       html`
         <p dir="ltr">
-          <a href="https://" dir="ltr">
+          <a href="https://" dir="ltr" rel="noopener">
             <span data-lexical-text="true">hm</span>
           </a>
         </p>
@@ -183,8 +183,39 @@ test.describe('Auto Links', () => {
       page,
       html`
         <p dir="ltr">
-          <a href="https://" dir="ltr">
+          <a href="https://" dir="ltr" rel="noopener">
             <span data-lexical-text="true">https://facebook.com</span>
+          </a>
+        </p>
+      `,
+      undefined,
+      {ignoreClasses: true},
+    );
+  });
+
+  test('Can create links when pasting text with multiple autolinks in a row separated by non-alphanumeric characters, but not whitespaces', async ({
+    page,
+    isPlainText,
+  }) => {
+    test.skip(isPlainText);
+    await focusEditor(page);
+    await pasteFromClipboard(page, {
+      'text/plain': 'https://1.com/,https://2.com/;;;https://3.com',
+    });
+    await assertHTML(
+      page,
+      html`
+        <p>
+          <a href="https://1.com/" dir="ltr">
+            <span data-lexical-text="true">https://1.com/</span>
+          </a>
+          <span data-lexical-text="true">,</span>
+          <a href="https://2.com/" dir="ltr">
+            <span data-lexical-text="true">https://2.com/</span>
+          </a>
+          <span data-lexical-text="true">;;;</span>
+          <a href="https://3.com" dir="ltr">
+            <span data-lexical-text="true">https://3.com</span>
           </a>
         </p>
       `,

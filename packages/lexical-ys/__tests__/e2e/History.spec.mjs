@@ -46,12 +46,12 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world, again and again</span>
           </p>
@@ -68,7 +68,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -91,12 +91,12 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world again</span>
           </p>
@@ -113,7 +113,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -136,12 +136,12 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <br />
           </p>
@@ -158,7 +158,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -180,7 +180,7 @@ test.describe('History', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">hello world</span>
         </p>
@@ -199,7 +199,7 @@ test.describe('History', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">hello</span>
         </p>
@@ -217,7 +217,7 @@ test.describe('History', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {
@@ -233,7 +233,7 @@ test.describe('History', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">hello</span>
         </p>
@@ -252,7 +252,7 @@ test.describe('History', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">hello world</span>
         </p>
@@ -272,11 +272,11 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
-          <p class="YsEditorTheme__paragraph"><br /></p>
+          <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         `,
       );
       await assertSelection(page, {
@@ -290,7 +290,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -313,12 +313,12 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world again</span>
           </p>
@@ -335,7 +335,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -358,12 +358,12 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world, again and again</span>
           </p>
@@ -380,7 +380,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -403,12 +403,12 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world, again again</span>
           </p>
@@ -425,7 +425,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -448,12 +448,12 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
           </p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world, again and again</span>
           </p>
@@ -470,7 +470,7 @@ test.describe('History', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">hello world</span>
             <br />
@@ -504,16 +504,16 @@ test.describe('History', () => {
 
     const step1HTML = html`
       <p
-        class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+        class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
         dir="ltr">
         <strong
-          class="YsEditorTheme__textBold"
+          class="PlaygroundEditorTheme__textBold"
           data-lexical-text="true">
           foo
         </strong>
         <span data-lexical-text="true">bar</span>
         <strong
-          class="YsEditorTheme__textBold"
+          class="PlaygroundEditorTheme__textBold"
           data-lexical-text="true">
           baz
         </strong>
@@ -521,10 +521,10 @@ test.describe('History', () => {
     `;
     const step2HTML = html`
       <p
-        class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+        class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
         dir="ltr">
         <strong
-          class="YsEditorTheme__textBold"
+          class="PlaygroundEditorTheme__textBold"
           data-lexical-text="true">
           foo
         </strong>
@@ -533,17 +533,17 @@ test.describe('History', () => {
     `;
     const step3HTML = html`
       <p
-        class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+        class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
         dir="ltr">
         <strong
-          class="YsEditorTheme__textBold"
+          class="PlaygroundEditorTheme__textBold"
           data-lexical-text="true">
           foo
         </strong>
       </p>
     `;
     const step4HTML = html`
-      <p class="YsEditorTheme__paragraph"><br /></p>
+      <p class="PlaygroundEditorTheme__paragraph"><br /></p>
     `;
 
     await assertHTML(page, step1HTML);
@@ -601,7 +601,7 @@ test.describe('History - IME', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">すし もじあ</span>
         </p>
@@ -623,7 +623,7 @@ test.describe('History - IME', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">すし${WHITESPACE_TOKEN}</span>
         </p>
@@ -643,7 +643,7 @@ test.describe('History - IME', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">すし</span>
         </p>
@@ -673,7 +673,7 @@ test.describe('History - IME', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">すし</span>
           </p>
@@ -683,7 +683,7 @@ test.describe('History - IME', () => {
       await assertHTML(
         page,
         html`
-          <p class="YsEditorTheme__paragraph"><br /></p>
+          <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         `,
       );
     }
@@ -710,7 +710,7 @@ test.describe('History - IME', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">すし</span>
         </p>

@@ -125,12 +125,12 @@ test.describe('Selection', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Line1</span>
         </p>
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           spellcheck="false"
           dir="ltr"
           data-highlight-language="javascript"
@@ -163,24 +163,24 @@ test.describe('Selection', () => {
     const lines = [
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">One</span>
         </p>
       `,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Two</span>
         </p>
       `,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Three</span>
         </p>
@@ -197,7 +197,7 @@ test.describe('Selection', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
   });

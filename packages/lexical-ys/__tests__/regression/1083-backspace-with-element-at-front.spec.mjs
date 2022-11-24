@@ -40,11 +40,12 @@ test.describe('Regression test #1083', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Hello</span>
           </a>
@@ -59,7 +60,7 @@ test.describe('Regression test #1083', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
   });
@@ -84,12 +85,13 @@ test.describe('Regression test #1083', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Say</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Hello</span>
           </a>
@@ -105,7 +107,7 @@ test.describe('Regression test #1083', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Say</span>
         </p>

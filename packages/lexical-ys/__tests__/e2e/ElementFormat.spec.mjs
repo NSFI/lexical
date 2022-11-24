@@ -38,13 +38,13 @@ test.describe('Element format', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           style="padding-inline-start: 40px; text-align: center;"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <a
             href="https://lexical.io"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">https://lexical.io</span>
           </a>
@@ -67,7 +67,7 @@ test.describe('Element format', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph" style="text-align: center">
+        <p class="PlaygroundEditorTheme__paragraph" style="text-align: center">
           <br />
         </p>
       `,

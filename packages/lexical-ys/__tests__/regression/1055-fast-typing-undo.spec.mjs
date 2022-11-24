@@ -28,7 +28,7 @@ test.describe('Regression test #1055', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await page.keyboard.type('hello');
@@ -36,7 +36,7 @@ test.describe('Regression test #1055', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">hello</span>
         </p>
@@ -46,7 +46,7 @@ test.describe('Regression test #1055', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
   });

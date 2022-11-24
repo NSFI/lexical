@@ -42,14 +42,14 @@ test.describe('HorizontalRule', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <div
           contenteditable="false"
           style="display: contents;"
           data-lexical-decorator="true">
           <hr />
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -107,7 +107,7 @@ test.describe('HorizontalRule', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Some text</span>
         </p>
@@ -118,7 +118,7 @@ test.describe('HorizontalRule', () => {
           <hr />
         </div>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Some more text</span>
         </p>
@@ -151,7 +151,7 @@ test.describe('HorizontalRule', () => {
 
     await assertHTML(
       page,
-      '<div data-lexical-decorator="true" contenteditable="false" style="display: contents;"><hr></div><p class="YsEditorTheme__paragraph YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Some more text</span></p>',
+      '<div data-lexical-decorator="true" contenteditable="false" style="display: contents;"><hr></div><p class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Some more text</span></p>',
     );
 
     await assertSelection(page, {
@@ -183,7 +183,7 @@ test.describe('HorizontalRule', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Test</span>
         </p>
@@ -198,7 +198,7 @@ test.describe('HorizontalRule', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Test</span>
         </p>
@@ -208,7 +208,7 @@ test.describe('HorizontalRule', () => {
           data-lexical-decorator="true">
           <hr />
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -240,7 +240,7 @@ test.describe('HorizontalRule', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Test</span>
         </p>
@@ -264,7 +264,7 @@ test.describe('HorizontalRule', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Te</span>
         </p>
@@ -275,7 +275,7 @@ test.describe('HorizontalRule', () => {
           <hr />
         </div>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">st</span>
         </p>
@@ -302,14 +302,14 @@ test.describe('HorizontalRule', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <div
           contenteditable="false"
           style="display: contents;"
           data-lexical-decorator="true">
           <hr />
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -334,14 +334,14 @@ test.describe('HorizontalRule', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <div
           contenteditable="false"
           style="display: contents;"
           data-lexical-decorator="true">
           <hr />
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -360,21 +360,21 @@ test.describe('HorizontalRule', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <div
           contenteditable="false"
           style="display: contents;"
           data-lexical-decorator="true">
           <hr />
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <div
           contenteditable="false"
           style="display: contents;"
           data-lexical-decorator="true">
           <hr />
         </div>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 

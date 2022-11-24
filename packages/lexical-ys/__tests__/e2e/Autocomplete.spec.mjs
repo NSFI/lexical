@@ -27,7 +27,7 @@ test.describe('Autocomplete', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Sort by alpha</span>
           <span contenteditable="false" data-lexical-decorator="true">
@@ -40,7 +40,7 @@ test.describe('Autocomplete', () => {
       `,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Sort by alpha</span>
           <span contenteditable="false" data-lexical-decorator="true"></span>
@@ -54,7 +54,7 @@ test.describe('Autocomplete', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Sort by alphabetical order:</span>
         </p>

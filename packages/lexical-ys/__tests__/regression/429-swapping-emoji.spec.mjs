@@ -28,7 +28,7 @@ test.describe('Regression test #429', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span class="emoji happysmile" data-lexical-text="true">
             <span class="emoji-inner">🙂</span>
@@ -53,9 +53,9 @@ test.describe('Regression test #429', () => {
       await assertHTML(
         page,
         html`
-          <p class="YsEditorTheme__paragraph"><br /></p>
+          <p class="PlaygroundEditorTheme__paragraph"><br /></p>
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span class="emoji happysmile" data-lexical-text="true">
               <span class="emoji-inner">🙂</span>
@@ -78,7 +78,7 @@ test.describe('Regression test #429', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <br />
             <span class="emoji happysmile" data-lexical-text="true">
@@ -104,7 +104,7 @@ test.describe('Regression test #429', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span class="emoji happysmile" data-lexical-text="true">
             <span class="emoji-inner">🙂</span>

@@ -57,33 +57,33 @@ test.describe('Identation', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">foo</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">bar</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">yar</span>
         </p>
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">itemitem 2</span>
           </li>
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
             value="2">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
-                class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 value="1">
                 <span data-lexical-text="true">item 3</span>
@@ -92,156 +92,156 @@ test.describe('Identation', () => {
           </li>
         </ul>
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           dir="ltr"
           spellcheck="false"
           data-gutter="1"
           data-highlight-language="javascript">
           <span data-lexical-text="true">code</span>
         </code>
-        <p class="YsEditorTheme__paragraph"><br /></p>
-        <table class="YsEditorTheme__table disable-selection">
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+        <table class="PlaygroundEditorTheme__table disable-selection">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">foo</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
         </table>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -251,40 +251,40 @@ test.describe('Identation', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 40px">
+          style="padding-inline-start: 20px">
           <span data-lexical-text="true">foo</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 40px">
+          style="padding-inline-start: 20px">
           <span data-lexical-text="true">bar</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 40px">
+          style="padding-inline-start: 20px">
           <span data-lexical-text="true">yar</span>
         </p>
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
             value="1">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
-                class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 value="1">
                 <span data-lexical-text="true">itemitem 2</span>
               </li>
               <li
-                class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
                 value="2">
-                <ul class="YsEditorTheme__ul">
+                <ul class="PlaygroundEditorTheme__ul">
                   <li
-                    class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                    class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                     dir="ltr"
                     value="1">
                     <span data-lexical-text="true">item 3</span>
@@ -295,7 +295,7 @@ test.describe('Identation', () => {
           </li>
         </ul>
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           dir="ltr"
           spellcheck="false"
           data-gutter="1"
@@ -303,54 +303,54 @@ test.describe('Identation', () => {
           <span data-lexical-text="true">code</span>
         </code>
         <p
-          class="YsEditorTheme__paragraph"
+          class="PlaygroundEditorTheme__paragraph"
           style="padding-inline-start: 20px">
           <br />
         </p>
-        <table class="YsEditorTheme__table disable-selection">
+        <table class="PlaygroundEditorTheme__table disable-selection">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr"
-                style="padding-inline-start: 40px">
+                style="padding-inline-start: 20px">
                 <span data-lexical-text="true">foo</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -358,46 +358,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -405,46 +405,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -452,46 +452,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -499,46 +499,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -546,7 +546,7 @@ test.describe('Identation', () => {
           </tr>
         </table>
         <p
-          class="YsEditorTheme__paragraph"
+          class="PlaygroundEditorTheme__paragraph"
           style="padding-inline-start: 20px">
           <br />
         </p>
@@ -559,44 +559,44 @@ test.describe('Identation', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 80px">
+          style="padding-inline-start: 40px">
           <span data-lexical-text="true">foo</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 80px">
+          style="padding-inline-start: 40px">
           <span data-lexical-text="true">bar</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 80px">
+          style="padding-inline-start: 40px">
           <span data-lexical-text="true">yar</span>
         </p>
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
             value="1">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
-                class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
                 value="1">
-                <ul class="YsEditorTheme__ul">
+                <ul class="PlaygroundEditorTheme__ul">
                   <li
-                    class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                    class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                     dir="ltr"
                     value="1">
                     <span data-lexical-text="true">itemitem 2</span>
                   </li>
                   <li
-                    class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+                    class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
                     value="2">
-                    <ul class="YsEditorTheme__ul">
+                    <ul class="PlaygroundEditorTheme__ul">
                       <li
-                        class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                        class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                         dir="ltr"
                         value="1">
                         <span data-lexical-text="true">item 3</span>
@@ -609,7 +609,7 @@ test.describe('Identation', () => {
           </li>
         </ul>
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           dir="ltr"
           spellcheck="false"
           data-gutter="1"
@@ -617,54 +617,54 @@ test.describe('Identation', () => {
           <span data-lexical-text="true">code</span>
         </code>
         <p
-          class="YsEditorTheme__paragraph"
+          class="PlaygroundEditorTheme__paragraph"
           style="padding-inline-start: 40px">
           <br />
         </p>
-        <table class="YsEditorTheme__table disable-selection">
+        <table class="PlaygroundEditorTheme__table disable-selection">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr"
-                style="padding-inline-start: 80px">
+                style="padding-inline-start: 40px">
                 <span data-lexical-text="true">foo</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
@@ -672,46 +672,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
@@ -719,46 +719,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
@@ -766,46 +766,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
@@ -813,46 +813,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 40px">
                 <br />
               </p>
@@ -860,7 +860,7 @@ test.describe('Identation', () => {
           </tr>
         </table>
         <p
-          class="YsEditorTheme__paragraph"
+          class="PlaygroundEditorTheme__paragraph"
           style="padding-inline-start: 40px">
           <br />
         </p>
@@ -875,40 +875,40 @@ test.describe('Identation', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 40px">
+          style="padding-inline-start: 20px">
           <span data-lexical-text="true">foo</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 40px">
+          style="padding-inline-start: 20px">
           <span data-lexical-text="true">bar</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
-          style="padding-inline-start: 40px">
+          style="padding-inline-start: 20px">
           <span data-lexical-text="true">yar</span>
         </p>
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
             value="1">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
-                class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 value="1">
                 <span data-lexical-text="true">itemitem 2</span>
               </li>
               <li
-                class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
                 value="2">
-                <ul class="YsEditorTheme__ul">
+                <ul class="PlaygroundEditorTheme__ul">
                   <li
-                    class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                    class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                     dir="ltr"
                     value="1">
                     <span data-lexical-text="true">item 3</span>
@@ -919,7 +919,7 @@ test.describe('Identation', () => {
           </li>
         </ul>
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           dir="ltr"
           spellcheck="false"
           data-gutter="1"
@@ -927,54 +927,54 @@ test.describe('Identation', () => {
           <span data-lexical-text="true">code</span>
         </code>
         <p
-          class="YsEditorTheme__paragraph"
+          class="PlaygroundEditorTheme__paragraph"
           style="padding-inline-start: 20px">
           <br />
         </p>
-        <table class="YsEditorTheme__table disable-selection">
+        <table class="PlaygroundEditorTheme__table disable-selection">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr"
-                style="padding-inline-start: 40px">
+                style="padding-inline-start: 20px">
                 <span data-lexical-text="true">foo</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -982,46 +982,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -1029,46 +1029,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -1076,46 +1076,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -1123,46 +1123,46 @@ test.describe('Identation', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph"
+                class="PlaygroundEditorTheme__paragraph"
                 style="padding-inline-start: 20px">
                 <br />
               </p>
@@ -1170,7 +1170,7 @@ test.describe('Identation', () => {
           </tr>
         </table>
         <p
-          class="YsEditorTheme__paragraph"
+          class="PlaygroundEditorTheme__paragraph"
           style="padding-inline-start: 20px">
           <br />
         </p>
@@ -1185,36 +1185,36 @@ test.describe('Identation', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
           style="">
           <span data-lexical-text="true">foo</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
           style="">
           <span data-lexical-text="true">bar</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr"
           style="">
           <span data-lexical-text="true">yar</span>
         </p>
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">itemitem 2</span>
           </li>
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
             value="2">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
-                class="YsEditorTheme__listItem YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 value="1">
                 <span data-lexical-text="true">item 3</span>
@@ -1223,157 +1223,157 @@ test.describe('Identation', () => {
           </li>
         </ul>
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           dir="ltr"
           spellcheck="false"
           data-gutter="1"
           data-highlight-language="javascript">
           <span data-lexical-text="true">code</span>
         </code>
-        <p class="YsEditorTheme__paragraph" style=""><br /></p>
-        <table class="YsEditorTheme__table disable-selection">
+        <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
+        <table class="PlaygroundEditorTheme__table disable-selection">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 style="">
                 <span data-lexical-text="true">foo</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </th>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
             <td
-              class="YsEditorTheme__tableCell"
+              class="PlaygroundEditorTheme__tableCell"
               style="background-color: rgb(172, 206, 247); caret-color: transparent">
-              <p class="YsEditorTheme__paragraph" style=""><br /></p>
+              <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
             </td>
           </tr>
         </table>
-        <p class="YsEditorTheme__paragraph" style=""><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph" style=""><br /></p>
       `,
     );
   });

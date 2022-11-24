@@ -44,7 +44,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
@@ -58,11 +58,12 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Hello</span>
           </a>
@@ -84,11 +85,12 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
             href="https://facebook.com"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Hello</span>
           </a>
@@ -110,7 +112,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
@@ -157,16 +159,16 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">abc</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             def
           </strong>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             ghi
           </em>
@@ -191,20 +193,21 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               def
             </strong>
             <em
-              class="YsEditorTheme__textItalic"
+              class="PlaygroundEditorTheme__textItalic"
               data-lexical-text="true">
               ghi
             </em>
@@ -219,20 +222,21 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://facebook.com">
+            href="https://facebook.com"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               def
             </strong>
             <em
-              class="YsEditorTheme__textItalic"
+              class="PlaygroundEditorTheme__textItalic"
               data-lexical-text="true">
               ghi
             </em>
@@ -275,16 +279,16 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">abc</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             def
           </strong>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             ghi
           </em>
@@ -309,20 +313,21 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               def
             </strong>
             <em
-              class="YsEditorTheme__textItalic"
+              class="PlaygroundEditorTheme__textItalic"
               data-lexical-text="true">
               ghi
             </em>
@@ -337,20 +342,21 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://facebook.com">
+            href="https://facebook.com"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               def
             </strong>
             <em
-              class="YsEditorTheme__textItalic"
+              class="PlaygroundEditorTheme__textItalic"
               data-lexical-text="true">
               ghi
             </em>
@@ -376,15 +382,16 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <a
-              class="YsEditorTheme__link YsEditorTheme__ltr"
+              class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
               dir="ltr"
-              href="https://">
+              href="https://"
+              rel="noopener">
               <span data-lexical-text="true">hello</span>
             </a>
           </li>
@@ -397,13 +404,14 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <ul class="YsEditorTheme__ul">
-          <li class="YsEditorTheme__listItem" value="1"><br /></li>
-          <li class="YsEditorTheme__listItem" value="2">
+        <ul class="PlaygroundEditorTheme__ul">
+          <li class="PlaygroundEditorTheme__listItem" value="1"><br /></li>
+          <li class="PlaygroundEditorTheme__listItem" value="2">
             <a
-              class="YsEditorTheme__link YsEditorTheme__ltr"
+              class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
               dir="ltr"
-              href="https://">
+              href="https://"
+              rel="noopener">
               <span data-lexical-text="true">hello</span>
             </a>
           </li>
@@ -427,13 +435,14 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
           </a>
           <span data-lexical-text="true">def</span>
@@ -448,22 +457,24 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">ab</span>
           </a>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">c</span>
           </a>
           <span data-lexical-text="true">def</span>
@@ -477,19 +488,21 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">ab</span>
           </a>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">c</span>
           </a>
           <span data-lexical-text="true">def</span>
@@ -511,12 +524,13 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
           </a>
           <span data-lexical-text="true"></span>
@@ -530,7 +544,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">a</span>
         </p>
@@ -557,7 +571,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">a</span>
         </p>
@@ -584,13 +598,14 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">a</span>
           </a>
           <span data-lexical-text="true">a</span>
@@ -631,16 +646,16 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">abc</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             def
           </strong>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             ghi
           </em>
@@ -665,20 +680,21 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               def
             </strong>
             <em
-              class="YsEditorTheme__textItalic"
+              class="PlaygroundEditorTheme__textItalic"
               data-lexical-text="true">
               ghi
             </em>
@@ -696,21 +712,22 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true"></span>
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">abc</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               def
             </strong>
             <em
-              class="YsEditorTheme__textItalic"
+              class="PlaygroundEditorTheme__textItalic"
               data-lexical-text="true">
               ghi
             </em>
@@ -744,12 +761,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">${linkText}</span>
           </a>
         </p>
@@ -770,15 +788,16 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">This is the</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               bold
             </strong>
@@ -798,15 +817,16 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">This is the</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               boldest
             </strong>
@@ -834,12 +854,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">${linkText}</span>
           </a>
         </p>
@@ -861,15 +882,16 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">This is a</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               bold
             </strong>
@@ -891,15 +913,16 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr"
-            href="https://">
+            href="https://"
+            rel="noopener">
             <span data-lexical-text="true">This is the</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               bold
             </strong>
@@ -919,12 +942,13 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       `<p
-    class=\"YsEditorTheme__paragraph YsEditorTheme__ltr\"
+    class=\"PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr\"
     dir=\"ltr\">
     <a
-      class=\"YsEditorTheme__link YsEditorTheme__ltr\"
+      class=\"PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr\"
       dir=\"ltr\"
-      href=\"https://\">
+      href=\"https://\"
+      rel=\"noopener\">
       <span data-lexical-text=\"true\">A link</span>
     </a>
   </p>`,
@@ -936,12 +960,13 @@ test.describe('Links', () => {
     await assertHTML(
       page,
       `<p
-    class=\"YsEditorTheme__paragraph YsEditorTheme__ltr\"
+    class=\"PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr\"
     dir=\"ltr\">
     <a
-      class=\"YsEditorTheme__link YsEditorTheme__ltr\"
+      class=\"PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr\"
       dir=\"ltr\"
-      href=\"https://facebook.com\">
+      href=\"https://facebook.com\"
+      rel=\"noopener\">
       <span data-lexical-text=\"true\">A link</span>
     </a>
   </p>`,
@@ -956,7 +981,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">An Awesome Website</span>
         </p>
@@ -968,11 +993,12 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">An Awesome Website</span>
           </a>
@@ -989,12 +1015,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hey, check this out:</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">An Awesome Website</span>
           </a>
@@ -1015,7 +1042,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">
             This is an Awesome Website right?
@@ -1030,12 +1057,13 @@ test.describe('Links', () => {
       page,
       `
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">This is an</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Awesome Website</span>
           </a>
@@ -1054,12 +1082,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">This is an</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Awesome Website</span>
           </a>
@@ -1080,7 +1109,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world</span>
         </p>
@@ -1097,12 +1126,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">world</span>
           </a>
@@ -1131,12 +1161,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <a
             href="https://facebook.com"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">world</span>
           </a>
@@ -1167,7 +1198,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world</span>
         </p>
@@ -1193,7 +1224,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world</span>
         </p>
@@ -1209,12 +1240,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">world</span>
           </a>
@@ -1244,12 +1276,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <a
             href="https://facebook.com"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">world</span>
           </a>
@@ -1280,7 +1313,7 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world</span>
         </p>
@@ -1310,12 +1343,13 @@ test.describe('Links', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">world</span>
           </a>
@@ -1332,12 +1366,13 @@ test.describe('Links', () => {
       page,
       html`
         <h1
-          class="YsEditorTheme__h1 YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__h1 PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">world</span>
           </a>
@@ -1362,17 +1397,17 @@ test.describe('Links', () => {
       page,
       html`
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">Hello world</span>
           </a>
         </p>
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">Hello world</span>
           </a>
         </p>
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">Hello world</span>
           </a>
         </p>
@@ -1399,12 +1434,12 @@ test.describe('Links', () => {
       page,
       html`
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">Hello</span>
           </a>
         </p>
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">awesome</span>
           </a>
           <span data-lexical-text="true">world</span>
@@ -1438,12 +1473,12 @@ test.describe('Links', () => {
       page,
       html`
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">Hello</span>
           </a>
         </p>
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <strong data-lexical-text="true">awe</strong>
             <span data-lexical-text="true">some</span>
           </a>
@@ -1473,7 +1508,7 @@ test.describe('Links', () => {
       html`
         <p><br /></p>
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">Hello awesome</span>
           </a>
           <span data-lexical-text="true">world</span>
@@ -1500,7 +1535,7 @@ test.describe('Links', () => {
       page,
       html`
         <p dir="ltr">
-          <a dir="ltr" href="https://">
+          <a dir="ltr" href="https://" rel="noopener">
             <span data-lexical-text="true">Hello awesome</span>
           </a>
         </p>

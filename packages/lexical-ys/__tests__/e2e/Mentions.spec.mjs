@@ -40,7 +40,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Luke</span>
         </p>
@@ -51,7 +51,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -112,7 +112,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Luke</span>
         </p>
@@ -123,7 +123,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -154,7 +154,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -175,7 +175,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {
@@ -203,7 +203,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Luke</span>
         </p>
@@ -214,7 +214,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -246,7 +246,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -275,7 +275,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Luke</span>
         </p>
@@ -286,7 +286,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -318,7 +318,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -347,7 +347,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Luke</span>
         </p>
@@ -358,7 +358,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -381,7 +381,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -402,7 +402,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {
@@ -422,7 +422,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">abc def</span>
         </p>
@@ -442,7 +442,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">abc Luke def</span>
         </p>
@@ -454,7 +454,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">abc</span>
           <span
@@ -479,7 +479,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">abc</span>
           <span
@@ -548,7 +548,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -602,7 +602,7 @@ test.describe('Mentions', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Skywalker</span>
             <span
@@ -633,7 +633,7 @@ test.describe('Mentions', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Skywalker</span>
             <span
@@ -672,7 +672,7 @@ test.describe('Mentions', () => {
       await assertHTML(
         page,
         html`
-          <p class="YsEditorTheme__paragraph">
+          <p class="PlaygroundEditorTheme__paragraph">
             <span
               class="mention"
               style="background-color: rgba(24, 119, 232, 0.2);"
@@ -700,7 +700,7 @@ test.describe('Mentions', () => {
       await assertHTML(
         page,
         html`
-          <p class="YsEditorTheme__paragraph">
+          <p class="PlaygroundEditorTheme__paragraph">
             <span data-lexical-text="true"></span>
             <span
               class="mention"
@@ -739,7 +739,7 @@ test.describe('Mentions', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Skywalker</span>
             <span
@@ -763,7 +763,7 @@ test.describe('Mentions', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Skywalker</span>
             <span
@@ -799,7 +799,7 @@ test.describe('Mentions', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {
@@ -833,7 +833,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="mention"
@@ -878,7 +878,7 @@ test.describe('Mentions', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">bar</span>
         </p>

@@ -36,7 +36,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -60,7 +60,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">congratsc</span>
         </p>
@@ -80,7 +80,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -106,7 +106,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -154,7 +154,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">congratscongrats</span>
         </p>
@@ -173,7 +173,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -207,7 +207,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -245,7 +245,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -271,7 +271,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -280,7 +280,7 @@ test.describe('Keywords', () => {
             congrats
           </span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Bob!
           </strong>
@@ -309,11 +309,11 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">congrats</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Bob!
           </strong>
@@ -333,7 +333,7 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="keyword"
@@ -343,7 +343,7 @@ test.describe('Keywords', () => {
           </span>
           <span data-lexical-text="true"></span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Bob!
           </strong>
@@ -381,10 +381,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>
@@ -406,10 +406,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>
@@ -435,10 +435,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>
@@ -465,10 +465,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>
@@ -496,10 +496,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>
@@ -510,7 +510,7 @@ test.describe('Keywords', () => {
             congrats
           </span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             !
           </strong>
@@ -530,10 +530,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>
@@ -561,10 +561,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>
@@ -585,10 +585,10 @@ test.describe('Keywords', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             Everyone
           </strong>

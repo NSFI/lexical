@@ -38,6 +38,7 @@ import {
   mergeRegister,
 } from '@lexical/utils';
 import {
+  $applyNodeReplacement,
   $createParagraphNode,
   $createRangeSelection,
   $getNearestNodeFromDOMNode,
@@ -174,7 +175,7 @@ export class QuoteNode extends ElementNode {
 }
 
 export function $createQuoteNode(): QuoteNode {
-  return new QuoteNode();
+  return $applyNodeReplacement(new QuoteNode());
 }
 
 export function $isQuoteNode(
@@ -385,7 +386,7 @@ function convertBlockquoteElement(): DOMConversionOutput {
 }
 
 export function $createHeadingNode(headingTag: HeadingTagType): HeadingNode {
-  return new HeadingNode(headingTag);
+  return $applyNodeReplacement(new HeadingNode(headingTag));
 }
 
 export function $isHeadingNode(
@@ -423,9 +424,6 @@ async function onCutForRichText(
   event: CommandPayloadType<typeof CUT_COMMAND>,
   editor: LexicalEditor,
 ): Promise<void> {
-  if (editor.getEditorState().read(() => $getSelection()) == null) {
-    return;
-  }
   await copyToClipboard__EXPERIMENTAL(
     editor,
     event instanceof ClipboardEvent ? event : null,
@@ -481,11 +479,13 @@ function handleIndentAndOutdent(
     if (alreadyHandled.has(key)) {
       continue;
     }
-    alreadyHandled.add(key);
     const parentBlock = $getNearestBlockElementAncestorOrThrow(node);
+    const parentKey = parentBlock.getKey();
     if (parentBlock.canInsertTab()) {
       insertTab(node);
-    } else if (parentBlock.canIndent()) {
+      alreadyHandled.add(key);
+    } else if (parentBlock.canIndent() && !alreadyHandled.has(parentKey)) {
+      alreadyHandled.add(parentKey);
       indentOrOutdent(parentBlock);
     }
   }

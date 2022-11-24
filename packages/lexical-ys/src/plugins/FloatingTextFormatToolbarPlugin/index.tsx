@@ -170,18 +170,6 @@ function TextFormatFloatingToolbar({
   //   toggleCheckList(blockTypeRef.current, editor);
   // };
 
-  // const formatQuote = () => {
-  //   if (blockType !== 'quote') {
-  //     editor.update(() => {
-  //       const selection = $getSelection();
-
-  //       if ($isRangeSelection(selection)) {
-  //         $wrapNodes(selection, () => $createQuoteNode());
-  //       }
-  //     });
-  //   }
-  // };
-
   useEffect(() => {
     const scrollerElem = anchorElem.parentElement;
 

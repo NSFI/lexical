@@ -32,7 +32,6 @@ import {
   // $selectAll,
   $wrapNodes,
 } from '@lexical/selection';
-import {INSERT_TABLE_COMMAND} from '@lexical/table';
 import {
   $findMatchingParent,
   $getNearestBlockElementAncestorOrThrow,
@@ -50,6 +49,7 @@ import {
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
   COMMAND_PRIORITY_CRITICAL,
+  DEPRECATED_$isGridSelection,
   FORMAT_ELEMENT_COMMAND,
   FORMAT_TEXT_COMMAND,
   INDENT_CONTENT_COMMAND,
@@ -72,10 +72,11 @@ import Button from '../../ui/Button';
 import ColorPicker from '../../ui/ColorPicker';
 import DropDown, {DropDownItem} from '../../ui/DropDown';
 import FileInput from '../../ui/FileInput';
-import KatexEquationAlterer from '../../ui/KatexEquationAlterer';
 import TextInput from '../../ui/TextInput';
 import {getSelectedNode} from '../../utils/getSelectedNode';
+import {sanitizeUrl} from '../../utils/url';
 import {INSERT_ATTACHMENT_COMMAND} from '../AttachmentPlugin';
+import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
 import {
   BlockFormatDropDown,
   BlockType,
@@ -84,13 +85,13 @@ import {
   toggleCheckList,
   toggleNumberedList,
 } from '../CommonToolbar';
-// import {sanitizeUrl} from '../../utils/sanitizeUrl';
 // import {EmbedConfigs} from '../AutoEmbedPlugin';
-import {INSERT_EQUATION_COMMAND} from '../EquationsPlugin';
+// import {INSERT_EQUATION_COMMAND} from '../EquationsPlugin';
 // import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
 import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
-import {INSERT_POLL_COMMAND} from '../PollPlugin';
-import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
+// import {INSERT_POLL_COMMAND} from '../PollPlugin';
+// import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
+import {InsertTableDialog} from '../TablePlugin';
 import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
 import {beforeUploadFile, getFileSize, getFileSuffix} from './../../utils/file';
 
@@ -288,126 +289,6 @@ export function InsertImageDialog({
   );
 }
 
-export function InsertTableDialog({
-  activeEditor,
-  onClose,
-  locale,
-}: {
-  activeEditor: LexicalEditor;
-  onClose: () => void;
-  locale: any;
-}): JSX.Element {
-  const [rows, setRows] = useState('5');
-  const [columns, setColumns] = useState('5');
-  const onClick = () => {
-    if (Number.isNaN(parseInt(columns)) || Number.isNaN(parseInt(rows))) {
-      return;
-    }
-
-    if (parseInt(rows) > 50 || parseInt(rows) < 1) {
-      message.info('行数应为1-50之间的整数');
-      return;
-    }
-    if (parseInt(columns) > 10 || parseInt(columns) < 1) {
-      message.info('列数应为1-10之间的整数');
-      return;
-    }
-    activeEditor.dispatchCommand(INSERT_TABLE_COMMAND, {
-      columns: parseInt(columns).toString(),
-      rows: parseInt(rows).toString(),
-    });
-    onClose();
-  };
-
-  return (
-    <>
-      <TextInput label={locale.noofrows} onChange={setRows} value={rows} />
-      <TextInput
-        label={locale.noofcolumns}
-        onChange={setColumns}
-        value={columns}
-      />
-      <div
-        className="ToolbarPlugin__dialogActions"
-        data-test-id="table-model-confirm-insert">
-        <Button onClick={onClick}>{locale.confirm}</Button>
-      </div>
-    </>
-  );
-}
-
-export function InsertNewTableDialog({
-  activeEditor,
-  onClose,
-}: {
-  activeEditor: LexicalEditor;
-  onClose: () => void;
-}): JSX.Element {
-  const [rows, setRows] = useState('5');
-  const [columns, setColumns] = useState('5');
-
-  const onClick = () => {
-    activeEditor.dispatchCommand(INSERT_NEW_TABLE_COMMAND, {columns, rows});
-    onClose();
-  };
-
-  return (
-    <>
-      <TextInput label="No of rows" onChange={setRows} value={rows} />
-      <TextInput label="No of columns" onChange={setColumns} value={columns} />
-      <div
-        className="ToolbarPlugin__dialogActions"
-        data-test-id="table-model-confirm-insert">
-        <Button onClick={onClick}>Confirm</Button>
-      </div>
-    </>
-  );
-}
-
-export function InsertPollDialog({
-  activeEditor,
-  onClose,
-}: {
-  activeEditor: LexicalEditor;
-  onClose: () => void;
-}): JSX.Element {
-  const [question, setQuestion] = useState('');
-
-  const onClick = () => {
-    activeEditor.dispatchCommand(INSERT_POLL_COMMAND, question);
-    onClose();
-  };
-
-  return (
-    <>
-      <TextInput label="Question" onChange={setQuestion} value={question} />
-      <div className="ToolbarPlugin__dialogActions">
-        <Button disabled={question.trim() === ''} onClick={onClick}>
-          Confirm
-        </Button>
-      </div>
-    </>
-  );
-}
-
-export function InsertEquationDialog({
-  activeEditor,
-  onClose,
-}: {
-  activeEditor: LexicalEditor;
-  onClose: () => void;
-}): JSX.Element {
-  const onEquationConfirm = useCallback(
-    (equation: string, inline: boolean) => {
-      activeEditor.dispatchCommand(INSERT_EQUATION_COMMAND, {equation, inline});
-      onClose();
-    },
-    [activeEditor, onClose],
-  );
-
-  return <KatexEquationAlterer onConfirm={onEquationConfirm} />;
-}
-
 export function CommonFileUpload({
   activeEditor,
   id,
@@ -482,10 +363,12 @@ function FontDropDown({
   editor,
   value,
   style,
+  disabled = false,
 }: {
   editor: LexicalEditor;
   value: string;
   style: string;
+  disabled?: boolean;
 }): JSX.Element {
   const handleClick = useCallback(
     (option: string) => {
@@ -509,6 +392,7 @@ function FontDropDown({
       : 'Formatting options for font size';
   return (
     <DropDown
+      disabled={disabled}
       buttonClassName={'toolbar-item ' + style}
       buttonLabel={value}
       buttonIconClassName={
@@ -557,7 +441,10 @@ function InsertDropDown({
       editor.update(() => {
         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
+        if (
+          $isRangeSelection(selection) ||
+          DEPRECATED_$isGridSelection(selection)
+        ) {
           $wrapNodes(selection, () => $createQuoteNode());
         }
       });
@@ -569,7 +456,10 @@ function InsertDropDown({
       editor.update(() => {
         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
+        if (
+          $isRangeSelection(selection) ||
+          DEPRECATED_$isGridSelection(selection)
+        ) {
           if (selection.isCollapsed()) {
             $wrapNodes(selection, () => $createCodeNode());
           } else {
@@ -711,6 +601,18 @@ function InsertDropDown({
         <i className="iconfont icon-chat-square-quote" />
         <span className="text">{locale.blockTypeToBlockName.quote}</span>
       </DropDownItem>
+      <DropDownItem
+        onClick={() => {
+          editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined);
+        }}
+        className={
+          'item ' + dropDownActiveClass(blockType === 'collapsible-container')
+        }>
+        <i className="iconfont icon-chat-square-quote" />
+        <span className="text">
+          {locale.blockTypeToBlockName.collapsibleContainer}
+        </span>
+      </DropDownItem>
       {/* <DropDownItem
         onClick={() => {
           showModal('Insert Poll', (onClose) => (
@@ -763,19 +665,6 @@ function InsertDropDown({
           <span className="text">{embedConfig.contentName}</span>
         </DropDownItem>
       ))} */}
-      {/* <FileInput
-        label="Image Upload"
-        onChange={aaa}
-        accept="image/*"
-        data-test-id="image-modal-file-upload"
-      />
-       */}
-      {/* <input
-        type="file"
-        accept="video/*"
-        onChange={(e) => onChange(e.target.files)}
-        hidden={true}
-      /> */}
     </DropDown>
   );
 }
@@ -811,7 +700,7 @@ export default function ToolbarPlugin(): JSX.Element {
   const [isRTL, setIsRTL] = useState(false);
   const [codeLanguage, setCodeLanguage] = useState<string>('');
   const [formatType, setFormatType] = useState<ElementFormatType>('');
-
+  const [isEditable, setIsEditable] = useState(() => editor.isEditable());
   const fontFamilyObject = useMemo(() => {
     const returned: Record<string, string> = {};
     FONT_FAMILY_OPTIONS.forEach(([option, text]) => {
@@ -980,6 +869,9 @@ export default function ToolbarPlugin(): JSX.Element {
 
   useEffect(() => {
     return mergeRegister(
+      editor.registerEditableListener((editable) => {
+        setIsEditable(editable);
+      }),
       activeEditor.registerUpdateListener(({editorState}) => {
         editorState.read(() => {
           updateToolbar();
@@ -1002,7 +894,7 @@ export default function ToolbarPlugin(): JSX.Element {
         COMMAND_PRIORITY_CRITICAL,
       ),
     );
-  }, [activeEditor, updateToolbar]);
+  }, [activeEditor, editor, updateToolbar]);
 
   useEffect(() => {
     // 注册自定义插件快捷键
@@ -1073,7 +965,7 @@ export default function ToolbarPlugin(): JSX.Element {
   );
   const insertLink = useCallback(() => {
     if (!isLink) {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, sanitizeUrl('https://'));
     } else {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
     }
@@ -1083,7 +975,7 @@ export default function ToolbarPlugin(): JSX.Element {
     <div className="toolbar-container">
       <div className="toolbar">
         <button
-          disabled={!canUndo}
+          disabled={!canUndo || !isEditable}
           onClick={() => {
             activeEditor.dispatchCommand(UNDO_COMMAND, undefined);
           }}
@@ -1093,7 +985,7 @@ export default function ToolbarPlugin(): JSX.Element {
           <i className="iconfont icon-arrow-counterclockwise" />
         </button>
         <button
-          disabled={!canRedo}
+          disabled={!canRedo || !isEditable}
           onClick={() => {
             activeEditor.dispatchCommand(REDO_COMMAND, undefined);
           }}

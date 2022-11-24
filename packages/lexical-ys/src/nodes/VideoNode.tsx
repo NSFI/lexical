@@ -17,7 +17,7 @@ import type {
   Spread,
 } from 'lexical';
 
-import {DecoratorNode} from 'lexical';
+import {$applyNodeReplacement, DecoratorNode} from 'lexical';
 import * as React from 'react';
 import {Suspense} from 'react';
 
@@ -95,7 +95,6 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
   }
 
   exportDOM(): DOMExportOutput {
-    console.log('this.__uploading', this.__uploading);
     if (this.__uploading) {
       const element = document.createElement('div');
       return {element};
@@ -218,7 +217,9 @@ export function $createVideoNode({
   key,
   uploading,
 }: VideoPayload): VideoNode {
-  return new VideoNode(src, maxWidth, width, height, key, uploading);
+  return $applyNodeReplacement(
+    new VideoNode(src, maxWidth, width, height, key, uploading),
+  );
 }
 
 export function $isVideoNode(

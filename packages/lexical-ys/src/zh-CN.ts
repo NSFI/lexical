@@ -16,6 +16,7 @@ const localeValues = {
     bullet: '无序列表',
     check: '任务列表',
     code: '代码块',
+    collapsibleContainer: '折叠块',
     h1: '一级标题',
     h2: '二级标题',
     h3: '三级标题',

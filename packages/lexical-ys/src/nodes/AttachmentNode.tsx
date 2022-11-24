@@ -19,7 +19,7 @@ import type {
   Spread,
 } from 'lexical';
 
-import {DecoratorNode} from 'lexical';
+import {$applyNodeReplacement, DecoratorNode} from 'lexical';
 import * as React from 'react';
 import {Suspense} from 'react';
 
@@ -216,7 +216,9 @@ export function $createAttachmentNode({
   key,
   uploading,
 }: AttachmentPayload): AttachmentNode {
-  return new AttachmentNode(src, fileName, fileType, fileSize, key, uploading);
+  return $applyNodeReplacement(
+    new AttachmentNode(src, fileName, fileType, fileSize, key, uploading),
+  );
 }
 
 export function $isAttachmentNode(

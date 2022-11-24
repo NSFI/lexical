@@ -19,7 +19,7 @@ import type {
   Spread,
 } from 'lexical';
 
-import {createEditor, DecoratorNode} from 'lexical';
+import {$applyNodeReplacement, createEditor, DecoratorNode} from 'lexical';
 import * as React from 'react';
 import {Suspense} from 'react';
 
@@ -215,12 +215,6 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   }
 
   decorate(): JSX.Element {
-    console.log(
-      'this.__width,this.__height,this.__maxWidth',
-      this.__width,
-      this.__height,
-      this.__maxWidth,
-    );
     return (
       <Suspense fallback={null}>
         <ImageComponent
@@ -253,17 +247,19 @@ export function $createImageNode({
   key,
   bodyFormData,
 }: ImagePayload): ImageNode {
-  return new ImageNode(
-    src,
-    altText,
-    maxWidth,
-    width,
-    height,
-    showCaption,
-    caption,
-    captionsEnabled,
-    key,
-    bodyFormData,
+  return $applyNodeReplacement(
+    new ImageNode(
+      src,
+      altText,
+      maxWidth,
+      width,
+      height,
+      showCaption,
+      caption,
+      captionsEnabled,
+      key,
+      bodyFormData,
+    ),
   );
 }
 

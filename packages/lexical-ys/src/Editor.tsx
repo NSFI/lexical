@@ -6,7 +6,7 @@
  *
  */
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
-import {AutoScrollPlugin} from '@lexical/react/LexicalAutoScrollPlugin';
+// import {AutoScrollPlugin} from '@lexical/react/LexicalAutoScrollPlugin';
 import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
 import {CheckListPlugin} from '@lexical/react/LexicalCheckListPlugin';
 // import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
@@ -17,14 +17,14 @@ import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import {HashtagPlugin} from '@lexical/react/LexicalHashtagPlugin';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
-import {LinkPlugin} from '@lexical/react/LexicalLinkPlugin';
+// import {LinkPlugin} from '@lexical/react/LexicalLinkPlugin';
 import {ListPlugin} from '@lexical/react/LexicalListPlugin';
 import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
 import {$createParagraphNode, $getRoot, $getSelection} from 'lexical';
 import * as React from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import {isDev} from './appSettings';
 import {createWebsocketProvider} from './collaboration';
@@ -37,6 +37,7 @@ import AutoLinkPlugin from './plugins/AutoLinkPlugin';
 import ClickableLinkPlugin from './plugins/ClickableLinkPlugin';
 import CodeActionMenuPlugin from './plugins/CodeActionMenuPlugin';
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
+import CollapsiblePlugin from './plugins/CollapsiblePlugin';
 // import CommentPlugin from './plugins/CommentPlugin';
 import ComponentPickerPlugin from './plugins/ComponentPickerPlugin';
 import DragDropPaste from './plugins/DragDropPastePlugin';
@@ -51,6 +52,7 @@ import FloatingTextFormatToolbarPlugin from './plugins/FloatingTextFormatToolbar
 import HorizontalRulePlugin from './plugins/HorizontalRulePlugin';
 import ImagesPlugin from './plugins/ImagesPlugin';
 import KeywordsPlugin from './plugins/KeywordsPlugin';
+import LinkPlugin from './plugins/LinkPlugin';
 import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin';
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin';
 import {MaxLengthPlugin} from './plugins/MaxLengthPlugin';
@@ -59,6 +61,7 @@ import {MaxLengthPlugin} from './plugins/MaxLengthPlugin';
 // import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import TabFocusPlugin from './plugins/TabFocusPlugin';
 import TableCellActionMenuPlugin from './plugins/TableActionMenuPlugin';
+import TableCellResizer from './plugins/TableCellResizer';
 import TableOfContentsPlugin from './plugins/TableOfContentsPlugin';
 import {TablePlugin as NewTablePlugin} from './plugins/TablePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
@@ -114,7 +117,7 @@ export default function Editor(props: EditorProps): JSX.Element {
     <div style={{left: '30px', position: 'relative'}}>输入“/”快速插入</div>
   );
   const placeholder = <Placeholder>{text}</Placeholder>;
-  const scrollRef = useRef(null);
+  // const scrollRef = useRef(null);
   const [floatingAnchorElem, setFloatingAnchorElem] =
     useState<HTMLDivElement | null>(null);
 
@@ -164,8 +167,7 @@ export default function Editor(props: EditorProps): JSX.Element {
       <div
         className={`editor-container ${showTreeView ? 'tree-view' : ''} ${
           !isEditable ? 'plain-text' : ''
-        }`}
-        ref={scrollRef}>
+        }`}>
         {isMaxLength && <MaxLengthPlugin maxLength={3000} />}
         <AutoFocusPlugin />
         <DragDropPaste />
@@ -178,7 +180,6 @@ export default function Editor(props: EditorProps): JSX.Element {
         <KeywordsPlugin />
         {/* <SpeechToTextPlugin /> */}
         <AutoLinkPlugin />
-        <AutoScrollPlugin scrollRef={scrollRef} />
         {/* <CommentPlugin
           providerFactory={isCollab ? createWebsocketProvider : undefined}
         /> */}
@@ -218,6 +219,7 @@ export default function Editor(props: EditorProps): JSX.Element {
             <CheckListPlugin />
             <ListMaxIndentLevelPlugin maxDepth={7} />
             <TablePlugin />
+            <TableCellResizer />
             <NewTablePlugin cellEditorConfig={cellEditorConfig}>
               <AutoFocusPlugin />
               <RichTextPlugin
@@ -248,6 +250,7 @@ export default function Editor(props: EditorProps): JSX.Element {
             {/* <EquationsPlugin /> */}
             {/* <ExcalidrawPlugin /> */}
             <TabFocusPlugin />
+            <CollapsiblePlugin />
             {floatingAnchorElem && (
               <>
                 <DraggableBlockPlugin anchorElem={floatingAnchorElem} />

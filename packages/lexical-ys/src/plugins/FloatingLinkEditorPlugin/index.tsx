@@ -27,8 +27,8 @@ import {createPortal} from 'react-dom';
 
 import LinkPreview from '../../ui/LinkPreview';
 import {getSelectedNode} from '../../utils/getSelectedNode';
-import {sanitizeUrl} from '../../utils/sanitizeUrl';
 import {setFloatingElemPosition} from '../../utils/setFloatingElemPosition';
+import {sanitizeUrl} from '../../utils/url';
 
 function FloatingLinkEditor({
   editor,
@@ -72,7 +72,8 @@ function FloatingLinkEditor({
       selection !== null &&
       nativeSelection !== null &&
       rootElement !== null &&
-      rootElement.contains(nativeSelection.anchorNode)
+      rootElement.contains(nativeSelection.anchorNode) &&
+      editor.isEditable()
     ) {
       const domRange = nativeSelection.getRangeAt(0);
       let rect;
@@ -191,15 +192,6 @@ function FloatingLinkEditor({
             </a>
             <div
               className="iconfont icon-pencil-fill"
-              role="button"
-              tabIndex={0}
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => {
-                setEditMode(true);
-              }}
-            />
-            <div
-              className="link-clear"
               role="button"
               tabIndex={0}
               onMouseDown={(event) => event.preventDefault()}

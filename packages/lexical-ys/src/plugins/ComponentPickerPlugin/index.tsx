@@ -36,6 +36,7 @@ import * as ReactDOM from 'react-dom';
 
 import {useLocale} from '../../context/LocaleContext';
 import useModal from '../../hooks/useModal';
+import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
 // import catTypingGif from '../../images/cat-typing.gif';
 // import {EmbedConfigs} from '../AutoEmbedPlugin';
 // import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
@@ -47,7 +48,7 @@ import {
   // InsertImageDialog,
   // InsertPollDialog,
   InsertTableDialog,
-} from '../ToolbarPlugin';
+} from '../TablePlugin';
 
 class ComponentPickerOption extends TypeaheadOption {
   // What shows up in the editor
@@ -241,6 +242,15 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             }
           }),
       }),
+      new ComponentPickerOption(
+        locale.blockTypeToBlockName.collapsibleContainer,
+        {
+          icon: <i className="iconfont icon-chat-square-quote" />,
+          keywords: ['collapsible collapsibleContainer'],
+          onSelect: () =>
+            editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
+        },
+      ),
       new ComponentPickerOption(locale.blockTypeToBlockName.code, {
         icon: <i className="iconfont icon-code" />,
         keywords: ['javascript', 'python', 'js', 'codeblock'],

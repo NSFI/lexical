@@ -20,6 +20,7 @@ import {
   // $getRoot,
   $getSelection,
   $isRangeSelection,
+  DEPRECATED_$isGridSelection,
 } from 'lexical';
 import * as React from 'react';
 
@@ -73,10 +74,12 @@ export function BlockFormatDropDown({
   editor,
   blockType,
   toolbarItemCls = 'toolbar-item',
+  disabled = false,
 }: {
   blockType: BlockType;
   editor: LexicalEditor;
   toolbarItemCls?: string;
+  disabled?: boolean;
 }): JSX.Element {
   const {blockTypeToBlockName} = useLocale();
   const formatParagraph = () => {
@@ -84,7 +87,10 @@ export function BlockFormatDropDown({
       editor.update(() => {
         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
+        if (
+          $isRangeSelection(selection) ||
+          DEPRECATED_$isGridSelection(selection)
+        ) {
           $wrapNodes(selection, () => $createParagraphNode());
         }
       });
@@ -96,7 +102,10 @@ export function BlockFormatDropDown({
       editor.update(() => {
         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
+        if (
+          $isRangeSelection(selection) ||
+          DEPRECATED_$isGridSelection(selection)
+        ) {
           $wrapNodes(selection, () => $createHeadingNode(headingSize));
         }
       });
@@ -115,6 +124,7 @@ export function BlockFormatDropDown({
   //TODO:
   return (
     <DropDown
+      disabled={disabled}
       buttonClassName={`${toolbarItemCls} block-controls`}
       buttonIconClassName={'iconfont icon-type-' + showType}
       buttonLabel={blockTypeToBlockName[showType]}

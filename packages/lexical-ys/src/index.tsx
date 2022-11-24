@@ -345,7 +345,7 @@ const App1 = () => {
           // console.log('jsonValue', jsonValue,htmlValue);
         }}
         initValue={value}
-        isEditable={false}
+        isEditable={true}
         title={'ddffd'}
         isMobile={false}
         // tocHeight={'1000px'}

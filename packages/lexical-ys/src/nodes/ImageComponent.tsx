@@ -77,7 +77,6 @@ function LazyImage({
   src: string;
   width: 'inherit' | number;
 }): JSX.Element {
-  console.log(1111111, src);
   const [loading, setLoading] = useState(false);
   // useSuspenseImage(src);
   useEffect(() => {
@@ -316,7 +315,6 @@ function ImageComponent({
   const draggable = isSelected && $isNodeSelection(selection);
   const isFocused = isSelected || isResizing;
   const showProgress = !!bodyFormData;
-  console.log('first', showProgress, uploadStatus[src]);
   return (
     <Suspense fallback={null}>
       <>

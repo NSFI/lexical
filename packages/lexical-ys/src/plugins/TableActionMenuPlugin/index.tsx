@@ -35,6 +35,7 @@ import {ReactPortal, useCallback, useEffect, useRef, useState} from 'react';
 import {createPortal} from 'react-dom';
 
 import {useLocale} from '../../context/LocaleContext';
+import useLexicalEditable from '../../hooks/useLexicalEditable';
 
 type TableCellActionMenuProps = Readonly<{
   contextRef: {current: null | HTMLElement};
@@ -412,7 +413,6 @@ function TableActionMenu({
     document.body,
   );
 }
-
 function TableCellActionMenuContainer({
   anchorElem,
 }: {
@@ -490,15 +490,15 @@ function TableCellActionMenuContainer({
         const menuRect = menuButtonDOM.getBoundingClientRect();
         const anchorRect = anchorElem.getBoundingClientRect();
 
+        const top = tableCellRect.top - anchorRect.top + 4;
+        const left =
+          tableCellRect.right - menuRect.width - 10 - anchorRect.left;
+
         menuButtonDOM.style.opacity = '1';
-
-        menuButtonDOM.style.left = `${
-          tableCellRect.right - menuRect.width - 10 - anchorRect.left
-        }px`;
-
-        menuButtonDOM.style.top = `${tableCellRect.top - anchorRect.top + 4}px`;
+        menuButtonDOM.style.transform = `translate(${left}px, ${top}px)`;
       } else {
         menuButtonDOM.style.opacity = '0';
+        menuButtonDOM.style.transform = 'translate(-10000px, -10000px)';
       }
     }
   }, [menuButtonRef, tableCellNode, editor, anchorElem]);
@@ -544,9 +544,12 @@ export default function TableActionMenuPlugin({
   anchorElem = document.body,
 }: {
   anchorElem?: HTMLElement;
-}): ReactPortal {
+}): null | ReactPortal {
+  const isEditable = useLexicalEditable();
   return createPortal(
-    <TableCellActionMenuContainer anchorElem={anchorElem} />,
+    isEditable ? (
+      <TableCellActionMenuContainer anchorElem={anchorElem} />
+    ) : null,
     anchorElem,
   );
 }

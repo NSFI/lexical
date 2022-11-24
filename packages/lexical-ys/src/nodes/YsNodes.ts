@@ -18,6 +18,9 @@ import {HorizontalRuleNode} from '@lexical/react/LexicalHorizontalRuleNode';
 import {HeadingNode, QuoteNode} from '@lexical/rich-text';
 import {TableCellNode, TableNode, TableRowNode} from '@lexical/table';
 
+import {CollapsibleContainerNode} from '../plugins/CollapsiblePlugin/CollapsibleContainerNode';
+import {CollapsibleContentNode} from '../plugins/CollapsiblePlugin/CollapsibleContentNode';
+import {CollapsibleTitleNode} from '../plugins/CollapsiblePlugin/CollapsibleTitleNode';
 import {AttachmentNode} from './AttachmentNode';
 import {AutocompleteNode} from './AutocompleteNode';
 import {EmojiNode} from './EmojiNode';
@@ -67,6 +70,9 @@ const YsNodes: Array<Klass<LexicalNode>> = [
   FigmaNode,
   MarkNode,
   VideoNode,
+  CollapsibleContainerNode,
+  CollapsibleContentNode,
+  CollapsibleTitleNode,
 ];
 
 export default YsNodes;

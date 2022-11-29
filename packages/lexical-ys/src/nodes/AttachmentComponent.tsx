@@ -222,7 +222,10 @@ export default function AttachmentComponent({
                 <div className="AttachmentNode__title">{fileName}</div>
                 <div className="AttachmentNode__size">{fileSize}</div>
               </div>
-              <a href={`${src}`} ref={attachmentRef} target="_blank">
+              <a
+                href={`${src}?download=${fileName}`}
+                ref={attachmentRef}
+                target="_blank">
                 <i
                   className="iconfont icon-download"
                   style={{color: '#37393D'}}

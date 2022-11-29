@@ -485,7 +485,9 @@ function useFloatingTextFormatToolbar(
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
       setIsStrikethrough(selection.hasFormat('strikethrough'));
-      setFormatType(element.getFormatType());
+      if (element?.getFormatType) {
+        setFormatType(element.getFormatType());
+      }
       // setIsSubscript(selection.hasFormat('subscript'));
       // setIsSuperscript(selection.hasFormat('superscript'));
       setIsCode(selection.hasFormat('code'));

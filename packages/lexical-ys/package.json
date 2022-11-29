@@ -1,6 +1,6 @@
 {
   "name": "@ysf/lexical-editor",
-  "version": "0.0.2-beta.17",
+  "version": "0.0.3",
   "private": false,
   "files": [
     "dist",

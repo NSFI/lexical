@@ -864,7 +864,9 @@ export default function ToolbarPlugin(): JSX.Element {
       // setIsSuperscript(selection.hasFormat('superscript'));
       setIsCode(selection.hasFormat('code'));
       setIsRTL($isParentElementRTL(selection));
-      setFormatType(element.getFormatType());
+      if (element?.getFormatType) {
+        setFormatType(element.getFormatType());
+      }
 
       // Update links
       const node = getSelectedNode(selection);

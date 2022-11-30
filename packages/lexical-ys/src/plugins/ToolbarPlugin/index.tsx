@@ -1432,13 +1432,13 @@ export default function ToolbarPlugin(): JSX.Element {
         <CommonFileUpload
           id="yseditor-videoInput"
           type={'video'}
-          maxSize={50}
+          maxSize={500}
           activeEditor={activeEditor}
         />
         <CommonFileUpload
           id="yseditor-attachmentInput"
           type={'attachment'}
-          maxSize={50}
+          maxSize={500}
           activeEditor={activeEditor}
         />
         {modal}

@@ -480,10 +480,10 @@ function InsertDropDown({
   };
   const onUploadVideoClick = () => {
     editor.update(() => {
-      const selection = $getSelection();
-      if (!$isRangeSelection(selection)) {
-        return false;
-      }
+      // const selection = $getSelection();
+      // if (!$isRangeSelection(selection)) {
+      //   return false;
+      // }
       const uploadInput = document.getElementById('yseditor-videoInput');
       if (uploadInput) {
         uploadInput.click();
@@ -492,10 +492,10 @@ function InsertDropDown({
   };
   const onUploadAttachmentClick = () => {
     editor.update(() => {
-      const selection = $getSelection();
-      if (!$isRangeSelection(selection)) {
-        return false;
-      }
+      // const selection = $getSelection();
+      // if (!$isRangeSelection(selection)) {
+      //   return false;
+      // }
       const uploadInput = document.getElementById('yseditor-attachmentInput');
       if (uploadInput) {
         uploadInput.click();

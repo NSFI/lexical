@@ -230,15 +230,16 @@ export default function Editor(props: EditorProps): JSX.Element {
                   <ContentEditable className="TableNode__contentEditable" />
                 }
                 placeholder={''}
+                ErrorBoundary={LexicalErrorBoundary}
               />
               {/* <MentionsPlugin /> */}
               <HistoryPlugin />
-              <ImagesPlugin />
+              {/* <ImagesPlugin /> */}
               <LinkPlugin />
               <ClickableLinkPlugin />
               <FloatingTextFormatToolbarPlugin />
-              <AttachmentPlugin />
-              <VideoPlugin />
+              {/* <AttachmentPlugin /> */}
+              {/* <VideoPlugin /> */}
             </NewTablePlugin>
             <ImagesPlugin />
             <AttachmentPlugin />

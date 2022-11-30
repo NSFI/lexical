@@ -202,6 +202,11 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   border-radius: 3px;
 }
+
+.YsEditorTheme__tableCell .YsEditorTheme__paragraph {
+  margin-top: 0;
+}
+
 .YsEditorTheme__tableAddColumns {
   position: absolute;
   top: 0;
@@ -214,7 +219,6 @@
   cursor: pointer;
 }
 .YsEditorTheme__tableAddColumns:after {
-  background-image: url(../images/icons/plus.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -242,7 +246,6 @@
   cursor: pointer;
 }
 .YsEditorTheme__tableAddRows:after {
-  background-image: url(../images/icons/plus.svg);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -293,6 +296,13 @@
   color: #222;
   cursor: pointer;
 }
+.YsEditorTheme__tableCellActionButton .iconfont {
+  font-size: 14px;
+  display: inline-block;
+  margin-left: -3px;
+  margin-top: 1px;
+}
+
 .YsEditorTheme__tableCellActionButton:hover {
   background-color: #ddd;
 }

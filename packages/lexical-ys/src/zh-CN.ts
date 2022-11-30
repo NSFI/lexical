@@ -49,6 +49,7 @@ const localeValues = {
   insertCodeBlock: '插入代码块',
   insertLink: '插入链接',
   insertTable: '插入表格',
+  insertTableExperimental: '插入表格（实验性）',
   italic: '斜体',
   justifyAlign: '两端对齐',
   left: '在左边',

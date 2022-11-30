@@ -91,7 +91,7 @@ import {
 import {INSERT_IMAGE_COMMAND} from '../ImagesPlugin';
 // import {INSERT_POLL_COMMAND} from '../PollPlugin';
 // import {INSERT_TABLE_COMMAND as INSERT_NEW_TABLE_COMMAND} from '../TablePlugin';
-import {InsertTableDialog} from '../TablePlugin';
+import {InsertNewTableDialog, InsertTableDialog} from '../TablePlugin';
 import {INSERT_VIDEO_COMMAND} from '../VideoPlugin';
 import {beforeUploadFile, getFileSize, getFileSuffix} from './../../utils/file';
 
@@ -565,19 +565,20 @@ function InsertDropDown({
         <i className="iconfont icon-table" />
         <span className="text">{locale.table}</span>
       </DropDownItem>
-      {/* <DropDownItem
+      <DropDownItem
         onClick={() => {
-          showModal('Insert Table', (onClose) => (
+          showModal(locale.insertTableExperimental, (onClose) => (
             <InsertNewTableDialog
               activeEditor={activeEditor}
               onClose={onClose}
+              locale={locale}
             />
           ));
         }}
         className="item">
         <i className="iconfont icon-table" />
         <span className="text">{locale.tableExperimental}</span>
-      </DropDownItem> */}
+      </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'code')}
         onClick={formatCode}>

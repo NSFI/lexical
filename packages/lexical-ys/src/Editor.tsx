@@ -234,11 +234,11 @@ export default function Editor(props: EditorProps): JSX.Element {
               {/* <MentionsPlugin /> */}
               <HistoryPlugin />
               <ImagesPlugin />
-              <VideoPlugin />
-              <AttachmentPlugin />
               <LinkPlugin />
               <ClickableLinkPlugin />
               <FloatingTextFormatToolbarPlugin />
+              <AttachmentPlugin />
+              <VideoPlugin />
             </NewTablePlugin>
             <ImagesPlugin />
             <AttachmentPlugin />
@@ -276,6 +276,13 @@ export default function Editor(props: EditorProps): JSX.Element {
             <div
               className="plain-text-content"
               style={{height: isMobile ? 'auto' : plainEditorHeight}}>
+              {isMobile && title ? (
+                <h1
+                  className="YsEditorTheme__h1 YsEditorTheme__ltr"
+                  style={{padding: '0 16px'}}>
+                  {title}
+                </h1>
+              ) : null}
               <PlainTextPlugin
                 contentEditable={<ContentEditable />}
                 placeholder={placeholder}

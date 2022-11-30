@@ -143,24 +143,45 @@ export function InsertTableDialog({
 export function InsertNewTableDialog({
   activeEditor,
   onClose,
+  locale,
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
+  locale: any;
 }): JSX.Element {
   const [rows, setRows] = useState('5');
   const [columns, setColumns] = useState('5');
 
   const onClick = () => {
-    activeEditor.dispatchCommand(INSERT_NEW_TABLE_COMMAND, {columns, rows});
+    if (Number.isNaN(parseInt(columns)) || Number.isNaN(parseInt(rows))) {
+      return;
+    }
+
+    if (parseInt(rows) > 50 || parseInt(rows) < 1) {
+      message.info('行数应为1-50之间的整数');
+      return;
+    }
+    if (parseInt(columns) > 10 || parseInt(columns) < 1) {
+      message.info('列数应为1-10之间的整数');
+      return;
+    }
+    activeEditor.dispatchCommand(INSERT_NEW_TABLE_COMMAND, {
+      columns: parseInt(columns).toString(),
+      rows: parseInt(rows).toString(),
+    });
     onClose();
   };
 
   return (
     <>
-      <TextInput label="No of rows" onChange={setRows} value={rows} />
-      <TextInput label="No of columns" onChange={setColumns} value={columns} />
+      <TextInput label={locale.noofrows} onChange={setRows} value={rows} />
+      <TextInput
+        label={locale.noofcolumns}
+        onChange={setColumns}
+        value={columns}
+      />
       <DialogActions data-test-id="table-model-confirm-insert">
-        <Button onClick={onClick}>Confirm</Button>
+        <Button onClick={onClick}>{locale.confirm}</Button>
       </DialogActions>
     </>
   );
@@ -187,7 +208,6 @@ export function TablePlugin({
       INSERT_NEW_TABLE_COMMAND,
       ({columns, rows, includeHeaders}) => {
         const selection = $getSelection();
-
         if (!$isRangeSelection(selection)) {
           return true;
         }

@@ -113,8 +113,6 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
     } else {
       const element = document.createElement('a');
       element.setAttribute('href', this.__src + `?download=${this.__fileName}`);
-      //TODO:
-      // element.innerText = this.__fileName || locale.attachment;
       element.innerText = this.__fileName || 'attachment';
       return {element};
     }

@@ -72,6 +72,7 @@ import {
   Rows,
   TableNode,
 } from './TableNode';
+import {getCellsSpan, getSelection} from './TableUtils';
 
 type SortOptions = {type: 'ascending' | 'descending'; x: number};
 
@@ -236,20 +237,22 @@ function getSelectedRect(
   startID: string,
   endID: string,
   cellCoordMap: Map<string, [number, number]>,
+  rows: Rows,
 ): null | {startX: number; endX: number; startY: number; endY: number} {
   const startCoords = cellCoordMap.get(startID);
   const endCoords = cellCoordMap.get(endID);
   if (startCoords === undefined || endCoords === undefined) {
     return null;
   }
+
   const startX = Math.min(startCoords[0], endCoords[0]);
   const endX = Math.max(startCoords[0], endCoords[0]);
   const startY = Math.min(startCoords[1], endCoords[1]);
   const endY = Math.max(startCoords[1], endCoords[1]);
 
   return {
-    endX,
-    endY,
+    endX: endX,
+    endY: endY,
     startX,
     startY,
   };
@@ -261,18 +264,29 @@ function getSelectedIDs(
   endID: string,
   cellCoordMap: Map<string, [number, number]>,
 ): Array<string> {
-  const rect = getSelectedRect(startID, endID, cellCoordMap);
+  const rect = getSelectedRect(startID, endID, cellCoordMap, rows);
   if (rect === null) {
     return [];
   }
-  const {startX, endY, endX, startY} = rect;
   const ids = [];
 
-  for (let x = startX; x <= endX; x++) {
-    for (let y = startY; y <= endY; y++) {
-      ids.push(rows[y].cells[x].id);
-    }
-  }
+  const start = cellCoordMap.get(startID);
+  const end = cellCoordMap.get(endID);
+  // if (start[0] < end[0]) {
+  //   [start, end] = [end, start];
+  // }
+  const cells = getSelection(start, end, rows);
+  cells.forEach((item) => {
+    ids.push(rows[item[0]].cells[item[1]].id);
+  });
+  //----------------------------------------------------------------
+
+  // for (let x = startX; x <= endX; x++) {
+  //   for (let y = startY; y <= endY; y++) {
+  //     ids.push(rows[y].cells[x].id);
+  //   }
+  // }
+
   return ids;
 }
 
@@ -380,7 +394,7 @@ function TableActionMenu({
     return null;
   }
   const [x, y] = coords;
-
+  console.log('cell1111111111', cell);
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -472,7 +486,8 @@ function TableActionMenu({
         onClick={() => {
           updateTableNode((tableNode) => {
             $addUpdateTag('history-push');
-            tableNode.insertRowAt(y);
+            const path = cellCoordMap.get(cell.id);
+            tableNode.insertRowAt(y, cell, [path[1], path[0]]);
           });
           onClose();
         }}>
@@ -483,7 +498,9 @@ function TableActionMenu({
         onClick={() => {
           updateTableNode((tableNode) => {
             $addUpdateTag('history-push');
-            tableNode.insertRowAt(y + 1);
+            console.log('cell', cell);
+            const path = cellCoordMap.get(cell.id);
+            tableNode.insertRowAt(y + 1, cell, [path[1], path[0]]);
           });
           onClose();
         }}>
@@ -555,6 +572,95 @@ function TableActionMenu({
   );
 }
 
+function TableOperationBar({
+  selectedCellIDs,
+  cellCoordMap,
+  updateTableNode,
+  onClose,
+  rows,
+}: {
+  selectedCellIDs: string[];
+  onClose: () => void;
+  updateTableNode: (fn2: (tableNode: TableNode) => void) => void;
+  cellCoordMap: Map<string, [number, number]>;
+  rows: Rows;
+}) {
+  const operationBarRef = useRef<null | HTMLDivElement>(null);
+  console.log(21212121);
+  useEffect(() => {
+    const operationBar = operationBarRef.current;
+    if (operationBar !== null) {
+      const rect = document
+        .querySelector(`table [data-id=${selectedCellIDs[0]}]`)
+        .getBoundingClientRect();
+      console.log('rect', rect);
+      operationBar.style.top = `${rect.y}px`;
+      operationBar.style.left = `${rect.x}px`;
+    }
+  }, []);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const dropdownElem = operationBarRef.current;
+      if (
+        dropdownElem !== null &&
+        !dropdownElem.contains(event.target as Node)
+      ) {
+        event.stopPropagation();
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
+  }, [onClose]);
+  return (
+    <div
+      className="dropdown"
+      ref={operationBarRef}
+      onPointerMove={(e) => {
+        e.stopPropagation();
+      }}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+      }}
+      onPointerUp={(e) => {
+        e.stopPropagation();
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}>
+      <button
+        onClick={() => {
+          if (selectedCellIDs.length < 2) {
+            return;
+          }
+          const firstCellID = selectedCellIDs[0];
+          const lastCellID = selectedCellIDs[selectedCellIDs.length - 1];
+          const firstCellRect = cellCoordMap.get(firstCellID);
+          const lastCellRect = cellCoordMap.get(lastCellID);
+          if (!firstCellRect || !lastCellRect) return;
+          updateTableNode((tableNode) => {
+            $addUpdateTag('history-push');
+            const cellPaths = selectedCellIDs.map((cellID: string) => {
+              const position: [number, number] = cellCoordMap.get(cellID);
+              return [position[1], position[0]];
+            });
+            const spans = getCellsSpan(rows, cellPaths);
+            tableNode.mergeCells(
+              selectedCellIDs,
+              firstCellRect,
+              lastCellRect,
+              spans,
+              cellPaths,
+            );
+          });
+          onClose();
+        }}>
+        合并单元格
+      </button>
+    </div>
+  );
+}
+
 function TableCell({
   cell,
   cellCoordMap,
@@ -568,7 +674,10 @@ function TableCell({
   rows,
   setSortingOptions,
   sortingOptions,
-}: {
+  colSpan = 1,
+  rowSpan = 1,
+}: // isEmpty = false
+{
   cell: Cell;
   isEditing: boolean;
   isSelected: boolean;
@@ -581,6 +690,9 @@ function TableCell({
   rows: Rows;
   setSortingOptions: (options: null | SortOptions) => void;
   sortingOptions: null | SortOptions;
+  colSpan?: number;
+  rowSpan?: number;
+  // isEmpty?: boolean;
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRootRef = useRef(null);
@@ -609,7 +721,10 @@ function TableCell({
       }`}
       data-id={cell.id}
       tabIndex={-1}
+      colSpan={colSpan}
+      rowSpan={rowSpan}
       style={{width: cellWidth !== null ? cellWidth : undefined}}>
+      {/* ...isEmpty ? { display: 'none' } : null } */}
       {isPrimarySelected && (
         <div
           className={`${theme.tableCellPrimarySelected} ${
@@ -641,7 +756,7 @@ function TableCell({
               setShowMenu(!showMenu);
               e.stopPropagation();
             }}>
-            <i className="chevron-down" />
+            <i className="iconfont icon-chevron-down" />
           </button>
         </div>
       )}
@@ -661,6 +776,7 @@ function TableCell({
           />,
           document.body,
         )}
+
       {isSorted && <div className={theme.tableCellSortedIndicator} />}
     </CellComponent>
   );
@@ -689,12 +805,14 @@ export default function TableComponent({
   const tableResizerRulerRef = useRef<null | HTMLDivElement>(null);
   const {cellEditorConfig} = useContext(CellContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [showAddColumns, setShowAddColumns] = useState(false);
-  const [showAddRows, setShowAddRows] = useState(false);
+  const [showAddColumns, setShowAddColumns] = useState(true);
+  const [showAddRows, setShowAddRows] = useState(true);
   const [editor] = useLexicalComposerContext();
   const mouseDownRef = useRef(false);
   const [resizingID, setResizingID] = useState<null | string>(null);
   const tableRef = useRef<null | HTMLTableElement>(null);
+  const [showOperationBar, setShowOperationBar] = useState(false);
+
   const cellCoordMap = useMemo(() => {
     const map = new Map();
 
@@ -708,6 +826,34 @@ export default function TableComponent({
     }
     return map;
   }, [rawRows]);
+  // const cellCoordMap2 = useMemo(() => {
+  //   const map = new Map();
+
+  //   for (let y = 0; y < rawRows.length; y++) {
+  //     const row = rawRows[y];
+  //     const cells = row.cells;
+  //     for (let x = 0; x < cells.length; x++) {
+  //       const cell = cells[x];
+  //       if (cell.rowSpan > 1 || cell.colSpan > 1) {
+  //         map.set(cell.id, [
+  //           [x, y],
+  //           [x + cell.rowSpan - 1, y + cell.colSpan - 1],
+  //         ]);
+  //       } else {
+  //         map.set(cell.id, [
+  //           [x, y],
+  //           [x + cell.rowSpan - 1, y + cell.colSpan - 1],
+  //         ]);
+  //       }
+  //     }
+  //   }
+  //   return map;
+  // }, [rawRows]);
+  // const totalColNum = useMemo(() => {
+  //   rawRows[0].cells.reduce((colNum, cell) => {
+  //     return colNum + cell.colSpan;
+  //   }, 0);
+  // }, [rawRows]);
   const rows = useMemo(() => {
     if (sortingOptions === null) {
       return rawRows;
@@ -922,6 +1068,7 @@ export default function TableComponent({
       if (!isEditing) {
         const {clientX, clientY} = event;
         const {width, x, y, height} = tableRect;
+
         const isOnRightEdge =
           clientX > x + width * 0.9 &&
           clientX < x + width + 40 &&
@@ -946,6 +1093,7 @@ export default function TableComponent({
         if (selectedCellIDs.length === 0) {
           tableElem.style.userSelect = 'none';
         }
+        console.log('possibleID', possibleID);
         const selectedIDs = getSelectedIDs(
           rows,
           primarySelectedCellID,
@@ -1098,6 +1246,11 @@ export default function TableComponent({
     primarySelectedCellID,
     cellCoordMap,
   ]);
+  useEffect(() => {
+    if (selectedCellIDs.length > 1) {
+      setShowOperationBar(true);
+    }
+  }, [selectedCellIDs]);
 
   const updateCellsByID = useCallback(
     (ids: Array<string>, fn: () => void) => {
@@ -1345,6 +1498,7 @@ export default function TableComponent({
           primarySelectedCellID,
           lastCellID,
           cellCoordMap,
+          rows,
         );
         if (rect === null) {
           return;
@@ -1723,45 +1877,98 @@ export default function TableComponent({
         ref={tableRef}
         tabIndex={-1}>
         <tbody>
-          {rows.map((row) => (
-            <tr key={row.id} className={theme.tableRow}>
-              {row.cells.map((cell) => {
-                const {id} = cell;
-                return (
-                  <TableCell
-                    key={id}
-                    cell={cell}
-                    theme={theme}
-                    isSelected={selectedCellSet.has(id)}
-                    isPrimarySelected={primarySelectedCellID === id}
-                    isEditing={isEditing}
-                    sortingOptions={sortingOptions}
-                    cellEditor={cellEditor}
-                    updateCellsByID={updateCellsByID}
-                    updateTableNode={updateTableNode}
-                    cellCoordMap={cellCoordMap}
-                    rows={rows}
-                    setSortingOptions={setSortingOptions}
-                  />
+          <button
+            onClick={() => {
+              if (selectedCellIDs.length < 2) {
+                return;
+              }
+              const firstCellID = selectedCellIDs[0];
+              const lastCellID = selectedCellIDs[selectedCellIDs.length - 1];
+              const firstCellRect = cellCoordMap.get(firstCellID);
+              const lastCellRect = cellCoordMap.get(lastCellID);
+              updateTableNode((tableNode) => {
+                $addUpdateTag('history-push');
+                const cellPaths = selectedCellIDs.map((cellID) => {
+                  const position = cellCoordMap.get(cellID);
+                  return [position[1], position[0]];
+                });
+                const spans = getCellsSpan(rows, cellPaths);
+                tableNode.mergeCells(
+                  selectedCellIDs,
+                  firstCellRect,
+                  lastCellRect,
+                  spans,
+                  cellPaths,
                 );
-              })}
-            </tr>
-          ))}
+              });
+            }}>
+            12323232
+          </button>
+          {rows.map((row, index2) => {
+            return (
+              <tr key={row.id} className={theme.tableRow}>
+                {row.cells.map((cell, index) => {
+                  // if (index === row.cells.length - 1 && index2 === rows.length - 1) {
+                  //   return null;
+                  // }
+                  const {id} = cell;
+                  return (
+                    <TableCell
+                      key={id}
+                      cell={cell}
+                      theme={theme}
+                      rowSpan={cell.rowSpan || 1}
+                      colSpan={cell.colSpan || 1}
+                      // isEmpty={cell.isEmpty}
+                      // colSpan={index === row.cells.length - 2 && index2 === rows.length - 1 ? 2 : 1}
+                      isSelected={selectedCellSet.has(id)}
+                      isPrimarySelected={primarySelectedCellID === id}
+                      isEditing={isEditing}
+                      sortingOptions={sortingOptions}
+                      cellEditor={cellEditor}
+                      updateCellsByID={updateCellsByID}
+                      updateTableNode={updateTableNode}
+                      cellCoordMap={cellCoordMap}
+                      rows={rows}
+                      setSortingOptions={setSortingOptions}
+                    />
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       {showAddColumns && (
-        <button className={theme.tableAddColumns} onClick={addColumns} />
+        <button className={theme.tableAddColumns} onClick={addColumns}>
+          +
+        </button>
       )}
       {showAddRows && (
         <button
           className={theme.tableAddRows}
           onClick={addRows}
-          ref={addRowsRef}
-        />
+          ref={addRowsRef}>
+          +
+        </button>
       )}
       {resizingID !== null && (
         <div className={theme.tableResizeRuler} ref={tableResizerRulerRef} />
       )}
+      {console.log('showOperationBar', showOperationBar)}
+      {showOperationBar &&
+        createPortal(
+          <TableOperationBar
+            selectedCellIDs={selectedCellIDs}
+            cellCoordMap={cellCoordMap}
+            updateTableNode={updateTableNode}
+            onClose={() => {
+              setShowOperationBar(false);
+            }}
+            rows={rows}
+          />,
+          document.body,
+        )}
     </div>
   );
 }

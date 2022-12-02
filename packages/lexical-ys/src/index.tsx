@@ -57,6 +57,64 @@ const App1 = () => {
           version: 1,
         },
         {
+          children: [],
+          direction: null,
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
+          children: [],
+          direction: null,
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
+          fileName: '1-向上管理-课件 (1).pdf',
+          fileSize: '2.85MB',
+          fileType: 'pdf',
+          src: 'https://urchin.nosdn.127.net/ea94410add8e4abf9a2bde139a15ce43.pdf',
+          type: 'attachment',
+          version: 1,
+        },
+        {
+          children: [],
+          direction: null,
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
+          children: [],
+          direction: null,
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: '大幅度',
+              type: 'text',
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
           children: [
             {
               children: [
@@ -75,25 +133,6 @@ const App1 = () => {
               indent: 0,
               type: 'listitem',
               value: 1,
-              version: 1,
-            },
-            {
-              children: [
-                {
-                  detail: 0,
-                  format: 0,
-                  mode: 'normal',
-                  style: '',
-                  text: '大幅度',
-                  type: 'text',
-                  version: 1,
-                },
-              ],
-              direction: 'ltr',
-              format: '',
-              indent: 0,
-              type: 'listitem',
-              value: 2,
               version: 1,
             },
           ],
@@ -317,7 +356,16 @@ const App1 = () => {
           width: 0,
         },
         {
-          children: [],
+          children: [
+            {
+              fileName: '1-向上管理-课件.pdf',
+              fileSize: '2.85MB',
+              fileType: 'pdf',
+              src: 'https://urchin.nosdn.127.net/f6d3bc872ca24578965e28dcb06d937c.pdf',
+              type: 'attachment',
+              version: 1,
+            },
+          ],
           direction: null,
           format: '',
           indent: 0,
@@ -345,7 +393,7 @@ const App1 = () => {
           // console.log('jsonValue', jsonValue,htmlValue);
         }}
         initValue={value}
-        isEditable={false}
+        isEditable={true}
         title={'ddffd'}
         isMobile={false}
         // tocHeight={'1000px'}

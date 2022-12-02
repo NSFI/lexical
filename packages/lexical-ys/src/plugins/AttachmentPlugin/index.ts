@@ -6,15 +6,12 @@
  *
  */
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
+import {mergeRegister} from '@lexical/utils';
 import {
-  $createParagraphNode,
   $createRangeSelection,
   $getSelection,
-  $insertNodes,
   $isNodeSelection,
   $isRangeSelection,
-  $isRootOrShadowRoot,
   $setSelection,
   COMMAND_PRIORITY_EDITOR,
   COMMAND_PRIORITY_HIGH,
@@ -36,6 +33,7 @@ import {
   AttachmentNode,
   AttachmentPayload,
 } from '../../nodes/AttachmentNode';
+import Uploader from './../../ui/BigUploader/nos-js-sdk';
 import {postFile} from './../../utils/request';
 
 export type InsertAttachmentPayload = Readonly<AttachmentPayload>;
@@ -46,30 +44,57 @@ export default function AttachmentPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
   const {setUploadStatus} = useUploadStatus();
 
-  const uploadFile = useCallback(async (payload) => {
+  const uploadFile = useCallback(async (payload, attachmentNode, newEditor) => {
     const nosLocation = 'https://urchin.nos-jd.163yun.com/';
     setUploadStatus(payload.src, 0);
-    await postFile(nosLocation, payload.bodyFormData, {
-      onUploadProgress: (progressEvent: ProgressEvent) => {
-        if (progressEvent.lengthComputable || progressEvent.progress) {
-          if (progressEvent.progress) {
-            setUploadStatus(
-              payload.src,
-              parseInt(progressEvent.progress * 100),
-            );
-          } else {
-            const complete =
-              ((progressEvent.loaded / progressEvent.total) * 100) | 0;
-            setUploadStatus(payload.src, complete);
+    const maxSize = 60;
+    const file = payload.bodyFormData.get('file');
+    //使用大文件上传;
+    if (file?.size > maxSize * 1024 * 1024) {
+      const uploader = Uploader({
+        onError: (errObj: any) => {
+          console.log(errObj);
+        },
+        onProgress: (curFile: any) => {
+          setUploadStatus(payload.src, parseInt(curFile.progress));
+          if (curFile.status === 2) {
+            setUploadStatus(payload.src, 100);
+            newEditor.update(() => {
+              attachmentNode.setUploadDone();
+            });
           }
-        }
-      },
-    });
+        },
+      });
+      uploader.addFile(file, (_curFile: any) => {
+        uploader.upload({
+          bucketName: payload.bodyFormData.get('bucket'),
+          objectName: payload.bodyFormData.get('Object'),
+          token: payload.bodyFormData.get('x-nos-token'),
+        });
+      });
+    } else {
+      await postFile(nosLocation, payload.bodyFormData, {
+        onUploadProgress: (progressEvent: ProgressEvent) => {
+          if (progressEvent.lengthComputable || progressEvent.progress) {
+            if (progressEvent.progress) {
+              setUploadStatus(
+                payload.src,
+                parseInt(progressEvent.progress * 100),
+              );
+            } else {
+              const complete =
+                ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+              setUploadStatus(payload.src, complete);
+            }
+          }
+        },
+      });
+      newEditor.update(() => {
+        attachmentNode.setUploadDone();
+      });
+    }
   }, []);
   function insertNode(payload: InsertAttachmentPayload) {
-    if (payload.uploading) {
-      return insertNodeInline(payload);
-    }
     const selection = $getSelection();
     if (!$isRangeSelection(selection)) {
       return false;
@@ -86,14 +111,14 @@ export default function AttachmentPlugin(): JSX.Element | null {
     }
     return false;
   }
-  function insertNodeInline(payload: InsertAttachmentPayload) {
-    const attachmentNode = $createAttachmentNode(payload);
-    $insertNodes([attachmentNode]);
-    if ($isRootOrShadowRoot(attachmentNode.getParentOrThrow())) {
-      $wrapNodeInElement(attachmentNode, $createParagraphNode).selectEnd();
-    }
-    return attachmentNode;
-  }
+  // function insertNodeInline(payload: InsertAttachmentPayload) {
+  //   const attachmentNode = $createAttachmentNode(payload);
+  //   $insertNodes([attachmentNode]);
+  //   if ($isRootOrShadowRoot(attachmentNode.getParentOrThrow())) {
+  //     $wrapNodeInElement(attachmentNode, $createParagraphNode).selectEnd();
+  //   }
+  //   return attachmentNode;
+  // }
   useEffect(() => {
     if (!editor.hasNodes([AttachmentNode])) {
       throw new Error(
@@ -118,11 +143,7 @@ export default function AttachmentPlugin(): JSX.Element | null {
             return true;
           }
           try {
-            await uploadFile(payload);
-            newEditor.update(() => {
-              insertNode({...others});
-              attachmentNode.remove();
-            });
+            await uploadFile(payload, attachmentNode, newEditor);
           } catch (e) {
             return true;
           }

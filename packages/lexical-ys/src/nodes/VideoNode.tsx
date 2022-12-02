@@ -188,20 +188,19 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
   // getAltText(): string {
   //   return this.__altText;
   // }
-
+  setUploadDone() {
+    const self = this.getWritable();
+    self.__uploading = false;
+  }
   decorate(): JSX.Element {
     return (
       <Suspense fallback={null}>
         <VideoComponent
           src={this.__src}
-          // altText={this.__altText}
           width={this.__width}
           height={this.__height}
           maxWidth={this.__maxWidth}
           nodeKey={this.getKey()}
-          // showCaption={this.__showCaption}
-          // caption={this.__caption}
-          // captionsEnabled={this.__captionsEnabled}
           resizable={true}
           uploading={this.__uploading}
         />

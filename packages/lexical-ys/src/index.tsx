@@ -141,7 +141,16 @@ const App1 = () => {
           version: 1,
         },
         {
-          children: [],
+          children: [
+            {
+              fileName: '1-向上管理-课件.pdf',
+              fileSize: '2.85MB',
+              fileType: 'pdf',
+              src: 'https://urchin.nosdn.127.net/f6d3bc872ca24578965e28dcb06d937c.pdf',
+              type: 'attachment',
+              version: 1,
+            },
+          ],
           direction: null,
           format: '',
           indent: 0,

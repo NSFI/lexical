@@ -190,6 +190,10 @@ export class AttachmentNode extends DecoratorNode<JSX.Element> {
       fileType: this.__fileType,
     };
   }
+  setUploadDone() {
+    const self = this.getWritable();
+    self.__uploading = false;
+  }
 
   decorate(): JSX.Element {
     return (

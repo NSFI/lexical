@@ -120,13 +120,14 @@ export async function beforeUploadFile(file: File): any {
       count: 1, //（默认）1-七鱼；2-互客
       ...(suffix ? {suffix} : null),
     });
-    const {objectName, token} = response?.data[0];
+    const {objectName, token, bucket} = response?.data[0];
     const nosDLL = 'https://urchin.nosdn.127.net/';
     const nosSrc = `${nosDLL}${objectName}`;
     const bodyForm = new FormData();
     bodyForm.append('Object', decodeURIComponent(objectName));
     bodyForm.append('x-nos-token', token);
     bodyForm.append('file', file);
+    bodyForm.append('bucket', bucket);
     return {bodyForm, nosSrc};
   } catch (e) {
     return false;

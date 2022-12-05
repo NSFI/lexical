@@ -29,6 +29,7 @@ import {
 import {
   $getCompositionKey,
   $getNodeByKey,
+  $getNodeByKeyOrThrow,
   $isRootOrShadowRoot,
   $maybeMoveChildrenSelectionToParent,
   $setCompositionKey,
@@ -90,10 +91,9 @@ export function removeNode(
   if (index === -1) {
     invariant(false, 'Node is not a child of its parent');
   }
-  internalMarkSiblingsAsDirty(nodeToRemove);
-  parentChildren.splice(index, 1);
   const writableNodeToRemove = nodeToRemove.getWritable();
-  writableNodeToRemove.__parent = null;
+  internalMarkSiblingsAsDirty(nodeToRemove);
+  removeFromParent(writableNodeToRemove);
 
   if ($isRangeSelection(selection) && restoreSelection && !selectionMoved) {
     $updateElementSelectionOnCreateDeleteNode(selection, parent, index, -1);
@@ -109,18 +109,6 @@ export function removeNode(
   if ($isRootNode(parent) && parent.isEmpty()) {
     parent.selectEnd();
   }
-}
-
-export function $getNodeByKeyOrThrow<N extends LexicalNode>(key: NodeKey): N {
-  const node = $getNodeByKey<N>(key);
-  if (node === null) {
-    invariant(
-      false,
-      "Expected node with key %s to exist but it's not in the nodeMap.",
-      key,
-    );
-  }
-  return node;
 }
 
 export type DOMConversion<T extends HTMLElement = HTMLElement> = {
@@ -171,6 +159,10 @@ export class LexicalNode {
   __key: string;
   /** @internal */
   __parent: null | NodeKey;
+  /** @internal */
+  __prev: null | NodeKey;
+  /** @internal */
+  __next: null | NodeKey;
 
   // Flow doesn't support abstract classes unfortunately, so we can't _force_
   // subclasses of Node to implement statics. All subclasses of Node should have
@@ -197,6 +189,8 @@ export class LexicalNode {
     // @ts-expect-error
     this.__type = this.constructor.getType();
     this.__parent = null;
+    this.__prev = null;
+    this.__next = null;
     $setNodeKey(this, key);
 
     if (__DEV__) {
@@ -563,8 +557,13 @@ export class LexicalNode {
     // @ts-expect-error
     const mutableNode = constructor.clone(latestNode);
     mutableNode.__parent = parent;
+    mutableNode.__next = latestNode.__next;
+    mutableNode.__prev = latestNode.__prev;
     if ($isElementNode(latestNode) && $isElementNode(mutableNode)) {
       mutableNode.__children = Array.from(latestNode.__children);
+      mutableNode.__first = latestNode.__first;
+      mutableNode.__last = latestNode.__last;
+      mutableNode.__size = latestNode.__size;
       mutableNode.__indent = latestNode.__indent;
       mutableNode.__format = latestNode.__format;
       mutableNode.__dir = latestNode.__dir;

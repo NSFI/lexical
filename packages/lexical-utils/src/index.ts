@@ -363,8 +363,14 @@ function unstable_internalCreateNodeFromParse(
   if ($isElementNode(node)) {
     const children = parsedNode.__children;
 
+    let prevNode = null;
     for (let i = 0; i < children.length; i++) {
       const childKey = children[i];
+      if (i === 0) {
+        node.__first = childKey;
+      } else if (i === children.length - 1) {
+        node.__last = childKey;
+      }
       const parsedChild = parsedNodeMap.get(childKey);
 
       if (parsedChild !== undefined) {
@@ -376,8 +382,12 @@ function unstable_internalCreateNodeFromParse(
           activeEditorState,
         );
         const newChildKey = child.__key;
-
+        if (prevNode !== null) {
+          child.__prev = prevNode.__key;
+          prevNode.__next = newChildKey;
+        }
         node.__children.push(newChildKey);
+        prevNode = child;
       }
     }
 
@@ -473,23 +483,33 @@ export function $insertNodeToNearestRoot<T extends LexicalNode>(node: T): T {
     const {focus} = selection;
     const focusNode = focus.getNode();
     const focusOffset = focus.offset;
-    let splitNode: ElementNode;
-    let splitOffset: number;
 
-    if ($isTextNode(focusNode)) {
-      splitNode = focusNode.getParentOrThrow();
-      splitOffset = focusNode.getIndexWithinParent();
-      if (focusOffset > 0) {
-        splitOffset += 1;
-        focusNode.splitText(focusOffset);
+    if ($isRootOrShadowRoot(focusNode)) {
+      const focusChild = focusNode.getChildAtIndex(focusOffset);
+      if (focusChild == null) {
+        focusNode.append(node);
+      } else {
+        focusChild.insertBefore(node);
       }
+      node.selectNext();
     } else {
-      splitNode = focusNode;
-      splitOffset = focusOffset;
+      let splitNode: ElementNode;
+      let splitOffset: number;
+      if ($isTextNode(focusNode)) {
+        splitNode = focusNode.getParentOrThrow();
+        splitOffset = focusNode.getIndexWithinParent();
+        if (focusOffset > 0) {
+          splitOffset += 1;
+          focusNode.splitText(focusOffset);
+        }
+      } else {
+        splitNode = focusNode;
+        splitOffset = focusOffset;
+      }
+      const [, rightTree] = $splitNode(splitNode, splitOffset);
+      rightTree.insertBefore(node);
+      rightTree.selectStart();
     }
-    const [, rightTree] = $splitNode(splitNode, splitOffset);
-    rightTree.insertBefore(node);
-    rightTree.selectStart();
   } else {
     if ($isNodeSelection(selection) || DEPRECATED_$isGridSelection(selection)) {
       const nodes = selection.getNodes();
@@ -523,6 +543,11 @@ export function $splitNode(
   if (startNode == null) {
     startNode = node;
   }
+
+  invariant(
+    !$isRootOrShadowRoot(node),
+    'Can not call $splitNode() on root element',
+  );
 
   const recurse = (
     currentNode: LexicalNode,

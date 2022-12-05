@@ -494,7 +494,6 @@ type TextPointType = {
   getNode: () => TextNode,
   set: (key: NodeKey, offset: number, type: 'text' | 'element') => void,
   getCharacterOffset: () => number,
-  isAtNodeEnd: () => boolean,
 };
 export type ElementPoint = ElementPointType;
 type ElementPointType = {
@@ -505,7 +504,6 @@ type ElementPointType = {
   isBefore: (PointType) => boolean,
   getNode: () => ElementNode,
   set: (key: NodeKey, offset: number, type: 'text' | 'element') => void,
-  isAtNodeEnd: () => boolean,
 };
 export type Point = PointType;
 type PointType = TextPointType | ElementPointType;
@@ -629,7 +627,8 @@ declare export class LineBreakNode extends LexicalNode {
   static importJSON(
     serializedLineBreakNode: SerializedLineBreakNode,
   ): LineBreakNode;
-  exportJSON(): SerializedLexicalNode;
+  // $FlowExpectedError[incompatible-extend] 'linebreak' is a literal string
+  exportJSON(): SerializedLineBreakNode;
 }
 declare export function $createLineBreakNode(): LineBreakNode;
 declare export function $isLineBreakNode(
@@ -662,7 +661,14 @@ declare export function $isRootNode(
 /**
  * LexicalElementNode
  */
-export type ElementFormatType = 'left' | 'center' | 'right' | 'justify' | '';
+export type ElementFormatType =
+  | 'left'
+  | 'start'
+  | 'center'
+  | 'right'
+  | 'end'
+  | 'justify'
+  | '';
 declare export class ElementNode extends LexicalNode {
   __children: Array<NodeKey>;
   __format: number;
@@ -757,7 +763,8 @@ declare export class ParagraphNode extends ElementNode {
   static importJSON(
     serializedParagraphNode: SerializedParagraphNode,
   ): ParagraphNode;
-  exportJSON(): SerializedElementNode;
+  // $FlowExpectedError[incompatible-extend] 'paragraph' is a literal string
+  exportJSON(): SerializedParagraphNode;
 }
 declare export function $createParagraphNode(): ParagraphNode;
 declare export function $isParagraphNode(

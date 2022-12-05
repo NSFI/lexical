@@ -264,6 +264,7 @@ export function removeFromParent(writableNode: LexicalNode): void {
     }
     internalMarkSiblingsAsDirty(writableNode);
     children.splice(index, 1);
+    writableNode.__parent = null;
   }
 }
 
@@ -502,6 +503,13 @@ export function createUID(): string {
     .substr(0, 5);
 }
 
+export function getAnchorTextFromDOM(anchorNode: Node): null | string {
+  if (anchorNode.nodeType === DOM_TEXT_TYPE) {
+    return anchorNode.nodeValue;
+  }
+  return null;
+}
+
 export function $updateSelectedTextFromDOM(
   isCompositionEnd: boolean,
   data?: string,
@@ -513,11 +521,10 @@ export function $updateSelectedTextFromDOM(
   }
   const anchorNode = domSelection.anchorNode;
   let {anchorOffset, focusOffset} = domSelection;
-  if (anchorNode !== null && anchorNode.nodeType === DOM_TEXT_TYPE) {
+  if (anchorNode !== null) {
+    let textContent = getAnchorTextFromDOM(anchorNode);
     const node = $getNearestNodeFromDOMNode(anchorNode);
-    if ($isTextNode(node)) {
-      let textContent = anchorNode.nodeValue;
-
+    if (textContent !== null && $isTextNode(node)) {
       // Data is intentionally truthy, as we check for boolean, null and empty string.
       if (textContent === COMPOSITION_SUFFIX && data) {
         const offset = data.length;
@@ -631,7 +638,7 @@ function $previousSiblingDoesNotAcceptText(node: TextNode): boolean {
 // This function is connected to $shouldPreventDefaultAndInsertText and determines whether the
 // TextNode boundaries are writable or we should use the previous/next sibling instead. For example,
 // in the case of a LinkNode, boundaries are not writable.
-function $shouldInsertTextAfterOrBeforeTextNode(
+export function $shouldInsertTextAfterOrBeforeTextNode(
   selection: RangeSelection,
   node: TextNode,
 ): boolean {
@@ -658,50 +665,6 @@ function $shouldInsertTextAfterOrBeforeTextNode(
   } else {
     return false;
   }
-}
-
-// This function is used to determine if Lexical should attempt to override
-// the default browser behavior for insertion of text and use its own internal
-// heuristics. This is an extremely important function, and makes much of Lexical
-// work as intended between different browsers and across word, line and character
-// boundary/formats. It also is important for text replacement, node schemas and
-// composition mechanics.
-export function $shouldPreventDefaultAndInsertText(
-  selection: RangeSelection,
-  text: string,
-): boolean {
-  const anchor = selection.anchor;
-  const focus = selection.focus;
-  const anchorNode = anchor.getNode();
-  const domSelection = getDOMSelection();
-  const domAnchorNode = domSelection !== null ? domSelection.anchorNode : null;
-  const anchorKey = anchor.key;
-  const backingAnchorElement = getActiveEditor().getElementByKey(anchorKey);
-  const textLength = text.length;
-
-  return (
-    anchorKey !== focus.key ||
-    // If we're working with a non-text node.
-    !$isTextNode(anchorNode) ||
-    // If we are replacing a range with a single character or grapheme, and not composing.
-    ((textLength < 2 || doesContainGrapheme(text)) &&
-      anchor.offset !== focus.offset &&
-      !anchorNode.isComposing()) ||
-    // Any non standard text node.
-    $isTokenOrSegmented(anchorNode) ||
-    // If the text length is more than a single character and we're either
-    // dealing with this in "beforeinput" or where the node has already recently
-    // been changed (thus is dirty).
-    (anchorNode.isDirty() && textLength > 1) ||
-    // If the DOM selection element is not the same as the backing node
-    (backingAnchorElement !== null &&
-      !anchorNode.isComposing() &&
-      domAnchorNode !== getDOMTextNode(backingAnchorElement)) ||
-    // Check if we're changing from bold to italics, or some other format.
-    anchorNode.getFormat() !== selection.format ||
-    // One last set of heuristics to check against.
-    $shouldInsertTextAfterOrBeforeTextNode(selection, anchorNode)
-  );
 }
 
 export function isTab(
@@ -1328,4 +1291,16 @@ export function errorOnInsertTextNodeOnRoot(
       'Only element or decorator nodes can be inserted in to the root node',
     );
   }
+}
+
+export function $getNodeByKeyOrThrow<N extends LexicalNode>(key: NodeKey): N {
+  const node = $getNodeByKey<N>(key);
+  if (node === null) {
+    invariant(
+      false,
+      "Expected node with key %s to exist but it's not in the nodeMap.",
+      key,
+    );
+  }
+  return node;
 }

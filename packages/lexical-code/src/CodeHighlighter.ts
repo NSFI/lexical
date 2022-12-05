@@ -27,6 +27,7 @@ import 'prismjs/components/prism-sql';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-rust';
 import 'prismjs/components/prism-swift';
+import 'prismjs/components/prism-typescript';
 
 import {mergeRegister} from '@lexical/utils';
 import {
@@ -381,9 +382,7 @@ function updateAndRetainSelection(
     textOffset =
       anchorOffset +
       anchorNode.getPreviousSiblings().reduce((offset, _node) => {
-        return (
-          offset + ($isLineBreakNode(_node) ? 0 : _node.getTextContentSize())
-        );
+        return offset + _node.getTextContentSize();
       }, 0);
   }
 
@@ -402,9 +401,10 @@ function updateAndRetainSelection(
   // If it was non-element anchor then we walk through child nodes
   // and looking for a position of original text offset
   node.getChildren().some((_node) => {
-    if ($isTextNode(_node)) {
+    const isText = $isTextNode(_node);
+    if (isText || $isLineBreakNode(_node)) {
       const textContentSize = _node.getTextContentSize();
-      if (textContentSize >= textOffset) {
+      if (isText && textContentSize >= textOffset) {
         _node.select(textOffset, textOffset);
         return true;
       }

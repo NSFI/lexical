@@ -8,12 +8,14 @@
  */
 
 import {
+  $copyNode,
   $createParagraphNode,
   $getRoot,
   $getSelection,
   $isElementNode,
   $isNodeSelection,
   $isRangeSelection,
+  $isRootOrShadowRoot,
   $isTextNode,
   $setSelection,
   createEditor,
@@ -361,8 +363,14 @@ function unstable_internalCreateNodeFromParse(
   if ($isElementNode(node)) {
     const children = parsedNode.__children;
 
+    let prevNode = null;
     for (let i = 0; i < children.length; i++) {
       const childKey = children[i];
+      if (i === 0) {
+        node.__first = childKey;
+      } else if (i === children.length - 1) {
+        node.__last = childKey;
+      }
       const parsedChild = parsedNodeMap.get(childKey);
 
       if (parsedChild !== undefined) {
@@ -374,8 +382,12 @@ function unstable_internalCreateNodeFromParse(
           activeEditorState,
         );
         const newChildKey = child.__key;
-
+        if (prevNode !== null) {
+          child.__prev = prevNode.__key;
+          prevNode.__next = newChildKey;
+        }
         node.__children.push(newChildKey);
+        prevNode = child;
       }
     }
 
@@ -468,21 +480,48 @@ export function $restoreEditorState(
 export function $insertNodeToNearestRoot<T extends LexicalNode>(node: T): T {
   const selection = $getSelection();
   if ($isRangeSelection(selection)) {
-    const focusNode = selection.focus.getNode();
-    focusNode.getTopLevelElementOrThrow().insertAfter(node);
-  } else if (
-    $isNodeSelection(selection) ||
-    DEPRECATED_$isGridSelection(selection)
-  ) {
-    const nodes = selection.getNodes();
-    nodes[nodes.length - 1].getTopLevelElementOrThrow().insertAfter(node);
+    const {focus} = selection;
+    const focusNode = focus.getNode();
+    const focusOffset = focus.offset;
+
+    if ($isRootOrShadowRoot(focusNode)) {
+      const focusChild = focusNode.getChildAtIndex(focusOffset);
+      if (focusChild == null) {
+        focusNode.append(node);
+      } else {
+        focusChild.insertBefore(node);
+      }
+      node.selectNext();
+    } else {
+      let splitNode: ElementNode;
+      let splitOffset: number;
+      if ($isTextNode(focusNode)) {
+        splitNode = focusNode.getParentOrThrow();
+        splitOffset = focusNode.getIndexWithinParent();
+        if (focusOffset > 0) {
+          splitOffset += 1;
+          focusNode.splitText(focusOffset);
+        }
+      } else {
+        splitNode = focusNode;
+        splitOffset = focusOffset;
+      }
+      const [, rightTree] = $splitNode(splitNode, splitOffset);
+      rightTree.insertBefore(node);
+      rightTree.selectStart();
+    }
   } else {
-    const root = $getRoot();
-    root.append(node);
+    if ($isNodeSelection(selection) || DEPRECATED_$isGridSelection(selection)) {
+      const nodes = selection.getNodes();
+      nodes[nodes.length - 1].getTopLevelElementOrThrow().insertAfter(node);
+    } else {
+      const root = $getRoot();
+      root.append(node);
+    }
+    const paragraphNode = $createParagraphNode();
+    node.insertAfter(paragraphNode);
+    paragraphNode.select();
   }
-  const paragraphNode = $createParagraphNode();
-  node.insertAfter(paragraphNode);
-  paragraphNode.select();
   return node.getLatest();
 }
 
@@ -494,4 +533,51 @@ export function $wrapNodeInElement(
   node.replace(elementNode);
   elementNode.append(node);
   return elementNode;
+}
+
+export function $splitNode(
+  node: ElementNode,
+  offset: number,
+): [ElementNode | null, ElementNode] {
+  let startNode = node.getChildAtIndex(offset);
+  if (startNode == null) {
+    startNode = node;
+  }
+
+  invariant(
+    !$isRootOrShadowRoot(node),
+    'Can not call $splitNode() on root element',
+  );
+
+  const recurse = (
+    currentNode: LexicalNode,
+  ): [ElementNode, ElementNode, LexicalNode] => {
+    const parent = currentNode.getParentOrThrow();
+    const isParentRoot = $isRootOrShadowRoot(parent);
+    // The node we start split from (leaf) is moved, but its recursive
+    // parents are copied to create separate tree
+    const nodeToMove =
+      currentNode === startNode && !isParentRoot
+        ? currentNode
+        : $copyNode(currentNode);
+
+    if (isParentRoot) {
+      currentNode.insertAfter(nodeToMove);
+      return [
+        currentNode as ElementNode,
+        nodeToMove as ElementNode,
+        nodeToMove,
+      ];
+    } else {
+      const [leftTree, rightTree, newParent] = recurse(parent);
+      const nextSiblings = currentNode.getNextSiblings();
+
+      newParent.append(nodeToMove, ...nextSiblings);
+      return [leftTree, rightTree, nodeToMove];
+    }
+  };
+
+  const [leftTree, rightTree] = recurse(startNode);
+
+  return [leftTree, rightTree];
 }

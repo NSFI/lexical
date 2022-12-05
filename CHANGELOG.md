@@ -1,3 +1,74 @@
+## v0.6.4 (2022-11-29)
+
+- Fix issue with readonly image resizing (#3448) John Flockton
+- check CAN_USE_DOM before accessing document (#3444) ProvidenceXz
+- Add `type="button"` to <button /> components (#3447) Scott Agirs
+- Add horizontal rule plugin (#3446) akmarzhan1
+- Add isEditable listener to nested composer (#3445) John Flockton
+- Exports serialized node types (#3436) tolkienfan2
+- Fix bug in selectPointOnNode (#3443) Dominic Gannaway
+- $splitNode & $insertNodeToNearestRoot for root selection (#3442) Maksim Horbachevsky
+- Updated exportJSON types (#3231) Matt Reid
+- Fix deleting empty paragraphs (#3261) Petar Smolic
+- Change command priority in typeahead (#3441) John Flockton
+- Fix grammary 2 (#3438) Dominic Gannaway
+- Don't unnecessarily mark text nodes as dirty (#3437) John Flockton
+- fix: playground bug(floating link editor not closing with 'Escape' key (#2941) Joseph Jang
+- Fix a couple of bugs with Headings creation (#3425) John Flockton
+- Fix text replacement via insertText (#3429) Dominic Gannaway
+- Add link list properties to nodes (#3424) Dominic Gannaway
+- Fix browser selection with horizontal rule (#3418) Dominic Gannaway
+- add excalidraw plugin example (#3412) akmarzhan1
+- Fix $splitNode Flow type (#3411) Gerard Rovira
+- Fix insertNodes merging logic (#3413) Dominic Gannaway
+- refactor: React composer initialConfig to exported type (#3396) Simon Proper
+
+## v0.6.3 (2022-11-23)
+
+- Apply event propagation between all event types (#3401) Dominic Gannaway
+- Fix selection bug in code highlighting transform (#3405) Dominic Gannaway
+- Exports SerializedNodes from @lexical/table (#3393) tolkienfan2
+- Ensure we do not render br after non inline decorators (#3406) Dominic Gannaway
+- Fix collapsible bugs (#3404) Maksim Horbachevsky
+- Add more invariants around insertion of text nodes into root (#3399) Dominic Gannaway
+- Fix bad selection on $wrapNodes (#3400) Dominic Gannaway
+- Fix insertNodes bug around isolated decorators (#3403) Dominic Gannaway
+- Fix element indent duplication (#3398) Dominic Gannaway
+- Fix bug in scrollIntoViewIfNeeded (#3397) Dominic Gannaway
+- Fix md links regexp (#3395) Maksim Horbachevsky
+- Add LexicalNodeEventPlugin to @lexical/react (#3392) Dominic Gannaway
+- Add rel noopener by default (#3386) Acy Watson
+- Fix selection bugs with decorators (#3391) Dominic Gannaway
+- Fix experimental tables (#3390) Dominic Gannaway
+
+## v0.6.2 (2022-11-21)
+
+- Validate dragon origin (#3385) Dominic Gannaway
+- Remove AutoScrollPlugin and properly fix scrollIntoViewIfNeeded (#3378) Dominic Gannaway
+- LinkPlugin to support link paste (#3371) Gerard Rovira
+- Add node replacement system to core (#3367) Dominic Gannaway
+- Fix prettier & lint (#3377) Gerard Rovira
+- add collapsible container plugin example (#3369) akmarzhan1
+- add embed plugins (#3363) akmarzhan1
+- Add markdown plugin example (#3354) akmarzhan1
+- add sticky notes plugin example (#3345) akmarzhan1
+- Improve $insertNodeToNearestRoot (#3344) Maksim Horbachevsky
+- Add $splitNode & $copyNode (#3342) Maksim Horbachevsky
+- feat: make icons and popups dynamic & change file structure (#3336) Adithya Vardhan
+- Add table plugin example (#3341) akmarzhan1
+- Fix content loss when EditorState + update race condition (#3337) Gerard Rovira
+- Filter out mixed files + content copy pasting (#3329) Maksim Horbachevsky
+- Bump loader-utils from 2.0.2 to 2.0.3 (#3333) dependabot[bot]
+- Bump loader-utils from 2.0.2 to 2.0.3 in /packages/lexical-website (#3334) dependabot[bot]
+- Update YJS (#3313) Maksim Horbachevsky
+- Update nodes.md (#3332) UncleKhab
+- Add list plugin example (#3324) akmarzhan1
+- Disable table addons on non-editable (#3317) Gerard Rovira
+- Nit FlowFixMe hint (#3310) Gerard Rovira
+- feat: Extend support for link target and rel to lexical-react’s AutoLinkPlugin (#3209) Andrew Patton
+- docs: set ErrorBoundary props to PlainTextPlugin (#3326) unvalley
+- Update collab cursor colors to pass a11y contrast ratio (#3315) Maksim Horbachevsky
+
 ## v0.6.0 (2022-10-31)
 
 - [0.6] Make RichTextPlugin ErrorBoundary mandatory (#3295) Gerard Rovira

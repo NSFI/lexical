@@ -1877,33 +1877,6 @@ export default function TableComponent({
         ref={tableRef}
         tabIndex={-1}>
         <tbody>
-          <button
-            onClick={() => {
-              if (selectedCellIDs.length < 2) {
-                return;
-              }
-              const firstCellID = selectedCellIDs[0];
-              const lastCellID = selectedCellIDs[selectedCellIDs.length - 1];
-              const firstCellRect = cellCoordMap.get(firstCellID);
-              const lastCellRect = cellCoordMap.get(lastCellID);
-              updateTableNode((tableNode) => {
-                $addUpdateTag('history-push');
-                const cellPaths = selectedCellIDs.map((cellID) => {
-                  const position = cellCoordMap.get(cellID);
-                  return [position[1], position[0]];
-                });
-                const spans = getCellsSpan(rows, cellPaths);
-                tableNode.mergeCells(
-                  selectedCellIDs,
-                  firstCellRect,
-                  lastCellRect,
-                  spans,
-                  cellPaths,
-                );
-              });
-            }}>
-            12323232
-          </button>
           {rows.map((row, index2) => {
             return (
               <tr key={row.id} className={theme.tableRow}>

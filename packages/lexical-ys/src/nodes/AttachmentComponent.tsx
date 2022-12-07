@@ -223,7 +223,7 @@ export default function AttachmentComponent({
                 <div className="AttachmentNode__size">{fileSize}</div>
               </div>
               <a
-                href={`${src}?download=${fileName}`}
+                href={`${src}?download=${encodeURIComponent(fileName)}`}
                 ref={attachmentRef}
                 target="_blank">
                 <i

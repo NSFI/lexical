@@ -143,8 +143,12 @@ function convertTableElement(domNode: HTMLElement): null | DOMConversionOutput {
     const cells: Array<Cell> = [];
     for (let x = 0; x < cellElems.length; x++) {
       const cellElem = cellElems[x] as HTMLElement;
+
       const isHeader = cellElem.nodeName === 'TH';
-      const cell = createCell(isHeader ? 'header' : 'normal');
+      const cell = createCell(isHeader ? 'header' : 'normal', {
+        colSpan: parseInt(cellElem.getAttribute('colspan') || 1),
+        rowSpan: parseInt(cellElem.getAttribute('rowspan') || 1),
+      });
       cell.json = plainTextEditorJSON(
         JSON.stringify(cellElem.innerText.replace(/\n/g, ' ')),
       );
@@ -231,7 +235,7 @@ export class TableNode extends DecoratorNode<JSX.Element> {
     return {
       table: (_node: Node) => ({
         conversion: convertTableElement,
-        priority: 0,
+        priority: 2,
       }),
     };
   }

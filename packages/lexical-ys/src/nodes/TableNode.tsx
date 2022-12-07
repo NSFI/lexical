@@ -403,8 +403,8 @@ export class TableNode extends DecoratorNode<JSX.Element> {
     selectedCellIDs: string[],
     firstCellRect: [number, number],
     lastCellRect: [number, number],
-    spans,
-    cellPaths,
+    spans: any,
+    cellPaths: any,
   ): void {
     const self = this.getWritable();
     console.log('spans', spans);

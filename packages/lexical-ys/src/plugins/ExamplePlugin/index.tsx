@@ -20,7 +20,7 @@ export default function MyCustomAutoFocusPlugin() {
 
     // console.log(editorState);
     // eslint-disable-next-line no-console
-    console.log(JSON.parse(JSON.stringify(editorState)));
+    // console.log(JSON.parse(JSON.stringify(editorState)));
     editorState.read(() => {
       // Just like editor.update(), .read() expects a closure where you can use
       // the $ prefixed helper functions.

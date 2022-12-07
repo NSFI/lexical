@@ -29,6 +29,7 @@ const localeValues = {
   },
   bold: '粗体',
   centerAlign: '居中对齐',
+  clearCell: '清除单元格',
   clearFormatting: '清除格式',
   column: '列',
   columnHeader: '列标题',

@@ -59,6 +59,7 @@ import * as React from 'react';
 import {createPortal} from 'react-dom';
 import {IS_APPLE} from 'shared/environment';
 
+import {useLocale} from '../context/LocaleContext';
 import {CellContext} from '../plugins/TablePlugin';
 import {
   $isTableNode,
@@ -352,6 +353,7 @@ function TableActionMenu({
   updateTableNode,
   setSortingOptions,
   sortingOptions,
+  locale,
 }: {
   cell: Cell;
   menuElem: HTMLElement;
@@ -362,6 +364,7 @@ function TableActionMenu({
   rows: Rows;
   setSortingOptions: (options: null | SortOptions) => void;
   sortingOptions: null | SortOptions;
+  locale: any;
 }) {
   const dropDownRef = useRef<null | HTMLDivElement>(null);
 
@@ -426,7 +429,7 @@ function TableActionMenu({
           onClose();
         }}>
         <span className="text">
-          {cell.type === 'normal' ? 'Make header' : 'Remove header'}
+          {cell.type === 'normal' ? '置为表头' : '移除表头'}
         </span>
       </button>
       <button
@@ -439,12 +442,12 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Clear cell</span>
+        <span className="text">{locale.clearCell}</span>
       </button>
       <hr />
       {cell.type === 'header' && y === 0 && (
         <>
-          {sortingOptions !== null && sortingOptions.x === x && (
+          {/* {sortingOptions !== null && sortingOptions.x === x && (
             <button
               className="item"
               onClick={() => {
@@ -453,8 +456,8 @@ function TableActionMenu({
               }}>
               <span className="text">Remove sorting</span>
             </button>
-          )}
-          {(sortingOptions === null ||
+          )} */}
+          {/* {(sortingOptions === null ||
             sortingOptions.x !== x ||
             sortingOptions.type === 'descending') && (
             <button
@@ -477,7 +480,7 @@ function TableActionMenu({
               }}>
               <span className="text">Sort descending</span>
             </button>
-          )}
+          )} */}
           <hr />
         </>
       )}
@@ -491,7 +494,12 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Insert row above</span>
+        <span className="text">
+          {' '}
+          {locale.insert}
+          {locale.row}
+          {locale.above}
+        </span>
       </button>
       <button
         className="item"
@@ -504,7 +512,11 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Insert row below</span>
+        <span className="text">
+          {locale.insert}
+          {locale.row}
+          {locale.below}
+        </span>
       </button>
       <hr />
       <button
@@ -516,7 +528,11 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Insert column left</span>
+        <span className="text">
+          {locale.insert}
+          {locale.column}
+          {locale.left}
+        </span>
       </button>
       <button
         className="item"
@@ -527,7 +543,12 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Insert column right</span>
+        <span className="text">
+          {' '}
+          {locale.insert}
+          {locale.column}
+          {locale.right}
+        </span>
       </button>
       <hr />
       {rows[0].cells.length !== 1 && (
@@ -540,7 +561,7 @@ function TableActionMenu({
             });
             onClose();
           }}>
-          <span className="text">Delete column</span>
+          <span className="text">{locale.deleteColumn}</span>
         </button>
       )}
       {rows.length !== 1 && (
@@ -553,7 +574,7 @@ function TableActionMenu({
             });
             onClose();
           }}>
-          <span className="text">Delete row</span>
+          <span className="text">{locale.deleteRow}</span>
         </button>
       )}
       <button
@@ -566,7 +587,7 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Delete table</span>
+        <span className="text">{locale.deleteTable}</span>
       </button>
     </div>
   );
@@ -615,6 +636,7 @@ function TableOperationBar({
   return (
     <div
       className="dropdown"
+      style={{minHeight: 'auto'}}
       ref={operationBarRef}
       onPointerMove={(e) => {
         e.stopPropagation();
@@ -628,7 +650,10 @@ function TableOperationBar({
       onClick={(e) => {
         e.stopPropagation();
       }}>
-      <button
+      <i
+        className="iconfont icon-hebing"
+        role="button"
+        style={{fontSize: '14px', padding: '12px'}}
         onClick={() => {
           if (selectedCellIDs.length < 2) {
             return;
@@ -654,9 +679,8 @@ function TableOperationBar({
             );
           });
           onClose();
-        }}>
-        合并单元格
-      </button>
+        }}
+      />
     </div>
   );
 }
@@ -702,6 +726,8 @@ function TableCell({
   const cellWidth = cell.width;
   const menuElem = menuRootRef.current;
   const coords = cellCoordMap.get(cell.id);
+  const locale = useLocale();
+
   const isSorted =
     sortingOptions !== null &&
     coords !== undefined &&
@@ -773,6 +799,7 @@ function TableCell({
             rows={rows}
             setSortingOptions={setSortingOptions}
             sortingOptions={sortingOptions}
+            locale={locale}
           />,
           document.body,
         )}
@@ -1928,7 +1955,6 @@ export default function TableComponent({
       {resizingID !== null && (
         <div className={theme.tableResizeRuler} ref={tableResizerRulerRef} />
       )}
-      {console.log('showOperationBar', showOperationBar)}
       {showOperationBar &&
         createPortal(
           <TableOperationBar

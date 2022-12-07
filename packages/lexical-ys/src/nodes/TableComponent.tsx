@@ -607,7 +607,6 @@ function TableOperationBar({
   rows: Rows;
 }) {
   const operationBarRef = useRef<null | HTMLDivElement>(null);
-  console.log(21212121);
   useEffect(() => {
     const operationBar = operationBarRef.current;
     if (operationBar !== null) {

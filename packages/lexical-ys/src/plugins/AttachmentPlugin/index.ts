@@ -50,12 +50,15 @@ export default function AttachmentPlugin(): JSX.Element | null {
     const maxSize = 60;
     const file = payload.bodyFormData.get('file');
     //使用大文件上传;
+    console.log('firstfilefilefilefilefilefile', file);
     if (file?.size > maxSize * 1024 * 1024) {
+      console.log(1111111111, file);
       const uploader = Uploader({
         onError: (errObj: any) => {
           console.log(errObj);
         },
         onProgress: (curFile: any) => {
+          console.log('33333333333333333', curFile);
           setUploadStatus(payload.src, parseInt(curFile.progress));
           if (curFile.status === 2) {
             setUploadStatus(payload.src, 100);
@@ -66,6 +69,7 @@ export default function AttachmentPlugin(): JSX.Element | null {
         },
       });
       uploader.addFile(file, (_curFile: any) => {
+        console.log('22222222222333333333333', file);
         uploader.upload({
           bucketName: payload.bodyFormData.get('bucket'),
           objectName: payload.bodyFormData.get('Object'),

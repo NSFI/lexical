@@ -149,11 +149,20 @@ const moduleResolution = [
   'LexicalAutoScrollPlugin',
   'LexicalNodeEventPlugin',
 ].forEach((module) => {
-  let resolvedPath = path.resolve(`../lexical-react/dist/${module}.js`);
-  moduleResolution.push({
-    find: `@lexical/react/${module}`,
-    replacement: resolvedPath,
-  });
+  let resolvedPath = path.resolve(`../lexical-react/src/${module}.ts`);
+
+  if (fs.existsSync(resolvedPath)) {
+    moduleResolution.push({
+      find: `@lexical/react/${module}`,
+      replacement: resolvedPath,
+    });
+  } else {
+    resolvedPath = path.resolve(`../lexical-react/src/${module}.tsx`);
+    moduleResolution.push({
+      find: `@lexical/react/${module}`,
+      replacement: resolvedPath,
+    });
+  }
 });
 
 // https://vitejs.dev/config/

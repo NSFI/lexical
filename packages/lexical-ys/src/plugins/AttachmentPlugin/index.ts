@@ -47,7 +47,7 @@ export default function AttachmentPlugin(): JSX.Element | null {
   const uploadFile = useCallback(async (payload, attachmentNode, newEditor) => {
     const nosLocation = 'https://urchin.nos-jd.163yun.com/';
     setUploadStatus(payload.src, 0);
-    const maxSize = 60;
+    const maxSize = 20;
     const file = payload.bodyFormData.get('file');
     //使用大文件上传;
     console.log('firstfilefilefilefilefilefile', file);

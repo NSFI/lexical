@@ -49,7 +49,7 @@ export default function VideoPlugin(): JSX.Element | null {
   const uploadFile = useCallback(async (payload, videoNode, newEditor) => {
     const nosLocation = 'https://urchin.nos-jd.163yun.com/';
     setUploadStatus(payload.src, 0);
-    const maxSize = 10;
+    const maxSize = 20;
     const file = payload.bodyFormData.get('file');
     //使用大文件上传;
     if (file?.size > maxSize * 1024 * 1024) {

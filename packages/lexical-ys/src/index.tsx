@@ -39,6 +39,24 @@ const App1 = () => {
     root: {
       children: [
         {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'dfdfdfdfdfdfdfdfdfd',
+              type: 'text',
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
           children: [],
           direction: null,
           format: '',
@@ -51,16 +69,40 @@ const App1 = () => {
             {
               cells: [
                 {
-                  colSpan: 2,
-                  id: 'ygncu',
+                  colSpan: 1,
+                  id: 'ymbyt',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 2,
+                  rowSpan: 1,
                   type: 'header',
                   width: null,
                 },
                 {
                   colSpan: 1,
-                  id: 'fpicy',
+                  id: 'qardi',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'wisdm',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'ercea',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'rzkem',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -68,49 +110,13 @@ const App1 = () => {
                 },
               ],
               height: null,
-              id: 'masmi',
+              id: 'qkayn',
             },
             {
               cells: [
                 {
                   colSpan: 1,
-                  id: 'kyhei',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-              ],
-              height: null,
-              id: 'rvynr',
-            },
-            {
-              cells: [
-                {
-                  colSpan: 1,
-                  id: 'razeg',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'header',
-                  width: null,
-                },
-                {
-                  colSpan: 2,
-                  id: 'ctpqk',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-              ],
-              height: null,
-              id: 'oioco',
-            },
-            {
-              cells: [
-                {
-                  colSpan: 1,
-                  id: 'ostwn',
+                  id: 'retwe',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -118,7 +124,23 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'yhqjl',
+                  id: 'numzg',
+                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"fdfdfd","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'numub',
+                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"fdfdfd","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'qthhn',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -126,7 +148,7 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'fnmcs',
+                  id: 'ufj',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -134,23 +156,152 @@ const App1 = () => {
                 },
               ],
               height: null,
-              id: 'pnpni',
+              id: 'zbqkl',
+            },
+            {
+              cells: [
+                {
+                  colSpan: 1,
+                  id: 'wdxsr',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'rsggg',
+                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"fdfdfd","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'vocvu',
+                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"dfdfdf","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'ksmoa',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'bgbyc',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+              ],
+              height: null,
+              id: 'chegc',
+            },
+            {
+              cells: [
+                {
+                  colSpan: 1,
+                  id: 'mfxbs',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'cxgvz',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'gvxea',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'ccyzf',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'hhjoh',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+              ],
+              height: null,
+              id: 'ndouz',
+            },
+            {
+              cells: [
+                {
+                  colSpan: 1,
+                  id: 'gfclv',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'kcved',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'gngux',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'eeufb',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'byygg',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+              ],
+              height: null,
+              id: 'myirr',
             },
           ],
           type: 'tablesheet',
           version: 1,
         },
         {
-          children: [
-            {
-              fileName: '1-向上管理-课件.pdf',
-              fileSize: '2.85MB',
-              fileType: 'pdf',
-              src: 'https://urchin.nosdn.127.net/f6d3bc872ca24578965e28dcb06d937c.pdf',
-              type: 'attachment',
-              version: 1,
-            },
-          ],
+          children: [],
           direction: null,
           format: '',
           indent: 0,
@@ -158,7 +309,7 @@ const App1 = () => {
           version: 1,
         },
       ],
-      direction: null,
+      direction: 'ltr',
       format: '',
       indent: 0,
       type: 'root',
@@ -178,7 +329,7 @@ const App1 = () => {
           // console.log('jsonValue', jsonValue,htmlValue);
         }}
         initValue={value}
-        isEditable={true}
+        isEditable={false}
         title={'ddffd'}
         isMobile={false}
         // tocHeight={'1000px'}

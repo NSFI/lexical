@@ -7,6 +7,7 @@
  */
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+import useLexicalEditable from '@lexical/react/useLexicalEditable';
 import {
   $deleteTableColumn,
   $getElementGridForTableNode,
@@ -35,7 +36,6 @@ import {ReactPortal, useCallback, useEffect, useRef, useState} from 'react';
 import {createPortal} from 'react-dom';
 
 import {useLocale} from '../../context/LocaleContext';
-import useLexicalEditable from '../../hooks/useLexicalEditable';
 
 type TableCellActionMenuProps = Readonly<{
   contextRef: {current: null | HTMLElement};

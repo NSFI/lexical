@@ -129,6 +129,7 @@ export function extractRowsFromHTML(tableElem: HTMLTableElement): Rows {
 }
 
 function convertTableElement(domNode: HTMLElement): null | DOMConversionOutput {
+  console.log('domNode', domNode);
   const rowElems = domNode.querySelectorAll('tr');
   if (!rowElems || rowElems.length === 0) {
     return null;
@@ -235,7 +236,7 @@ export class TableNode extends DecoratorNode<JSX.Element> {
     return {
       table: (_node: Node) => ({
         conversion: convertTableElement,
-        priority: 2,
+        priority: 0,
       }),
     };
   }
@@ -534,6 +535,9 @@ export class TableNode extends DecoratorNode<JSX.Element> {
         />
       </Suspense>
     );
+  }
+  isInline(): false {
+    return false;
   }
 }
 

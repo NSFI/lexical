@@ -229,7 +229,7 @@ export default function Editor(props: EditorProps): JSX.Element {
                 contentEditable={
                   <ContentEditable className="TableNode__contentEditable" />
                 }
-                placeholder={''}
+                placeholder={null}
                 ErrorBoundary={LexicalErrorBoundary}
               />
               {/* <MentionsPlugin /> */}

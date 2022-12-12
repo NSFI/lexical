@@ -179,6 +179,11 @@ export default defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom'],
     },
+    terserOptions: {
+      compress: {
+        toplevel: true,
+      },
+    },
   },
   plugins: [
     replaceCodePlugin({

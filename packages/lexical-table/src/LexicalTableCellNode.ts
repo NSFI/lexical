@@ -226,10 +226,19 @@ export function convertTableCellNodeElement(
       ? TableCellHeaderStates.ROW
       : TableCellHeaderStates.NO_STATUS,
   );
-
   return {
     forChild: (lexicalNode, parentLexicalNode) => {
       if ($isTableCellNode(parentLexicalNode) && !$isElementNode(lexicalNode)) {
+        const paragraphNode = $createParagraphNode();
+        if (
+          $isLineBreakNode(lexicalNode) &&
+          lexicalNode.getTextContent() === '\n'
+        ) {
+          return null;
+        }
+        paragraphNode.append(lexicalNode);
+        return paragraphNode;
+      } else if (parentLexicalNode === null && !$isElementNode(lexicalNode)) {
         const paragraphNode = $createParagraphNode();
         if (
           $isLineBreakNode(lexicalNode) &&

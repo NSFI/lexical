@@ -217,14 +217,17 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   }
 
   static clone(node: TableNode): TableNode {
+    console.log('clone', TableNode);
     return new TableNode(Array.from(node.__rows), node.__key);
   }
 
   static importJSON(serializedNode: SerializedTableNode): TableNode {
+    // console.log('importJSON serializedNode', serializedNode);
     return $createTableNode(serializedNode.rows);
   }
 
   exportJSON(): SerializedTableNode {
+    // console.log('this.__rows', this.__rows)
     return {
       rows: this.__rows,
       type: 'tablesheet',
@@ -233,6 +236,7 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   }
 
   static importDOM(): DOMConversionMap | null {
+    // console.log('importDOM');
     return {
       table: (_node: Node) => ({
         conversion: convertTableElement,
@@ -242,6 +246,7 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   }
 
   exportDOM(): DOMExportOutput {
+    // console.log('exportDOMexportDOM', this.__rows);
     return {element: exportTableCellsToHTML(this.__rows)};
   }
 
@@ -526,6 +531,7 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   }
 
   decorate(_: LexicalEditor, config: EditorConfig): JSX.Element {
+    // console.log('12121212121', this.__rows);
     return (
       <Suspense>
         <TableComponent

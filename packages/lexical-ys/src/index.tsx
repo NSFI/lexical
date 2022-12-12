@@ -39,24 +39,6 @@ const App1 = () => {
     root: {
       children: [
         {
-          children: [
-            {
-              detail: 0,
-              format: 0,
-              mode: 'normal',
-              style: '',
-              text: 'dfdfdfdfdfdfdfdfdfd',
-              type: 'text',
-              version: 1,
-            },
-          ],
-          direction: 'ltr',
-          format: '',
-          indent: 0,
-          type: 'paragraph',
-          version: 1,
-        },
-        {
           children: [],
           direction: null,
           format: '',
@@ -70,7 +52,15 @@ const App1 = () => {
               cells: [
                 {
                   colSpan: 1,
-                  id: 'ymbyt',
+                  id: 'zcnoc',
+                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"22aa s","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'ifaek',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -78,7 +68,15 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'qardi',
+                  id: 'bpwnl',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'header',
+                  width: 103.7967529296875,
+                },
+                {
+                  colSpan: 1,
+                  id: 'ytlso',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -86,23 +84,7 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'wisdm',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'header',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'ercea',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'header',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'rzkem',
+                  id: 'pftnv',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -110,37 +92,21 @@ const App1 = () => {
                 },
               ],
               height: null,
-              id: 'qkayn',
+              id: 'umgrp',
             },
             {
               cells: [
                 {
                   colSpan: 1,
-                  id: 'retwe',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  id: 'amnmc',
+                  json: '{"root":{"children":[],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
                   width: null,
                 },
                 {
                   colSpan: 1,
-                  id: 'numzg',
-                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"fdfdfd","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'numub',
-                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"fdfdfd","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'qthhn',
+                  id: 'qqvda',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -148,7 +114,23 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'ufj',
+                  id: 'qatrl',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: 103.7967529296875,
+                },
+                {
+                  colSpan: 1,
+                  id: 'dlydj',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'fnjgq',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -156,13 +138,13 @@ const App1 = () => {
                 },
               ],
               height: null,
-              id: 'zbqkl',
+              id: 'iryey',
             },
             {
               cells: [
                 {
                   colSpan: 1,
-                  id: 'wdxsr',
+                  id: 'ogdul',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -170,23 +152,7 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'rsggg',
-                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"fdfdfd","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'vocvu',
-                  json: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"dfdfdf","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'ksmoa',
+                  id: 'yfjfy',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -194,7 +160,23 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'bgbyc',
+                  id: 'ntthl',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: 103.7967529296875,
+                },
+                {
+                  colSpan: 1,
+                  id: 'icaec',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: null,
+                },
+                {
+                  colSpan: 1,
+                  id: 'ozyxd',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -202,13 +184,13 @@ const App1 = () => {
                 },
               ],
               height: null,
-              id: 'chegc',
+              id: 'niung',
             },
             {
               cells: [
                 {
                   colSpan: 1,
-                  id: 'mfxbs',
+                  id: 'zjquf',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -216,7 +198,7 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'cxgvz',
+                  id: 'spvhq',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -224,7 +206,15 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'gvxea',
+                  id: 'zzxen',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: 103.7967529296875,
+                },
+                {
+                  colSpan: 1,
+                  id: 'bvekl',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -232,15 +222,7 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'ccyzf',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'hhjoh',
+                  id: 'dajmo',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -248,13 +230,13 @@ const App1 = () => {
                 },
               ],
               height: null,
-              id: 'ndouz',
+              id: 'coyps',
             },
             {
               cells: [
                 {
                   colSpan: 1,
-                  id: 'gfclv',
+                  id: 'fbhjr',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'header',
@@ -262,7 +244,7 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'kcved',
+                  id: 'uwmei',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -270,7 +252,15 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'gngux',
+                  id: 'bwfui',
+                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+                  rowSpan: 1,
+                  type: 'normal',
+                  width: 103.7967529296875,
+                },
+                {
+                  colSpan: 1,
+                  id: 'bppre',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -278,15 +268,7 @@ const App1 = () => {
                 },
                 {
                   colSpan: 1,
-                  id: 'eeufb',
-                  json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-                  rowSpan: 1,
-                  type: 'normal',
-                  width: null,
-                },
-                {
-                  colSpan: 1,
-                  id: 'byygg',
+                  id: 'bkgsc',
                   json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
                   rowSpan: 1,
                   type: 'normal',
@@ -294,7 +276,7 @@ const App1 = () => {
                 },
               ],
               height: null,
-              id: 'myirr',
+              id: 'gqhiu',
             },
           ],
           type: 'tablesheet',
@@ -309,7 +291,7 @@ const App1 = () => {
           version: 1,
         },
       ],
-      direction: 'ltr',
+      direction: null,
       format: '',
       indent: 0,
       type: 'root',
@@ -329,7 +311,7 @@ const App1 = () => {
           // console.log('jsonValue', jsonValue,htmlValue);
         }}
         initValue={value}
-        isEditable={false}
+        isEditable={true}
         title={'ddffd'}
         isMobile={false}
         // tocHeight={'1000px'}

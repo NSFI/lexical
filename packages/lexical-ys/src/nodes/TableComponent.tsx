@@ -61,6 +61,8 @@ import {IS_APPLE} from 'shared/environment';
 
 import {useLocale} from '../context/LocaleContext';
 import {CellContext} from '../plugins/TablePlugin';
+import TableCellNodes from './../nodes/TableCellNodes';
+import YsEditorTheme from './../themes/YsEditorTheme';
 import {
   $isTableNode,
   Cell,
@@ -397,7 +399,6 @@ function TableActionMenu({
     return null;
   }
   const [x, y] = coords;
-  console.log('cell1111111111', cell);
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -506,7 +507,6 @@ function TableActionMenu({
         onClick={() => {
           updateTableNode((tableNode) => {
             $addUpdateTag('history-push');
-            console.log('cell', cell);
             const path = cellCoordMap.get(cell.id);
             tableNode.insertRowAt(y + 1, cell, [path[1], path[0]]);
           });
@@ -613,7 +613,6 @@ function TableOperationBar({
       const rect = document
         .querySelector(`table [data-id=${selectedCellIDs[0]}]`)
         .getBoundingClientRect();
-      console.log('rect', rect);
       operationBar.style.top = `${rect.y}px`;
       operationBar.style.left = `${rect.x}px`;
     }
@@ -838,7 +837,6 @@ export default function TableComponent({
   const [resizingID, setResizingID] = useState<null | string>(null);
   const tableRef = useRef<null | HTMLTableElement>(null);
   const [showOperationBar, setShowOperationBar] = useState(false);
-
   const cellCoordMap = useMemo(() => {
     const map = new Map();
 
@@ -902,18 +900,27 @@ export default function TableComponent({
     _rows.unshift(rawRows[0]);
     return _rows;
   }, [rawRows, sortingOptions]);
+
   const [primarySelectedCellID, setPrimarySelectedCellID] = useState<
     null | string
   >(null);
   const cellEditor = useMemo<null | LexicalEditor>(() => {
-    if (cellEditorConfig === null) {
-      return null;
-    }
+    // if (cellEditorConfig === null) {
+    //   return null;
+    // }
+    const cellEditorConfig1 = {
+      namespace: 'Playground',
+      nodes: [...TableCellNodes],
+      onError: (error: Error) => {
+        throw error;
+      },
+      theme: YsEditorTheme,
+    };
     const _cellEditor = createEditor({
-      namespace: cellEditorConfig.namespace,
-      nodes: cellEditorConfig.nodes,
-      onError: (error) => cellEditorConfig.onError(error, _cellEditor),
-      theme: cellEditorConfig.theme,
+      namespace: cellEditorConfig1.namespace,
+      nodes: cellEditorConfig1.nodes,
+      onError: (error) => cellEditorConfig1.onError(error, _cellEditor),
+      theme: cellEditorConfig1.theme,
     });
     return _cellEditor;
   }, [cellEditorConfig]);
@@ -1094,7 +1101,7 @@ export default function TableComponent({
       if (!isEditing) {
         const {clientX, clientY} = event;
         const {width, x, y, height} = tableRect;
-
+        console.log('height', height);
         const isOnRightEdge =
           clientX > x + width * 0.9 &&
           clientX < x + width + 40 &&
@@ -1119,7 +1126,6 @@ export default function TableComponent({
         if (selectedCellIDs.length === 0) {
           tableElem.style.userSelect = 'none';
         }
-        console.log('possibleID', possibleID);
         const selectedIDs = getSelectedIDs(
           rows,
           primarySelectedCellID,
@@ -1192,8 +1198,18 @@ export default function TableComponent({
 
       const loadContentIntoCell = (cell: Cell | null) => {
         if (cell !== null && cellEditor !== null) {
-          const editorStateJSON = cell.json;
+          let editorStateJSON = cell.json;
+          if (
+            editorStateJSON ===
+            '{"root":{"children":[],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
+          ) {
+            editorStateJSON =
+              '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+          }
+          console.log('cell.json', cell.json);
+          console.log('editorStateJSON', editorStateJSON);
           const editorState = cellEditor.parseEditorState(editorStateJSON);
+          console.log('editorState', editorState);
           cellEditor.setEditorState(editorState);
         }
       };
@@ -1891,11 +1907,9 @@ export default function TableComponent({
     setSelected,
     updateTableNode,
   ]);
-
   if (cellEditor === null) {
     return;
   }
-
   return (
     <div style={{position: 'relative'}}>
       <table
@@ -1938,12 +1952,13 @@ export default function TableComponent({
           })}
         </tbody>
       </table>
-      {showAddColumns && (
+      {/* TODO:先用cellEditorConfig 来判断是编辑还是预览 */}
+      {showAddColumns && cellEditorConfig && (
         <button className={theme.tableAddColumns} onClick={addColumns}>
           +
         </button>
       )}
-      {showAddRows && (
+      {showAddRows && cellEditorConfig && (
         <button
           className={theme.tableAddRows}
           onClick={addRows}

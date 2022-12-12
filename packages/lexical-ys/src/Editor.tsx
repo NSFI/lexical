@@ -286,7 +286,7 @@ export default function Editor(props: EditorProps): JSX.Element {
               ) : null}
               <PlainTextPlugin
                 contentEditable={<ContentEditable />}
-                placeholder={placeholder}
+                placeholder={null}
                 ErrorBoundary={LexicalErrorBoundary}
               />
             </div>

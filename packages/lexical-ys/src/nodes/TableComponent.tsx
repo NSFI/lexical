@@ -791,7 +791,9 @@ function TableCell({
             cell={cell}
             menuElem={menuElem}
             updateCellsByID={updateCellsByID}
-            onClose={() => setShowMenu(false)}
+            onClose={() => {
+              setShowMenu(false);
+            }}
             updateTableNode={updateTableNode}
             cellCoordMap={cellCoordMap}
             rows={rows}
@@ -1101,7 +1103,7 @@ export default function TableComponent({
       if (!isEditing) {
         const {clientX, clientY} = event;
         const {width, x, y, height} = tableRect;
-        console.log('height', height);
+        // console.log('height', height);
         const isOnRightEdge =
           clientX > x + width * 0.9 &&
           clientX < x + width + 40 &&
@@ -1291,6 +1293,8 @@ export default function TableComponent({
   useEffect(() => {
     if (selectedCellIDs.length > 1) {
       setShowOperationBar(true);
+    } else {
+      setShowOperationBar(false);
     }
   }, [selectedCellIDs]);
 

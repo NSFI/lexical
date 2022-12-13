@@ -61,18 +61,15 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
     },
     theme: YsEditorTheme,
   };
-  const handleEditorChange = useCallback(
-    (editorState, editor) => {
-      editorState.read(() => {
-        const jsonValue = editorState.toJSON();
-        console.log('jsonValue', jsonValue);
-        const htmlString = $generateHtmlFromNodes(editor, null);
-        // eslint-disable-next-line no-unused-expressions
-        onChange && onChange(jsonValue, htmlString);
-      });
-    },
-    [onChange],
-  );
+  const handleEditorChange = useCallback((editorState, editor) => {
+    editorState.read(() => {
+      const jsonValue = editorState.toJSON();
+      console.log('jsonValue', jsonValue);
+      const htmlString = $generateHtmlFromNodes(editor, null);
+      // eslint-disable-next-line no-unused-expressions
+      onChange && onChange(jsonValue, htmlString);
+    });
+  }, []);
   return (
     <SettingsContext>
       <LexicalComposer initialConfig={initialConfig}>

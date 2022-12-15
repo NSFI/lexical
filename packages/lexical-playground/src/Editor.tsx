@@ -11,6 +11,7 @@ import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
 import {CheckListPlugin} from '@lexical/react/LexicalCheckListPlugin';
 import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
 import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
+import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import {HashtagPlugin} from '@lexical/react/LexicalHashtagPlugin';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
@@ -19,7 +20,7 @@ import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import {createWebsocketProvider} from './collaboration';
 import {useSettings} from './context/SettingsContext';
@@ -73,6 +74,7 @@ const skipCollaborationInit =
 
 export default function Editor(): JSX.Element {
   const {historyState} = useSharedHistoryContext();
+  const [editor] = useLexicalComposerContext();
   const {
     settings: {
       isCollab,
@@ -80,11 +82,11 @@ export default function Editor(): JSX.Element {
       isMaxLength,
       isCharLimit,
       isCharLimitUtf8,
-      isRichText,
       showTreeView,
       showTableOfContents,
     },
   } = useSettings();
+  const isRichText = true;
   const text = isCollab
     ? 'Enter some collaborative rich text...'
     : isRichText
@@ -109,6 +111,12 @@ export default function Editor(): JSX.Element {
     theme: PlaygroundEditorTheme,
   };
 
+  useEffect(() => {
+    const initValue = null;
+    if (initValue) {
+      editor.setEditorState(editor.parseEditorState(JSON.stringify(initValue)));
+    }
+  }, []);
   return (
     <>
       {isRichText && <ToolbarPlugin />}

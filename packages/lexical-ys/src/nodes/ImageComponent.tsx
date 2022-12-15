@@ -15,7 +15,7 @@ import type {
 } from 'lexical';
 
 import './ImageNode.css';
-import 'antd/lib/Image/style/index.css';
+import 'antd/dist/antd.min.css';
 
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
@@ -28,7 +28,7 @@ import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
 import {mergeRegister} from '@lexical/utils';
-// import Image from 'antd/lib/Image';
+import AntImage from 'antd/lib/Image';
 import {
   $getNodeByKey,
   $getSelection,
@@ -79,6 +79,7 @@ function LazyImage({
   width: 'inherit' | number;
 }): JSX.Element {
   const [loading, setLoading] = useState(false);
+
   // useSuspenseImage(src);
   useEffect(() => {
     setLoading(true);
@@ -141,7 +142,7 @@ function ImageComponent({
   const [isResizing, setIsResizing] = useState<boolean>(false);
   const {isCollabActive} = useCollaborationContext();
   const {uploadStatus} = useUploadStatus();
-
+  const [visible, setVisible] = useState(false);
   const [editor] = useLexicalComposerContext();
   // const [percent, setPercent] = useState(0);
   const [selection, setSelection] = useState<
@@ -332,25 +333,48 @@ function ImageComponent({
   return (
     <Suspense fallback={null}>
       <>
-        <div draggable={draggable}>
+        <div draggable={draggable} className="YsEditor-ImageComponent">
           {showProgress ? (
             <ProgressBox percent={uploadStatus[src] || 0} />
           ) : (
-            <LazyImage
-              className={
-                isFocused
-                  ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
-                  : null
-              }
-              src={src}
-              altText={altText}
-              imageRef={imageRef}
-              width={width}
-              height={height}
-              maxWidth={maxWidth}
-            />
+            <>
+              <LazyImage
+                className={
+                  isFocused
+                    ? `focused ${
+                        $isNodeSelection(selection) ? 'draggable' : ''
+                      }`
+                    : null
+                }
+                src={src}
+                altText={altText}
+                imageRef={imageRef}
+                width={width}
+                height={height}
+                maxWidth={maxWidth}
+              />
+              <span
+                className="YsEditor-ImageComponent-preview"
+                onClick={() => {
+                  setVisible(true);
+                }}>
+                <i className="iconfont icon-sousuo" />
+              </span>
+              <AntImage
+                alt={altText}
+                style={{display: 'none'}}
+                preview={{
+                  onVisibleChange: (value) => {
+                    setVisible(value);
+                  },
+                  src,
+                  visible,
+                }}
+              />
+            </>
           )}
         </div>
+
         {showCaption && (
           <div className="image-caption-container">
             <LexicalNestedComposer initialEditor={caption}>

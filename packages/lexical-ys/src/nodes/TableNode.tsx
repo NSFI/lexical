@@ -240,7 +240,7 @@ export class TableNode extends DecoratorNode<JSX.Element> {
     return {
       table: (_node: Node) => ({
         conversion: convertTableElement,
-        priority: 0,
+        priority: 2,
       }),
     };
   }

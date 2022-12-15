@@ -375,7 +375,9 @@ export class TableNode extends DecoratorNode<JSX.Element> {
       const cells = row.cells;
       const cellsClone = Array.from(cells);
       const rowClone = {...row, cells: cellsClone};
-      cellsClone[x].width = width;
+      if (cellsClone[x]) {
+        cellsClone[x].width = width;
+      }
       rows[y] = rowClone;
     }
   }

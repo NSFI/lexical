@@ -15,8 +15,8 @@ import type {
 } from 'lexical';
 
 import './ImageNode.css';
-import 'antd/dist/antd.min.css';
 
+// import 'antd/dist/antd.min.css';
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
 import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';

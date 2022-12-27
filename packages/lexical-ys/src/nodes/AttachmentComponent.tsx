@@ -42,6 +42,7 @@ import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
 
 import {useUploadStatus} from '../context/UploadContext';
 import ProgressBox from '../ui/ProgressBox';
+import {post} from './../utils/request';
 import {$isAttachmentNode} from './AttachmentNode';
 
 const fileIconMap = {
@@ -56,6 +57,16 @@ const fileIconMap = {
   video: 'icon-file-video',
   word: 'icon-file-word',
   zip: 'icon-file-zip',
+};
+const queryGet = (url, name) => {
+  if (!url) url = window.location.href;
+  // eslint-disable-next-line
+  name = name.replace(/[\[\]]/g, '\\$&');
+  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    const results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
 export const IconFont = createFromIconfontCN({
   scriptUrl: [
@@ -224,6 +235,20 @@ export default function AttachmentComponent({
               </div>
               <a
                 href={`${src}?download=${encodeURIComponent(fileName)}`}
+                onClick={() => {
+                  window.location.pathname.replace(
+                    /\/knowledge\/spacedetail\/([a-zA-Z0-9]*)\/knowdetail/,
+                    (_match, capture) => {
+                      console.log('capture', capture);
+                      const docId = queryGet(window.location, 'docId');
+                      post('/api/athena/doc/download', {
+                        attathment: fileName,
+                        docId,
+                        spaceId: capture,
+                      });
+                    },
+                  );
+                }}
                 ref={attachmentRef}
                 target="_blank">
                 <i

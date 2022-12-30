@@ -63,7 +63,7 @@ const queryGet = (url, name) => {
   // eslint-disable-next-line
   name = name.replace(/[\[\]]/g, '\\$&');
   const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-    const results = regex.exec(url);
+  const results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
@@ -97,7 +97,7 @@ export default function AttachmentComponent({
     RangeSelection | NodeSelection | GridSelection | null
   >(null);
   const activeEditorRef = useRef<LexicalEditor | null>(null);
-  const {uploadStatus} = useUploadStatus();
+  const {uploadStatus, spaceAnchor, docAnchor} = useUploadStatus();
   const onDelete = useCallback(
     (payload: KeyboardEvent) => {
       if (isSelected && $isNodeSelection($getSelection())) {
@@ -236,18 +236,27 @@ export default function AttachmentComponent({
               <a
                 href={`${src}?download=${encodeURIComponent(fileName)}`}
                 onClick={() => {
-                  window.location.pathname.replace(
-                    /\/knowledge\/spacedetail\/([a-zA-Z0-9]*)\/knowdetail/,
-                    (_match, capture) => {
-                      console.log('capture', capture);
-                      const docId = queryGet(window.location, 'docId');
-                      post('/api/athena/doc/download', {
-                        attathment: fileName,
-                        docId,
-                        spaceId: capture,
-                      });
-                    },
-                  );
+                  if (docAnchor && spaceAnchor) {
+                    post('/api/athena/doc/download', {
+                      attachment: fileName,
+                      docId: docAnchor,
+                      spaceId: spaceAnchor,
+                    });
+                  } else {
+                    window.location.pathname.replace(
+                      /\/knowledge\/spacedetail\/([a-zA-Z0-9]*)\/knowdetail/,
+                      (_match, capture) => {
+                        const docId = queryGet(window.location, 'docId');
+                        if (docId && capture) {
+                          post('/api/athena/doc/download', {
+                            attachment: fileName,
+                            docId,
+                            spaceId: capture,
+                          });
+                        }
+                      },
+                    );
+                  }
                 }}
                 ref={attachmentRef}
                 target="_blank">

@@ -19,18 +19,26 @@ import {
 type ContextShape = {
   setUploadStatus: (url: string, percent: number) => void;
   uploadStatus: Record<string, number>;
+  docAnchor: string;
+  spaceAnchor: string;
 };
 
 const Context: React.Context<ContextShape> = createContext({
+  docAnchor: '',
   setUploadStatus: (url: string, percent: number) => {
     return;
   },
+  spaceAnchor: '',
   uploadStatus: [],
 });
 
 export const UploadContext = ({
+  docAnchor = '',
+  spaceAnchor = '',
   children,
 }: {
+  docAnchor?: string;
+  spaceAnchor?: string;
   children: ReactNode;
 }): JSX.Element => {
   const [uploadStatus, setUploadStatusList] = useState({});
@@ -49,8 +57,8 @@ export const UploadContext = ({
   }, []);
 
   const contextValue = useMemo(() => {
-    return {setUploadStatus, uploadStatus};
-  }, [uploadStatus, setUploadStatus]);
+    return {docAnchor, setUploadStatus, spaceAnchor, uploadStatus};
+  }, [docAnchor, uploadStatus, setUploadStatus, spaceAnchor]);
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };

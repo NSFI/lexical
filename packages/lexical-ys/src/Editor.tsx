@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+import {$generateNodesFromDOM} from '@lexical/html';
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 // import {AutoScrollPlugin} from '@lexical/react/LexicalAutoScrollPlugin';
 import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
@@ -22,7 +23,12 @@ import {ListPlugin} from '@lexical/react/LexicalListPlugin';
 import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
-import {$createParagraphNode, $getRoot, $getSelection} from 'lexical';
+import {
+  $createParagraphNode,
+  $getRoot,
+  $getSelection,
+  $insertNodes,
+} from 'lexical';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 
@@ -140,9 +146,22 @@ export default function Editor(props: EditorProps): JSX.Element {
   useEffect(() => {
     try {
       if (initValue && JSON.stringify(initValue) !== '{}') {
-        editor.setEditorState(
-          editor.parseEditorState(JSON.stringify(initValue)),
-        );
+        if (Object.prototype.toString.call(initValue) === '[object Object]') {
+          editor.setEditorState(
+            editor.parseEditorState(JSON.stringify(initValue)),
+          );
+        } else {
+          //兼容七鱼html
+          editor.update(() => {
+            const parser = new DOMParser();
+            const dom = parser.parseFromString(initValue, 'text/html');
+            // Once you have the DOM instance it's easy to generate LexicalNodes.
+            const nodes = $generateNodesFromDOM(editor, dom);
+            $getRoot().select();
+            // Insert them at a selection.
+            $insertNodes(nodes);
+          });
+        }
       } else {
         editor.update(() => {
           const root = $getRoot();

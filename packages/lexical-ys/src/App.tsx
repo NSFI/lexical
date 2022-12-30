@@ -44,13 +44,21 @@ interface YsEditorProps {
   plainTocHeight?: React.CSSProperties;
   plainEditorHeight: React.CSSProperties;
   isMobile?: boolean;
+  docAnchor?: string;
+  spaceAnchor?: string;
 }
 
 const YsEditor = (props: YsEditorProps): JSX.Element => {
   const {
     settings: {measureTypingPerf},
   } = useSettings();
-  const {onChange, isMobile, ...otherProps} = props;
+  const {
+    onChange,
+    isMobile,
+    spaceAnchor = '',
+    docAnchor = '',
+    ...otherProps
+  } = props;
 
   const initialConfig = {
     editorState: undefined,
@@ -78,7 +86,9 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
             <SharedAutocompleteContext>
               <div className={`editor-shell ${isMobile ? 'h5' : ''}`}>
                 <LocaleContext>
-                  <UploadContext>
+                  <UploadContext
+                    spaceAnchor={spaceAnchor}
+                    docAnchor={docAnchor}>
                     <Editor isMobile={isMobile} {...otherProps} />
                   </UploadContext>
                 </LocaleContext>

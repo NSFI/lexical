@@ -43,6 +43,12 @@ i.add-comment {
   background-image: url(../../images/icons/chat-left-text.svg);
 }
 
+@media (max-width: 1024px) {
+  .CommentPlugin_AddCommentBox {
+    display: none;
+  }
+}
+
 .CommentPlugin_CommentInputBox {
   display: block;
   position: fixed;
@@ -77,6 +83,7 @@ i.add-comment {
     opacity: 0;
     transform: translateY(50px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -158,6 +165,12 @@ i.comments {
   transition: opacity 0.2s linear;
 }
 
+@media (max-width: 1024px) {
+  .CommentPlugin_ShowCommentsButton {
+    display: none;
+  }
+}
+
 .CommentPlugin_ShowCommentsButton:hover i.comments {
   opacity: 1;
 }
@@ -184,6 +197,7 @@ i.comments {
     opacity: 0;
     transform: translateX(300px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);

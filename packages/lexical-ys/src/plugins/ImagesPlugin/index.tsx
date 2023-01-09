@@ -26,7 +26,7 @@ import {
   LexicalEditor,
 } from 'lexical';
 import {useCallback, useEffect} from 'react';
-import getSelection from 'shared/getDOMSelection';
+import {CAN_USE_DOM} from 'shared/canUseDOM';
 
 import {useUploadStatus} from '../../context/UploadContext';
 import {
@@ -39,8 +39,12 @@ import {postFile} from './../../utils/request';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 
+const getDOMSelection = (targetWindow: Window | null): Selection | null =>
+  CAN_USE_DOM ? (targetWindow || window).getSelection() : null;
+
 export const INSERT_IMAGE_COMMAND: LexicalCommand<InsertImagePayload> =
-  createCommand();
+  createCommand('INSERT_IMAGE_COMMAND');
+
 export default function ImagesPlugin({
   captionsEnabled,
 }: {
@@ -48,7 +52,6 @@ export default function ImagesPlugin({
 }): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
   const {setUploadStatus} = useUploadStatus();
-
   const uploadFile = useCallback(async (payload) => {
     const nosLocation = 'https://urchin.nos-jd.163yun.com/';
     setUploadStatus(payload.src, 0);
@@ -245,7 +248,14 @@ function canDropImage(event: DragEvent): boolean {
 
 function getDragSelection(event: DragEvent): Range | null | undefined {
   let range;
-  const domSelection = getSelection();
+  const target = event.target as null | Element | Document;
+  const targetWindow =
+    target == null
+      ? null
+      : target.nodeType === 9
+      ? (target as Document).defaultView
+      : (target as Element).ownerDocument.defaultView;
+  const domSelection = getDOMSelection(targetWindow);
   if (document.caretRangeFromPoint) {
     range = document.caretRangeFromPoint(event.clientX, event.clientY);
   } else if (event.rangeParent && domSelection !== null) {

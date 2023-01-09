@@ -22,6 +22,7 @@ import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {ListPlugin} from '@lexical/react/LexicalListPlugin';
 import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
+import {TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin';
 import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
 import {
   $createParagraphNode,
@@ -234,7 +235,6 @@ export default function Editor(props: EditorProps): JSX.Element {
               />
               <div style={{flex: 1, maxWidth: '180px'}} />
             </div>
-
             <MarkdownShortcutPlugin />
             <CodeHighlightPlugin />
             <ListPlugin />
@@ -273,6 +273,7 @@ export default function Editor(props: EditorProps): JSX.Element {
             {/* <EquationsPlugin /> */}
             {/* <ExcalidrawPlugin /> */}
             <TabFocusPlugin />
+            <TabIndentationPlugin />
             <CollapsiblePlugin />
             {floatingAnchorElem && (
               <>
@@ -313,7 +314,10 @@ export default function Editor(props: EditorProps): JSX.Element {
           </>
         )}
         {(isCharLimit || isCharLimitUtf8) && (
-          <CharacterLimitPlugin charset={isCharLimit ? 'UTF-16' : 'UTF-8'} />
+          <CharacterLimitPlugin
+            charset={isCharLimit ? 'UTF-16' : 'UTF-8'}
+            maxLength={5}
+          />
         )}
         {/* {isAutocomplete && <AutocompletePlugin />} */}
         {/* <div>{showTableOfContents && <TableOfContentsPlugin />}</div> */}

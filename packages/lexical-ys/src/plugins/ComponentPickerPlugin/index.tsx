@@ -21,7 +21,7 @@ import {
   useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {$createHeadingNode, $createQuoteNode} from '@lexical/rich-text';
-import {$wrapNodes} from '@lexical/selection';
+import {$setBlocksType_experimental} from '@lexical/selection';
 import {INSERT_TABLE_COMMAND} from '@lexical/table';
 import {
   $createParagraphNode,
@@ -180,7 +180,9 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           editor.update(() => {
             const selection = $getSelection();
             if ($isRangeSelection(selection)) {
-              $wrapNodes(selection, () => $createParagraphNode());
+              $setBlocksType_experimental(selection, () =>
+                $createParagraphNode(),
+              );
             }
           }),
       }),
@@ -193,7 +195,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
               editor.update(() => {
                 const selection = $getSelection();
                 if ($isRangeSelection(selection)) {
-                  $wrapNodes(selection, () =>
+                  $setBlocksType_experimental(selection, () =>
                     // @ts-ignore Correct types, but since they're dynamic TS doesn't like it.
                     $createHeadingNode(`h${n}`),
                   );
@@ -238,7 +240,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           editor.update(() => {
             const selection = $getSelection();
             if ($isRangeSelection(selection)) {
-              $wrapNodes(selection, () => $createQuoteNode());
+              $setBlocksType_experimental(selection, () => $createQuoteNode());
             }
           }),
       }),
@@ -260,7 +262,7 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
             if ($isRangeSelection(selection)) {
               if (selection.isCollapsed()) {
-                $wrapNodes(selection, () => $createCodeNode());
+                $setBlocksType_experimental(selection, () => $createCodeNode());
               } else {
                 // Will this ever happen?
                 const textContent = selection.getTextContent();

@@ -24,7 +24,7 @@ import {
   LexicalEditor,
 } from 'lexical';
 import {useCallback, useEffect} from 'react';
-import getSelection from 'shared/getDOMSelection';
+import {CAN_USE_DOM} from 'shared/canUseDOM';
 
 import {useUploadStatus} from '../../context/UploadContext';
 import {
@@ -36,6 +36,9 @@ import {
 import Uploader from './../../ui/BigUploader/nos-js-sdk';
 // import {beforeUploadFile, getFileSize, getFileSuffix} from './../../utils/file';
 import {postFile} from './../../utils/request';
+
+const getDOMSelection = (targetWindow: Window | null): Selection | null =>
+  CAN_USE_DOM ? (targetWindow || window).getSelection() : null;
 
 export type InsertVideoPayload = Readonly<VideoPayload>;
 
@@ -296,7 +299,14 @@ function canDropImage(event: DragEvent): boolean {
 
 function getDragSelection(event: DragEvent): Range | null | undefined {
   let range;
-  const domSelection = getSelection();
+  const target = event.target as null | Element | Document;
+  const targetWindow =
+    target == null
+      ? null
+      : target.nodeType === 9
+      ? (target as Document).defaultView
+      : (target as Element).ownerDocument.defaultView;
+  const domSelection = getDOMSelection(targetWindow);
   if (document.caretRangeFromPoint) {
     range = document.caretRangeFromPoint(event.clientX, event.clientY);
   } else if (event.rangeParent && domSelection !== null) {

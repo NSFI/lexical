@@ -30,7 +30,7 @@ import {
   $isParentElementRTL,
   $patchStyleText,
   // $selectAll,
-  $wrapNodes,
+  $setBlocksType_experimental,
 } from '@lexical/selection';
 import {
   $findMatchingParent,
@@ -445,7 +445,7 @@ function InsertDropDown({
           $isRangeSelection(selection) ||
           DEPRECATED_$isGridSelection(selection)
         ) {
-          $wrapNodes(selection, () => $createQuoteNode());
+          $setBlocksType_experimental(selection, () => $createQuoteNode());
         }
       });
     }
@@ -461,7 +461,7 @@ function InsertDropDown({
           DEPRECATED_$isGridSelection(selection)
         ) {
           if (selection.isCollapsed()) {
-            $wrapNodes(selection, () => $createCodeNode());
+            $setBlocksType_experimental(selection, () => $createCodeNode());
           } else {
             const textContent = selection.getTextContent();
             const codeNode = $createCodeNode();

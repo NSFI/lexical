@@ -327,7 +327,7 @@ function ImageComponent({
     settings: {showNestedEditorTreeView},
   } = useSettings();
 
-  const draggable = isSelected && $isNodeSelection(selection);
+  const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
   const isFocused = isSelected || isResizing;
   const showProgress = !!bodyFormData;
   return (

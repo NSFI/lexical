@@ -37,7 +37,7 @@ test.describe('Placeholder', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {

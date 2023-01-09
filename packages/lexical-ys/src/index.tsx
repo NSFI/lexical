@@ -11,6 +11,7 @@ import './index.css';
 import './main.css';
 
 import * as React from 'react';
+import {useState} from 'react';
 import {createRoot} from 'react-dom/client';
 
 import App from './App';
@@ -33,8 +34,34 @@ window.addEventListener('unhandledrejection', ({reason}) =>
   showErrorOverlay(reason),
 );
 
+const App1 = () => {
+  const [value, setValue] = useState('');
+  return (
+    <>
+      <button
+        onClick={() => {
+          setValue(null);
+        }}>
+        a
+      </button>
+      <App
+        onChange={(jsonValue, htmlValue) => {
+          // console.log('jsonValue', jsonValue,htmlValue);
+        }}
+        initValue={value}
+        isEditable={true}
+        title={'ddffd'}
+        isMobile={false}
+        spaceAnchor={'dfdfdfd'}
+        docAnchor={'33EDFDX'}
+        // tocHeight={'1000px'}
+      />
+    </>
+  );
+};
+
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <App1 />
   </React.StrictMode>,
 );

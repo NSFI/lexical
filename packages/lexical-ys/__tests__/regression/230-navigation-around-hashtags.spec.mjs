@@ -24,7 +24,7 @@ test.describe('Regression test #230', () => {
   }) => {
     await focusEditor(page);
     await page.keyboard.type('#foo');
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
     await moveLeft(page, 4);
     await page.keyboard.type('a');
     await page.keyboard.press('Backspace');
@@ -33,9 +33,9 @@ test.describe('Regression test #230', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #foo
           </span>
         </p>

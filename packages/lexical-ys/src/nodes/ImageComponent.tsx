@@ -16,6 +16,7 @@ import type {
 
 import './ImageNode.css';
 
+// import 'antd/dist/antd.min.css';
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
 import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
@@ -27,6 +28,7 @@ import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
 import {mergeRegister} from '@lexical/utils';
+import AntImage from 'antd/lib/Image';
 import {
   $getNodeByKey,
   $getSelection,
@@ -34,6 +36,7 @@ import {
   $setSelection,
   CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
+  DRAGSTART_COMMAND,
   KEY_BACKSPACE_COMMAND,
   KEY_DELETE_COMMAND,
   KEY_ENTER_COMMAND,
@@ -46,29 +49,17 @@ import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
 import {createWebsocketProvider} from '../collaboration';
 import {useSettings} from '../context/SettingsContext';
 import {useSharedHistoryContext} from '../context/SharedHistoryContext';
+import {useUploadStatus} from '../context/UploadContext';
 import EmojisPlugin from '../plugins/EmojisPlugin';
 import KeywordsPlugin from '../plugins/KeywordsPlugin';
 import MentionsPlugin from '../plugins/MentionsPlugin';
 import TreeViewPlugin from '../plugins/TreeViewPlugin';
 import ContentEditable from '../ui/ContentEditable';
 import ImageResizer from '../ui/ImageResizer';
+import LoadingBox from '../ui/LoadingBox';
 import Placeholder from '../ui/Placeholder';
+import ProgressBox from '../ui/ProgressBox';
 import {$isImageNode} from './ImageNode';
-
-const imageCache = new Set();
-
-function useSuspenseImage(src: string) {
-  if (!imageCache.has(src)) {
-    throw new Promise((resolve) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        imageCache.add(src);
-        resolve(null);
-      };
-    });
-  }
-}
 
 function LazyImage({
   altText,
@@ -87,24 +78,40 @@ function LazyImage({
   src: string;
   width: 'inherit' | number;
 }): JSX.Element {
-  useSuspenseImage(src);
+  const [loading, setLoading] = useState(false);
+
+  // useSuspenseImage(src);
+  useEffect(() => {
+    setLoading(true);
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      setLoading(false);
+    };
+  }, []);
   return (
-    <img
-      className={className || undefined}
-      src={src}
-      alt={altText}
-      ref={imageRef}
-      style={{
-        height,
-        maxWidth,
-        width,
-      }}
-      draggable="false"
-    />
+    <>
+      {loading ? (
+        <LoadingBox />
+      ) : (
+        <img
+          className={className || undefined}
+          src={src}
+          alt={altText}
+          ref={imageRef}
+          style={{
+            height,
+            maxWidth,
+            width,
+          }}
+          draggable="false"
+        />
+      )}
+    </>
   );
 }
 
-export default function ImageComponent({
+function ImageComponent({
   src,
   altText,
   nodeKey,
@@ -114,7 +121,7 @@ export default function ImageComponent({
   resizable,
   showCaption,
   caption,
-  captionsEnabled,
+  bodyFormData,
 }: {
   altText: string;
   caption: LexicalEditor;
@@ -126,6 +133,7 @@ export default function ImageComponent({
   src: string;
   width: 'inherit' | number;
   captionsEnabled: boolean;
+  bodyFormData: any;
 }): JSX.Element {
   const imageRef = useRef<null | HTMLImageElement>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -133,12 +141,14 @@ export default function ImageComponent({
     useLexicalNodeSelection(nodeKey);
   const [isResizing, setIsResizing] = useState<boolean>(false);
   const {isCollabActive} = useCollaborationContext();
+  const {uploadStatus} = useUploadStatus();
+  const [visible, setVisible] = useState(false);
   const [editor] = useLexicalComposerContext();
+  // const [percent, setPercent] = useState(0);
   const [selection, setSelection] = useState<
     RangeSelection | NodeSelection | GridSelection | null
   >(null);
   const activeEditorRef = useRef<LexicalEditor | null>(null);
-
   const onDelete = useCallback(
     (payload: KeyboardEvent) => {
       if (isSelected && $isNodeSelection($getSelection())) {
@@ -241,6 +251,19 @@ export default function ImageComponent({
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
+        DRAGSTART_COMMAND,
+        (event) => {
+          if (event.target === imageRef.current) {
+            // TODO This is just a temporary workaround for FF to behave like other browsers.
+            // Ideally, this handles drag & drop too (and all browsers).
+            event.preventDefault();
+            return true;
+          }
+          return false;
+        },
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
         KEY_DELETE_COMMAND,
         onDelete,
         COMMAND_PRIORITY_LOW,
@@ -306,25 +329,52 @@ export default function ImageComponent({
 
   const draggable = isSelected && $isNodeSelection(selection);
   const isFocused = isSelected || isResizing;
-
+  const showProgress = !!bodyFormData;
   return (
     <Suspense fallback={null}>
       <>
-        <div draggable={draggable}>
-          <LazyImage
-            className={
-              isFocused
-                ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
-                : null
-            }
-            src={src}
-            altText={altText}
-            imageRef={imageRef}
-            width={width}
-            height={height}
-            maxWidth={maxWidth}
-          />
+        <div draggable={draggable} className="YsEditor-ImageComponent">
+          {showProgress ? (
+            <ProgressBox percent={uploadStatus[src] || 0} />
+          ) : (
+            <>
+              <LazyImage
+                className={
+                  isFocused
+                    ? `focused ${
+                        $isNodeSelection(selection) ? 'draggable' : ''
+                      }`
+                    : null
+                }
+                src={src}
+                altText={altText}
+                imageRef={imageRef}
+                width={width}
+                height={height}
+                maxWidth={maxWidth}
+              />
+              <span
+                className="YsEditor-ImageComponent-preview"
+                onClick={() => {
+                  setVisible(true);
+                }}>
+                <i className="iconfont icon-sousuo" />
+              </span>
+              <AntImage
+                alt={altText}
+                style={{display: 'none'}}
+                preview={{
+                  onVisibleChange: (value) => {
+                    setVisible(value);
+                  },
+                  src,
+                  visible,
+                }}
+              />
+            </>
+          )}
         </div>
+
         {showCaption && (
           <div className="image-caption-container">
             <LexicalNestedComposer initialEditor={caption}>
@@ -367,10 +417,12 @@ export default function ImageComponent({
             maxWidth={maxWidth}
             onResizeStart={onResizeStart}
             onResizeEnd={onResizeEnd}
-            captionsEnabled={captionsEnabled}
+            captionsEnabled={false}
           />
         )}
       </>
     </Suspense>
   );
 }
+
+export default ImageComponent;

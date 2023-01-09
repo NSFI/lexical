@@ -6,102 +6,107 @@
  *
  */
 
-import {defineConfig} from 'vite';
-import react from '@vitejs/plugin-react';
-import {resolve} from 'path';
-import path from 'path';
-import fs from 'fs';
-import {replaceCodePlugin} from 'vite-plugin-replace';
 import babel from '@rollup/plugin-babel';
+import inject from '@rollup/plugin-inject';
+import react from '@vitejs/plugin-react';
+import fs from 'fs';
+import path from 'path';
+import {defineConfig} from 'vite';
+import {replaceCodePlugin} from 'vite-plugin-replace';
+
+// import libCss from 'vite-plugin-libcss';
+// function resolve(str) {
+//   return path.resolve(__dirname, str);
+// }
 
 const moduleResolution = [
   {
     find: /lexical$/,
-    replacement: path.resolve('../lexical/dist/Lexical.js'),
+    replacement: path.resolve('../lexical/src/index.ts'),
   },
   {
     find: '@lexical/clipboard',
-    replacement: path.resolve('../lexical-clipboard/dist/LexicalClipboard.js'),
+    replacement: path.resolve('../lexical-clipboard/src/index.ts'),
   },
   {
     find: '@lexical/selection',
-    replacement: path.resolve('../lexical-selection/dist/LexicalSelection.js'),
+    replacement: path.resolve('../lexical-selection/src/index.ts'),
   },
   {
     find: '@lexical/text',
-    replacement: path.resolve('../lexical-text/dist/LexicalText.js'),
+    replacement: path.resolve('../lexical-text/src/index.ts'),
   },
   {
     find: '@lexical/headless',
-    replacement: path.resolve('../lexical-headless/dist/LexicalHeadless.js'),
+    replacement: path.resolve('../lexical-headless/src/index.ts'),
   },
   {
     find: '@lexical/html',
-    replacement: path.resolve('../lexical-html/dist/LexicalHtml.js'),
+    replacement: path.resolve('../lexical-html/src/index.ts'),
   },
   {
     find: '@lexical/hashtag',
-    replacement: path.resolve('../lexical-hashtag/dist/LexicalHashtag.js'),
+    replacement: path.resolve('../lexical-hashtag/src/index.ts'),
   },
   {
     find: '@lexical/history',
-    replacement: path.resolve('../lexical-history/dist/LexicalHistory.js'),
+    replacement: path.resolve('../lexical-history/src/index.ts'),
   },
   {
     find: '@lexical/list',
-    replacement: path.resolve('../lexical-list/dist/LexicalList.js'),
+    replacement: path.resolve('../lexical-list/src/index.ts'),
   },
   {
     find: '@lexical/file',
-    replacement: path.resolve('../lexical-file/dist/LexicalFile.js'),
+    replacement: path.resolve('../lexical-file/src/index.ts'),
   },
   {
     find: '@lexical/table',
-    replacement: path.resolve('../lexical-table/dist/LexicalTable.js'),
+    replacement: path.resolve('../lexical-table/src/index.ts'),
   },
   {
     find: '@lexical/offset',
-    replacement: path.resolve('../lexical-offset/dist/LexicalOffset.js'),
+    replacement: path.resolve('../lexical-offset/src/index.ts'),
   },
   {
     find: '@lexical/utils',
-    replacement: path.resolve('../lexical-utils/dist/LexicalUtils.js'),
+    replacement: path.resolve('../lexical-utils/src/index.ts'),
   },
   {
     find: '@lexical/code',
-    replacement: path.resolve('../lexical-code/dist/LexicalCode.js'),
+    replacement: path.resolve('../lexical-code/src/index.ts'),
   },
   {
     find: '@lexical/plain-text',
-    replacement: path.resolve('../lexical-plain-text/dist/LexicalPlainText.js'),
+    replacement: path.resolve('../lexical-plain-text/src/index.ts'),
   },
   {
     find: '@lexical/rich-text',
-    replacement: path.resolve('../lexical-rich-text/dist/LexicalRichText.js'),
+    replacement: path.resolve('../lexical-rich-text/src/index.ts'),
   },
   {
     find: '@lexical/dragon',
-    replacement: path.resolve('../lexical-dragon/dist/LexicalDragon.js'),
+    replacement: path.resolve('../lexical-dragon/src/index.ts'),
   },
   {
     find: '@lexical/link',
-    replacement: path.resolve('../lexical-link/dist/LexicalLink.js'),
+    replacement: path.resolve('../lexical-link/src/index.ts'),
   },
   {
     find: '@lexical/overflow',
-    replacement: path.resolve('../lexical-overflow/dist/LexicalOverflow.js'),
+    replacement: path.resolve('../lexical-overflow/src/index.ts'),
   },
   {
     find: '@lexical/markdown',
-    replacement: path.resolve('../lexical-markdown/dist/LexicalMarkdown.js'),
+    replacement: path.resolve('../lexical-markdown/src/index.ts'),
   },
   {
     find: '@lexical/mark',
-    replacement: path.resolve('../lexical-mark/dist/LexicalMark.js'),
+    replacement: path.resolve('../lexical-mark/src/index.ts'),
   },
   {
     find: '@lexical/yjs',
-    replacement: path.resolve('../lexical-yjs/dist/LexicalYjs.js'),
+    replacement: path.resolve('../lexical-yjs/src/index.ts'),
   },
   {
     find: 'shared',
@@ -115,6 +120,8 @@ const moduleResolution = [
   'LexicalComposerContext',
   'useLexicalIsTextContentEmpty',
   'useLexicalTextEntity',
+  'useLexicalSubscription',
+  'useLexicalEditable',
   'LexicalContentEditable',
   'LexicalNestedComposer',
   'LexicalHorizontalRuleNode',
@@ -124,6 +131,7 @@ const moduleResolution = [
   'LexicalMarkdownShortcutPlugin',
   'LexicalCharacterLimitPlugin',
   'LexicalHashtagPlugin',
+  'LexicalErrorBoundary',
   'LexicalPlainTextPlugin',
   'LexicalRichTextPlugin',
   'LexicalClearEditorPlugin',
@@ -136,21 +144,49 @@ const moduleResolution = [
   'LexicalListPlugin',
   'LexicalCheckListPlugin',
   'LexicalAutoFocusPlugin',
-  "LexicalTableOfContents__EXPERIMENTAL",
+  'LexicalTableOfContents__EXPERIMENTAL',
   'LexicalAutoLinkPlugin',
   'LexicalAutoEmbedPlugin',
   'LexicalOnChangePlugin',
   'LexicalAutoScrollPlugin',
+  'LexicalNodeEventPlugin',
 ].forEach((module) => {
-  let resolvedPath = path.resolve(`../lexical-react/dist/${module}.js`);
-  moduleResolution.push({
-    find: `@lexical/react/${module}`,
-    replacement: resolvedPath,
-  });
+  let resolvedPath = path.resolve(`../lexical-react/src/${module}.ts`);
+
+  if (fs.existsSync(resolvedPath)) {
+    moduleResolution.push({
+      find: `@lexical/react/${module}`,
+      replacement: resolvedPath,
+    });
+  } else {
+    resolvedPath = path.resolve(`../lexical-react/src/${module}.tsx`);
+    moduleResolution.push({
+      find: `@lexical/react/${module}`,
+      replacement: resolvedPath,
+    });
+  }
 });
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    commonjsOptions: {include: []},
+    lib: {
+      entry: './src/index.ts',
+      fileName: (format) => `YsEditor.${format}.js`,
+      formats: ['es'],
+    },
+    minify: 'terser',
+    outDir: 'dist',
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+    },
+    terserOptions: {
+      compress: {
+        toplevel: true,
+      },
+    },
+  },
   plugins: [
     replaceCodePlugin({
       replacements: [
@@ -169,25 +205,13 @@ export default defineConfig({
       plugins: ['@babel/plugin-transform-flow-strip-types'],
       presets: ['@babel/preset-react'],
     }),
+    inject({
+      videojs: 'video.js',
+    }),
     react(),
+    // libCss(),
   ],
   resolve: {
     alias: moduleResolution,
-  },
-  build: {
-    outDir: 'build',
-    rollupOptions: {
-      input: {
-        main: new URL('./index.html', import.meta.url).pathname,
-        split: new URL('./split/index.html', import.meta.url).pathname,
-      },
-    },
-    commonjsOptions: {include: []},
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        toplevel: true,
-      }
-    },
   },
 });

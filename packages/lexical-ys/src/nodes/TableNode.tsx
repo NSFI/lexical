@@ -22,12 +22,16 @@ import {DecoratorNode} from 'lexical';
 import * as React from 'react';
 import {Suspense} from 'react';
 
+import {getOriginTable, Path} from './TableUtils';
+
 export type Cell = {
   colSpan: number;
+  rowSpan: number;
   json: string;
   type: 'normal' | 'header';
   id: string;
   width: number | null;
+  // isEmpty: boolean;
 };
 
 export type Row = {
@@ -61,11 +65,21 @@ export function createUID(): string {
     .substr(0, 5);
 }
 
-function createCell(type: 'normal' | 'header'): Cell {
+function createCell(
+  type: 'normal' | 'header',
+  options?: {
+    colSpan?: number;
+    rowSpan?: number;
+    json?: any;
+  },
+): Cell {
+  const {colSpan = 1, rowSpan = 1, json = emptyEditorJSON} = options || {};
+  console.log('colSpan.rowSpan', colSpan, rowSpan);
   return {
-    colSpan: 1,
+    colSpan: colSpan,
     id: createUID(),
-    json: emptyEditorJSON,
+    json: json,
+    rowSpan: rowSpan,
     type,
     width: null,
   };
@@ -115,6 +129,7 @@ export function extractRowsFromHTML(tableElem: HTMLTableElement): Rows {
 }
 
 function convertTableElement(domNode: HTMLElement): null | DOMConversionOutput {
+  console.log('domNode', domNode);
   const rowElems = domNode.querySelectorAll('tr');
   if (!rowElems || rowElems.length === 0) {
     return null;
@@ -129,8 +144,12 @@ function convertTableElement(domNode: HTMLElement): null | DOMConversionOutput {
     const cells: Array<Cell> = [];
     for (let x = 0; x < cellElems.length; x++) {
       const cellElem = cellElems[x] as HTMLElement;
+
       const isHeader = cellElem.nodeName === 'TH';
-      const cell = createCell(isHeader ? 'header' : 'normal');
+      const cell = createCell(isHeader ? 'header' : 'normal', {
+        colSpan: parseInt(cellElem.getAttribute('colspan') || 1),
+        rowSpan: parseInt(cellElem.getAttribute('rowspan') || 1),
+      });
       cell.json = plainTextEditorJSON(
         JSON.stringify(cellElem.innerText.replace(/\n/g, ' ')),
       );
@@ -198,14 +217,17 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   }
 
   static clone(node: TableNode): TableNode {
+    console.log('clone', TableNode);
     return new TableNode(Array.from(node.__rows), node.__key);
   }
 
   static importJSON(serializedNode: SerializedTableNode): TableNode {
+    // console.log('importJSON serializedNode', serializedNode);
     return $createTableNode(serializedNode.rows);
   }
 
   exportJSON(): SerializedTableNode {
+    // console.log('this.__rows', this.__rows)
     return {
       rows: this.__rows,
       type: 'tablesheet',
@@ -214,15 +236,17 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   }
 
   static importDOM(): DOMConversionMap | null {
+    // console.log('importDOM');
     return {
       table: (_node: Node) => ({
         conversion: convertTableElement,
-        priority: 0,
+        priority: 2,
       }),
     };
   }
 
   exportDOM(): DOMExportOutput {
+    // console.log('exportDOMexportDOM', this.__rows);
     return {element: exportTableCellsToHTML(this.__rows)};
   }
 
@@ -297,13 +321,14 @@ export class TableNode extends DecoratorNode<JSX.Element> {
       const cells = row.cells;
       const cellsClone = Array.from(cells);
       const rowClone = {...row, cells: cellsClone};
-      const type = (cells[x] || cells[x - 1]).type;
+      const type = (cells[x] || cells[x - 1])?.type || 'normal';
       cellsClone.splice(x, 0, createCell(type));
       rows[y] = rowClone;
     }
   }
 
   deleteColumnAt(x: number): void {
+    console.log('1121212121', 1121212121);
     const self = this.getWritable();
     const rows = self.__rows;
     for (let y = 0; y < rows.length; y++) {
@@ -319,12 +344,13 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   addColumns(count: number): void {
     const self = this.getWritable();
     const rows = self.__rows;
+
     for (let y = 0; y < rows.length; y++) {
       const row = rows[y];
       const cells = row.cells;
       const cellsClone = Array.from(cells);
       const rowClone = {...row, cells: cellsClone};
-      const type = cells[cells.length - 1].type;
+      const type = cells[cells.length - 1]?.type || 'normal';
       for (let x = 0; x < count; x++) {
         cellsClone.push(createCell(type));
       }
@@ -332,17 +358,29 @@ export class TableNode extends DecoratorNode<JSX.Element> {
     }
   }
 
-  insertRowAt(y: number): void {
+  insertRowAt(y: number, cell: Cell, path: Path): void {
+    const rowSpan = cell.rowSpan;
+    console.log('cell2222', cell);
+    console.log('y,rowSpan', y, rowSpan);
+    console.log('path', path);
     const self = this.getWritable();
     const rows = self.__rows;
+    const originTable = getOriginTable(rows);
+    console.log('originTable', originTable);
     const prevRow = rows[y] || rows[y - 1];
-    const cellCount = prevRow.cells.length;
+    const cellCount = rows[0].cells.reduce((acc, row) => {
+      return acc + row.colSpan || 1;
+    }, 0);
+    console.log('cellCount', cellCount);
+    // return;
     const row = createRow();
+    //向上
+
     for (let x = 0; x < cellCount; x++) {
-      const cell = createCell(prevRow.cells[x].type);
-      row.cells.push(cell);
+      const cell1 = createCell(prevRow.cells[x]?.type || 'normal');
+      row.cells.push(cell1);
     }
-    rows.splice(y, 0, row);
+    rows.splice(y + rowSpan - 1, 0, row);
   }
 
   deleteRowAt(y: number): void {
@@ -360,11 +398,123 @@ export class TableNode extends DecoratorNode<JSX.Element> {
     for (let y = 0; y < count; y++) {
       const row = createRow();
       for (let x = 0; x < cellCount; x++) {
-        const cell = createCell(prevRow.cells[x].type);
+        const cell = createCell(prevRow.cells[x]?.type || 'normal');
         row.cells.push(cell);
       }
       rows.push(row);
     }
+  }
+
+  mergeCells(
+    selectedCellIDs: string[],
+    firstCellRect: [number, number],
+    lastCellRect: [number, number],
+    spans: any,
+    cellPaths: any,
+  ): void {
+    const self = this.getWritable();
+    console.log('spans', spans);
+    console.log('cellPaths', cellPaths);
+    const firstCell = cellPaths[0];
+    const rows = self.__rows;
+    function hasPath(path, cellPaths1) {
+      return cellPaths1.some(
+        (cellPath) => JSON.stringify(path) === JSON.stringify(cellPath),
+      );
+    }
+
+    for (let x = 0; x < rows.length; x++) {
+      const row = rows[x];
+      const cells = row.cells;
+      const cellsClone = Array.from(cells);
+      const rowClone = {...row, cells: cellsClone};
+      let reduceCount = 0;
+      let rowFirstCell = undefined;
+      let isFirst = false;
+      for (let y = 0; y < cellsClone.length; y++) {
+        // if (hasPath[x, y].includes(cellPaths)) {
+        console.log('111111', hasPath([x, y], cellPaths));
+        if (hasPath([x, y], cellPaths)) {
+          reduceCount += 1;
+          if (!rowFirstCell) {
+            rowFirstCell = [x, y];
+          }
+        }
+        if (JSON.stringify([x, y]) === JSON.stringify(firstCell)) {
+          isFirst = true;
+        }
+      }
+      console.log('rowFirstCell', rowFirstCell);
+      console.log('reduceCount', reduceCount);
+      if (isFirst) {
+        console.log('1111z', spans);
+        cellsClone.splice(
+          firstCell[1],
+          reduceCount,
+          createCell(rowClone.cells[cellPaths[0][1]]?.type || 'normal', {
+            colSpan: spans.colSpan,
+            json: cellsClone[cellPaths[0][1]].json,
+            rowSpan: spans.rowSpan,
+          }),
+        );
+      } else {
+        if (rowFirstCell) {
+          cellsClone.splice(rowFirstCell[1], reduceCount);
+        }
+      }
+      isFirst = false;
+      console.log('rowClone', x, cellsClone);
+      rows[x] = rowClone;
+    }
+
+    //   const colSpan = lastCellRect[0] - firstCellRect[0] + 1;
+    //   const rowSpan = lastCellRect[1] - firstCellRect[1] + 1;
+    //   const startX = firstCellRect[0];
+    //   const startY = firstCellRect[1];
+    //   const endX = lastCellRect[0];
+    //   const endY = lastCellRect[1];
+    //   console.log('startX', startX, startY, endX, endY, colSpan, rowSpan);
+    //   for (let x = 0; x < rows.length; x++) {
+    //     const row = rows[x];
+    //     const cells = row.cells;
+    //     const cellsClone = Array.from(cells);
+    //     console.log('cellsClone', cellsClone);
+    //     const rowClone = {...row, cells: cellsClone};
+    //     if (startY === x) {
+    //       if (colSpan > 1) {
+    //         cellsClone.splice(
+    //           startX,
+    //           colSpan,
+    //           createCell(rowClone.cells[startX].type, {
+    //             colSpan,
+    //             json: cellsClone[startX].json,
+    //             rowSpan,
+    //           }),
+    //         );
+    //         rows[x] = rowClone;
+    //       } else if (rowSpan > 1) {
+    //         cellsClone.splice(
+    //           startX,
+    //           1,
+    //           createCell(rowClone.cells[startX].type, {
+    //             colSpan,
+    //             json: cellsClone[startX].json,
+    //             rowSpan,
+    //           }),
+    //         );
+    //         rows[x] = rowClone;
+    //         rows[x] = rowClone;
+    //       }
+    //     } else if (x > startY && x <= endY) {
+    //       if (rowSpan > 1) {
+    //         cellsClone.splice(startX, colSpan);
+    //       }
+
+    //       rows[x] = rowClone;
+    //     } else {
+    //       rows[x] = rowClone;
+    //     }
+    //   }
   }
 
   updateColumnWidth(x: number, width: number): void {
@@ -381,6 +531,7 @@ export class TableNode extends DecoratorNode<JSX.Element> {
   }
 
   decorate(_: LexicalEditor, config: EditorConfig): JSX.Element {
+    // console.log('12121212121', this.__rows);
     return (
       <Suspense>
         <TableComponent
@@ -390,6 +541,9 @@ export class TableNode extends DecoratorNode<JSX.Element> {
         />
       </Suspense>
     );
+  }
+  isInline(): false {
+    return false;
   }
 }
 
@@ -409,10 +563,10 @@ export function $createTableNodeWithDimensions(
   includeHeaders = true,
 ): TableNode {
   const rows: Rows = [];
-  for (let y = 0; y < columnCount; y++) {
+  for (let y = 0; y < rowCount; y++) {
     const row: Row = createRow();
     rows.push(row);
-    for (let x = 0; x < rowCount; x++) {
+    for (let x = 0; x < columnCount; x++) {
       row.cells.push(
         createCell(
           includeHeaders === true && (y === 0 || x === 0) ? 'header' : 'normal',

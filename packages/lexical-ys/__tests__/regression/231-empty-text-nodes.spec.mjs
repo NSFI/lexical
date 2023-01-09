@@ -28,7 +28,7 @@ test.describe('Regression test #231', () => {
   }) => {
     await focusEditor(page);
     await page.keyboard.type('#foo');
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
     await moveLeft(page, 4);
     await page.keyboard.type('a');
     await page.keyboard.press('Backspace');
@@ -37,7 +37,7 @@ test.describe('Regression test #231', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {

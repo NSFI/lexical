@@ -28,15 +28,15 @@ test.describe('Hashtags', () => {
     await focusEditor(page);
     await page.keyboard.type('#yolo');
 
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
 
     await assertHTML(
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yolo
           </span>
         </p>
@@ -55,9 +55,9 @@ test.describe('Hashtags', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yolonce
           </span>
         </p>
@@ -76,7 +76,7 @@ test.describe('Hashtags', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">yolonce</span>
         </p>
@@ -94,15 +94,15 @@ test.describe('Hashtags', () => {
     await focusEditor(page);
     await page.keyboard.type('#hello world');
 
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
 
     await assertHTML(
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #hello
           </span>
           <span data-lexical-text="true">world</span>
@@ -129,9 +129,9 @@ test.describe('Hashtags', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #helloworld
           </span>
         </p>
@@ -149,9 +149,9 @@ test.describe('Hashtags', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #hello
           </span>
           <span data-lexical-text="true">world</span>
@@ -187,9 +187,9 @@ test.describe('Hashtags', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #helloworld
           </span>
         </p>
@@ -211,35 +211,35 @@ test.describe('Hashtags', () => {
       '#hello world foo #lol #lol asdasd #lol test this #asdas #asdas lasdasd asdasd',
     );
 
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
 
     await assertHTML(
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #hello
           </span>
           <span data-lexical-text="true">world foo</span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #lol
           </span>
           <span data-lexical-text="true"></span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #lol
           </span>
           <span data-lexical-text="true">asdasd</span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #lol
           </span>
           <span data-lexical-text="true">test this</span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #asdas
           </span>
           <span data-lexical-text="true"></span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #asdas
           </span>
           <span data-lexical-text="true">lasdasd asdasd</span>
@@ -268,7 +268,7 @@ test.describe('Hashtags', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {

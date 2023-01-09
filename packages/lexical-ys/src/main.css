@@ -1,35 +1,3 @@
-.icon.indent {
-  background-image: url(/src/images/icons/indent.svg);
-}
-i.bullet {
-  background-image: url(images/icons/list-ul.svg);
-}
-i.check {
-  background-image: url(images/icons/square-check.svg);
-}
-i.number {
-  background-image: url(images/icons/list-ol.svg);
-}
-.icon.quote,
-i.quote {
-  background-image: url(images/icons/chat-square-quote.svg);
-}
-
-.icon.code,
-i.code {
-  background-image: url(images/icons/code.svg);
-}
-
-.link-editor div.link-edit {
-  background-image: url(images/icons/pencil-fill.svg);
-  right: 30px;
-}
-
-.link-editor div.link-clear {
-  background-image: url(images/icons/trash.svg);
-  right: 0;
-}
-
-.toolbar i.chevron-down {
-  background-repeat: no-repeat;
+.YsEditorTheme__tableCell img {
+  width: 100%;
 }

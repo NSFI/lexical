@@ -47,11 +47,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             World
           </strong>
@@ -71,11 +71,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             World
           </strong>
@@ -105,11 +105,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             World
           </em>
@@ -129,11 +129,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             World
           </em>
@@ -171,11 +171,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             world
           </strong>
@@ -195,7 +195,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world!</span>
         </p>
@@ -238,16 +238,16 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             hello world
           </strong>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">hello world</span>
         </p>
@@ -277,11 +277,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             world
           </em>
@@ -301,7 +301,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world!</span>
         </p>
@@ -337,11 +337,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <span
-            class="YsEditorTheme__textUnderline"
+            class="PlaygroundEditorTheme__textUnderline"
             data-lexical-text="true">
             world
           </span>
@@ -361,7 +361,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world!</span>
         </p>
@@ -382,11 +382,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <span
-            class="YsEditorTheme__textUnderlineStrikethrough"
+            class="PlaygroundEditorTheme__textUnderlineStrikethrough"
             data-lexical-text="true">
             world
           </span>
@@ -407,11 +407,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <span
-            class="YsEditorTheme__textUnderline"
+            class="PlaygroundEditorTheme__textUnderline"
             data-lexical-text="true">
             world
           </span>
@@ -452,7 +452,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <span style="font-size: 10px;" data-lexical-text="true">world</span>
@@ -495,7 +495,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <span style="font-size: 10px;" data-lexical-text="true">world</span>
@@ -518,7 +518,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <span
@@ -545,7 +545,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <span
@@ -589,11 +589,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             world
           </strong>
@@ -623,21 +623,21 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             w
           </strong>
           <strong
-            class="YsEditorTheme__textBold YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textBold PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             or
           </strong>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             ld
           </strong>
@@ -657,21 +657,21 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             w
           </strong>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             or
           </em>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             ld
           </strong>
@@ -700,11 +700,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello w</span>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             or
           </em>
@@ -724,11 +724,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
           <em
-            class="YsEditorTheme__textItalic"
+            class="PlaygroundEditorTheme__textItalic"
             data-lexical-text="true">
             world
           </em>
@@ -749,7 +749,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello world!</span>
         </p>
@@ -798,11 +798,11 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">123</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             456
           </strong>
@@ -810,7 +810,7 @@ test.describe('TextFormatting', () => {
           <br />
           <span data-lexical-text="true">abc</span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             def
           </strong>
@@ -842,7 +842,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">12c</span>
         </p>
@@ -880,9 +880,9 @@ test.describe('TextFormatting', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             12
           </strong>
@@ -897,9 +897,9 @@ test.describe('TextFormatting', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             123456
           </strong>
@@ -967,7 +967,7 @@ test.describe('TextFormatting', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">A</span>
             <span
@@ -993,7 +993,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">A</span>
           <span
@@ -1009,7 +1009,7 @@ test.describe('TextFormatting', () => {
             </div>
           </span>
           <strong
-            class="YsEditorTheme__textBold"
+            class="PlaygroundEditorTheme__textBold"
             data-lexical-text="true">
             B
           </strong>
@@ -1022,7 +1022,7 @@ test.describe('TextFormatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">A</span>
           <span

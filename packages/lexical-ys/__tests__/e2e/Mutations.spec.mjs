@@ -21,18 +21,18 @@ async function validateContent(page) {
     page,
     html`
       <p
-        class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+        class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
         dir="ltr">
         <span data-lexical-text="true">Hello</span>
-        <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+        <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
           #world
         </span>
         <span data-lexical-text="true">. This content</span>
-        <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+        <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
           #should
         </span>
         <span data-lexical-text="true">remain</span>
-        <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+        <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
           #intact
         </span>
         <span data-lexical-text="true">.</span>
@@ -219,18 +219,18 @@ test.describe('Mutations', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Bonjour</span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #world
           </span>
           <span data-lexical-text="true">. This content</span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #should
           </span>
           <span data-lexical-text="true">remain</span>
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #intact
           </span>
           <span data-lexical-text="true">.</span>

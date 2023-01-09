@@ -51,7 +51,12 @@ export function DropDownItem({
   }, [ref, registerItem]);
 
   return (
-    <button className={className} onClick={onClick} ref={ref} title={title}>
+    <button
+      className={className}
+      onClick={onClick}
+      ref={ref}
+      title={title}
+      type="button">
       {children}
     </button>
   );
@@ -129,6 +134,7 @@ function DropDownItems({
 }
 
 export default function DropDown({
+  disabled = false,
   buttonLabel,
   buttonAriaLabel,
   buttonClassName,
@@ -136,6 +142,7 @@ export default function DropDown({
   children,
   stopCloseOnClickSelf,
 }: {
+  disabled?: boolean;
   buttonAriaLabel?: string;
   buttonClassName: string;
   buttonIconClassName?: string;
@@ -196,6 +203,7 @@ export default function DropDown({
   return (
     <>
       <button
+        disabled={disabled}
         aria-label={buttonAriaLabel || buttonLabel}
         className={buttonClassName}
         onClick={() => setShowDropDown(!showDropDown)}
@@ -204,7 +212,7 @@ export default function DropDown({
         {buttonLabel && (
           <span className="text dropdown-button-text">{buttonLabel}</span>
         )}
-        <i className="chevron-down" />
+        <i className="iconfont icon-chevron-down" />
       </button>
 
       {showDropDown &&

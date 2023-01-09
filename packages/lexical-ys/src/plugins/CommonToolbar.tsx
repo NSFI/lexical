@@ -20,6 +20,7 @@ import {
   // $getRoot,
   $getSelection,
   $isRangeSelection,
+  DEPRECATED_$isGridSelection,
 } from 'lexical';
 import * as React from 'react';
 
@@ -73,10 +74,12 @@ export function BlockFormatDropDown({
   editor,
   blockType,
   toolbarItemCls = 'toolbar-item',
+  disabled = false,
 }: {
   blockType: BlockType;
   editor: LexicalEditor;
   toolbarItemCls?: string;
+  disabled?: boolean;
 }): JSX.Element {
   const {blockTypeToBlockName} = useLocale();
   const formatParagraph = () => {
@@ -84,7 +87,10 @@ export function BlockFormatDropDown({
       editor.update(() => {
         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
+        if (
+          $isRangeSelection(selection) ||
+          DEPRECATED_$isGridSelection(selection)
+        ) {
           $wrapNodes(selection, () => $createParagraphNode());
         }
       });
@@ -96,7 +102,10 @@ export function BlockFormatDropDown({
       editor.update(() => {
         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
+        if (
+          $isRangeSelection(selection) ||
+          DEPRECATED_$isGridSelection(selection)
+        ) {
           $wrapNodes(selection, () => $createHeadingNode(headingSize));
         }
       });
@@ -112,11 +121,12 @@ export function BlockFormatDropDown({
 
   const blockNameList = ['paragraph', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
   const showType = blockNameList.includes(blockType) ? blockType : 'paragraph';
-
+  //TODO:
   return (
     <DropDown
+      disabled={disabled}
       buttonClassName={`${toolbarItemCls} block-controls`}
-      buttonIconClassName={'icon block-type ' + showType}
+      buttonIconClassName={'iconfont icon-type-' + showType}
       buttonLabel={blockTypeToBlockName[showType]}
       buttonAriaLabel="Formatting options for text style">
       {blockNameList.map((blockName: any) => (
@@ -124,7 +134,7 @@ export function BlockFormatDropDown({
           key={blockName}
           className={'item ' + dropDownActiveClass(blockType === blockName)}
           onClick={() => formatBlockByName(blockName)}>
-          <i className={`icon ${blockName}`} />
+          <i className={`iconfont icon-type-${blockName}`} />
           <span className="text">{blockTypeToBlockName[blockName]}</span>
         </DropDownItem>
       ))}

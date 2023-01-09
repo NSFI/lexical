@@ -5,13 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
 import {$createLinkNode} from '@lexical/link';
 import {$createListItemNode, $createListNode} from '@lexical/list';
 import {LexicalComposer} from '@lexical/react/LexicalComposer';
+import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 import {$createHeadingNode, $createQuoteNode} from '@lexical/rich-text';
 import {$createParagraphNode, $createTextNode, $getRoot} from 'lexical';
 import * as React from 'react';
+import {useCallback} from 'react';
 
 import {isDevPlayground} from './appSettings';
 import {SettingsContext, useSettings} from './context/SettingsContext';
@@ -129,7 +130,14 @@ function App(): JSX.Element {
     },
     theme: PlaygroundEditorTheme,
   };
-
+  const handleEditorChange = useCallback((editorState, editor) => {
+    editorState.read(() => {
+      const jsonValue = editorState.toJSON();
+      console.log('jsonValue', jsonValue);
+      // eslint-disable-next-line no-unused-expressions
+      console.log('jsonValue', jsonValue);
+    });
+  }, []);
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <SharedHistoryContext>
@@ -144,6 +152,7 @@ function App(): JSX.Element {
               <Editor />
             </div>
             <Settings />
+            <OnChangePlugin onChange={handleEditorChange} />
             {isDevPlayground ? <PasteLogPlugin /> : null}
             {isDevPlayground ? <TestRecorderPlugin /> : null}
             {measureTypingPerf ? <TypingPerfPlugin /> : null}

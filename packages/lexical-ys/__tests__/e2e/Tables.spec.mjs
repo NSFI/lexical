@@ -6,7 +6,11 @@
  *
  */
 
-import {moveRight, selectAll} from '../keyboardShortcuts/index.mjs';
+import {
+  moveRight,
+  pressBackspace,
+  selectAll,
+} from '../keyboardShortcuts/index.mjs';
 import {
   assertHTML,
   click,
@@ -1279,20 +1283,20 @@ test.describe('Tables', () => {
     await assertHTML(
       page,
       html`
-        <table class="YsEditorTheme__table">
+        <table class="PlaygroundEditorTheme__table">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">a</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">bb</span>
               </p>
@@ -1300,143 +1304,143 @@ test.describe('Tables', () => {
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">d</span>
               </p>
             </th>
-            <td class="YsEditorTheme__tableCell">
+            <td class="PlaygroundEditorTheme__tableCell">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">e</span>
               </p>
             </td>
           </tr>
         </table>
-        <table class="YsEditorTheme__table">
+        <table class="PlaygroundEditorTheme__table">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">a</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">bb</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">cc</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">d</span>
               </p>
             </th>
-            <td class="YsEditorTheme__tableCell">
+            <td class="PlaygroundEditorTheme__tableCell">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">e</span>
               </p>
             </td>
-            <td class="YsEditorTheme__tableCell">
+            <td class="PlaygroundEditorTheme__tableCell">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">f</span>
               </p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </th>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
         </table>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
       undefined,
       {ignoreClasses: true},
@@ -1590,148 +1594,148 @@ test.describe('Tables', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Hello World</span>
           </p>
-          <table class="YsEditorTheme__table disable-selection">
+          <table class="PlaygroundEditorTheme__table disable-selection">
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
           </table>
-          <p class="YsEditorTheme__paragraph"><br /></p>
+          <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         `,
         undefined,
         {ignoreClasses: true},
@@ -1760,148 +1764,148 @@ test.describe('Tables', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Hello World</span>
           </p>
-          <table class="YsEditorTheme__table disable-selection">
+          <table class="PlaygroundEditorTheme__table disable-selection">
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
             <tr>
               <th
-                class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader"
+                class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </th>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
               <td
-                class="YsEditorTheme__tableCell"
+                class="PlaygroundEditorTheme__tableCell"
                 style="background-color: rgb(172, 206, 247); caret-color: transparent;">
-                <p class="YsEditorTheme__paragraph"><br /></p>
+                <p class="PlaygroundEditorTheme__paragraph"><br /></p>
               </td>
             </tr>
           </table>
-          <p class="YsEditorTheme__paragraph"><br /></p>
+          <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         `,
         undefined,
         {ignoreClasses: true},
@@ -2032,7 +2036,7 @@ test.describe('Tables', () => {
 
     await insertTable(page);
 
-    await click(page, '.YsEditorTheme__tableCell');
+    await click(page, '.PlaygroundEditorTheme__tableCell');
     await page.keyboard.type('Hello');
 
     await page.keyboard.down('Shift');
@@ -2049,42 +2053,42 @@ test.describe('Tables', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
-        <table class="YsEditorTheme__table">
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+        <table class="PlaygroundEditorTheme__table">
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span data-lexical-text="true">Hello</span>
               </p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
-            <td class="YsEditorTheme__tableCell">
+            <td class="PlaygroundEditorTheme__tableCell">
               <p
-                class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
                 dir="ltr">
                 <span
                   class="editor-image"
@@ -2101,72 +2105,316 @@ test.describe('Tables', () => {
                 <span data-lexical-text="true">&lt;- it works!</span>
               </p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </th>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
-            </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
           <tr>
             <th
-              class="YsEditorTheme__tableCell YsEditorTheme__tableCellHeader">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </th>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
-            <td class="YsEditorTheme__tableCell">
-              <p class="YsEditorTheme__paragraph"><br /></p>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
             </td>
           </tr>
         </table>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+      `,
+    );
+  });
+
+  test('Grid selection: can backspace lines, backspacing empty cell does not destroy it #3278', async ({
+    page,
+    isPlainText,
+  }) => {
+    test.skip(isPlainText);
+
+    await focusEditor(page);
+
+    await insertTable(page);
+
+    await click(page, '.PlaygroundEditorTheme__tableCell');
+    await page.keyboard.type('cell one');
+    await moveRight(page, 1);
+    await page.keyboard.type('first line');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('second line');
+
+    await assertHTML(
+      page,
+      html`
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+        <table class="PlaygroundEditorTheme__table">
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
+                dir="ltr">
+                <span data-lexical-text="true">cell one</span>
+              </p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
+                dir="ltr">
+                <span data-lexical-text="true">first line</span>
+              </p>
+              <p
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
+                dir="ltr">
+                <span data-lexical-text="true">second line</span>
+              </p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+        </table>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+      `,
+    );
+
+    await pressBackspace(page, 50);
+    await assertHTML(
+      page,
+      html`
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+        <table class="PlaygroundEditorTheme__table">
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p
+                class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
+                dir="ltr">
+                <span data-lexical-text="true">cell one</span>
+              </p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="PlaygroundEditorTheme__tableCell PlaygroundEditorTheme__tableCellHeader">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </th>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+            <td class="PlaygroundEditorTheme__tableCell">
+              <p class="PlaygroundEditorTheme__paragraph"><br /></p>
+            </td>
+          </tr>
+        </table>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
   });

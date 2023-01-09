@@ -22,14 +22,14 @@ test.describe('Regression test #221', () => {
   test(`Can handle space in hashtag`, async ({page}) => {
     await focusEditor(page);
     await page.keyboard.type('#yolo');
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
     await assertHTML(
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yolo
           </span>
         </p>
@@ -48,9 +48,9 @@ test.describe('Regression test #221', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yo
           </span>
           <span data-lexical-text="true">lo</span>
@@ -68,14 +68,14 @@ test.describe('Regression test #221', () => {
   test(`Can handle delete in hashtag`, async ({page}) => {
     await focusEditor(page);
     await page.keyboard.type('#yolo ');
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
     await assertHTML(
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yolo
           </span>
           <span data-lexical-text="true"></span>
@@ -95,9 +95,9 @@ test.describe('Regression test #221', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yolo
           </span>
         </p>
@@ -114,14 +114,14 @@ test.describe('Regression test #221', () => {
   test(`Can handle backspace into hashtag`, async ({page}) => {
     await focusEditor(page);
     await page.keyboard.type('#yolo ');
-    await waitForSelector(page, '.YsEditorTheme__hashtag');
+    await waitForSelector(page, '.PlaygroundEditorTheme__hashtag');
     await assertHTML(
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yolo
           </span>
           <span data-lexical-text="true"></span>
@@ -141,9 +141,9 @@ test.describe('Regression test #221', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #yol
           </span>
         </p>

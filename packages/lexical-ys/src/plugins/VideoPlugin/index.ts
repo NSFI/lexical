@@ -6,14 +6,12 @@
  *
  */
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {$wrapNodeInElement, mergeRegister} from '@lexical/utils';
+import {mergeRegister} from '@lexical/utils';
 import {
-  $createParagraphNode,
   $createRangeSelection,
   $getSelection,
-  $insertNodes,
   $isNodeSelection,
-  $isRootOrShadowRoot,
+  $isRangeSelection,
   $setSelection,
   COMMAND_PRIORITY_EDITOR,
   COMMAND_PRIORITY_HIGH,
@@ -25,27 +23,111 @@ import {
   LexicalCommand,
   LexicalEditor,
 } from 'lexical';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import getSelection from 'shared/getDOMSelection';
 
+import {useUploadStatus} from '../../context/UploadContext';
 import {
   $createVideoNode,
   $isVideoNode,
   VideoNode,
   VideoPayload,
 } from '../../nodes/VideoNode';
+import Uploader from './../../ui/BigUploader/nos-js-sdk';
+// import {beforeUploadFile, getFileSize, getFileSuffix} from './../../utils/file';
+import {postFile} from './../../utils/request';
 
 export type InsertVideoPayload = Readonly<VideoPayload>;
 
 export const INSERT_VIDEO_COMMAND: LexicalCommand<InsertVideoPayload> =
   createCommand();
-export default function VideoPlugin({
-  captionsEnabled,
-}: {
-  captionsEnabled?: boolean;
-}): JSX.Element | null {
+export default function VideoPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
 
+  const {setUploadStatus} = useUploadStatus();
+
+  const uploadFile = useCallback(async (payload, videoNode, newEditor) => {
+    const nosLocation = 'https://urchin.nos-jd.163yun.com/';
+    setUploadStatus(payload.src, 0);
+    const maxSize = 20;
+    const file = payload.bodyFormData.get('file');
+    //使用大文件上传;
+    if (file?.size > maxSize * 1024 * 1024) {
+      const uploader = Uploader({
+        onError: (errObj: any) => {
+          console.log(errObj);
+        },
+        onProgress: (curFile: any) => {
+          setUploadStatus(payload.src, parseInt(curFile.progress));
+          if (curFile.status === 2) {
+            setUploadStatus(payload.src, 100);
+            setTimeout(() => {
+              newEditor.update(() => {
+                videoNode.setUploadDone();
+              });
+            }, 1000);
+          }
+        },
+      });
+      uploader.addFile(file, (_curFile: any) => {
+        uploader.upload({
+          bucketName: payload.bodyFormData.get('bucket'),
+          objectName: payload.bodyFormData.get('Object'),
+          token: payload.bodyFormData.get('x-nos-token'),
+        });
+      });
+    } else {
+      await postFile(nosLocation, payload.bodyFormData, {
+        onUploadProgress: (progressEvent: ProgressEvent) => {
+          if (progressEvent.lengthComputable || progressEvent.progress) {
+            let complete;
+            if (progressEvent.progress) {
+              complete = progressEvent.progress * 100;
+            } else {
+              complete =
+                ((progressEvent.loaded / progressEvent.total) * 100) | 0;
+            }
+            if (complete !== 100) {
+              setUploadStatus(payload.src, parseInt(complete));
+            }
+          }
+        },
+      });
+      setUploadStatus(payload.src, 100);
+      newEditor.update(() => {
+        videoNode.setUploadDone();
+      });
+    }
+  }, []);
+  function insertNode(payload: InsertVideoPayload) {
+    // if (payload.uploading) {
+    //   return insertNodeInline(payload);
+    // }
+    const selection = $getSelection();
+    if (!$isRangeSelection(selection)) {
+      return false;
+    }
+    const focusNode = selection.focus.getNode();
+    console.log('focusNode', focusNode);
+    if (focusNode !== null) {
+      const videoNode = $createVideoNode(payload);
+      selection.insertParagraph();
+      selection.focus
+        .getNode()
+        .getTopLevelElementOrThrow()
+        .insertBefore(videoNode);
+      return videoNode;
+    }
+    return false;
+  }
+  // function insertNodeInline(payload: InsertVideoPayload) {
+  //   const videoNode = $createVideoNode(payload);
+  //   $insertNodes([videoNode]);
+  //   if ($isRootOrShadowRoot(videoNode.getParentOrThrow())) {
+  //     $wrapNodeInElement(videoNode, $createParagraphNode).selectEnd();
+  //   }
+  //   return videoNode;
+  // }
   useEffect(() => {
     if (!editor.hasNodes([VideoNode])) {
       throw new Error('VideoPlugin: VideoNode not registered on editor');
@@ -54,13 +136,22 @@ export default function VideoPlugin({
     return mergeRegister(
       editor.registerCommand<InsertVideoPayload>(
         INSERT_VIDEO_COMMAND,
-        (payload) => {
-          const videoNode = $createVideoNode(payload);
-          $insertNodes([videoNode]);
-          if ($isRootOrShadowRoot(videoNode.getParentOrThrow())) {
-            $wrapNodeInElement(videoNode, $createParagraphNode).selectEnd();
+        async (payload, newEditor) => {
+          const videoNode = insertNode({
+            src: payload.src,
+            ...(payload.bodyFormData ? {uploading: true} : null),
+          });
+          if (!videoNode) {
+            return true;
           }
-
+          if (!payload.bodyFormData) {
+            return true;
+          }
+          try {
+            await uploadFile(payload, videoNode, newEditor);
+          } catch (e) {
+            return true;
+          }
           return true;
         },
         COMMAND_PRIORITY_EDITOR,
@@ -87,7 +178,7 @@ export default function VideoPlugin({
         COMMAND_PRIORITY_HIGH,
       ),
     );
-  }, [captionsEnabled, editor]);
+  }, [editor]);
 
   return null;
 }

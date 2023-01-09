@@ -75,7 +75,7 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -83,7 +83,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem" value="1"><br></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem" value="1"><br></li></ul>',
     );
 
     await toggleBulletList(page);
@@ -91,7 +91,7 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
   });
@@ -101,7 +101,7 @@ test.describe('Nested List', () => {
     await toggleBulletList(page);
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem" value="1"><br></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem" value="1"><br></li></ul>',
     );
 
     // Should allow indenting an empty list item
@@ -109,7 +109,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem" value="1"><br></li></ul></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem" value="1"><br></li></ul></li></ul></li></ul>',
     );
 
     // Backspace should "unindent" the first list item.
@@ -118,7 +118,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem" value="1"><br></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem" value="1"><br></li></ul>',
     );
 
     await page.keyboard.type('Hello');
@@ -133,7 +133,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await selectAll(page);
@@ -142,14 +142,14 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul></li></ul></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul></li></ul></li></ul></li></ul>',
     );
 
     await clickOutdentButton(page, 3);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
     );
   });
 
@@ -176,10 +176,10 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
             value="1"
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
@@ -196,7 +196,7 @@ test.describe('Nested List', () => {
           </li>
         </ul>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">ipsum dolor</span>
         </p>
@@ -217,21 +217,21 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem"><br></li></ul></li></ul></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem"><br></li></ul></li></ul></li></ul></li></ul>',
     );
 
     await page.keyboard.press('Backspace');
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem"><br></li></ul></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem"><br></li></ul></li></ul></li></ul>',
     );
 
     await page.keyboard.press('Backspace');
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem"><br></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem"><br></li></ul></li></ul>',
     );
   });
 
@@ -244,7 +244,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem"><br></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem"><br></li></ul>',
     );
 
     await page.keyboard.type('Hello');
@@ -257,7 +257,7 @@ test.describe('Nested List', () => {
     //    - from
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul></li></ul>',
     );
 
     await selectAll(page);
@@ -266,14 +266,14 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul></li></ul></li></ul></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul></li></ul></li></ul></li></ul></li></ul>',
     );
 
     await clickOutdentButton(page, 3);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul></li></ul>',
     );
 
     await page.keyboard.press('ArrowRight');
@@ -294,7 +294,7 @@ test.describe('Nested List', () => {
     // - side
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li><li value="3" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">other</span></li></ul></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li><li value="3" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">other</span></li></ul></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await selectAll(page);
@@ -303,14 +303,14 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li><li value="3" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">other</span></li></ul></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">side</span></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li><li value="3" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">other</span></li></ul></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">side</span></li></ul></li></ul>',
     );
 
     await clickOutdentButton(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li><li value="3" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">other</span></li></ul></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li><li value="3" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">other</span></li></ul></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">side</span></li></ul>',
     );
   });
 
@@ -370,7 +370,7 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -380,7 +380,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li></ul>',
     );
 
     await toggleBulletList(page);
@@ -389,7 +389,7 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
@@ -409,27 +409,27 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">from</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">the</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">other</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">side</span>
         </p>
@@ -442,7 +442,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await toggleBulletList(page);
@@ -451,27 +451,27 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">from</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">the</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">other</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">side</span>
         </p>
@@ -486,7 +486,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="1"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul></li></ul></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="1"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul></li></ul></li></ul></li></ul>',
     );
 
     await toggleBulletList(page);
@@ -495,27 +495,27 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">from</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">the</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">other</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">side</span>
         </p>
@@ -531,7 +531,7 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -541,7 +541,7 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">One two three</span>
         </p>
@@ -558,12 +558,13 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">One</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">two</span>
           </a>
@@ -579,7 +580,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">One </span><a href="https://" class="YsEditorTheme__link YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">two</span></a><span data-lexical-text="true"> three</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">One </span><a href="https://" rel="noopener" class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">two</span></a><span data-lexical-text="true"> three</span></li></ul>',
     );
 
     await toggleBulletList(page);
@@ -588,12 +589,13 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">One</span>
           <a
             href="https://"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            rel="noopener"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">two</span>
           </a>
@@ -611,7 +613,7 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -640,7 +642,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li></ul><p class="YsEditorTheme__paragraph"><br></p><p class="YsEditorTheme__paragraph YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></p><p class="YsEditorTheme__paragraph"><br></p><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li></ul><p class="PlaygroundEditorTheme__paragraph"><br></p><p class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></p><p class="PlaygroundEditorTheme__paragraph"><br></p><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await selectAll(page);
@@ -651,29 +653,29 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">from</span>
         </p>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">the</span>
         </p>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">other</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">side</span>
         </p>
@@ -684,7 +686,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem" value="3"><br></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem" value="5"><br></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="6"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="7"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem" value="3"><br></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem" value="5"><br></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="6"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="7"><span data-lexical-text="true">side</span></li></ul>',
     );
   });
 
@@ -699,21 +701,21 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem" value="1"><br></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem" value="1"><br></li></ul>',
     );
 
     await toggleNumberedList(page);
 
     await assertHTML(
       page,
-      '<ol class="YsEditorTheme__ol1"><li class="YsEditorTheme__listItem" value="1"><br></li></ol>',
+      '<ol class="PlaygroundEditorTheme__ol1"><li class="PlaygroundEditorTheme__listItem" value="1"><br></li></ol>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem" value="1"><br></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem" value="1"><br></li></ul>',
     );
   });
 
@@ -730,14 +732,14 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ol class="YsEditorTheme__ol1"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li></ol>',
+      '<ol class="PlaygroundEditorTheme__ol1"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li></ol>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li></ul>',
     );
   });
 
@@ -760,21 +762,21 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await toggleNumberedList(page);
 
     await assertHTML(
       page,
-      '<ol class="YsEditorTheme__ol1"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ol>',
+      '<ol class="PlaygroundEditorTheme__ol1"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ol>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
     );
   });
 
@@ -796,21 +798,21 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem" value="5"><br/></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem" value="5"><br/></li></ul>',
     );
 
     await toggleNumberedList(page);
 
     await assertHTML(
       page,
-      '<ol class="YsEditorTheme__ol1"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem" value="5"><br/></li></ol>',
+      '<ol class="PlaygroundEditorTheme__ol1"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem" value="5"><br/></li></ol>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem" value="5"><br/></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem" value="5"><br/></li></ul>',
     );
   });
 
@@ -837,7 +839,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await selectAll(page);
@@ -846,14 +848,14 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ol class="YsEditorTheme__ol1"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ol class="YsEditorTheme__ol2"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ol class="YsEditorTheme__ol3"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ol></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ol></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ol>',
+      '<ol class="PlaygroundEditorTheme__ol1"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ol class="PlaygroundEditorTheme__ol2"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ol class="PlaygroundEditorTheme__ol3"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ol></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ol></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ol>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
   });
 
@@ -881,21 +883,21 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await toggleNumberedList(page);
 
     await assertHTML(
       page,
-      '<ol class="YsEditorTheme__ol1"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ol>',
+      '<ol class="PlaygroundEditorTheme__ol1"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ol>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     // move to next item up in list
@@ -905,14 +907,14 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ol class="YsEditorTheme__ol2"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ol></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ol class="PlaygroundEditorTheme__ol2"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ol></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     // move to next item up in list
@@ -922,14 +924,14 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ol class="YsEditorTheme__ol3"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ol></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ol class="PlaygroundEditorTheme__ol3"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ol></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
 
     await toggleBulletList(page);
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__nestedListItem" value="2"><ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem" value="2"><ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">the</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">other</span></li></ul></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">side</span></li></ul>',
     );
   });
 
@@ -961,33 +963,33 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello</span>
         </p>
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">from</span>
           </li>
         </ul>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">the</span>
         </p>
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">other</span>
           </li>
         </ul>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">side</span>
         </p>
@@ -1000,7 +1002,7 @@ test.describe('Nested List', () => {
 
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="1"><span data-lexical-text="true">Hello</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="2"><span data-lexical-text="true">from</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="3"><span data-lexical-text="true">the</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="4"><span data-lexical-text="true">other</span></li><li class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr" value="5"><span data-lexical-text="true">side</span></li></ul>',
     );
   });
 
@@ -1027,7 +1029,7 @@ test.describe('Nested List', () => {
     // 1. the
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul><ol class="YsEditorTheme__ol1"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li></ol>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li></ul><ol class="PlaygroundEditorTheme__ol1"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li></ol>',
     );
 
     await clearEditor(page);
@@ -1050,7 +1052,7 @@ test.describe('Nested List', () => {
     // 3. the
     await assertHTML(
       page,
-      '<ol class="YsEditorTheme__ol1"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="3" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li></ol>',
+      '<ol class="PlaygroundEditorTheme__ol1"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">Hello</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">from</span></li><li value="3" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">the</span></li></ol>',
     );
   });
 
@@ -1066,10 +1068,10 @@ test.describe('Nested List', () => {
     // undo case is when the user presses undo.
 
     const forwardHTML =
-      '<ol start="321" class="YsEditorTheme__ol1"><li value="321" class="YsEditorTheme__listItem"><br></li></ol>';
+      '<ol start="321" class="PlaygroundEditorTheme__ol1"><li value="321" class="PlaygroundEditorTheme__listItem"><br></li></ol>';
 
     const undoHTML = html`
-      <p class="YsEditorTheme__paragraph">
+      <p class="PlaygroundEditorTheme__paragraph">
         <span data-lexical-text="true">321.</span>
       </p>
     `;
@@ -1092,7 +1094,7 @@ test.describe('Nested List', () => {
     await page.keyboard.type('# ');
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem"><span data-lexical-text="true"># </span></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem"><span data-lexical-text="true"># </span></li></ul>',
     );
   });
 
@@ -1108,17 +1110,17 @@ test.describe('Nested List', () => {
     await page.keyboard.press('Enter');
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">a</span></li><li value="2" class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"><ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem"><br></li></ul></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">a</span></li><li value="2" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"><ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem"><br></li></ul></li></ul>',
     );
     await page.keyboard.press('Enter');
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">a</span></li><li value="2" class="YsEditorTheme__listItem"><br></li></ul>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">a</span></li><li value="2" class="PlaygroundEditorTheme__listItem"><br></li></ul>',
     );
     await page.keyboard.press('Enter');
     await assertHTML(
       page,
-      '<ul class="YsEditorTheme__ul"><li value="1" class="YsEditorTheme__listItem YsEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">a</span></li></ul><p class="YsEditorTheme__paragraph"><br></p>',
+      '<ul class="PlaygroundEditorTheme__ul"><li value="1" class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr" dir="ltr"><span data-lexical-text="true">a</span></li></ul><p class="PlaygroundEditorTheme__paragraph"><br></p>',
     );
   });
 
@@ -1246,7 +1248,7 @@ test.describe('Nested List', () => {
     await focusEditor(page);
     await toggleCheckList(page);
     await page.keyboard.type('a');
-    await click(page, '.YsEditorTheme__listItemUnchecked', {
+    await click(page, '.PlaygroundEditorTheme__listItemUnchecked', {
       position: {x: 10, y: 10},
     });
     await page.keyboard.press('Enter');
@@ -1257,12 +1259,12 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
             aria-checked="true"
             role="checkbox"
             tabindex="-1"
-            class="YsEditorTheme__listItem YsEditorTheme__ltr YsEditorTheme__listItemChecked"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr PlaygroundEditorTheme__listItemChecked"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">a</span>
@@ -1271,20 +1273,20 @@ test.describe('Nested List', () => {
             aria-checked="false"
             role="checkbox"
             tabindex="-1"
-            class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="2">
             <span data-lexical-text="true">b</span>
           </li>
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__nestedListItem"
             value="3">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
                 aria-checked="false"
                 role="checkbox"
                 tabindex="-1"
-                class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 value="1">
                 <span data-lexical-text="true">c</span>
@@ -1299,28 +1301,28 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">a</span>
           </li>
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="2">
             <span data-lexical-text="true">b</span>
           </li>
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__nestedListItem"
             value="3">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
                 aria-checked="false"
                 role="checkbox"
                 tabindex="-1"
-                class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 value="1">
                 <span data-lexical-text="true">c</span>
@@ -1334,12 +1336,12 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
             aria-checked="false"
             role="checkbox"
             tabindex="-1"
-            class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">a</span>
@@ -1348,20 +1350,20 @@ test.describe('Nested List', () => {
             aria-checked="false"
             role="checkbox"
             tabindex="-1"
-            class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="2">
             <span data-lexical-text="true">b</span>
           </li>
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__nestedListItem"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__nestedListItem"
             value="3">
-            <ul class="YsEditorTheme__ul">
+            <ul class="PlaygroundEditorTheme__ul">
               <li
                 aria-checked="false"
                 role="checkbox"
                 tabindex="-1"
-                class="YsEditorTheme__listItem YsEditorTheme__listItemUnchecked YsEditorTheme__ltr"
+                class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__listItemUnchecked PlaygroundEditorTheme__ltr"
                 dir="ltr"
                 value="1">
                 <span data-lexical-text="true">c</span>
@@ -1446,15 +1448,15 @@ test.describe('Nested List', () => {
     await assertHTML(
       page,
       html`
-        <ul class="YsEditorTheme__ul">
+        <ul class="PlaygroundEditorTheme__ul">
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="1">
             <span data-lexical-text="true">Hello from</span>
           </li>
           <li
-            class="YsEditorTheme__listItem YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__listItem PlaygroundEditorTheme__ltr"
             dir="ltr"
             value="2">
             <span data-lexical-text="true">the other side</span>
@@ -1477,11 +1479,11 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello World</span>
         </p>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await page.pause();
@@ -1511,18 +1513,18 @@ test.describe('Nested List', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello World</span>
         </p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">a</span>
         </p>
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">b</span>
         </p>

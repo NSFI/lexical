@@ -13,6 +13,7 @@ import path from 'path';
 import fs from 'fs';
 import {replaceCodePlugin} from 'vite-plugin-replace';
 import babel from '@rollup/plugin-babel';
+import inject  from '@rollup/plugin-inject'
 
 const moduleResolution = [
   {
@@ -115,6 +116,8 @@ const moduleResolution = [
   'LexicalComposerContext',
   'useLexicalIsTextContentEmpty',
   'useLexicalTextEntity',
+  'useLexicalSubscription',
+  'useLexicalEditable',
   'LexicalContentEditable',
   'LexicalNestedComposer',
   'LexicalHorizontalRuleNode',
@@ -124,6 +127,7 @@ const moduleResolution = [
   'LexicalMarkdownShortcutPlugin',
   'LexicalCharacterLimitPlugin',
   'LexicalHashtagPlugin',
+  'LexicalErrorBoundary',
   'LexicalPlainTextPlugin',
   'LexicalRichTextPlugin',
   'LexicalClearEditorPlugin',
@@ -141,6 +145,7 @@ const moduleResolution = [
   'LexicalAutoEmbedPlugin',
   'LexicalOnChangePlugin',
   'LexicalAutoScrollPlugin',
+  'LexicalNodeEventPlugin',
 ].forEach((module) => {
   let resolvedPath = path.resolve(`../lexical-react/src/${module}.ts`);
 
@@ -160,6 +165,18 @@ const moduleResolution = [
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: '3001',
+    open: false, //自动打开 
+    base: "./ ", //生产环境路径
+    proxy: { // 本地开发环境通过代理实现跨域，生产环境使用 nginx 转发
+      // 正则表达式写法
+      '^/api': {
+        target: 'https://ys-test.netease.com', // 后端服务实际地址
+        changeOrigin: true, //开启代理
+      }
+    }
+  },
   plugins: [
     replaceCodePlugin({
       replacements: [
@@ -185,6 +202,9 @@ export default defineConfig({
         ],
       ],
       presets: ['@babel/preset-react'],
+    }),
+    inject({ 
+        videojs: 'video.js',
     }),
     react(),
   ],

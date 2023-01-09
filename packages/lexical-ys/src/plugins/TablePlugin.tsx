@@ -7,6 +7,8 @@
  */
 
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+import {INSERT_TABLE_COMMAND} from '@lexical/table';
+import message from 'antd/lib/message';
 import {
   $createNodeSelection,
   $createParagraphNode,
@@ -27,6 +29,9 @@ import * as React from 'react';
 import invariant from 'shared/invariant';
 
 import {$createTableNodeWithDimensions, TableNode} from '../nodes/TableNode';
+import Button from '../ui/Button';
+import {DialogActions} from '../ui/Dialog';
+import TextInput from '../ui/TextInput';
 
 export type InsertTableCommandPayload = Readonly<{
   columns: string;
@@ -51,8 +56,8 @@ export type CellEditorConfig = Readonly<{
   theme?: EditorThemeClasses;
 }>;
 
-export const INSERT_TABLE_COMMAND: LexicalCommand<InsertTableCommandPayload> =
-  createCommand();
+export const INSERT_NEW_TABLE_COMMAND: LexicalCommand<InsertTableCommandPayload> =
+  createCommand('INSERT_NEW_TABLE_COMMAND');
 
 // @ts-ignore: not sure why TS doesn't like using null as the value?
 export const CellContext: React.Context<CellContextShape> = createContext({
@@ -88,6 +93,100 @@ export function TableContext({children}: {children: JSX.Element}) {
   );
 }
 
+export function InsertTableDialog({
+  activeEditor,
+  onClose,
+  locale,
+}: {
+  activeEditor: LexicalEditor;
+  onClose: () => void;
+  locale: any;
+}): JSX.Element {
+  const [rows, setRows] = useState('5');
+  const [columns, setColumns] = useState('5');
+  const onClick = () => {
+    if (Number.isNaN(parseInt(columns)) || Number.isNaN(parseInt(rows))) {
+      return;
+    }
+
+    if (parseInt(rows) > 50 || parseInt(rows) < 1) {
+      message.info('行数应为1-50之间的整数');
+      return;
+    }
+    if (parseInt(columns) > 10 || parseInt(columns) < 1) {
+      message.info('列数应为1-10之间的整数');
+      return;
+    }
+    activeEditor.dispatchCommand(INSERT_TABLE_COMMAND, {
+      columns: parseInt(columns).toString(),
+      rows: parseInt(rows).toString(),
+    });
+    onClose();
+  };
+
+  return (
+    <>
+      <TextInput label={locale.noofrows} onChange={setRows} value={rows} />
+      <TextInput
+        label={locale.noofcolumns}
+        onChange={setColumns}
+        value={columns}
+      />
+      <div
+        className="ToolbarPlugin__dialogActions"
+        data-test-id="table-model-confirm-insert">
+        <Button onClick={onClick}>{locale.confirm}</Button>
+      </div>
+    </>
+  );
+}
+export function InsertNewTableDialog({
+  activeEditor,
+  onClose,
+  locale,
+}: {
+  activeEditor: LexicalEditor;
+  onClose: () => void;
+  locale: any;
+}): JSX.Element {
+  const [rows, setRows] = useState('5');
+  const [columns, setColumns] = useState('5');
+
+  const onClick = () => {
+    if (Number.isNaN(parseInt(columns)) || Number.isNaN(parseInt(rows))) {
+      return;
+    }
+
+    if (parseInt(rows) > 50 || parseInt(rows) < 1) {
+      message.info('行数应为1-50之间的整数');
+      return;
+    }
+    if (parseInt(columns) > 10 || parseInt(columns) < 1) {
+      message.info('列数应为1-10之间的整数');
+      return;
+    }
+    activeEditor.dispatchCommand(INSERT_NEW_TABLE_COMMAND, {
+      columns: parseInt(columns).toString(),
+      rows: parseInt(rows).toString(),
+    });
+    onClose();
+  };
+
+  return (
+    <>
+      <TextInput label={locale.noofrows} onChange={setRows} value={rows} />
+      <TextInput
+        label={locale.noofcolumns}
+        onChange={setColumns}
+        value={columns}
+      />
+      <DialogActions data-test-id="table-model-confirm-insert">
+        <Button onClick={onClick}>{locale.confirm}</Button>
+      </DialogActions>
+    </>
+  );
+}
+
 export function TablePlugin({
   cellEditorConfig,
   children,
@@ -106,10 +205,9 @@ export function TablePlugin({
     cellContext.set(cellEditorConfig, children);
 
     return editor.registerCommand<InsertTableCommandPayload>(
-      INSERT_TABLE_COMMAND,
+      INSERT_NEW_TABLE_COMMAND,
       ({columns, rows, includeHeaders}) => {
         const selection = $getSelection();
-
         if (!$isRangeSelection(selection)) {
           return true;
         }

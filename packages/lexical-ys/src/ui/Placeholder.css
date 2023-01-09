@@ -13,11 +13,14 @@
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
-  top: 8px;
-  left: 28px;
-  right: 28px;
+  top: 22px;
+  left: 0px;
+  right: 0px;
   user-select: none;
   white-space: nowrap;
   display: inline-block;
   pointer-events: none;
+  max-width: 950px;
+  margin: 0 auto;
+  /* padding-left: 28px; */
 }

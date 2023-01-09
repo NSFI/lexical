@@ -39,7 +39,7 @@ test.describe('Composition', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">も</span>
         </p>
@@ -57,7 +57,7 @@ test.describe('Composition', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
     await assertSelection(page, {
@@ -73,7 +73,7 @@ test.describe('Composition', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">もじ</span>
         </p>
@@ -95,7 +95,7 @@ test.describe('Composition', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__rtl"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__rtl"
           dir="rtl">
           <span data-lexical-text="true">هَ</span>
         </p>
@@ -113,7 +113,7 @@ test.describe('Composition', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__rtl"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__rtl"
           dir="rtl">
           <span data-lexical-text="true">ه</span>
         </p>
@@ -131,7 +131,7 @@ test.describe('Composition', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph"><br /></p>
+        <p class="PlaygroundEditorTheme__paragraph"><br /></p>
       `,
     );
 
@@ -140,7 +140,7 @@ test.describe('Composition', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__rtl"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__rtl"
           dir="rtl">
           <span data-lexical-text="true">هَ</span>
         </p>
@@ -166,7 +166,7 @@ test.describe('Composition', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__rtl"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__rtl"
           dir="rtl">
           <span data-lexical-text="true">ه</span>
         </p>
@@ -206,7 +206,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">すし もじあ</span>
           </p>
@@ -258,7 +258,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <br />
             <span data-lexical-text="true">すし もじあ</span>
@@ -303,11 +303,11 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Hello</span>
             <strong
-              class="YsEditorTheme__textBold"
+              class="PlaygroundEditorTheme__textBold"
               data-lexical-text="true">
               すし
             </strong>
@@ -352,7 +352,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span class="emoji happysmile" data-lexical-text="true">
               <span class="emoji-inner">🙂</span>
@@ -376,7 +376,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span class="emoji happysmile" data-lexical-text="true">
               <span class="emoji-inner">🙂</span>
@@ -408,7 +408,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span class="emoji happysmile" data-lexical-text="true">
               <span class="emoji-inner">🙂</span>
@@ -461,7 +461,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span
               class="mention"
@@ -517,7 +517,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Luke すし もじあSkywalker</span>
           </p>
@@ -563,10 +563,10 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span
-              class="YsEditorTheme__hashtag"
+              class="PlaygroundEditorTheme__hashtag"
               data-lexical-text="true">
               #すし
             </span>
@@ -594,7 +594,7 @@ test.describe('Composition', () => {
         page,
         html`
           <p
-            class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">すし#すし もじあ</span>
           </p>
@@ -631,7 +631,7 @@ test.describe('Composition', () => {
       await assertHTML(
         page,
         html`
-          <p class="YsEditorTheme__paragraph"><br /></p>
+          <p class="PlaygroundEditorTheme__paragraph"><br /></p>
         `,
       );
       await assertSelection(page, {
@@ -657,7 +657,7 @@ test.describe('Composition', () => {
       await assertHTML(
         page,
         html`
-          <p class="YsEditorTheme__paragraph">
+          <p class="PlaygroundEditorTheme__paragraph">
             <span data-lexical-text="true"></span>
           </p>
         `,

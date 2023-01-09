@@ -164,7 +164,7 @@ module.exports = {
 
     'no-bitwise': OFF,
 
-    'no-console': ERROR,
+    'no-console': OFF,
 
     'no-debugger': ERROR,
 

@@ -45,34 +45,34 @@ test.describe('CodeActionMenu', () => {
       page,
       `
         <code
-          class=\"YsEditorTheme__code YsEditorTheme__ltr\"
+          class=\"PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr\"
           dir=\"ltr\"
           spellcheck=\"false\"
           data-gutter=\"123\"
           data-highlight-language=\"javascript\">
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenAttr\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenAttr\" data-lexical-text=\"true\">
             const
           </span>
           <span data-lexical-text=\"true\">a</span>
-          <span class=\"YsEditorTheme__tokenOperator\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenOperator\" data-lexical-text=\"true\">
             =
           </span>
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenSelector\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenSelector\" data-lexical-text=\"true\">
             'Hello'
           </span>
           <br />
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenAttr\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenAttr\" data-lexical-text=\"true\">
             const
           </span>
           <span data-lexical-text=\"true\">b</span>
-          <span class=\"YsEditorTheme__tokenOperator\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenOperator\" data-lexical-text=\"true\">
             =
           </span>
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenSelector\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenSelector\" data-lexical-text=\"true\">
             'World'
           </span>
           <br />
@@ -81,7 +81,7 @@ test.describe('CodeActionMenu', () => {
       `,
     );
 
-    await mouseMoveToSelector(page, 'code.YsEditorTheme__code');
+    await mouseMoveToSelector(page, 'code.PlaygroundEditorTheme__code');
 
     if (browserName === 'chromium') {
       await context.grantPermissions(['clipboard-write']);
@@ -113,60 +113,60 @@ test.describe('CodeActionMenu', () => {
       page,
       `
           <code
-          class=\"YsEditorTheme__code YsEditorTheme__ltr\"
+          class=\"PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr\"
           dir=\"ltr\"
           spellcheck=\"false\"
           data-gutter=\"12345\"
           data-highlight-language=\"javascript\">
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenAttr\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenAttr\" data-lexical-text=\"true\">
             const
           </span>
           <span data-lexical-text=\"true\">a</span>
-          <span class=\"YsEditorTheme__tokenOperator\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenOperator\" data-lexical-text=\"true\">
             =
           </span>
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenSelector\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenSelector\" data-lexical-text=\"true\">
             'Hello'
           </span>
           <br />
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenAttr\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenAttr\" data-lexical-text=\"true\">
             const
           </span>
           <span data-lexical-text=\"true\">b</span>
-          <span class=\"YsEditorTheme__tokenOperator\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenOperator\" data-lexical-text=\"true\">
             =
           </span>
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenSelector\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenSelector\" data-lexical-text=\"true\">
             'World'
           </span>
           <br />
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenAttr\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenAttr\" data-lexical-text=\"true\">
             const
           </span>
           <span data-lexical-text=\"true\">a</span>
-          <span class=\"YsEditorTheme__tokenOperator\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenOperator\" data-lexical-text=\"true\">
             =
           </span>
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenSelector\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenSelector\" data-lexical-text=\"true\">
             'Hello'
           </span>
           <br />
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenAttr\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenAttr\" data-lexical-text=\"true\">
             const
           </span>
           <span data-lexical-text=\"true\">b</span>
-          <span class=\"YsEditorTheme__tokenOperator\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenOperator\" data-lexical-text=\"true\">
             =
           </span>
           <span data-lexical-text=\"true\"></span>
-          <span class=\"YsEditorTheme__tokenSelector\" data-lexical-text=\"true\">
+          <span class=\"PlaygroundEditorTheme__tokenSelector\" data-lexical-text=\"true\">
             'World'
           </span>
           <br />
@@ -192,52 +192,52 @@ test.describe('CodeActionMenu', () => {
       page,
       `
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           dir="ltr"
           spellcheck="false"
           data-gutter="1"
           data-highlight-language="javascript">
           <span data-lexical-text="true"></span>
-          <span class="YsEditorTheme__tokenAttr" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenAttr" data-lexical-text="true">
             const
           </span>
           <span data-lexical-text="true">luci</span>
-          <span class="YsEditorTheme__tokenOperator" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenOperator" data-lexical-text="true">
             =
           </span>
           <span data-lexical-text="true"></span>
-          <span class="YsEditorTheme__tokenSelector" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenSelector" data-lexical-text="true">
             'Hello World'
           </span>
         </code>
       `,
     );
 
-    await mouseMoveToSelector(page, 'code.YsEditorTheme__code');
+    await mouseMoveToSelector(page, 'code.PlaygroundEditorTheme__code');
     await click(page, 'button[aria-label=prettier]');
 
     await assertHTML(
       page,
       `
         <code
-        class="YsEditorTheme__code YsEditorTheme__ltr"
+        class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
         dir="ltr"
         spellcheck="false"
         data-gutter="12"
         data-highlight-language="javascript">
-          <span class="YsEditorTheme__tokenAttr" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenAttr" data-lexical-text="true">
             const
           </span>
           <span data-lexical-text="true">luci</span>
-          <span class="YsEditorTheme__tokenOperator" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenOperator" data-lexical-text="true">
             =
           </span>
           <span data-lexical-text="true"></span>
-          <span class="YsEditorTheme__tokenSelector" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenSelector" data-lexical-text="true">
             "Hello World"
           </span>
           <span
-            class="YsEditorTheme__tokenPunctuation"
+            class="PlaygroundEditorTheme__tokenPunctuation"
             data-lexical-text="true">
             ;
           </span>
@@ -264,24 +264,24 @@ test.describe('CodeActionMenu', () => {
       page,
       `
         <code
-          class="YsEditorTheme__code YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__code PlaygroundEditorTheme__ltr"
           dir="ltr"
           spellcheck="false"
           data-gutter="1"
           data-highlight-language="javascript">
           <span data-lexical-text="true">cons luci</span>
-          <span class="YsEditorTheme__tokenOperator" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenOperator" data-lexical-text="true">
             =
           </span>
           <span data-lexical-text="true"></span>
-          <span class="YsEditorTheme__tokenSelector" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__tokenSelector" data-lexical-text="true">
             'Hello World'
           </span>
         </code>
       `,
     );
 
-    await mouseMoveToSelector(page, 'code.YsEditorTheme__code');
+    await mouseMoveToSelector(page, 'code.PlaygroundEditorTheme__code');
     await click(page, 'button[aria-label=prettier]');
 
     expect(await page.$('i.format.prettier-error')).toBeTruthy();

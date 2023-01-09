@@ -29,7 +29,7 @@ test.describe('Regression test #379', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -51,7 +51,7 @@ test.describe('Regression test #379', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"

@@ -5,14 +5,15 @@
   vertical-align: middle;
   position: absolute;
   z-index: 10;
-  top: -10000px;
-  left: -10000px;
+  top: 0px;
+  left: 0px;
   opacity: 0;
   background-color: #fff;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 1px rgb(0 0 0 / 40%), 0px 8px 32px -8px rgb(0 0 0 / 30%);
   border-radius: 8px;
   transition: opacity 0.5s;
   height: 35px;
+  will-change: transform;
 }
 
 .floating-text-format-popup button.popup-item {
@@ -23,6 +24,7 @@
   padding: 8px;
   cursor: pointer;
   vertical-align: middle;
+  align-items: center;
 }
 
 .floating-text-format-popup button.popup-item:disabled {
@@ -36,12 +38,12 @@
 .floating-text-format-popup button.popup-item i.format {
   background-size: contain;
   display: inline-block;
-  height: 18px;
-  width: 18px;
-  margin-top: 2px;
+  height: 20px;
+  width: 20px;
+  /* margin-top: 2px; */
   vertical-align: -0.25em;
   display: flex;
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .floating-text-format-popup button.popup-item:disabled i.format {
@@ -49,22 +51,25 @@
 }
 
 .floating-text-format-popup button.popup-item.active {
-  background-color: rgba(223, 232, 250, 0.3);
+  background-color: rgba(0, 127, 255, 0.15);
+}
+.floating-text-format-popup button.popup-item .iconfont {
+  color: #666;
 }
 
-.floating-text-format-popup button.popup-item.active i {
-  opacity: 1;
+.floating-text-format-popup button.popup-item.active .iconfont {
+  color: #000;
 }
 
 .floating-text-format-popup .popup-item:hover:not([disabled]) {
-  background-color: #eee;
+  background-color: #f0f0f2;
 }
 
 .floating-text-format-popup select.popup-item {
   border: 0;
   display: flex;
   background: none;
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 8px;
   vertical-align: middle;
   -webkit-appearance: none;

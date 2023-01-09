@@ -14,27 +14,33 @@ import {
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_CRITICAL,
+  COMMAND_PRIORITY_HIGH,
   COMMAND_PRIORITY_LOW,
   GridSelection,
+  KEY_ESCAPE_COMMAND,
   LexicalEditor,
   NodeSelection,
   RangeSelection,
   SELECTION_CHANGE_COMMAND,
 } from 'lexical';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {Dispatch, useCallback, useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 import {createPortal} from 'react-dom';
 
 import LinkPreview from '../../ui/LinkPreview';
 import {getSelectedNode} from '../../utils/getSelectedNode';
-import {sanitizeUrl} from '../../utils/sanitizeUrl';
 import {setFloatingElemPosition} from '../../utils/setFloatingElemPosition';
+import {sanitizeUrl} from '../../utils/url';
 
 function FloatingLinkEditor({
   editor,
+  isLink,
+  setIsLink,
   anchorElem,
 }: {
   editor: LexicalEditor;
+  isLink: boolean;
+  setIsLink: Dispatch<boolean>;
   anchorElem: HTMLElement;
 }): JSX.Element {
   const editorRef = useRef<HTMLDivElement | null>(null);
@@ -72,7 +78,8 @@ function FloatingLinkEditor({
       selection !== null &&
       nativeSelection !== null &&
       rootElement !== null &&
-      rootElement.contains(nativeSelection.anchorNode)
+      rootElement.contains(nativeSelection.anchorNode) &&
+      editor.isEditable()
     ) {
       const domRange = nativeSelection.getRangeAt(0);
       let rect;
@@ -140,8 +147,19 @@ function FloatingLinkEditor({
         },
         COMMAND_PRIORITY_LOW,
       ),
+      editor.registerCommand(
+        KEY_ESCAPE_COMMAND,
+        () => {
+          if (isLink) {
+            setIsLink(false);
+            return true;
+          }
+          return false;
+        },
+        COMMAND_PRIORITY_HIGH,
+      ),
     );
-  }, [editor, updateLinkEditor]);
+  }, [editor, updateLinkEditor, setIsLink, isLink]);
 
   useEffect(() => {
     editor.getEditorState().read(() => {
@@ -154,7 +172,6 @@ function FloatingLinkEditor({
       inputRef.current.focus();
     }
   }, [isEditMode]);
-
   return (
     <div ref={editorRef} className="link-editor">
       {isEditMode ? (
@@ -166,7 +183,7 @@ function FloatingLinkEditor({
             setLinkUrl(event.target.value);
           }}
           onKeyDown={(event) => {
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' || event.key === 'Escape') {
               event.preventDefault();
               if (lastSelection !== null) {
                 if (linkUrl !== '') {
@@ -177,9 +194,6 @@ function FloatingLinkEditor({
                 }
                 setEditMode(false);
               }
-            } else if (event.key === 'Escape') {
-              event.preventDefault();
-              setEditMode(false);
             }
           }}
         />
@@ -190,16 +204,7 @@ function FloatingLinkEditor({
               {linkUrl}
             </a>
             <div
-              className="link-edit"
-              role="button"
-              tabIndex={0}
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => {
-                setEditMode(true);
-              }}
-            />
-            <div
-              className="link-clear"
+              className="iconfont icon-pencil-fill"
               role="button"
               tabIndex={0}
               onMouseDown={(event) => event.preventDefault()}
@@ -252,7 +257,12 @@ function useFloatingLinkEditorToolbar(
 
   return isLink
     ? createPortal(
-        <FloatingLinkEditor editor={activeEditor} anchorElem={anchorElem} />,
+        <FloatingLinkEditor
+          editor={activeEditor}
+          isLink={isLink}
+          anchorElem={anchorElem}
+          setIsLink={setIsLink}
+        />,
         anchorElem,
       )
     : null;

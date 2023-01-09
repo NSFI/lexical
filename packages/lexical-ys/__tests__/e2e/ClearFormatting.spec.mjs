@@ -45,7 +45,7 @@ test.describe('Clear All Formatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Hello World Test</span>
         </p>
@@ -72,10 +72,10 @@ test.describe('Clear All Formatting', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <a
             href="https://facebook.com"
-            class="YsEditorTheme__link YsEditorTheme__ltr"
+            class="PlaygroundEditorTheme__link PlaygroundEditorTheme__ltr"
             dir="ltr">
             <span data-lexical-text="true">Facebook!</span>
           </a>
@@ -97,7 +97,7 @@ test.describe('Clear All Formatting', () => {
       page,
       html`
         <blockquote
-          class="YsEditorTheme__quote YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__quote PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Testing for quote node</span>
         </blockquote>
@@ -120,9 +120,9 @@ test.describe('Clear All Formatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
-          <span class="YsEditorTheme__hashtag" data-lexical-text="true">
+          <span class="PlaygroundEditorTheme__hashtag" data-lexical-text="true">
             #facebook
           </span>
           <span data-lexical-text="true">testing</span>
@@ -139,7 +139,7 @@ test.describe('Clear All Formatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span data-lexical-text="true">Luke</span>
         </p>
@@ -150,7 +150,7 @@ test.describe('Clear All Formatting', () => {
     await assertHTML(
       page,
       html`
-        <p class="YsEditorTheme__paragraph">
+        <p class="PlaygroundEditorTheme__paragraph">
           <span
             class="mention"
             style="background-color: rgba(24, 119, 232, 0.2);"
@@ -170,7 +170,7 @@ test.describe('Clear All Formatting', () => {
       page,
       html`
         <p
-          class="YsEditorTheme__paragraph YsEditorTheme__ltr"
+          class="PlaygroundEditorTheme__paragraph PlaygroundEditorTheme__ltr"
           dir="ltr">
           <span
             class="mention"

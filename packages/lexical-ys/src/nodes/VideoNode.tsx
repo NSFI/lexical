@@ -17,7 +17,7 @@ import type {
   Spread,
 } from 'lexical';
 
-import {DecoratorNode} from 'lexical';
+import {$applyNodeReplacement, DecoratorNode} from 'lexical';
 import * as React from 'react';
 import {Suspense} from 'react';
 
@@ -27,15 +27,13 @@ const VideoComponent = React.lazy(
 );
 
 export interface VideoPayload {
-  // altText: string;
-  // caption?: LexicalEditor;
   height?: number;
   key?: NodeKey;
   maxWidth?: number;
-  // showCaption?: boolean;
   src: string;
   width?: number;
-  // captionsEnabled?: boolean;
+  bodyFormData?: any;
+  uploading?: boolean;
 }
 
 function convertVideoElement(domNode: Node): null | DOMConversionOutput {
@@ -49,11 +47,8 @@ function convertVideoElement(domNode: Node): null | DOMConversionOutput {
 
 export type SerializedVideoNode = Spread<
   {
-    // altText: string;
-    // caption: SerializedEditor;
     height?: number;
     maxWidth: number;
-    // showCaption: boolean;
     src: string;
     width?: number;
     type: 'video';
@@ -64,14 +59,11 @@ export type SerializedVideoNode = Spread<
 
 export class VideoNode extends DecoratorNode<JSX.Element> {
   __src: string;
-  // __altText: string;
   __width: 'inherit' | number;
   __height: 'inherit' | number;
   __maxWidth: number;
-  // __showCaption: boolean;
-  // __caption: LexicalEditor;
-  // Captions cannot yet be used within editor cells
-  // __captionsEnabled: boolean;
+  __bodyFormData?: any;
+  __uploading?: boolean;
 
   static getType(): string {
     return 'video';
@@ -80,41 +72,38 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
   static clone(node: VideoNode): VideoNode {
     return new VideoNode(
       node.__src,
-      // node.__altText,
       node.__maxWidth,
       node.__width,
       node.__height,
       // node.__showCaption,
       // node.__caption,
       // node.__captionsEnabled,
-      // node.__key,
+      node.__key,
+      node.__uploading,
     );
   }
 
   static importJSON(serializedNode: SerializedVideoNode): VideoNode {
     const {height, width, maxWidth, src} = serializedNode;
     const node = $createVideoNode({
-      // altText,
       height,
       maxWidth,
-      // showCaption,
       src,
       width,
     });
-    // const nestedEditor = node.__caption;
-    // const editorState = nestedEditor.parseEditorState(caption.editorState);
-    // if (!editorState.isEmpty()) {
-    //   nestedEditor.setEditorState(editorState);
-    // }
     return node;
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement('video');
-    element.setAttribute('src', this.__src);
-    element.setAttribute('controls', 'constrols');
-    // element.setAttribute('alt', this.__altText);
-    return {element};
+    if (this.__uploading) {
+      const element = document.createElement('div');
+      return {element};
+    } else {
+      const element = document.createElement('video');
+      element.setAttribute('src', this.__src);
+      element.setAttribute('controls', 'constrols');
+      return {element};
+    }
   }
 
   static importDOM(): DOMConversionMap | null {
@@ -128,14 +117,11 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
 
   constructor(
     src: string,
-    // altText: string,
     maxWidth: number,
     width?: 'inherit' | number,
     height?: 'inherit' | number,
-    // showCaption?: boolean,
-    // caption?: LexicalEditor,
-    // captionsEnabled?: boolean,
     key?: NodeKey,
+    uploading?: boolean,
   ) {
     super(key);
     this.__src = src;
@@ -143,6 +129,7 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
     this.__maxWidth = maxWidth;
     this.__width = width || 'inherit';
     this.__height = height || 'inherit';
+    this.__uploading = uploading;
     // this.__showCaption = showCaption || false;
     // this.__caption = caption || createEditor();
     // this.__captionsEnabled = captionsEnabled || captionsEnabled === undefined;
@@ -179,13 +166,13 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
   // View
 
   createDOM(config: EditorConfig): HTMLElement {
-    const span = document.createElement('span');
-    const theme = config.theme;
+    const span = document.createElement('div');
+    // const theme = config.theme;
     //TODO:
-    const className = theme.image;
-    if (className !== undefined) {
-      span.className = className;
-    }
+    // const className = theme.image;
+    // if (className !== undefined) {
+    //   span.className = className;
+    // }
     return span;
   }
 
@@ -200,21 +187,21 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
   // getAltText(): string {
   //   return this.__altText;
   // }
-
+  setUploadDone() {
+    const self = this.getWritable();
+    self.__uploading = false;
+  }
   decorate(): JSX.Element {
     return (
       <Suspense fallback={null}>
         <VideoComponent
           src={this.__src}
-          // altText={this.__altText}
           width={this.__width}
           height={this.__height}
           maxWidth={this.__maxWidth}
           nodeKey={this.getKey()}
-          // showCaption={this.__showCaption}
-          // caption={this.__caption}
-          // captionsEnabled={this.__captionsEnabled}
           resizable={true}
+          uploading={this.__uploading}
         />
       </Suspense>
     );
@@ -222,26 +209,15 @@ export class VideoNode extends DecoratorNode<JSX.Element> {
 }
 
 export function $createVideoNode({
-  // altText,
   height,
   maxWidth = 500,
-  // captionsEnabled,
   src,
   width,
-  // showCaption,
-  // caption,
   key,
+  uploading,
 }: VideoPayload): VideoNode {
-  return new VideoNode(
-    src,
-    // altText,
-    maxWidth,
-    width,
-    height,
-    // showCaption,
-    // caption,
-    // captionsEnabled,
-    key,
+  return $applyNodeReplacement(
+    new VideoNode(src, maxWidth, width, height, key, uploading),
   );
 }
 

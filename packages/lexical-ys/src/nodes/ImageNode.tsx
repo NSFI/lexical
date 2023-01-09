@@ -19,7 +19,7 @@ import type {
   Spread,
 } from 'lexical';
 
-import {createEditor, DecoratorNode} from 'lexical';
+import {$applyNodeReplacement, createEditor, DecoratorNode} from 'lexical';
 import * as React from 'react';
 import {Suspense} from 'react';
 
@@ -38,6 +38,7 @@ export interface ImagePayload {
   src: string;
   width?: number;
   captionsEnabled?: boolean;
+  bodyFormData?: any;
 }
 
 function convertImageElement(domNode: Node): null | DOMConversionOutput {
@@ -74,7 +75,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   __caption: LexicalEditor;
   // Captions cannot yet be used within editor cells
   __captionsEnabled: boolean;
-
+  __bodyFormData: any;
   static getType(): string {
     return 'image';
   }
@@ -90,6 +91,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
       node.__caption,
       node.__captionsEnabled,
       node.__key,
+      node.__bodyFormData,
     );
   }
 
@@ -113,10 +115,17 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement('img');
-    element.setAttribute('src', this.__src);
-    element.setAttribute('alt', this.__altText);
-    return {element};
+    if (this.__bodyFormData) {
+      const element = document.createElement('div');
+      // element.setAttribute('src', this.__src);
+      element.setAttribute('alt', this.__altText);
+      return {element};
+    } else {
+      const element = document.createElement('img');
+      element.setAttribute('src', this.__src);
+      element.setAttribute('alt', this.__altText);
+      return {element};
+    }
   }
 
   static importDOM(): DOMConversionMap | null {
@@ -138,6 +147,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     caption?: LexicalEditor,
     captionsEnabled?: boolean,
     key?: NodeKey,
+    bodyFormData?: any,
   ) {
     super(key);
     this.__src = src;
@@ -148,11 +158,13 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     this.__showCaption = showCaption || false;
     this.__caption = caption || createEditor();
     this.__captionsEnabled = captionsEnabled || captionsEnabled === undefined;
+    this.__bodyFormData = bodyFormData;
   }
 
   exportJSON(): SerializedImageNode {
     return {
       altText: this.getAltText(),
+      bodyFormData: this.__bodyFormData,
       caption: this.__caption.toJSON(),
       height: this.__height === 'inherit' ? 0 : this.__height,
       maxWidth: this.__maxWidth,
@@ -212,10 +224,11 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
           height={this.__height}
           maxWidth={this.__maxWidth}
           nodeKey={this.getKey()}
-          showCaption={this.__showCaption}
+          showCaption={false}
           caption={this.__caption}
           captionsEnabled={this.__captionsEnabled}
           resizable={true}
+          bodyFormData={this.__bodyFormData}
         />
       </Suspense>
     );
@@ -225,24 +238,28 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
 export function $createImageNode({
   altText,
   height,
-  maxWidth = 500,
+  maxWidth,
   captionsEnabled,
   src,
   width,
   showCaption,
   caption,
   key,
+  bodyFormData,
 }: ImagePayload): ImageNode {
-  return new ImageNode(
-    src,
-    altText,
-    maxWidth,
-    width,
-    height,
-    showCaption,
-    caption,
-    captionsEnabled,
-    key,
+  return $applyNodeReplacement(
+    new ImageNode(
+      src,
+      altText,
+      maxWidth,
+      width,
+      height,
+      showCaption,
+      caption,
+      captionsEnabled,
+      key,
+      bodyFormData,
+    ),
   );
 }
 

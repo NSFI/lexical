@@ -1,44 +1,108 @@
 {
-  "name": "lexical-ys",
-  "version": "0.5.0",
-  "private": true,
+  "name": "@ysf/lexical-editor",
+  "version": "0.0.6-beta.3",
+  "private": false,
+  "files": [
+    "dist",
+    "src",
+    "dist/*.css"
+  ],
   "scripts": {
     "dev": "vite --host",
     "build-dev": "vite build",
     "build-prod": "vite build --config vite.prod.config.js",
+    "build": "vite build --config vite.test.config.js",
+    "build-test": "vite build --config vite.test.config.js",
     "build-vercel": "(cd ../../ && node ./scripts/build.js --prod) && npm run build-prod",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "module": "./dist/YsEditor.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/YsEditor.es.js"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@excalidraw/excalidraw": "0.11.0",
-    "@lexical/clipboard": "0.5.0",
-    "@lexical/code": "0.5.0",
-    "@lexical/file": "0.5.0",
-    "@lexical/hashtag": "0.5.0",
-    "@lexical/link": "0.5.0",
-    "@lexical/list": "0.5.0",
-    "@lexical/mark": "0.5.0",
-    "@lexical/overflow": "0.5.0",
-    "@lexical/plain-text": "0.5.0",
-    "@lexical/react": "0.5.0",
-    "@lexical/rich-text": "0.5.0",
-    "@lexical/selection": "0.5.0",
-    "@lexical/table": "0.5.0",
-    "@lexical/utils": "0.5.0",
+    "@lexical/clipboard": "0.6.4",
+    "@lexical/code": "0.6.4",
+    "@lexical/file": "0.6.4",
+    "@lexical/hashtag": "0.6.4",
+    "@lexical/link": "0.6.4",
+    "@lexical/list": "0.6.4",
+    "@lexical/mark": "0.6.4",
+    "@lexical/overflow": "0.6.4",
+    "@lexical/plain-text": "0.6.4",
+    "@lexical/react": "0.6.4",
+    "@lexical/rich-text": "0.6.4",
+    "@lexical/selection": "0.6.4",
+    "@lexical/table": "0.6.4",
+    "@lexical/utils": "0.6.4",
+    "axios": "^1.1.3",
+    "crypto-js": "^4.1.1",
+    "js-cookie": "^3.0.1",
     "katex": "^0.15.2",
-    "lexical": "0.5.0",
+    "lexical": "0.6.4",
     "link-preview-generator": "1.0.7",
     "lodash-es": "^4.17.21",
     "prettier": "^2.3.2",
-    "react": "^18.0.0-alpha-64931821a-20210808",
-    "react-dom": "^18.0.0-alpha-64931821a-20210808",
+    "react-error-boundary": "^3.1.4",
+    "video.js": "^7.20.3",
     "y-websocket": ">=1.3.x",
     "yjs": ">=13.5.22"
   },
+  "peerDependencies": {
+    "antd": ">=4.23.6",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@rollup/plugin-alias": "^4.0.2",
+    "@rollup/plugin-inject": "^5.0.2",
+    "@rollup/plugin-typescript": "^9.0.2",
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^27.0.2",
+    "@types/js-cookie": "^3.0.2",
     "@types/lodash-es": "^4.14.182",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/video.js": "^7.3.49",
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
     "@vitejs/plugin-react": "^1.0.7",
+    "antd": "^4.23.6",
+    "babel-jest": "^27.3.1",
+    "eslint": "^8.2.0",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.1-alpha-327d5c484-20211106",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "less": "^4.1.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-test-renderer": "^17.0.2",
+    "typescript": "^4.3.2",
     "vite": "^2.8.0",
-    "vite-plugin-replace": "0.1.1"
+    "vite-plugin-libcss": "^1.0.5",
+    "vite-plugin-replace": "0.1.1",
+    "vite-plugin-svgr": "^0.5.0"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
+    }
   }
 }

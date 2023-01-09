@@ -6,7 +6,7 @@
  *
  */
 
-import type {EditorState, RangeSelection, TextFormatType} from 'lexical';
+import type {RangeSelection, TextFormatType} from 'lexical';
 
 import {
   $generateJSONFromSelectedNodes,
@@ -59,7 +59,10 @@ import * as React from 'react';
 import {createPortal} from 'react-dom';
 import {IS_APPLE} from 'shared/environment';
 
+import {useLocale} from '../context/LocaleContext';
 import {CellContext} from '../plugins/TablePlugin';
+import TableCellNodes from './../nodes/TableCellNodes';
+import YsEditorTheme from './../themes/YsEditorTheme';
 import {
   $isTableNode,
   Cell,
@@ -72,6 +75,7 @@ import {
   Rows,
   TableNode,
 } from './TableNode';
+import {getCellsSpan, getSelection} from './TableUtils';
 
 type SortOptions = {type: 'ascending' | 'descending'; x: number};
 
@@ -204,13 +208,7 @@ function $updateCells(
       const editorState = cellEditor.parseEditorState(cell.json);
       cellEditor._headless = true;
       cellEditor.setEditorState(editorState);
-      cellEditor.update(() => {
-        // Complete hack for now
-        const pendingEditorState =
-          cellEditor._pendingEditorState as EditorState;
-        pendingEditorState._flushSync = true;
-        fn();
-      });
+      cellEditor.update(fn, {discrete: true});
       cellEditor._headless = false;
       const newJSON = JSON.stringify(cellEditor.getEditorState());
       updateTableNode((tableNode) => {
@@ -242,20 +240,22 @@ function getSelectedRect(
   startID: string,
   endID: string,
   cellCoordMap: Map<string, [number, number]>,
+  rows: Rows,
 ): null | {startX: number; endX: number; startY: number; endY: number} {
   const startCoords = cellCoordMap.get(startID);
   const endCoords = cellCoordMap.get(endID);
   if (startCoords === undefined || endCoords === undefined) {
     return null;
   }
+
   const startX = Math.min(startCoords[0], endCoords[0]);
   const endX = Math.max(startCoords[0], endCoords[0]);
   const startY = Math.min(startCoords[1], endCoords[1]);
   const endY = Math.max(startCoords[1], endCoords[1]);
 
   return {
-    endX,
-    endY,
+    endX: endX,
+    endY: endY,
     startX,
     startY,
   };
@@ -267,18 +267,29 @@ function getSelectedIDs(
   endID: string,
   cellCoordMap: Map<string, [number, number]>,
 ): Array<string> {
-  const rect = getSelectedRect(startID, endID, cellCoordMap);
+  const rect = getSelectedRect(startID, endID, cellCoordMap, rows);
   if (rect === null) {
     return [];
   }
-  const {startX, endY, endX, startY} = rect;
   const ids = [];
 
-  for (let x = startX; x <= endX; x++) {
-    for (let y = startY; y <= endY; y++) {
-      ids.push(rows[y].cells[x].id);
-    }
-  }
+  const start = cellCoordMap.get(startID);
+  const end = cellCoordMap.get(endID);
+  // if (start[0] < end[0]) {
+  //   [start, end] = [end, start];
+  // }
+  const cells = getSelection(start, end, rows);
+  cells.forEach((item) => {
+    ids.push(rows[item[0]].cells[item[1]].id);
+  });
+  //----------------------------------------------------------------
+
+  // for (let x = startX; x <= endX; x++) {
+  //   for (let y = startY; y <= endY; y++) {
+  //     ids.push(rows[y].cells[x].id);
+  //   }
+  // }
+
   return ids;
 }
 
@@ -344,6 +355,7 @@ function TableActionMenu({
   updateTableNode,
   setSortingOptions,
   sortingOptions,
+  locale,
 }: {
   cell: Cell;
   menuElem: HTMLElement;
@@ -354,6 +366,7 @@ function TableActionMenu({
   rows: Rows;
   setSortingOptions: (options: null | SortOptions) => void;
   sortingOptions: null | SortOptions;
+  locale: any;
 }) {
   const dropDownRef = useRef<null | HTMLDivElement>(null);
 
@@ -386,7 +399,6 @@ function TableActionMenu({
     return null;
   }
   const [x, y] = coords;
-
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -418,7 +430,7 @@ function TableActionMenu({
           onClose();
         }}>
         <span className="text">
-          {cell.type === 'normal' ? 'Make header' : 'Remove header'}
+          {cell.type === 'normal' ? '置为表头' : '移除表头'}
         </span>
       </button>
       <button
@@ -431,12 +443,12 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Clear cell</span>
+        <span className="text">{locale.clearCell}</span>
       </button>
       <hr />
       {cell.type === 'header' && y === 0 && (
         <>
-          {sortingOptions !== null && sortingOptions.x === x && (
+          {/* {sortingOptions !== null && sortingOptions.x === x && (
             <button
               className="item"
               onClick={() => {
@@ -445,8 +457,8 @@ function TableActionMenu({
               }}>
               <span className="text">Remove sorting</span>
             </button>
-          )}
-          {(sortingOptions === null ||
+          )} */}
+          {/* {(sortingOptions === null ||
             sortingOptions.x !== x ||
             sortingOptions.type === 'descending') && (
             <button
@@ -469,7 +481,7 @@ function TableActionMenu({
               }}>
               <span className="text">Sort descending</span>
             </button>
-          )}
+          )} */}
           <hr />
         </>
       )}
@@ -478,22 +490,33 @@ function TableActionMenu({
         onClick={() => {
           updateTableNode((tableNode) => {
             $addUpdateTag('history-push');
-            tableNode.insertRowAt(y);
+            const path = cellCoordMap.get(cell.id);
+            tableNode.insertRowAt(y, cell, [path[1], path[0]]);
           });
           onClose();
         }}>
-        <span className="text">Insert row above</span>
+        <span className="text">
+          {' '}
+          {locale.insert}
+          {locale.row}
+          {locale.above}
+        </span>
       </button>
       <button
         className="item"
         onClick={() => {
           updateTableNode((tableNode) => {
             $addUpdateTag('history-push');
-            tableNode.insertRowAt(y + 1);
+            const path = cellCoordMap.get(cell.id);
+            tableNode.insertRowAt(y + 1, cell, [path[1], path[0]]);
           });
           onClose();
         }}>
-        <span className="text">Insert row below</span>
+        <span className="text">
+          {locale.insert}
+          {locale.row}
+          {locale.below}
+        </span>
       </button>
       <hr />
       <button
@@ -505,7 +528,11 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Insert column left</span>
+        <span className="text">
+          {locale.insert}
+          {locale.column}
+          {locale.left}
+        </span>
       </button>
       <button
         className="item"
@@ -516,7 +543,12 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Insert column right</span>
+        <span className="text">
+          {' '}
+          {locale.insert}
+          {locale.column}
+          {locale.right}
+        </span>
       </button>
       <hr />
       {rows[0].cells.length !== 1 && (
@@ -529,7 +561,7 @@ function TableActionMenu({
             });
             onClose();
           }}>
-          <span className="text">Delete column</span>
+          <span className="text">{locale.deleteColumn}</span>
         </button>
       )}
       {rows.length !== 1 && (
@@ -542,7 +574,7 @@ function TableActionMenu({
             });
             onClose();
           }}>
-          <span className="text">Delete row</span>
+          <span className="text">{locale.deleteRow}</span>
         </button>
       )}
       <button
@@ -555,8 +587,98 @@ function TableActionMenu({
           });
           onClose();
         }}>
-        <span className="text">Delete table</span>
+        <span className="text">{locale.deleteTable}</span>
       </button>
+    </div>
+  );
+}
+
+function TableOperationBar({
+  selectedCellIDs,
+  cellCoordMap,
+  updateTableNode,
+  onClose,
+  rows,
+}: {
+  selectedCellIDs: string[];
+  onClose: () => void;
+  updateTableNode: (fn2: (tableNode: TableNode) => void) => void;
+  cellCoordMap: Map<string, [number, number]>;
+  rows: Rows;
+}) {
+  const operationBarRef = useRef<null | HTMLDivElement>(null);
+  useEffect(() => {
+    const operationBar = operationBarRef.current;
+    if (operationBar !== null) {
+      const rect = document
+        .querySelector(`table [data-id=${selectedCellIDs[0]}]`)
+        .getBoundingClientRect();
+      operationBar.style.top = `${rect.y}px`;
+      operationBar.style.left = `${rect.x}px`;
+    }
+  }, []);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const dropdownElem = operationBarRef.current;
+      if (
+        dropdownElem !== null &&
+        !dropdownElem.contains(event.target as Node)
+      ) {
+        event.stopPropagation();
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
+  }, [onClose]);
+  return (
+    <div
+      className="dropdown"
+      style={{minHeight: 'auto'}}
+      ref={operationBarRef}
+      onPointerMove={(e) => {
+        e.stopPropagation();
+      }}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+      }}
+      onPointerUp={(e) => {
+        e.stopPropagation();
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}>
+      <i
+        className="iconfont icon-hebing"
+        role="button"
+        style={{fontSize: '14px', padding: '12px'}}
+        onClick={() => {
+          if (selectedCellIDs.length < 2) {
+            return;
+          }
+          const firstCellID = selectedCellIDs[0];
+          const lastCellID = selectedCellIDs[selectedCellIDs.length - 1];
+          const firstCellRect = cellCoordMap.get(firstCellID);
+          const lastCellRect = cellCoordMap.get(lastCellID);
+          if (!firstCellRect || !lastCellRect) return;
+          updateTableNode((tableNode) => {
+            $addUpdateTag('history-push');
+            const cellPaths = selectedCellIDs.map((cellID: string) => {
+              const position: [number, number] = cellCoordMap.get(cellID);
+              return [position[1], position[0]];
+            });
+            const spans = getCellsSpan(rows, cellPaths);
+            tableNode.mergeCells(
+              selectedCellIDs,
+              firstCellRect,
+              lastCellRect,
+              spans,
+              cellPaths,
+            );
+          });
+          onClose();
+        }}
+      />
     </div>
   );
 }
@@ -574,7 +696,10 @@ function TableCell({
   rows,
   setSortingOptions,
   sortingOptions,
-}: {
+  colSpan = 1,
+  rowSpan = 1,
+}: // isEmpty = false
+{
   cell: Cell;
   isEditing: boolean;
   isSelected: boolean;
@@ -587,6 +712,9 @@ function TableCell({
   rows: Rows;
   setSortingOptions: (options: null | SortOptions) => void;
   sortingOptions: null | SortOptions;
+  colSpan?: number;
+  rowSpan?: number;
+  // isEmpty?: boolean;
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRootRef = useRef(null);
@@ -596,6 +724,8 @@ function TableCell({
   const cellWidth = cell.width;
   const menuElem = menuRootRef.current;
   const coords = cellCoordMap.get(cell.id);
+  const locale = useLocale();
+
   const isSorted =
     sortingOptions !== null &&
     coords !== undefined &&
@@ -615,7 +745,10 @@ function TableCell({
       }`}
       data-id={cell.id}
       tabIndex={-1}
+      colSpan={colSpan}
+      rowSpan={rowSpan}
       style={{width: cellWidth !== null ? cellWidth : undefined}}>
+      {/* ...isEmpty ? { display: 'none' } : null } */}
       {isPrimarySelected && (
         <div
           className={`${theme.tableCellPrimarySelected} ${
@@ -647,7 +780,7 @@ function TableCell({
               setShowMenu(!showMenu);
               e.stopPropagation();
             }}>
-            <i className="chevron-down" />
+            <i className="iconfont icon-chevron-down" />
           </button>
         </div>
       )}
@@ -658,15 +791,19 @@ function TableCell({
             cell={cell}
             menuElem={menuElem}
             updateCellsByID={updateCellsByID}
-            onClose={() => setShowMenu(false)}
+            onClose={() => {
+              setShowMenu(false);
+            }}
             updateTableNode={updateTableNode}
             cellCoordMap={cellCoordMap}
             rows={rows}
             setSortingOptions={setSortingOptions}
             sortingOptions={sortingOptions}
+            locale={locale}
           />,
           document.body,
         )}
+
       {isSorted && <div className={theme.tableCellSortedIndicator} />}
     </CellComponent>
   );
@@ -695,12 +832,13 @@ export default function TableComponent({
   const tableResizerRulerRef = useRef<null | HTMLDivElement>(null);
   const {cellEditorConfig} = useContext(CellContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [showAddColumns, setShowAddColumns] = useState(false);
-  const [showAddRows, setShowAddRows] = useState(false);
+  const [showAddColumns, setShowAddColumns] = useState(true);
+  const [showAddRows, setShowAddRows] = useState(true);
   const [editor] = useLexicalComposerContext();
   const mouseDownRef = useRef(false);
   const [resizingID, setResizingID] = useState<null | string>(null);
   const tableRef = useRef<null | HTMLTableElement>(null);
+  const [showOperationBar, setShowOperationBar] = useState(false);
   const cellCoordMap = useMemo(() => {
     const map = new Map();
 
@@ -714,6 +852,34 @@ export default function TableComponent({
     }
     return map;
   }, [rawRows]);
+  // const cellCoordMap2 = useMemo(() => {
+  //   const map = new Map();
+
+  //   for (let y = 0; y < rawRows.length; y++) {
+  //     const row = rawRows[y];
+  //     const cells = row.cells;
+  //     for (let x = 0; x < cells.length; x++) {
+  //       const cell = cells[x];
+  //       if (cell.rowSpan > 1 || cell.colSpan > 1) {
+  //         map.set(cell.id, [
+  //           [x, y],
+  //           [x + cell.rowSpan - 1, y + cell.colSpan - 1],
+  //         ]);
+  //       } else {
+  //         map.set(cell.id, [
+  //           [x, y],
+  //           [x + cell.rowSpan - 1, y + cell.colSpan - 1],
+  //         ]);
+  //       }
+  //     }
+  //   }
+  //   return map;
+  // }, [rawRows]);
+  // const totalColNum = useMemo(() => {
+  //   rawRows[0].cells.reduce((colNum, cell) => {
+  //     return colNum + cell.colSpan;
+  //   }, 0);
+  // }, [rawRows]);
   const rows = useMemo(() => {
     if (sortingOptions === null) {
       return rawRows;
@@ -736,18 +902,27 @@ export default function TableComponent({
     _rows.unshift(rawRows[0]);
     return _rows;
   }, [rawRows, sortingOptions]);
+
   const [primarySelectedCellID, setPrimarySelectedCellID] = useState<
     null | string
   >(null);
   const cellEditor = useMemo<null | LexicalEditor>(() => {
-    if (cellEditorConfig === null) {
-      return null;
-    }
+    // if (cellEditorConfig === null) {
+    //   return null;
+    // }
+    const cellEditorConfig1 = {
+      namespace: 'Playground',
+      nodes: [...TableCellNodes],
+      onError: (error: Error) => {
+        throw error;
+      },
+      theme: YsEditorTheme,
+    };
     const _cellEditor = createEditor({
-      namespace: cellEditorConfig.namespace,
-      nodes: cellEditorConfig.nodes,
-      onError: (error) => cellEditorConfig.onError(error, _cellEditor),
-      theme: cellEditorConfig.theme,
+      namespace: cellEditorConfig1.namespace,
+      nodes: cellEditorConfig1.nodes,
+      onError: (error) => cellEditorConfig1.onError(error, _cellEditor),
+      theme: cellEditorConfig1.theme,
     });
     return _cellEditor;
   }, [cellEditorConfig]);
@@ -928,6 +1103,7 @@ export default function TableComponent({
       if (!isEditing) {
         const {clientX, clientY} = event;
         const {width, x, y, height} = tableRect;
+        // console.log('height', height);
         const isOnRightEdge =
           clientX > x + width * 0.9 &&
           clientX < x + width + 40 &&
@@ -1024,8 +1200,18 @@ export default function TableComponent({
 
       const loadContentIntoCell = (cell: Cell | null) => {
         if (cell !== null && cellEditor !== null) {
-          const editorStateJSON = cell.json;
+          let editorStateJSON = cell.json;
+          if (
+            editorStateJSON ===
+            '{"root":{"children":[],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
+          ) {
+            editorStateJSON =
+              '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+          }
+          console.log('cell.json', cell.json);
+          console.log('editorStateJSON', editorStateJSON);
           const editorState = cellEditor.parseEditorState(editorStateJSON);
+          console.log('editorState', editorState);
           cellEditor.setEditorState(editorState);
         }
       };
@@ -1104,6 +1290,13 @@ export default function TableComponent({
     primarySelectedCellID,
     cellCoordMap,
   ]);
+  useEffect(() => {
+    if (selectedCellIDs.length > 1) {
+      setShowOperationBar(true);
+    } else {
+      setShowOperationBar(false);
+    }
+  }, [selectedCellIDs]);
 
   const updateCellsByID = useCallback(
     (ids: Array<string>, fn: () => void) => {
@@ -1351,6 +1544,7 @@ export default function TableComponent({
           primarySelectedCellID,
           lastCellID,
           cellCoordMap,
+          rows,
         );
         if (rect === null) {
           return;
@@ -1717,11 +1911,9 @@ export default function TableComponent({
     setSelected,
     updateTableNode,
   ]);
-
   if (cellEditor === null) {
     return;
   }
-
   return (
     <div style={{position: 'relative'}}>
       <table
@@ -1729,45 +1921,71 @@ export default function TableComponent({
         ref={tableRef}
         tabIndex={-1}>
         <tbody>
-          {rows.map((row) => (
-            <tr key={row.id} className={theme.tableRow}>
-              {row.cells.map((cell) => {
-                const {id} = cell;
-                return (
-                  <TableCell
-                    key={id}
-                    cell={cell}
-                    theme={theme}
-                    isSelected={selectedCellSet.has(id)}
-                    isPrimarySelected={primarySelectedCellID === id}
-                    isEditing={isEditing}
-                    sortingOptions={sortingOptions}
-                    cellEditor={cellEditor}
-                    updateCellsByID={updateCellsByID}
-                    updateTableNode={updateTableNode}
-                    cellCoordMap={cellCoordMap}
-                    rows={rows}
-                    setSortingOptions={setSortingOptions}
-                  />
-                );
-              })}
-            </tr>
-          ))}
+          {rows.map((row, index2) => {
+            return (
+              <tr key={row.id} className={theme.tableRow}>
+                {row.cells.map((cell, index) => {
+                  // if (index === row.cells.length - 1 && index2 === rows.length - 1) {
+                  //   return null;
+                  // }
+                  const {id} = cell;
+                  return (
+                    <TableCell
+                      key={id}
+                      cell={cell}
+                      theme={theme}
+                      rowSpan={cell.rowSpan || 1}
+                      colSpan={cell.colSpan || 1}
+                      // isEmpty={cell.isEmpty}
+                      // colSpan={index === row.cells.length - 2 && index2 === rows.length - 1 ? 2 : 1}
+                      isSelected={selectedCellSet.has(id)}
+                      isPrimarySelected={primarySelectedCellID === id}
+                      isEditing={isEditing}
+                      sortingOptions={sortingOptions}
+                      cellEditor={cellEditor}
+                      updateCellsByID={updateCellsByID}
+                      updateTableNode={updateTableNode}
+                      cellCoordMap={cellCoordMap}
+                      rows={rows}
+                      setSortingOptions={setSortingOptions}
+                    />
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
-      {showAddColumns && (
-        <button className={theme.tableAddColumns} onClick={addColumns} />
+      {/* TODO:先用cellEditorConfig 来判断是编辑还是预览 */}
+      {showAddColumns && cellEditorConfig && (
+        <button className={theme.tableAddColumns} onClick={addColumns}>
+          +
+        </button>
       )}
-      {showAddRows && (
+      {showAddRows && cellEditorConfig && (
         <button
           className={theme.tableAddRows}
           onClick={addRows}
-          ref={addRowsRef}
-        />
+          ref={addRowsRef}>
+          +
+        </button>
       )}
       {resizingID !== null && (
         <div className={theme.tableResizeRuler} ref={tableResizerRulerRef} />
       )}
+      {showOperationBar &&
+        createPortal(
+          <TableOperationBar
+            selectedCellIDs={selectedCellIDs}
+            cellCoordMap={cellCoordMap}
+            updateTableNode={updateTableNode}
+            onClose={() => {
+              setShowOperationBar(false);
+            }}
+            rows={rows}
+          />,
+          document.body,
+        )}
     </div>
   );
 }

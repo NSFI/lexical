@@ -6,11 +6,12 @@
  *
  */
 
-import type { EditorThemeClasses } from 'lexical';
+import type {EditorThemeClasses} from 'lexical';
 
 import './YsEditorTheme.css';
 
 const theme: EditorThemeClasses = {
+  blockCursor: 'YsEditorTheme__blockCursor',
   characterLimit: 'YsEditorTheme__characterLimit',
   code: 'YsEditorTheme__code',
   codeHighlight: {

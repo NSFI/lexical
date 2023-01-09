@@ -35,7 +35,110 @@ window.addEventListener('unhandledrejection', ({reason}) =>
 );
 
 const App1 = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState({
+    root: {
+      children: [
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'fdsfdsffdfdfddffffffffffffffffffffffffffffffffffffffffffffffffffffdddd哒哒哒哒哒哒多多多多ddd 的的辅导辅导费',
+              type: 'code-highlight',
+              version: 1,
+            },
+            {
+              type: 'linebreak',
+              version: 1,
+            },
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'fffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdv',
+              type: 'code-highlight',
+              version: 1,
+            },
+            {
+              type: 'linebreak',
+              version: 1,
+            },
+            {
+              type: 'linebreak',
+              version: 1,
+            },
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'fdfd​',
+              type: 'code-highlight',
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          language: 'javascript',
+          type: 'code',
+          version: 1,
+        },
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'fdfdfd',
+              type: 'text',
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
+          children: [],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: 'normal',
+              style: '',
+              text: 'fdfdfd',
+              type: 'text',
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+        },
+      ],
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      type: 'root',
+      version: 1,
+    },
+  });
   return (
     <>
       <button
@@ -49,7 +152,7 @@ const App1 = () => {
           // console.log('jsonValue', jsonValue,htmlValue);
         }}
         initValue={value}
-        isEditable={true}
+        isEditable={false}
         title={'ddffd'}
         isMobile={false}
         spaceAnchor={'dfdfdfd'}

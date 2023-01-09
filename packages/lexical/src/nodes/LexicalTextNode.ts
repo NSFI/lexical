@@ -6,10 +6,16 @@
  *
  */
 
-import type {EditorConfig, TextNodeThemeClasses} from '../LexicalEditor';
+import type {
+  EditorConfig,
+  LexicalEditor,
+  Spread,
+  TextNodeThemeClasses,
+} from '../LexicalEditor';
 import type {
   DOMConversionMap,
   DOMConversionOutput,
+  DOMExportOutput,
   NodeKey,
   SerializedLexicalNode,
 } from '../LexicalNode';
@@ -18,7 +24,6 @@ import type {
   NodeSelection,
   RangeSelection,
 } from '../LexicalSelection';
-import type {Spread} from 'lexical';
 
 import {IS_FIREFOX} from 'shared/environment';
 import invariant from 'shared/invariant';
@@ -58,6 +63,7 @@ import {
   internalMarkSiblingsAsDirty,
   toggleTextFormatType,
 } from '../LexicalUtils';
+import {$createLineBreakNode} from './LexicalLineBreakNode';
 
 export type SerializedTextNode = Spread<
   {
@@ -252,6 +258,12 @@ function createTextInnerDOM(
   }
 }
 
+function wrapElementWith(element: HTMLElement, tag: string): HTMLElement {
+  const el = document.createElement(tag);
+  el.appendChild(element);
+  return el;
+}
+
 /** @noInheritDoc */
 export class TextNode extends LexicalNode {
   __text: string;
@@ -436,43 +448,51 @@ export class TextNode extends LexicalNode {
 
   static importDOM(): DOMConversionMap | null {
     return {
-      '#text': (node: Node) => ({
+      '#text': () => ({
         conversion: convertTextDOMNode,
         priority: 0,
       }),
-      b: (node: Node) => ({
+      b: () => ({
         conversion: convertBringAttentionToElement,
         priority: 0,
       }),
-      code: (node: Node) => ({
+      br: () => ({
+        conversion: convertLineBreakToElement,
+        priority: 0,
+      }),
+      code: () => ({
         conversion: convertTextFormatElement,
         priority: 0,
       }),
-      em: (node: Node) => ({
+      em: () => ({
         conversion: convertTextFormatElement,
         priority: 0,
       }),
-      i: (node: Node) => ({
+      i: () => ({
         conversion: convertTextFormatElement,
         priority: 0,
       }),
-      span: (node: HTMLSpanElement) => ({
+      s: () => ({
+        conversion: convertTextFormatElement,
+        priority: 0,
+      }),
+      span: () => ({
         conversion: convertSpanElement,
         priority: 0,
       }),
-      strong: (node: Node) => ({
+      strong: () => ({
         conversion: convertTextFormatElement,
         priority: 0,
       }),
-      sub: (node: Node) => ({
+      sub: () => ({
         conversion: convertTextFormatElement,
         priority: 0,
       }),
-      sup: (node: Node) => ({
+      sup: () => ({
         conversion: convertTextFormatElement,
         priority: 0,
       }),
-      u: (node: Node) => ({
+      u: () => ({
         conversion: convertTextFormatElement,
         priority: 0,
       }),
@@ -486,6 +506,35 @@ export class TextNode extends LexicalNode {
     node.setMode(serializedNode.mode);
     node.setStyle(serializedNode.style);
     return node;
+  }
+
+  // This improves Lexical's basic text output in copy+paste plus
+  // for headless mode where people might use Lexical to generate
+  // HTML content and not have the ability to use CSS classes.
+  exportDOM(editor: LexicalEditor): DOMExportOutput {
+    let {element} = super.exportDOM(editor);
+
+    // This is the only way to properly add support for most clients,
+    // even if it's semantically incorrect to have to resort to using
+    // <b>, <u>, <s>, <i> elements.
+    if (element !== null) {
+      if (this.hasFormat('bold')) {
+        element = wrapElementWith(element, 'b');
+      }
+      if (this.hasFormat('italic')) {
+        element = wrapElementWith(element, 'i');
+      }
+      if (this.hasFormat('strikethrough')) {
+        element = wrapElementWith(element, 's');
+      }
+      if (this.hasFormat('underline')) {
+        element = wrapElementWith(element, 'u');
+      }
+    }
+
+    return {
+      element,
+    };
   }
 
   exportJSON(): SerializedTextNode {
@@ -867,6 +916,13 @@ function convertSpanElement(domNode: Node): DOMConversionOutput {
     node: null,
   };
 }
+
+function convertLineBreakToElement(): DOMConversionOutput {
+  return {
+    node: $createLineBreakNode(),
+  };
+}
+
 function convertBringAttentionToElement(domNode: Node): DOMConversionOutput {
   // domNode is a <b> since we matched it by nodeName
   const b = domNode as HTMLElement;
@@ -883,6 +939,7 @@ function convertBringAttentionToElement(domNode: Node): DOMConversionOutput {
     node: null,
   };
 }
+
 function convertTextDOMNode(
   domNode: Node,
   _parent?: Node,
@@ -897,15 +954,18 @@ function convertTextDOMNode(
   }
   return {node: $createTextNode(textContent)};
 }
+
 const nodeNameToTextFormat: Record<string, TextFormatType> = {
   code: 'code',
   em: 'italic',
   i: 'italic',
+  s: 'strikethrough',
   strong: 'bold',
   sub: 'subscript',
   sup: 'superscript',
   u: 'underline',
 };
+
 function convertTextFormatElement(domNode: Node): DOMConversionOutput {
   const format = nodeNameToTextFormat[domNode.nodeName.toLowerCase()];
   if (format === undefined) {
@@ -913,7 +973,7 @@ function convertTextFormatElement(domNode: Node): DOMConversionOutput {
   }
   return {
     forChild: (lexicalNode) => {
-      if ($isTextNode(lexicalNode)) {
+      if ($isTextNode(lexicalNode) && !lexicalNode.hasFormat(format)) {
         lexicalNode.toggleFormat(format);
       }
 

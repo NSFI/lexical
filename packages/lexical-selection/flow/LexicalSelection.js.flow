@@ -49,6 +49,10 @@ declare export function $wrapNodes(
   createElement: () => ElementNode,
   wrappingElement?: ElementNode,
 ): void;
+declare export function $setBlocksType_experimental(
+  selection: RangeSelection,
+  createElement: () => ElementNode,
+): void;
 declare export function $isAtNodeEnd(point: Point): boolean;
 declare export function $shouldOverrideDefaultCharacterSelection(
   selection: RangeSelection,

@@ -19,10 +19,9 @@ import type {
 import type {SerializedEditorState} from './LexicalEditorState';
 import type {LexicalNode, SerializedLexicalNode} from './LexicalNode';
 
-import getDOMSelection from 'shared/getDOMSelection';
 import invariant from 'shared/invariant';
 
-import {$isElementNode, $isTextNode} from '.';
+import {$isElementNode, $isTextNode, SELECTION_CHANGE_COMMAND} from '.';
 import {FULL_RECONCILE, NO_DIRTY_NODES} from './LexicalConstants';
 import {resetEditor} from './LexicalEditor';
 import {
@@ -47,6 +46,7 @@ import {
 } from './LexicalSelection';
 import {
   $getCompositionKey,
+  getDOMSelection,
   getEditorStateTextContent,
   getEditorsToPropagate,
   getRegisteredNodeOrThrow,
@@ -68,7 +68,10 @@ const observerOptions = {
 };
 
 export function isCurrentlyReadOnlyMode(): boolean {
-  return isReadOnlyMode;
+  return (
+    isReadOnlyMode ||
+    (activeEditorState !== null && activeEditorState._readOnly)
+  );
 }
 
 export function errorOnReadOnly(): void {
@@ -111,6 +114,10 @@ export function getActiveEditor(): LexicalEditor {
     );
   }
 
+  return activeEditor;
+}
+
+export function internalGetActiveEditor(): LexicalEditor | null {
   return activeEditor;
 }
 
@@ -514,7 +521,7 @@ export function commitPendingUpdates(editor: LexicalEditor): void {
   const normalizedNodes = editor._normalizedNodes;
   const tags = editor._updateTags;
   const deferred = editor._deferred;
-  const dirtyLeavesCount = dirtyLeaves.size;
+  const nodeCount = pendingEditorState._nodeMap.size;
 
   if (needsUpdate) {
     editor._dirtyType = NO_DIRTY_NODES;
@@ -530,7 +537,7 @@ export function commitPendingUpdates(editor: LexicalEditor): void {
   // Reconciliation has finished. Now update selection and trigger listeners.
   // ======
 
-  const domSelection = shouldSkipDOM ? null : getDOMSelection();
+  const domSelection = shouldSkipDOM ? null : getDOMSelection(editor._window);
 
   // Attempt to update the DOM selection, including focusing of the root element,
   // and scroll into view if needed.
@@ -562,7 +569,7 @@ export function commitPendingUpdates(editor: LexicalEditor): void {
           domSelection,
           tags,
           rootElement as HTMLElement,
-          dirtyLeavesCount,
+          nodeCount,
         );
       }
       updateDOMBlockCursorElement(
@@ -589,7 +596,13 @@ export function commitPendingUpdates(editor: LexicalEditor): void {
       dirtyLeaves,
     );
   }
-
+  if (
+    !$isRangeSelection(pendingSelection) &&
+    pendingSelection !== null &&
+    (currentSelection === null || !currentSelection.is(pendingSelection))
+  ) {
+    editor.dispatchCommand(SELECTION_CHANGE_COMMAND, undefined);
+  }
   /**
    * Capture pendingDecorators after garbage collecting detached decorators
    */
@@ -959,8 +972,4 @@ export function updateEditor(
   } else {
     beginUpdate(editor, updateFn, options);
   }
-}
-
-export function internalGetActiveEditor(): null | LexicalEditor {
-  return activeEditor;
 }

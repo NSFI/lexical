@@ -29,8 +29,8 @@ import type {
 import type {RootNode} from './nodes/LexicalRootNode';
 import type {TextFormatType, TextNode} from './nodes/LexicalTextNode';
 
+import {CAN_USE_DOM} from 'shared/canUseDOM';
 import {IS_APPLE, IS_IOS, IS_SAFARI} from 'shared/environment';
-import getDOMSelection from 'shared/getDOMSelection';
 import invariant from 'shared/invariant';
 
 import {
@@ -107,11 +107,20 @@ export function $isSelectionCapturedInDecorator(node: Node): boolean {
 }
 
 export function isSelectionCapturedInDecoratorInput(anchorDOM: Node): boolean {
-  const activeElement = document.activeElement;
-  const nodeName = activeElement !== null ? activeElement.nodeName : null;
+  const activeElement = document.activeElement as HTMLElement;
+
+  if (activeElement === null) {
+    return false;
+  }
+  const nodeName = activeElement.nodeName;
+
   return (
     $isDecoratorNode($getNearestNodeFromDOMNode(anchorDOM)) &&
-    (nodeName === 'INPUT' || nodeName === 'TEXTAREA')
+    (nodeName === 'INPUT' ||
+      nodeName === 'TEXTAREA' ||
+      (activeElement.contentEditable === 'true' &&
+        // @ts-ignore iternal field
+        activeElement.__lexicalEditor == null))
   );
 }
 
@@ -146,7 +155,7 @@ export function getNearestEditorFromDOMNode(
     if (editor != null) {
       return editor;
     }
-    currentNode = currentNode.parentNode;
+    currentNode = getParentElement(currentNode);
   }
   return null;
 }
@@ -403,7 +412,7 @@ export function $getNearestNodeFromDOMNode(
     if (node !== null) {
       return node;
     }
-    dom = dom.parentNode;
+    dom = getParentElement(dom);
   }
   return null;
 }
@@ -458,6 +467,7 @@ export function internalGetRoot(editorState: EditorState): RootNode {
 export function $setSelection(
   selection: null | RangeSelection | NodeSelection | GridSelection,
 ): void {
+  errorOnReadOnly();
   const editorState = getActiveEditorState();
   if (selection !== null) {
     if (__DEV__) {
@@ -512,7 +522,7 @@ function getNodeKeyFromDOM(
     if (key !== undefined) {
       return key;
     }
-    node = node.parentNode;
+    node = getParentElement(node);
   }
   return null;
 }
@@ -549,10 +559,11 @@ export function getAnchorTextFromDOM(anchorNode: Node): null | string {
 
 export function $updateSelectedTextFromDOM(
   isCompositionEnd: boolean,
+  editor: LexicalEditor,
   data?: string,
 ): void {
   // Update the text content with the latest composition text
-  const domSelection = getDOMSelection();
+  const domSelection = getDOMSelection(editor._window);
   if (domSelection === null) {
     return;
   }
@@ -624,10 +635,14 @@ export function $updateTextNodeFromDOMContent(
       }
       const parent = node.getParent();
       const prevSelection = $getPreviousSelection();
+      const compositionKey = $getCompositionKey();
+      const nodeKey = node.getKey();
 
       if (
         node.isToken() ||
-        ($getCompositionKey() !== null && !isComposing) ||
+        (compositionKey !== null &&
+          nodeKey === compositionKey &&
+          !isComposing) ||
         // Check if character was added at the start, and we need
         // to clear this input from occurring as that action wasn't
         // permitted.
@@ -1140,9 +1155,9 @@ export function getElementByKeyOrThrow(
   return element;
 }
 
-export function getParentElement(element: HTMLElement): HTMLElement | null {
+export function getParentElement(node: Node): HTMLElement | null {
   const parentElement =
-    (element as HTMLSlotElement).assignedSlot || element.parentElement;
+    (node as HTMLSlotElement).assignedSlot || node.parentElement;
   return parentElement !== null && parentElement.nodeType === 11
     ? ((parentElement as unknown as ShadowRoot).host as HTMLElement)
     : parentElement;
@@ -1445,4 +1460,8 @@ export function updateDOMBlockCursorElement(
   if (blockCursorElement !== null) {
     removeDOMBlockCursorElement(blockCursorElement, editor, rootElement);
   }
+}
+
+export function getDOMSelection(targetWindow: null | Window): null | Selection {
+  return !CAN_USE_DOM ? null : (targetWindow || window).getSelection();
 }

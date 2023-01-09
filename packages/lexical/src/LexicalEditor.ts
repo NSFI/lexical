@@ -9,7 +9,6 @@
 import type {EditorState, SerializedEditorState} from './LexicalEditorState';
 import type {DOMConversion, NodeKey} from './LexicalNode';
 
-import getDOMSelection from 'shared/getDOMSelection';
 import invariant from 'shared/invariant';
 
 import {$getRoot, $getSelection, TextNode} from '.';
@@ -30,6 +29,7 @@ import {
   dispatchCommand,
   getCachedClassNameArray,
   getDefaultView,
+  getDOMSelection,
   markAllNodesAsDirty,
 } from './LexicalUtils';
 import {DecoratorNode} from './nodes/LexicalDecoratorNode';
@@ -880,7 +880,7 @@ export class LexicalEditor {
       rootElement.blur();
     }
 
-    const domSelection = getDOMSelection();
+    const domSelection = getDOMSelection(this._window);
 
     if (domSelection !== null) {
       domSelection.removeAllRanges();

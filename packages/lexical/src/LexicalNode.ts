@@ -33,6 +33,7 @@ import {
   $maybeMoveChildrenSelectionToParent,
   $setCompositionKey,
   $setNodeKey,
+  $setSelection,
   errorOnInsertTextNodeOnRoot,
   internalMarkNodeAsDirty,
   removeFromParent,
@@ -336,7 +337,10 @@ export class LexicalNode {
 
   getPreviousSiblings<T extends LexicalNode>(): Array<T> {
     const siblings: Array<T> = [];
-    const parent = this.getParentOrThrow();
+    const parent = this.getParent();
+    if (parent === null) {
+      return siblings;
+    }
     let node: null | T = parent.getFirstChild();
     while (node !== null) {
       if (node.is(this)) {
@@ -443,6 +447,7 @@ export class LexicalNode {
     return false;
   }
 
+  // TO-DO: this function can be simplified a lot
   getNodesBetween(targetNode: LexicalNode): Array<LexicalNode> {
     const isBefore = this.isBefore(targetNode);
     const nodes = [];
@@ -623,8 +628,10 @@ export class LexicalNode {
     removeNode(this, true, preserveEmptyParent);
   }
 
-  replace<N extends LexicalNode>(replaceWith: N, restoreSelection = true): N {
+  replace<N extends LexicalNode>(replaceWith: N, includeChildren?: boolean): N {
     errorOnReadOnly();
+    let selection = $getSelection();
+    if (selection !== null) selection = selection.clone();
     errorOnInsertTextNodeOnRoot(this, replaceWith);
     const self = this.getLatest();
     const toReplaceKey = this.__key;
@@ -638,7 +645,7 @@ export class LexicalNode {
     const prevKey = self.__prev;
     const nextKey = self.__next;
     const parentKey = self.__parent;
-    removeNode(self, false);
+    removeNode(self, false, true);
 
     if (prevSibling === null) {
       writableParent.__first = key;
@@ -656,8 +663,13 @@ export class LexicalNode {
     writableReplaceWith.__next = nextKey;
     writableReplaceWith.__parent = parentKey;
     writableParent.__size = size;
-    const selection = $getSelection();
-    if ($isRangeSelection(selection) && restoreSelection) {
+    if (includeChildren) {
+      this.getChildren().forEach((child: LexicalNode) => {
+        writableReplaceWith.append(child);
+      });
+    }
+    if ($isRangeSelection(selection)) {
+      $setSelection(selection);
       const anchor = selection.anchor;
       const focus = selection.focus;
       if (anchor.key === toReplaceKey) {

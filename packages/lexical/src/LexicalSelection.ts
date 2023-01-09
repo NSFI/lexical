@@ -13,7 +13,6 @@ import type {ElementNode} from './nodes/LexicalElementNode';
 import type {TextFormatType} from './nodes/LexicalTextNode';
 
 import {IS_CHROME} from 'shared/environment';
-import getDOMSelection from 'shared/getDOMSelection';
 import invariant from 'shared/invariant';
 
 import {
@@ -58,6 +57,7 @@ import {
   $isTokenOrSegmented,
   $setCompositionKey,
   doesContainGrapheme,
+  getDOMSelection,
   getDOMTextNode,
   getElementByKeyOrThrow,
   getNodeFromDOM,
@@ -952,7 +952,7 @@ export class RangeSelection implements BaseSelection {
         ) {
           if (lastNode.isSegmented()) {
             const textNode = $createTextNode(lastNode.getTextContent());
-            lastNode.replace(textNode, false);
+            lastNode.replace(textNode);
             lastNode = textNode;
           }
           lastNode = (lastNode as TextNode).spliceText(0, endOffset, '');
@@ -1056,7 +1056,7 @@ export class RangeSelection implements BaseSelection {
       } else {
         const textNode = $createTextNode(text);
         textNode.select();
-        firstNode.replace(textNode, false);
+        firstNode.replace(textNode);
       }
 
       // Remove all selected nodes that haven't already been removed.
@@ -1779,13 +1779,12 @@ export class RangeSelection implements BaseSelection {
         return;
       }
     }
-
-    const domSelection = getDOMSelection();
+    const editor = getActiveEditor();
+    const domSelection = getDOMSelection(editor._window);
 
     if (!domSelection) {
       return;
     }
-    const editor = getActiveEditor();
     const blockCursorElement = editor._blockCursorElement;
     const rootElement = editor._rootElement;
     // Remove the block cursor element if it exists. This will ensure selection
@@ -1882,9 +1881,10 @@ export class RangeSelection implements BaseSelection {
           (anchor.type === 'text' &&
             anchor.offset === anchorNode.getTextContentSize()))
       ) {
+        const parent = anchorNode.getParent();
         const nextSibling =
           anchorNode.getNextSibling() ||
-          anchorNode.getParentOrThrow().getNextSibling();
+          (parent === null ? null : parent.getNextSibling());
 
         if ($isElementNode(nextSibling) && !nextSibling.canExtractContents()) {
           return;
@@ -2436,7 +2436,7 @@ export function internalCreateSelection(
 ): null | RangeSelection | NodeSelection | GridSelection {
   const currentEditorState = editor.getEditorState();
   const lastSelection = currentEditorState._selection;
-  const domSelection = getDOMSelection();
+  const domSelection = getDOMSelection(editor._window);
 
   if (
     $isNodeSelection(lastSelection) ||
@@ -2742,7 +2742,7 @@ export function updateDOMSelection(
   domSelection: Selection,
   tags: Set<string>,
   rootElement: HTMLElement,
-  dirtyLeavesCount: number,
+  nodeCount: number,
 ): void {
   const anchorDOMNode = domSelection.anchorNode;
   const focusDOMNode = domSelection.focusNode;
@@ -2840,39 +2840,38 @@ export function updateDOMSelection(
     }
   }
 
-  if (!tags.has('skip-scroll-into-view'))
-    // Apply the updated selection to the DOM. Note: this will trigger
-    // a "selectionchange" event, although it will be asynchronous.
-    try {
-      // When updating more than 1000 nodes on Chrome, it's actually better to defer
-      // updating the selection till the next frame. This is because Chrome's
-      // Blink engine has hard limit on how many DOM nodes it can redraw in
-      // a single cycle, so keeping it to the next frame improves performance.
-      // The downside is that is makes the computation within Lexical more
-      // complex, as now, we've sync update the DOM, but selection no longer
-      // matches.
-      if (IS_CHROME && dirtyLeavesCount > 1000) {
-        window.requestAnimationFrame(() =>
-          domSelection.setBaseAndExtent(
-            nextAnchorNode as Node,
-            nextAnchorOffset,
-            nextFocusNode as Node,
-            nextFocusOffset,
-          ),
-        );
-      } else {
+  // Apply the updated selection to the DOM. Note: this will trigger
+  // a "selectionchange" event, although it will be asynchronous.
+  try {
+    // When updating more than 1000 nodes on Chrome, it's actually better to defer
+    // updating the selection till the next frame. This is because Chrome's
+    // Blink engine has hard limit on how many DOM nodes it can redraw in
+    // a single cycle, so keeping it to the next frame improves performance.
+    // The downside is that is makes the computation within Lexical more
+    // complex, as now, we've sync update the DOM, but selection no longer
+    // matches.
+    if (IS_CHROME && nodeCount > 1000) {
+      window.requestAnimationFrame(() =>
         domSelection.setBaseAndExtent(
-          nextAnchorNode,
+          nextAnchorNode as Node,
           nextAnchorOffset,
-          nextFocusNode,
+          nextFocusNode as Node,
           nextFocusOffset,
-        );
-      }
-    } catch (error) {
-      // If we encounter an error, continue. This can sometimes
-      // occur with FF and there's no good reason as to why it
-      // should happen.
+        ),
+      );
+    } else {
+      domSelection.setBaseAndExtent(
+        nextAnchorNode,
+        nextAnchorOffset,
+        nextFocusNode,
+        nextFocusOffset,
+      );
     }
+  } catch (error) {
+    // If we encounter an error, continue. This can sometimes
+    // occur with FF and there's no good reason as to why it
+    // should happen.
+  }
   if (
     !tags.has('skip-scroll-into-view') &&
     nextSelection.isCollapsed() &&

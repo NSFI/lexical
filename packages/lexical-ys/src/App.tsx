@@ -48,7 +48,7 @@ interface YsEditorProps {
   spaceAnchor?: string;
 }
 
-const YsEditor = (props: YsEditorProps): JSX.Element => {
+const YsEditor = (props: YsEditorProps, ref): JSX.Element => {
   const {
     settings: {measureTypingPerf},
   } = useSettings();
@@ -78,6 +78,13 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
       onChange && onChange(jsonValue, htmlString);
     });
   }, []);
+
+  const editorRef = React.useRef();
+
+  React.useImperativeHandle(ref, () => ({
+    convertHTML: editorRef.current.convertHTML,
+  }));
+
   return (
     <SettingsContext>
       <LexicalComposer initialConfig={initialConfig}>
@@ -89,7 +96,12 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
                   <UploadContext
                     spaceAnchor={spaceAnchor}
                     docAnchor={docAnchor}>
-                    <Editor isMobile={isMobile} {...otherProps} />
+                    {/* TODO 能不能拿到editor和editorState */}
+                    <Editor
+                      isMobile={isMobile}
+                      {...otherProps}
+                      ref={editorRef}
+                    />
                   </UploadContext>
                 </LocaleContext>
               </div>
@@ -106,4 +118,4 @@ const YsEditor = (props: YsEditorProps): JSX.Element => {
   );
 };
 
-export default YsEditor;
+export default React.forwardRef(YsEditor);

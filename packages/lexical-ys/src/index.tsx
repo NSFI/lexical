@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
 import './setupEnv';
 import './index.css';
 import './main.css';
@@ -139,6 +138,14 @@ const App1 = () => {
       version: 1,
     },
   });
+
+  const ref = React.useRef();
+
+  const convertHTML = async () => {
+    const html = await ref.current.convertHTML();
+    console.log(html);
+  };
+
   return (
     <>
       <button
@@ -147,10 +154,12 @@ const App1 = () => {
         }}>
         a
       </button>
+      <button onClick={convertHTML}>convertHTML</button>
       <App
         onChange={(jsonValue, htmlValue) => {
           // console.log('jsonValue', jsonValue,htmlValue);
         }}
+        ref={ref}
         initValue={value}
         isEditable={false}
         title={'ddffd'}

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import {$generateNodesFromDOM} from '@lexical/html';
+import {$generateHtmlFromNodes, $generateNodesFromDOM} from '@lexical/html';
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 // import {AutoScrollPlugin} from '@lexical/react/LexicalAutoScrollPlugin';
 import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
@@ -29,6 +29,7 @@ import {
   $getRoot,
   $getSelection,
   $insertNodes,
+  LexicalEditor,
 } from 'lexical';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
@@ -87,14 +88,24 @@ const skipCollaborationInit =
 
 interface EditorProps {
   initValue?: any;
-  tocHeight?: React.CSSProperties;
-  editorHeight?: React.CSSProperties;
+  tocHeight?: React.CSSProperties['height'];
+  editorHeight?: React.CSSProperties['height'];
+  plainTocHeight?: React.CSSProperties['height'];
+  plainEditorHeight?: React.CSSProperties['height'];
   isEditable?: boolean;
   title?: string;
   isMobile?: boolean;
 }
 
-export default function Editor(props: EditorProps): JSX.Element {
+interface EditorRef {
+  convertHTML: () => Promise<string>;
+  editor: LexicalEditor;
+}
+
+const Editor: React.ForwardRefRenderFunction<EditorRef, EditorProps> = (
+  props,
+  ref,
+) => {
   const {
     initValue,
     title = '',
@@ -107,6 +118,22 @@ export default function Editor(props: EditorProps): JSX.Element {
   } = props;
   const {historyState} = useSharedHistoryContext();
   const [editor] = useLexicalComposerContext();
+
+  const convertHTML: EditorRef['convertHTML'] = () =>
+    new Promise((resolve) => {
+      const editorState = editor.getEditorState();
+
+      editorState.read(() => {
+        const htmlString = $generateHtmlFromNodes(editor, null);
+        resolve(htmlString);
+      });
+    });
+
+  React.useImperativeHandle(ref, () => ({
+    convertHTML,
+    editor,
+  }));
+
   const {
     settings: {
       isCollab,
@@ -328,4 +355,6 @@ export default function Editor(props: EditorProps): JSX.Element {
       {isDev && <ExamplePlugin />}
     </>
   );
-}
+};
+
+export default React.forwardRef(Editor);

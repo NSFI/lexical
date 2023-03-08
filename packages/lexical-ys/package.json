@@ -1,6 +1,6 @@
 {
   "name": "@ysf/lexical-editor",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": false,
   "files": [
     "dist",
@@ -21,6 +21,9 @@
   "exports": {
     ".": {
       "import": "./dist/YsEditor.es.js"
+    },
+    "./src": {
+      "import": "./src"
     },
     "./dist/style.css": {
       "import": "./dist/style.css",

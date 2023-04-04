@@ -161,7 +161,7 @@ const App1 = () => {
         }}
         ref={ref}
         initValue={value}
-        isEditable={false}
+        isEditable={true}
         title={'ddffd'}
         isMobile={false}
         spaceAnchor={'dfdfdfd'}

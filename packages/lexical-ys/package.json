@@ -1,6 +1,6 @@
 {
   "name": "@ysf/lexical-editor",
-  "version": "0.0.10-beta4",
+  "version": "0.0.10-beta5",
   "private": false,
   "files": [
     "dist",
@@ -11,7 +11,7 @@
     "dev": "vite --host",
     "build-dev": "vite build",
     "build-prod": "vite build --config vite.prod.config.js",
-    "build": "vite build --config vite.test.config.js",
+    "build": "vite build --config vite.prod.config.js",
     "build-test": "vite build --config vite.test.config.js",
     "build-vercel": "(cd ../../ && node ./scripts/build.js --prod) && npm run build-prod",
     "preview": "vite preview",
@@ -19,7 +19,10 @@
   },
   "module": "./dist/YsEditor.es.js",
   "exports": {
-    ".": "./dist/YsEditor.es.js",
+    ".": {
+      "import": "./dist/YsEditor.es.js",
+      "require": "./dist/YsEditor.cjs.js"
+    },
     "./dist/style.css": {
       "import": "./dist/style.css",
       "require": "./dist/style.css"

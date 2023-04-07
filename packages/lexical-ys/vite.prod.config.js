@@ -11,8 +11,8 @@ import inject from '@rollup/plugin-inject';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
-import {defineConfig} from 'vite';
-import {replaceCodePlugin} from 'vite-plugin-replace';
+import { defineConfig } from 'vite';
+import { replaceCodePlugin } from 'vite-plugin-replace';
 
 // import libCss from 'vite-plugin-libcss';
 // function resolve(str) {
@@ -171,11 +171,12 @@ const moduleResolution = [
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    commonjsOptions: {include: []},
+    commonjsOptions: { include: [] },
     lib: {
+      name: 'lexicalEditor',
       entry: './src/index.ts',
       fileName: (format) => `YsEditor.${format}.js`,
-      formats: ['es'],
+      formats: ['es', 'cjs'],
     },
     minify: 'terser',
     outDir: 'dist',

@@ -171,23 +171,22 @@ const moduleResolution = [
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    commonjsOptions: { include: [] },
     lib: {
       name: 'lexicalEditor',
       entry: './src/index.ts',
       fileName: (format) => `YsEditor.${format}.js`,
       formats: ['es', 'cjs'],
     },
-    minify: 'terser',
+    // minify: 'terser',
     outDir: 'dist',
     rollupOptions: {
       external: ['react', 'react-dom'],
     },
-    terserOptions: {
-      compress: {
-        toplevel: true,
-      },
-    },
+    // terserOptions: {
+    //   compress: {
+    //     toplevel: true,
+    //   },
+    // },
   },
   plugins: [
     replaceCodePlugin({
@@ -211,7 +210,6 @@ export default defineConfig({
       videojs: 'video.js',
     }),
     react(),
-    // libCss(),
   ],
   resolve: {
     alias: moduleResolution,

@@ -17,11 +17,11 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
   },
-  "module": "./dist/YsEditor.es.js",
+  "module": "./dist/es/index.js",
   "exports": {
     ".": {
-      "import": "./dist/YsEditor.es.js",
-      "require": "./dist/YsEditor.cjs.js"
+      "import": "./dist/es/index.js",
+      "require": "./dist/lib/index.js"
     },
     "./dist/style.css": {
       "import": "./dist/style.css",

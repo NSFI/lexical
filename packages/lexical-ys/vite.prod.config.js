@@ -174,13 +174,22 @@ export default defineConfig({
     lib: {
       name: 'lexicalEditor',
       entry: './src/index.ts',
-      fileName: (format) => `YsEditor.${format}.js`,
-      formats: ['es', 'cjs'],
+      // formats: ['es', 'cjs'],
     },
     // minify: 'terser',
     outDir: 'dist',
     rollupOptions: {
       external: ['react', 'react-dom'],
+      output: [{
+        format: 'cjs',
+        entryFileNames: 'lib/[name].js',
+        chunkFileNames: 'lib/[name].js',
+      },
+      {
+        format: 'es',
+        entryFileNames: 'es/[name].js',
+        chunkFileNames: 'es/[name].js',
+      }]
     },
     // terserOptions: {
     //   compress: {

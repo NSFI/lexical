@@ -1,6 +1,6 @@
 {
   "name": "@ysf/lexical-editor",
-  "version": "0.0.10-beta6",
+  "version": "0.0.10-beta8",
   "private": false,
   "files": [
     "dist",
@@ -18,16 +18,6 @@
     "prepublishOnly": "npm run build"
   },
   "module": "./dist/es/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/es/index.js",
-      "require": "./dist/lib/index.js"
-    },
-    "./dist/style.css": {
-      "import": "./dist/style.css",
-      "require": "./dist/style.css"
-    }
-  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@excalidraw/excalidraw": "0.11.0",

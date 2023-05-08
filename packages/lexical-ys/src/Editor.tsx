@@ -82,9 +82,13 @@ import YsEditorTheme from './themes/YsEditorTheme';
 import ContentEditable from './ui/ContentEditable';
 import Placeholder from './ui/Placeholder';
 
-const skipCollaborationInit =
-  // @ts-ignore
-  window.parent != null && window.parent.frames.right === window;
+// const skipCollaborationInit =
+//   // @ts-ignore
+//   window.parent != null && window.parent.frames.right === window;
+
+/** 修复七鱼在线工具条白屏问题 */
+/** Uncaught DOMException: Blocked a frame with origin "https://cd4cszy qiyukf.com" from accessing a cross-origin frame. */
+const skipCollaborationInit = true;
 
 interface EditorProps {
   initValue?: any;

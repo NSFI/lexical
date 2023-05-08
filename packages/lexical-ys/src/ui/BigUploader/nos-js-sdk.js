@@ -1,7 +1,8 @@
 import md5 from 'crypto-js/md5';
-import './jquery';
+import $ from 'jquery';
 const API = '//wanproxy-web.127.net';
 
+// TODO 移除Jquery依赖
 function Uploader(options) {
   'use strict';
   let defaults = {
